@@ -309,19 +309,16 @@ section {
 }
 
 .approach-visual {
-  background: linear-gradient(155deg, var(--sage) 0%, var(--charcoal) 100%);
   border-radius: var(--radius);
   aspect-ratio: 4 / 3;
   position: relative;
   overflow: hidden;
 }
 
-.approach-visual::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(247,244,238,0.15) 1px, transparent 1px);
-  background-size: 18px 18px;
+.approach-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .approach-list {
