@@ -9,16 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   var form = document.querySelector(".contact-form form");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var note = form.querySelector(".form-success");
-      if (!note) {
-        note = document.createElement("p");
-        note.className = "form-success form-note";
-        note.textContent = "Merci ! Votre message a été préparé — configurez l'envoi (mailto ou service tiers) pour le transmettre réellement.";
-        form.appendChild(note);
-      }
-    });
+  if (form && new URLSearchParams(window.location.search).get("envoye") === "1") {
+    var note = document.createElement("p");
+    note.className = "form-success form-note";
+    note.textContent = "Merci ! Votre message a bien été envoyé, nous vous répondrons sous peu.";
+    form.appendChild(note);
+    window.history.replaceState({}, "", window.location.pathname);
   }
 });

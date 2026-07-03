@@ -408,18 +408,14 @@ section {
 .service-visual {
   aspect-ratio: 5 / 4;
   border-radius: var(--radius);
-  background: linear-gradient(160deg, var(--cream-dark), var(--sage) 140%);
   position: relative;
   overflow: hidden;
 }
 
-.service-visual span {
-  position: absolute;
-  bottom: 24px;
-  left: 24px;
-  font-family: var(--font-serif);
-  font-size: 3.5rem;
-  color: rgba(247,244,238,0.65);
+.service-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .service-tag {
@@ -606,20 +602,20 @@ section {
   margin-top: 16px;
 }
 
-/* ===== Map placeholder ===== */
+/* ===== Map ===== */
 
 .map-block {
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--line);
   aspect-ratio: 16 / 6;
-  background: repeating-linear-gradient(135deg, var(--cream-dark), var(--cream-dark) 12px, var(--cream) 12px, var(--cream) 24px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--charcoal-soft);
-  font-size: 0.9rem;
-  letter-spacing: 0.04em;
+}
+
+.map-block iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
 }
 
 /* ===== Footer ===== */

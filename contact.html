@@ -44,40 +44,45 @@
         <div class="contact-layout">
           <div class="contact-info">
             <h2>Coordonnées</h2>
-            <p>Basés dans le Grand Montréal, nous nous déplaçons chez vous selon la zone desservie.</p>
+            <p>Basés dans la ville de Québec, nous nous déplaçons chez vous à Québec et environs ainsi qu'à Victoriaville.</p>
 
             <div class="contact-detail">
               <div class="icon">@</div>
               <div>
                 <h4>Courriel</h4>
-                <p><a href="mailto:info@lasynthase.ca">info@lasynthase.ca</a></p>
+                <p><a href="mailto:antoine.corbeil@icloud.com">antoine.corbeil@icloud.com</a></p>
               </div>
             </div>
             <div class="contact-detail">
               <div class="icon">T</div>
               <div>
                 <h4>Téléphone</h4>
-                <p><a href="tel:+15145550123">514 555-0123</a></p>
+                <p><a href="tel:+18195523047">819 552-3047</a></p>
               </div>
             </div>
             <div class="contact-detail">
               <div class="icon">Z</div>
               <div>
                 <h4>Zone desservie</h4>
-                <p>Grand Montréal et environs</p>
+                <p>Ville de Québec et environs, ainsi que Victoriaville</p>
               </div>
             </div>
             <div class="contact-detail">
               <div class="icon">H</div>
               <div>
                 <h4>Disponibilités</h4>
-                <p>Lundi au samedi, 8 h à 19 h</p>
+                <p>Lundi au dimanche, 7 h à 21 h</p>
               </div>
             </div>
           </div>
 
           <div class="contact-form">
-            <form>
+            <form action="https://formsubmit.co/antoine.corbeil@icloud.com" method="POST">
+              <input type="hidden" name="_subject" value="Nouvelle demande de contact — La Synthase" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_next" value="https://lasynthase.ca/contact.html?envoye=1" />
+              <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
               <div class="form-row">
                 <div class="field">
                   <label for="prenom">Prénom</label>
@@ -112,7 +117,7 @@
                 <textarea id="message" name="message" placeholder="Décrivez-nous vos objectifs et votre disponibilité..."></textarea>
               </div>
               <button type="submit" class="btn btn-primary" style="width:100%;">Envoyer le message</button>
-              <p class="form-note">Ce formulaire est présentement statique — connectez-le à un service d'envoi (mailto, Formspree, backend) avant la mise en ligne.</p>
+              <p class="form-note">En envoyant ce message, vous acceptez d'être recontacté par courriel ou téléphone.</p>
             </form>
           </div>
         </div>
@@ -121,7 +126,14 @@
 
     <section class="section-alt">
       <div class="container">
-        <div class="map-block">Emplacement approximatif — carte à intégrer (Google Maps, Mapbox, etc.)</div>
+        <div class="map-block">
+          <iframe
+            src="https://www.google.com/maps?ll=46.86,-71.27&z=11&output=embed"
+            title="Zone desservie — Québec jusqu'au Lac-Beauport"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
       </div>
     </section>
   </main>
@@ -144,9 +156,9 @@
         <div class="footer-col">
           <h5>Coordonnées</h5>
           <ul>
-            <li><a href="mailto:info@lasynthase.ca">info@lasynthase.ca</a></li>
-            <li><a href="tel:+15145550123">514 555-0123</a></li>
-            <li>Grand Montréal et environs</li>
+            <li><a href="mailto:antoine.corbeil@icloud.com">antoine.corbeil@icloud.com</a></li>
+            <li><a href="tel:+18195523047">819 552-3047</a></li>
+            <li>Ville de Québec et environs, ainsi que Victoriaville</li>
           </ul>
         </div>
       </div>
