@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — La Synthase</title>
+  <meta name="description" content="Contactez La Synthase pour réserver un chef à domicile, un entraîneur personnel ou une séance de massothérapie." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">La <span>Synthase</span></a>
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary">Réserver</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="padding-bottom: 40px;">
+      <div class="hero-blob"></div>
+      <div class="container">
+        <p class="eyebrow">Contact</p>
+        <h1>Parlons de votre accompagnement</h1>
+        <p class="lead">
+          Un seul service ou une combinaison des trois — écrivez-nous et nous vous répondrons
+          sous 24 à 48 heures avec une proposition adaptée.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding-top: 20px;">
+      <div class="container">
+        <div class="contact-layout">
+          <div class="contact-info">
+            <h2>Coordonnées</h2>
+            <p>Basés dans le Grand Montréal, nous nous déplaçons chez vous selon la zone desservie.</p>
+
+            <div class="contact-detail">
+              <div class="icon">@</div>
+              <div>
+                <h4>Courriel</h4>
+                <p><a href="mailto:info@lasynthase.ca">info@lasynthase.ca</a></p>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="icon">T</div>
+              <div>
+                <h4>Téléphone</h4>
+                <p><a href="tel:+15145550123">514 555-0123</a></p>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="icon">Z</div>
+              <div>
+                <h4>Zone desservie</h4>
+                <p>Grand Montréal et environs</p>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <div class="icon">H</div>
+              <div>
+                <h4>Disponibilités</h4>
+                <p>Lundi au samedi, 8 h à 19 h</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <form>
+              <div class="form-row">
+                <div class="field">
+                  <label for="prenom">Prénom</label>
+                  <input type="text" id="prenom" name="prenom" required />
+                </div>
+                <div class="field">
+                  <label for="nom">Nom</label>
+                  <input type="text" id="nom" name="nom" required />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="courriel">Courriel</label>
+                  <input type="email" id="courriel" name="courriel" required />
+                </div>
+                <div class="field">
+                  <label for="telephone">Téléphone</label>
+                  <input type="tel" id="telephone" name="telephone" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="service">Service souhaité</label>
+                <select id="service" name="service">
+                  <option value="chef">Chef à domicile</option>
+                  <option value="entrainement">Entraînement personnel</option>
+                  <option value="masso">Massothérapie</option>
+                  <option value="combinaison">Combinaison de services</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Décrivez-nous vos objectifs et votre disponibilité..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;">Envoyer le message</button>
+              <p class="form-note">Ce formulaire est présentement statique — connectez-le à un service d'envoi (mailto, Formspree, backend) avant la mise en ligne.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="map-block">Emplacement approximatif — carte à intégrer (Google Maps, Mapbox, etc.)</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">La Synthase</a>
+          <p>Chef à domicile, entraînement personnel et massothérapie réunis dans une approche complète du mieux-être.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Coordonnées</h5>
+          <ul>
+            <li><a href="mailto:info@lasynthase.ca">info@lasynthase.ca</a></li>
+            <li><a href="tel:+15145550123">514 555-0123</a></li>
+            <li>Grand Montréal et environs</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 La Synthase. Tous droits réservés.</span>
+        <span>Site conçu avec soin.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
