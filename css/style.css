@@ -418,6 +418,10 @@ section {
   object-fit: cover;
 }
 
+#entrainement .service-visual img {
+  object-position: center 15%;
+}
+
 .service-tag {
   display: inline-block;
   font-size: 0.75rem;
