@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Services — La Synthase</title>
-  <meta name="description" content="Découvrez les services de La Synthase : chef à domicile, entraînement personnel et massothérapie." />
+  <meta name="description" content="La Table, le Mouvement, le Soin : chef privé, entraînement personnel et massothérapie à domicile, composés sur mesure par La Synthase." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -16,9 +19,12 @@
         <ul class="nav-links">
           <li><a href="index.html">Accueil</a></li>
           <li><a href="services.html" class="active">Services</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="articles.html">Articles</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-        <a href="contact.html" class="btn btn-primary">Réserver</a>
+        <a href="immersion.html" class="btn btn-gold">Immersion Signature</a>
+        <a href="contact.html" class="btn btn-primary">Entretien privé</a>
       </nav>
       <button class="nav-toggle" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -30,11 +36,11 @@
     <section class="hero" style="padding-bottom: 40px;">
       <div class="hero-blob"></div>
       <div class="container">
-        <p class="eyebrow">Nos services</p>
-        <h1>Trois expertises, réservables séparément ou combinées</h1>
+        <p class="eyebrow">Les trois éléments</p>
+        <h1>Trois disciplines, une seule partition</h1>
         <p class="lead">
-          Chaque intervenant se déplace chez vous. Les services peuvent être réservés à l'unité ou
-          intégrés dans un accompagnement mieux-être complet.
+          Chaque élément peut être retenu seul. Réunis, ils s'écrivent d'après votre bilan, par
+          une seule et même personne — c'est là que la synthèse opère.
         </p>
       </div>
     </section>
@@ -44,59 +50,60 @@
         <div class="service-block">
           <div class="service-visual"><img src="images/chef.jpg" alt="Chef privé préparant un repas à domicile" /></div>
           <div class="service-content">
-            <span class="service-tag">Cuisine</span>
-            <h3>Chef à domicile</h3>
+            <span class="service-tag">La Table</span>
+            <h3>Chef privé à domicile</h3>
             <p>
-              Un chef privé se déplace chez vous pour préparer des repas sains, équilibrés et savoureux,
-              adaptés à votre style de vie ainsi qu'à vos allergies, intolérances et préférences.
+              Cuisinier de formation, je compose et prépare chez vous une cuisine précise et
+              généreuse — accordée à vos goûts, vos sensibilités alimentaires et vos objectifs,
+              jamais à une formule.
             </p>
             <ul class="service-features">
-              <li>Menu personnalisé et révisé chaque semaine</li>
-              <li>Préparation de repas à l'unité ou en batch cooking</li>
-              <li>Coordination avec votre plan d'entraînement</li>
-              <li>Suggestions et astuces culinaires à chaque visite</li>
+              <li>Menus composés pour vous et révisés chaque semaine</li>
+              <li>Repas du quotidien, garde-manger de la semaine ou tables de réception</li>
+              <li>Cuisine écrite en dialogue avec votre entraînement</li>
+              <li>Produits de saison, fournisseurs choisis</li>
             </ul>
-            <a href="contact.html" class="btn btn-primary">Réserver ce service</a>
+            <a href="contact.html" class="btn btn-primary">Composer votre table</a>
           </div>
         </div>
 
         <div class="service-block" id="entrainement">
           <div class="service-visual"><img src="images/entrainement.jpg" alt="Séance d'entraînement personnel" /></div>
           <div class="service-content">
-            <span class="service-tag">Activité physique</span>
-            <h3>Entraînement personnel</h3>
+            <span class="service-tag">Le Mouvement</span>
+            <h3>Entraînement privé</h3>
             <p>
-              Un entraîneur certifié conçoit un programme sur mesure et vous encadre à domicile, dans un
-              parc ou en gym, quel que soit votre niveau de départ. L'accent est mis sur une progression
-              sécuritaire et durable.
+              Ancien athlète de haut niveau en ski-alpinisme, je conçois votre programme d'après un
+              bilan complet et je vous encadre chez vous, dans vos jardins ou en plein air — à votre
+              heure, à votre rythme, sans jamais franchir la porte d'un gym.
             </p>
             <ul class="service-features">
-              <li>Évaluation initiale de la condition physique</li>
-              <li>Programme adapté à vos objectifs et contraintes</li>
-              <li>Suivi des progrès séance après séance</li>
-              <li>Séances individuelles ou en petit groupe</li>
+              <li>Bilan initial complet, revu à chaque saison</li>
+              <li>Programme écrit pour vos objectifs et vos contraintes</li>
+              <li>Encadrement individuel, ou en couple si vous le souhaitez</li>
+              <li>Progression documentée, séance après séance</li>
             </ul>
-            <a href="contact.html" class="btn btn-primary">Réserver ce service</a>
+            <a href="contact.html" class="btn btn-primary">Composer votre programme</a>
           </div>
         </div>
 
         <div class="service-block" id="masso">
-          <div class="service-visual"><img src="images/massotherapie.png" alt="Logo du service de massothérapie La Synthase" /></div>
+          <div class="service-visual"><img src="images/massotherapie.png" alt="Soin de massothérapie à domicile" /></div>
           <div class="service-content">
-            <span class="service-tag">Récupération</span>
-            <h3>Massothérapie</h3>
+            <span class="service-tag">Le Soin</span>
+            <h3>Massothérapie à domicile</h3>
             <p>
-              Des soins de masso-kinésithérapie pour soulager les tensions musculaires, améliorer la
-              mobilité et accélérer la récupération après l'effort, dispensés par une massothérapeute
-              qualifiée directement chez vous.
+              Massothérapeute formé, je me déplace chez vous pour un travail thérapeutique de
+              fond : tensions profondes, mobilité, récupération. Je connais vos séances de la
+              semaine avant même de poser les mains — c'est moi qui les ai dirigées.
             </p>
             <ul class="service-features">
-              <li>Massage thérapeutique et sportif</li>
+              <li>Massage thérapeutique et sportif, chez vous</li>
               <li>Techniques adaptées aux douleurs chroniques</li>
-              <li>Reçus disponibles pour assurances</li>
-              <li>Séances de 45, 60 ou 90 minutes</li>
+              <li>Séances de 45, 60 ou 90 minutes, à votre heure</li>
+              <li>Reçus officiels pour vos assurances</li>
             </ul>
-            <a href="contact.html" class="btn btn-primary">Réserver ce service</a>
+            <a href="contact.html" class="btn btn-primary">Réserver un soin</a>
           </div>
         </div>
       </div>
@@ -105,12 +112,13 @@
     <section class="section-alt">
       <div class="container">
         <div class="pricing-note">
-          <h3>Une formule adaptée à chaque besoin</h3>
+          <h3>Sur mesure, tout simplement</h3>
           <p>
-            Les tarifs varient selon la fréquence, la durée et la combinaison de services choisie.
-            Contactez-nous pour recevoir une proposition personnalisée.
+            Chaque accompagnement est composé pour un foyer, jamais décliné d'une grille. Je
+            présente les honoraires lors de l'entretien privé, selon la fréquence et la
+            combinaison retenues.
           </p>
-          <a href="contact.html" class="btn btn-primary">Demander une soumission</a>
+          <a href="contact.html" class="btn btn-primary">Demander un entretien privé</a>
         </div>
       </div>
     </section>
@@ -121,13 +129,16 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="index.html" class="logo">La Synthase</a>
-          <p>Chef à domicile, entraînement personnel et massothérapie réunis dans une approche complète du mieux-être.</p>
+          <p>Maison privée de mieux-être — la table, le mouvement et le soin, réunis chez vous.</p>
         </div>
         <div class="footer-col">
           <h5>Navigation</h5>
           <ul>
             <li><a href="index.html">Accueil</a></li>
             <li><a href="services.html">Services</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="immersion.html">Immersion Signature</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
