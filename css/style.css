@@ -68,6 +68,8 @@ a {
   align-items: center;
   justify-content: space-between;
   height: 88px;
+  position: relative;
+  max-width: none;
 }
 
 .logo {
@@ -91,7 +93,7 @@ a {
 }
 
 .nav-links {
-  display: flex;
+  display: none;
   gap: 26px;
   list-style: none;
   margin: 0;
@@ -163,14 +165,15 @@ a {
 }
 
 .nav .btn {
-  padding: 10px 14px;
-  font-size: 0.68rem;
-  letter-spacing: 0.13em;
+  display: none;
+  padding: 12px 20px;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
   white-space: nowrap;
 }
 
 .nav-toggle {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: 5px;
   background: none;
@@ -182,6 +185,168 @@ a {
 .nav-toggle span {
   width: 24px;
   height: 1px;
+  background: var(--charcoal);
+}
+
+/* Menu déroulant (bouton menu, toutes tailles d'écran) */
+
+.site-header.open .nav {
+  position: absolute;
+  top: 88px;
+  right: 24px;
+  left: auto;
+  min-width: 280px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 40px rgba(34, 38, 31, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+  padding: 30px 32px 34px;
+}
+
+@media (max-width: 480px) {
+  .site-header.open .nav {
+    right: 16px;
+    left: 16px;
+    min-width: 0;
+  }
+}
+
+.site-header.open .nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.site-header.open .nav .btn {
+  display: inline-block;
+}
+
+/* ===== Hero plein écran (accueil) ===== */
+
+.hero-accueil {
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  background: var(--charcoal);
+  overflow: hidden;
+}
+
+.hero-accueil .diapo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.8s ease-in-out;
+}
+
+.hero-accueil .diapo.active {
+  opacity: 1;
+}
+
+.hero-accueil .voile {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(24, 23, 20, 0.3), rgba(24, 23, 20, 0.5));
+}
+
+.hero-accueil .hero-centre {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--cream);
+  padding: 0 24px;
+}
+
+.hero-accueil .hero-centre .eyebrow {
+  color: var(--cream);
+  opacity: 0.85;
+}
+
+.hero-accueil h1 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  letter-spacing: 0.28em;
+  padding-left: 0.28em;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+
+.hero-accueil .devise {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+  opacity: 0.92;
+  max-width: 36ch;
+  margin: 0;
+}
+
+.fleche-defiler {
+  position: absolute;
+  bottom: 34px;
+  left: 50%;
+  z-index: 2;
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 1.5rem;
+  animation: flotte 2.2s ease-in-out infinite;
+}
+
+@keyframes flotte {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 10px); }
+}
+
+/* En-tête transparent sur l'accueil, redevient crème au défilement */
+
+.accueil .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+.accueil .site-header .logo,
+.accueil .site-header .logo span {
+  color: var(--cream);
+}
+
+.accueil .site-header .nav-toggle span {
+  background: var(--cream);
+}
+
+.accueil .site-header.scrolled,
+.accueil .site-header.open {
+  background: rgba(247, 244, 238, 0.94);
+  border-bottom-color: var(--line);
+  backdrop-filter: blur(8px);
+}
+
+.accueil .site-header.scrolled .logo,
+.accueil .site-header.open .logo {
+  color: var(--charcoal);
+}
+
+.accueil .site-header.scrolled .logo span,
+.accueil .site-header.open .logo span {
+  color: var(--sage-dark);
+}
+
+.accueil .site-header.scrolled .nav-toggle span,
+.accueil .site-header.open .nav-toggle span {
   background: var(--charcoal);
 }
 
@@ -1071,31 +1236,6 @@ section {
   }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 1000px) {
-  .nav-links,
-  .nav .btn {
-    display: none;
-  }
-  .nav-toggle {
-    display: flex;
-  }
-  .site-header.open .nav-links {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 88px;
-    left: 0;
-    right: 0;
-    background: var(--cream);
-    padding: 24px 32px;
-    border-bottom: 1px solid var(--line);
-    gap: 20px;
-  }
-  .site-header.open .nav .btn {
-    display: inline-block;
   }
 }
 

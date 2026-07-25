@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+<body class="accueil">
 
   <header class="site-header">
     <div class="container">
@@ -33,10 +33,23 @@
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero-accueil">
+      <div class="diapo active" style="background-image: url('images/hero-2.jpg');"></div>
+      <div class="diapo" style="background-image: url('images/hero-1.jpg');"></div>
+      <div class="diapo" style="background-image: url('images/hero-3.jpg');"></div>
+      <div class="voile"></div>
+      <div class="hero-centre">
+        <p class="eyebrow">Maison privée de mieux-être — Québec</p>
+        <h1>La Synthase</h1>
+        <p class="devise">La table, le mouvement et le soin — réunis chez vous.</p>
+      </div>
+      <a class="fleche-defiler" href="#contenu" aria-label="Défiler vers le contenu">&#8595;</a>
+    </section>
+
+    <section class="hero" id="contenu">
       <div class="hero-blob"></div>
       <div class="container">
-        <p class="eyebrow">Maison privée de mieux-être — Québec</p>
+        <p class="eyebrow">Chef · Entraînement · Massothérapie</p>
         <h1>Trois expertises. Une seule chimie.</h1>
         <p class="lead">
           En biologie, la synthase est l'enzyme qui assemble des éléments simples en quelque chose

@@ -6,6 +6,31 @@ document.addEventListener("DOMContentLoaded", function () {
     toggle.addEventListener("click", function () {
       header.classList.toggle("open");
     });
+    header.querySelectorAll(".nav a").forEach(function (lien) {
+      lien.addEventListener("click", function () {
+        header.classList.remove("open");
+      });
+    });
+  }
+
+  // Diaporama du héros plein écran (accueil) — change toutes les 5 secondes
+  var diapos = document.querySelectorAll(".hero-accueil .diapo");
+  if (diapos.length > 1) {
+    var d = 0;
+    setInterval(function () {
+      diapos[d].classList.remove("active");
+      d = (d + 1) % diapos.length;
+      diapos[d].classList.add("active");
+    }, 5000);
+  }
+
+  // En-tête transparent sur l'accueil, redevient opaque au défilement
+  if (document.body.classList.contains("accueil") && header) {
+    var majEntete = function () {
+      header.classList.toggle("scrolled", window.scrollY > 60);
+    };
+    window.addEventListener("scroll", majEntete, { passive: true });
+    majEntete();
   }
 
   document.querySelectorAll(".carousel").forEach(function (carousel) {
