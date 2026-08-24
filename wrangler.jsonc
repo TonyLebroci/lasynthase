@@ -1,0 +1,17 @@
+{
+  // Configuration de déploiement pour Cloudflare Workers.
+  // Le site est entièrement statique : aucune étape de compilation.
+  // Tout ce qui se trouve dans public/ est publié tel quel.
+  "name": "lasynthase",
+  "compatibility_date": "2026-08-24",
+  "assets": {
+    "directory": "./public/",
+
+    // "/services" sert services.html, "/services/" sert services/index.html.
+    // Les liens internes du site portent déjà l'extension .html : rien ne change.
+    "html_handling": "auto-trailing-slash",
+
+    // Une URL inexistante affiche public/404.html au lieu d'une page blanche.
+    "not_found_handling": "404-page"
+  }
+}
