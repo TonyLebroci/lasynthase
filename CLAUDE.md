@@ -98,9 +98,10 @@ roughly a further 35% over WebP.
   `.pillars`, `.approach`, `.service-block`, `.contact-layout`, etc.), each styled independently;
   responsive breakpoints at 900px and 720px near the end of the file collapse grids to single
   columns and swap the nav for a hamburger menu.
-- `public/js/main.js` — single small script, no build/bundling. Handles two behaviors: toggling
-  the `.open` class on `.site-header` for the mobile nav (`.nav-toggle` button), and showing a
-  success message on `contact.html` when the page loads with `?envoye=1` in the URL (see below).
+- `public/js/main.js` — single small script, no build/bundling. Handles: the mobile nav toggle
+  (`.open` on `.site-header`), the full-screen hero slideshow on the home page, the photo
+  carousel on `a-propos.html`, the **third-party click-to-load** blocks (see below), and the
+  **submission confirmation modal** shown when the page loads with `?envoye=1`.
 - Services content is anchor-addressable: `services.html` has `id="chef"`, `id="entrainement"`,
   `id="masso"` sections, linked to from other pages via `services.html#chef` etc.
 
@@ -111,14 +112,55 @@ roughly a further 35% over WebP.
   `https://lasynthase.ca/contact.html?envoye=1`, and `js/main.js` shows a success message when it
   detects that query param. The target inbox must click the confirmation email FormSubmit sends on
   first submission before delivery starts working.
-- The map in `contact.html` (`.map-block`) is a Google Maps `output=embed` iframe centered on
-  `ll=46.86,-71.27&z=11`, chosen to show the Québec City–to–Lac-Beauport service area without
-  pinning an exact address (no fixed storefront — services are delivered at clients' homes).
+- The booking calendar and the map on `contact.html` are Google embeds. They are **not** in the
+  HTML as iframes — see "Third-party embeds" below. The map is centered on `ll=46.86,-71.27&z=11`,
+  chosen to show the Québec City service area without pinning an exact address (no storefront —
+  services are delivered at clients' homes).
+- The confirmation after a submission is a **centred modal**, not an inline note. It is built in
+  `js/main.js` (`afficherConfirmation`), closes on the X, the button, Escape or a backdrop click,
+  locks body scroll while open, and carries `role="dialog"` / `aria-modal`. It never dismisses
+  itself — that is deliberate, so the visitor cannot miss it.
 - Contact email/phone/service-area text appear identically in the header, footer, and contact page
   of all files — update all occurrences together if they change.
+
+## Third-party embeds — do not undo this
+
+The Google calendar and map on `contact.html` are **loaded only when the visitor clicks**. In the
+HTML they are `<div class="tiers-invite" data-tiers="…" data-tiers-titre="…">` placeholders that
+explain what will happen; `js/main.js` builds the `<iframe>` on click and swaps it in. The CSS
+lives under `.tiers-invite`.
+
+This is why the site sets **no cookies at all** and needs **no consent banner**. Putting the
+`<iframe>` elements back into the HTML would send every visitor's IP to Google on page load and
+create a Law 25 consent obligation. Keep the pattern.
+
+Any new third-party embed (chat widget, ad pixel, booking tool) must follow the same pattern
+**and** be added to `public/confidentialite.html`.
+
+## Adding a page — checklist
+
+The site has no template engine, so a new page needs four things:
+
+1. Copy the shell (head, header/nav, footer) from an existing page — they are duplicated in every
+   file, there is no include.
+2. Set a unique `<title>`, `<meta name="description">`, and a
+   `<link rel="canonical" href="https://lasynthase.ca/…">` pointing at the extensionless URL.
+3. Add the URL to `public/sitemap.xml`.
+4. Add the page to the footer nav in **every** file if it belongs there.
+
+`public/robots.txt` only carries the `Sitemap:` line — Cloudflare injects its own managed rules
+(AI-crawler blocking, `search=yes`) ahead of the file, so a second `User-agent: *` group here
+would just duplicate theirs.
 
 ## Privacy note (Loi 25, Québec)
 
 Massage therapy and dietary sensitivities are health information. Keep web forms minimal — name,
-email, phone, free-text message — and leave detailed intake to an external booking tool that
-carries the compliance burden. Do not add health-related fields to the FormSubmit form.
+email, phone, free-text message — and leave detailed intake to the in-person consultation, which
+carries its own separate consent. **Never add a health-related field to the web form.**
+
+`public/confidentialite.html` is the published privacy policy, required by Law 25 and linked from
+every footer. It names the third parties that actually touch visitor data — FormSubmit, Google
+(calendar and map), Cloudflare, Apple — the retention periods, and the right to access, correct or
+withdraw. **If you add, remove or replace any third party, update that page in the same commit.**
+The short notice under the form satisfies the separate obligation to inform at the moment of
+collection; keep it there.
