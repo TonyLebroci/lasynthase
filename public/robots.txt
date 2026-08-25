@@ -1,4 +1,6 @@
-User-agent: *
-Allow: /
+# Cloudflare ajoute automatiquement ses propres règles avant ce fichier
+# (blocage des robots d'entraînement d'IA, réglable dans le tableau de bord).
+# On se contente donc d'indiquer le plan du site, pour ne pas créer un
+# second groupe « User-agent: * » qui ferait doublon.
 
 Sitemap: https://lasynthase.ca/sitemap.xml
