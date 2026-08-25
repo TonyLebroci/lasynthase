@@ -50,10 +50,26 @@
         <div class="hote">
           <div class="hote-portrait carousel">
             <div class="carousel-track">
-              <img src="images/moi.jpg" alt="Antoine Corbeil, fondateur de La Synthase" />
-              <img src="images/cuisine.jpg" alt="Antoine Corbeil en cuisine professionnelle" />
-              <img src="images/ski.jpg" alt="Antoine Corbeil en compétition de ski-alpinisme avec l'équipe canadienne" />
-              <img src="images/velo.jpg" alt="Antoine Corbeil en course cycliste" />
+              <picture>
+                <source srcset="images/moi.avif" type="image/avif" />
+                <source srcset="images/moi.webp" type="image/webp" />
+                <img src="images/moi.webp" alt="Antoine Corbeil, fondateur de La Synthase" width="900" height="994" loading="lazy" decoding="async" />
+              </picture>
+              <picture>
+                <source srcset="images/cuisine.avif" type="image/avif" />
+                <source srcset="images/cuisine.webp" type="image/webp" />
+                <img src="images/cuisine.webp" alt="Antoine Corbeil en cuisine professionnelle" width="770" height="1027" loading="lazy" decoding="async" />
+              </picture>
+              <picture>
+                <source srcset="images/ski.avif" type="image/avif" />
+                <source srcset="images/ski.webp" type="image/webp" />
+                <img src="images/ski.webp" alt="Antoine Corbeil en compétition de ski-alpinisme avec l'équipe canadienne" width="748" height="1000" loading="lazy" decoding="async" />
+              </picture>
+              <picture>
+                <source srcset="images/velo.avif" type="image/avif" />
+                <source srcset="images/velo.webp" type="image/webp" />
+                <img src="images/velo.webp" alt="Antoine Corbeil en course cycliste" width="900" height="900" loading="lazy" decoding="async" />
+              </picture>
             </div>
             <button type="button" class="carousel-btn carousel-prev" aria-label="Photo précédente">&#8249;</button>
             <button type="button" class="carousel-btn carousel-next" aria-label="Photo suivante">&#8250;</button>

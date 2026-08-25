@@ -247,6 +247,15 @@ a {
   opacity: 1;
 }
 
+/* La photo du diaporama remplit la diapo (elle était en background-image avant). */
+.hero-accueil .diapo picture,
+.hero-accueil .diapo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .hero-accueil .voile {
   position: absolute;
   inset: 0;
@@ -607,10 +616,19 @@ section {
   transition: transform 0.5s ease;
 }
 
-.carousel-track img {
+/* Chaque photo est enveloppée dans <picture> (AVIF + repli WebP).
+   C'est donc le <picture> qui devient l'élément flex, pas le <img>. */
+.carousel-track picture {
+  display: block;
   width: 100%;
   height: 100%;
   flex-shrink: 0;
+}
+
+.carousel-track img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 

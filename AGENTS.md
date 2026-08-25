@@ -42,6 +42,42 @@ Internal links use explicit `.html` extensions throughout; keep it that way for 
 DNS and the domain `lasynthase.ca` are managed in the same Cloudflare account. The domain is
 registered at GoDaddy for now.
 
+## Images
+
+Every photo ships as **two files in `public/images/`**: an `.avif` (modern browsers)
+and a `.webp` (fallback). The originals live in **`medias-sources/`** at the repo root —
+outside `public/`, so they are never served. Never reference a `.jpg` or `.png` from the
+site markup.
+
+Markup pattern, used everywhere (content images, carousel slides, hero slides):
+
+```html
+<picture>
+  <source srcset="images/nom.avif" type="image/avif" />
+  <source srcset="images/nom.webp" type="image/webp" />
+  <img src="images/nom.webp" alt="…" width="1600" height="999" loading="lazy" decoding="async" />
+</picture>
+```
+
+Always set `width`/`height` to the real pixel dimensions — it prevents the page from
+jumping as images load. Use `loading="lazy"` for anything below the fold. The three hero
+slides on the home page are above the fold instead: the visible one carries
+`fetchpriority="high"`, the other two `fetchpriority="low"` so they load without competing.
+
+To add or replace a photo: drop the original in `medias-sources/`, then run
+
+```bash
+python3 outils/convertir-images.py medias-sources/ma-photo.jpg 1400
+```
+
+The second argument is the max width (1920 for hero slides, 1600 for large section
+images, 900 for carousel portraits). The script prints the `width`/`height` to paste
+into the `<img>` tag.
+
+Because `<picture>` wraps each image, the flex/absolute layouts target the `<picture>`
+element, not the `<img>` — see `.carousel-track picture` and `.hero-accueil .diapo picture`
+in the stylesheet. Keep both rules in sync if either layout changes.
+
 ## Architecture
 
 - Six hand-authored top-level pages in `public/`, each a full standalone HTML document with
@@ -57,6 +93,8 @@ registered at GoDaddy for now.
   `articles/modele.html` is a commented template: to publish, duplicate it, fill it in following
   the numbered comments, then add an `<article class="article-card">` block to the grid in
   `articles.html` (newest first — see the comment block there).
+- `medias-sources/` — original full-resolution photos, kept out of `public/` so they are
+  never served. `outils/convertir-images.py` turns one into the AVIF/WebP pair.
 - `public/css/style.css` — single global stylesheet for all pages. Uses CSS custom properties
   defined in `:root` (`--charcoal`, `--cream`, `--sage`, `--terracotta`, etc.) for the color
   palette, plus `--font-serif` / `--font-sans` for typography. Layout is section-based (`.hero`,

@@ -34,9 +34,27 @@
 
   <main>
     <section class="hero-accueil">
-      <div class="diapo active" style="background-image: url('images/hero-2.jpg');"></div>
-      <div class="diapo" style="background-image: url('images/hero-1.jpg');"></div>
-      <div class="diapo" style="background-image: url('images/hero-3.jpg');"></div>
+      <div class="diapo active">
+        <picture>
+          <source srcset="images/hero-2.avif" type="image/avif" />
+          <source srcset="images/hero-2.webp" type="image/webp" />
+          <img src="images/hero-2.webp" alt="" width="1920" height="1440" fetchpriority="high" decoding="async" />
+        </picture>
+      </div>
+      <div class="diapo">
+        <picture>
+          <source srcset="images/hero-1.avif" type="image/avif" />
+          <source srcset="images/hero-1.webp" type="image/webp" />
+          <img src="images/hero-1.webp" alt="" width="1920" height="1440" fetchpriority="low" decoding="async" />
+        </picture>
+      </div>
+      <div class="diapo">
+        <picture>
+          <source srcset="images/hero-3.avif" type="image/avif" />
+          <source srcset="images/hero-3.webp" type="image/webp" />
+          <img src="images/hero-3.webp" alt="" width="1920" height="1440" fetchpriority="low" decoding="async" />
+        </picture>
+      </div>
       <div class="voile"></div>
       <div class="hero-centre">
         <p class="eyebrow">Un service privé de mieux-être, pensé pour ceux qui exigent le meilleur</p>

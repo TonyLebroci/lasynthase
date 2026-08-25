@@ -47,14 +47,21 @@
       </header>
 
       <!-- OPTIONNEL — PHOTO EN HAUT DE L'ARTICLE :
-           1. Déposez votre photo dans le dossier images/ du site
-              (ex.: images/mon-article.jpg).
+           1. Déposez la photo d'origine dans medias-sources/ (à la racine
+              du dépôt), puis générez-en deux versions allégées dans
+              public/images/ : une .avif et une .webp. Voir CLAUDE.md pour
+              la commande.
            2. Retirez les marqueurs de commentaire (les lignes avec les
-              chevrons) autour du bloc ci-dessous et ajustez le nom du
-              fichier et la description.
+              chevrons) autour du bloc ci-dessous, ajustez le nom du
+              fichier, la description, et les dimensions réelles en pixels.
 
       <figure class="article-photo">
-        <img src="../images/mon-article.jpg" alt="Description de la photo" />
+        <picture>
+          <source srcset="../images/mon-article.avif" type="image/avif" />
+          <source srcset="../images/mon-article.webp" type="image/webp" />
+          <img src="../images/mon-article.webp" alt="Description de la photo"
+               width="1400" height="900" loading="lazy" decoding="async" />
+        </picture>
       </figure>
       -->
 
