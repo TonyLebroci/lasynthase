@@ -71,12 +71,56 @@ document.addEventListener("DOMContentLoaded", function () {
     go(0);
   });
 
-  var form = document.querySelector(".contact-form form");
-  if (form && new URLSearchParams(window.location.search).get("envoye") === "1") {
-    var note = document.createElement("p");
-    note.className = "form-success form-note";
-    note.textContent = "Merci ! Votre message a bien été envoyé, je vous répondrai sous peu.";
-    form.appendChild(note);
+  // Confirmation d'envoi : FormSubmit renvoie sur cette page avec ?envoye=1.
+  // On affiche une fenêtre au centre de l'écran, que le visiteur ferme lui-même.
+  if (new URLSearchParams(window.location.search).get("envoye") === "1") {
+    afficherConfirmation();
     window.history.replaceState({}, "", window.location.pathname);
+  }
+
+  function afficherConfirmation() {
+    var fond = document.createElement("div");
+    fond.className = "confirmation";
+    fond.setAttribute("role", "dialog");
+    fond.setAttribute("aria-modal", "true");
+    fond.setAttribute("aria-labelledby", "confirmation-titre");
+
+    fond.innerHTML =
+      '<div class="confirmation-carte">' +
+        '<button type="button" class="confirmation-fermer" aria-label="Fermer">&times;</button>' +
+        '<div class="confirmation-sceau" aria-hidden="true">' +
+          '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" ' +
+               'stroke="currentColor" stroke-width="1.4" ' +
+               'stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M4 12.5 L9.5 18 L20 6.5" />' +
+          '</svg>' +
+        '</div>' +
+        '<h2 id="confirmation-titre">Votre message est parti</h2>' +
+        '<p>Merci de m\'avoir écrit. Je vous réponds personnellement sous 24 heures.</p>' +
+        '<button type="button" class="btn btn-primary confirmation-ok">Fermer</button>' +
+      '</div>';
+
+    document.body.appendChild(fond);
+    var defilement = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    var fermer = function () {
+      document.body.style.overflow = defilement;
+      document.removeEventListener("keydown", surTouche);
+      fond.remove();
+    };
+
+    var surTouche = function (e) {
+      if (e.key === "Escape") fermer();
+    };
+
+    fond.querySelector(".confirmation-fermer").addEventListener("click", fermer);
+    fond.querySelector(".confirmation-ok").addEventListener("click", fermer);
+    fond.addEventListener("click", function (e) {
+      if (e.target === fond) fermer();
+    });
+    document.addEventListener("keydown", surTouche);
+
+    fond.querySelector(".confirmation-fermer").focus();
   }
 });
