@@ -44,19 +44,12 @@ registered at GoDaddy for now.
 
 ## Images
 
-Every photo ships as **two files in `public/images/`**: an `.avif` (modern browsers)
-and a `.webp` (fallback). The originals live in **`medias-sources/`** at the repo root —
-outside `public/`, so they are never served. Never reference a `.jpg` or `.png` from the
-site markup.
-
-Markup pattern, used everywhere (content images, carousel slides, hero slides):
+Every photo is served as a **single `.webp` file in `public/images/`**. The originals live
+in **`medias-sources/`** at the repo root — outside `public/`, so they are never served.
+Never reference a `.jpg` or `.png` from the site markup.
 
 ```html
-<picture>
-  <source srcset="images/nom.avif" type="image/avif" />
-  <source srcset="images/nom.webp" type="image/webp" />
-  <img src="images/nom.webp" alt="…" width="1600" height="999" loading="lazy" decoding="async" />
-</picture>
+<img src="images/nom.webp" alt="…" width="1600" height="999" loading="lazy" decoding="async" />
 ```
 
 Always set `width`/`height` to the real pixel dimensions — it prevents the page from
@@ -74,9 +67,13 @@ The second argument is the max width (1920 for hero slides, 1600 for large secti
 images, 900 for carousel portraits). The script prints the `width`/`height` to paste
 into the `<img>` tag.
 
-Because `<picture>` wraps each image, the flex/absolute layouts target the `<picture>`
-element, not the `<img>` — see `.carousel-track picture` and `.hero-accueil .diapo picture`
-in the stylesheet. Keep both rules in sync if either layout changes.
+**Why not AVIF.** It was tried and reverted on 2026-08-25. Pillow's AVIF encoder writes
+files without the `pixi` box, and Chrome refuses to decode them inside a page — `img.decode()`
+never settles and nothing paints, even though the same file renders fine when opened
+directly. No conforming AVIF encoder is available in this environment (the ffmpeg build
+has no AVIF muxer). If you revisit this, use a real `avifenc`/libavif build, verify the
+output has a `pixi` box, and test it **in the page**, not just standalone. AVIF would save
+roughly a further 35% over WebP.
 
 ## Architecture
 

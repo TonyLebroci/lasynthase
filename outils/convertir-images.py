@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convertit une photo de medias-sources/ en AVIF + WebP dans public/images/.
+"""Convertit une photo de medias-sources/ en WebP allégé dans public/images/.
 
 Usage :  python3 outils/convertir-images.py medias-sources/ma-photo.jpg 1400
 
@@ -28,11 +28,8 @@ if im.width > largeur:
 
 base = os.path.splitext(os.path.basename(source))[0]
 os.makedirs(sortie, exist_ok=True)
-im.save(f"{sortie}/{base}.avif", "AVIF", quality=60)
 im.save(f"{sortie}/{base}.webp", "WEBP", quality=82, method=6)
 
-a = os.path.getsize(f"{sortie}/{base}.avif") / 1024
 w = os.path.getsize(f"{sortie}/{base}.webp") / 1024
-print(f"{base}.avif : {a:.0f} Ko")
 print(f"{base}.webp : {w:.0f} Ko")
 print(f"\nÀ recopier dans la balise <img> :  width=\"{im.width}\" height=\"{im.height}\"")
