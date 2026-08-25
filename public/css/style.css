@@ -925,6 +925,17 @@ section {
   color: var(--charcoal);
 }
 
+.article-body ul {
+  margin: 0 0 26px;
+  padding-left: 22px;
+  color: var(--charcoal-soft);
+}
+
+.article-body li {
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+
 .article-body blockquote {
   font-family: var(--font-serif);
   font-style: italic;
