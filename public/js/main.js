@@ -71,6 +71,21 @@ document.addEventListener("DOMContentLoaded", function () {
     go(0);
   });
 
+  // Contenus tiers chargés uniquement sur demande (agenda et carte Google).
+  // Tant que le visiteur n'a pas cliqué, rien n'est transmis à Google.
+  document.querySelectorAll(".tiers-invite").forEach(function (invite) {
+    var bouton = invite.querySelector("button");
+    if (!bouton) return;
+    bouton.addEventListener("click", function () {
+      var cadre = document.createElement("iframe");
+      cadre.src = invite.getAttribute("data-tiers");
+      cadre.title = invite.getAttribute("data-tiers-titre") || "";
+      cadre.loading = "lazy";
+      cadre.referrerPolicy = "no-referrer-when-downgrade";
+      invite.replaceWith(cadre);
+    });
+  });
+
   // Confirmation d'envoi : FormSubmit renvoie sur cette page avec ?envoye=1.
   // On affiche une fenêtre au centre de l'écran, que le visiteur ferme lui-même.
   if (new URLSearchParams(window.location.search).get("envoye") === "1") {
