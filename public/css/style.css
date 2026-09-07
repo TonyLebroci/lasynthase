@@ -457,8 +457,63 @@ section {
 .pillar-card {
   background: transparent;
   border-right: 1px solid var(--line);
-  padding: 52px 40px;
   transition: background 0.35s ease;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.pillar-card.card-gauche {
+  flex-direction: row-reverse;
+}
+
+.pillar-card .card-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 52px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: inherit;
+  position: relative;
+  z-index: 2;
+}
+
+/* Panneau photo : largeur ZÉRO au repos → invisible, n'occupe aucune place. */
+.pillar-card .card-media {
+  flex: 0 0 0;
+  width: 0;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.pillar-card .card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Dégradé de marque temporaire pour « Le Soin », en attendant une vraie photo
+   de massothérapie (voir le commentaire dans index.html). */
+.card-media-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--sage), var(--sage-deep));
+}
+
+.card-media-placeholder span {
+  color: var(--cream);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
 }
 
 .pillar-card:last-child {
@@ -504,6 +559,79 @@ section {
   color: var(--sage-dark);
   border-bottom: 1px solid var(--sage);
   padding-bottom: 3px;
+}
+
+/* ---- Triptyque : épinglage + dépliage photo au défilement (desktop, JS) ---- */
+
+.triptyque-pin.js-zoom-active {
+  padding: 48px 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.triptyque-pin.js-zoom-active .pillars {
+  display: flex;
+  width: 100%;
+  border: none;
+}
+
+/* Chaque carte est dimensionnée à son seul contenu (flex-grow:0) : rien ne
+   réclame l'espace libre de la rangée sauf la carte active (flexGrow animé
+   par GSAP, 0 → 1). Comme les cartes inactives ne grandissent jamais,
+   aucun espace résiduel ne peut rester coincé entre elles. */
+.triptyque-pin.js-zoom-active .pillar-card {
+  flex: 0 0 auto;
+  min-height: 560px;
+  will-change: opacity;
+}
+
+.triptyque-pin.js-zoom-active .card-copy {
+  flex: 0 0 260px;
+  width: 260px;
+  max-width: 260px;
+  will-change: padding;
+}
+
+/* La photo de la carte active reçoit elle aussi flexGrow:0→1 (animé par GSAP) :
+   toute la largeur gagnée par sa carte lui revient intégralement. */
+.triptyque-pin.js-zoom-active .card-media {
+  flex: 0 0 0;
+  width: 0;
+  will-change: flex-grow;
+}
+
+/* ---- Repli : sous 900px OU prefers-reduced-motion, aucun pin ni dépliage.
+       La photo s'empile sous le texte et apparaît en fondu (JS, IntersectionObserver),
+       identique dans les deux cas. ---- */
+@media (max-width: 899px), (prefers-reduced-motion: reduce) {
+  .pillar-card,
+  .pillar-card.card-gauche {
+    flex-direction: column;
+  }
+  .pillar-card .card-media {
+    flex: 1 1 auto;
+    width: auto;
+    height: 220px;
+    border-top: 1px solid var(--line);
+  }
+  /* Sans JS, la photo reste simplement visible et statique — l'estompage
+     progressif est une amélioration ajoutée par le script, pas l'état par défaut. */
+  .pillar-card .card-media.pre-reveal {
+    opacity: 0.25;
+    filter: grayscale(65%);
+    transition: opacity 0.7s ease, filter 0.7s ease;
+  }
+  .pillar-card .card-media.pre-reveal.est-visible {
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pillar-card .card-media {
+    transition: opacity 0.4s linear, filter 0.4s linear;
+  }
 }
 
 /* ===== Stats / approach ===== */

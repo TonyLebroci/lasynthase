@@ -77,25 +77,47 @@
           <h2>Séparés, ce sont des services. Réunis, une synthèse.</h2>
           <p>Chaque élément peut être retenu seul — mais c'est ensemble, composés d'après un même bilan et portés par une seule personne, qu'ils donnent leur pleine mesure.</p>
         </div>
-        <div class="pillars">
-          <article class="pillar-card">
-            <div class="pillar-icon">I.</div>
-            <h3>La Table</h3>
-            <p>Une cuisine précise et généreuse, composée et préparée chez vous, accordée à vos goûts comme à vos objectifs.</p>
-            <a href="services.html#chef" class="link">Découvrir</a>
-          </article>
-          <article class="pillar-card">
-            <div class="pillar-icon">II.</div>
-            <h3>Le Mouvement</h3>
-            <p>Un entraînement privé, conçu sur bilan et encadré chez vous, qui progresse à votre rythme — jamais celui d'un gym.</p>
-            <a href="services.html#entrainement" class="link">Découvrir</a>
-          </article>
-          <article class="pillar-card">
-            <div class="pillar-icon">III.</div>
-            <h3>Le Soin</h3>
-            <p>Une massothérapie thérapeutique qui dialogue avec vos entraînements : récupération, mobilité, relâchement profond.</p>
-            <a href="services.html#masso" class="link">Découvrir</a>
-          </article>
+        <div class="triptyque-pin" id="triptyquePin">
+          <div class="pillars">
+            <article class="pillar-card" data-index="0">
+              <div class="card-copy">
+                <div class="pillar-icon">I.</div>
+                <h3>La Table</h3>
+                <p>Une cuisine précise et généreuse, composée et préparée chez vous, accordée à vos goûts comme à vos objectifs.</p>
+                <a href="services.html#chef" class="link">Découvrir</a>
+              </div>
+              <div class="card-media">
+                <img src="images/chef.webp" alt="Chef privé préparant un repas à domicile" width="1600" height="999" loading="lazy" decoding="async" />
+              </div>
+            </article>
+            <article class="pillar-card card-gauche" data-index="1">
+              <div class="card-copy">
+                <div class="pillar-icon">II.</div>
+                <h3>Le Mouvement</h3>
+                <p>Un entraînement privé, conçu sur bilan et encadré chez vous, qui progresse à votre rythme — jamais celui d'un gym.</p>
+                <a href="services.html#entrainement" class="link">Découvrir</a>
+              </div>
+              <div class="card-media">
+                <img src="images/entrainement.webp" alt="Séance d'entraînement personnel" width="1200" height="1316" loading="lazy" decoding="async" />
+              </div>
+            </article>
+            <article class="pillar-card card-gauche" data-index="2">
+              <div class="card-copy">
+                <div class="pillar-icon">III.</div>
+                <h3>Le Soin</h3>
+                <p>Une massothérapie thérapeutique qui dialogue avec vos entraînements : récupération, mobilité, relâchement profond.</p>
+                <a href="services.html#masso" class="link">Découvrir</a>
+              </div>
+              <!-- images/massotherapie.webp est un logo (le mot-clic sur fond blanc), pas une
+                   photo : en object-fit:cover il coupe le texte du mot-clic. En attendant une
+                   vraie photo de massothérapie, ce panneau reste un dégradé de marque. Dès
+                   qu'une photo existe (voir medias-sources/), remplacer ce <div> par un <img>
+                   identique aux deux autres cartes. -->
+              <div class="card-media">
+                <div class="card-media-placeholder card-media-placeholder--soin"><span>Le Soin</span></div>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
@@ -198,5 +220,115 @@
   </footer>
 
   <script src="js/main.js"></script>
+
+  <!-- Triptyque « Les trois éléments » : dépliage photo au défilement (desktop
+       uniquement). Sous 900px ou avec prefers-reduced-motion, ou si GSAP ne
+       charge pas, la section garde simplement sa mise en page actuelle —
+       voir triptyqueRepli() ci-dessous. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+          integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+          integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    /* `defer` n'a aucun effet sur un script inline sans `src` : il s'exécuterait
+       avant les deux <script defer> ci-dessus, donc avant que GSAP existe. On
+       attend explicitement DOMContentLoaded, qui survient après eux. */
+    var pinEl = document.getElementById('triptyquePin');
+    if (!pinEl) return;
+    var cards = Array.prototype.slice.call(pinEl.querySelectorAll('.pillar-card'));
+    var media = cards.map(function (c) { return c.querySelector('.card-media'); });
+
+    /* Repli : sous 900px ou prefers-reduced-motion, ou si GSAP est absent.
+       La photo reste empilée sous le texte (CSS) ; on ajoute juste un fondu
+       d'apparition progressif au premier passage dans le viewport. */
+    function triptyqueRepli() {
+      media.forEach(function (m) { m.classList.add('pre-reveal'); });
+      if (!('IntersectionObserver' in window)) {
+        media.forEach(function (m) { m.classList.add('est-visible'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.querySelector('.card-media').classList.add('est-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      cards.forEach(function (c) { io.observe(c); });
+    }
+
+    /* Desktop : chaque carte s'active à son tour (I → II → III). La carte
+       active ET son panneau photo passent tous deux de flexGrow 0 → 1 : la
+       carte réclame l'espace libre de la rangée, puis le transmet en entier à
+       sa photo (la colonne texte, largeur fixe, ne le reçoit jamais). Les
+       cartes inactives restent à flexGrow 0 en permanence — rien d'autre ne
+       réclame cet espace, donc aucun résidu ne peut se coincer nulle part ;
+       elles se resserrent légèrement (padding) et s'estompent (opacité). */
+    function construireChronologieZoom() {
+      var ATTENUATION_INACTIF = 0.4;
+      var PAUSE = 0.5;
+      var copies = cards.map(function (c) { return c.querySelector('.card-copy'); });
+
+      gsap.set(cards, { flexGrow: 0 });
+      gsap.set(media, { flexGrow: 0 });
+
+      var tl = gsap.timeline({
+        defaults: { ease: 'power2.inOut' },
+        scrollTrigger: {
+          trigger: pinEl,
+          start: 'top top',
+          end: '+=' + Math.round(window.innerHeight * 3.4),
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true
+        }
+      });
+
+      cards.forEach(function (card, i) {
+        var autresCards = cards.filter(function (_, j) { return j !== i; });
+        var autresCopies = copies.filter(function (_, j) { return j !== i; });
+        var entree = 'entree' + i;
+        var sortie = 'sortie' + i;
+
+        tl.addLabel(entree)
+          .to(card, { flexGrow: 1, duration: 1 }, entree)
+          .to(media[i], { flexGrow: 1, duration: 1 }, entree)
+          .to(autresCards, { opacity: ATTENUATION_INACTIF, duration: 1 }, entree)
+          .to(autresCopies, { paddingLeft: 26, paddingRight: 26, duration: 1 }, entree)
+          .to({}, { duration: PAUSE })
+          .addLabel(sortie)
+          .to(card, { flexGrow: 0, duration: 1 }, sortie)
+          .to(media[i], { flexGrow: 0, duration: 1 }, sortie)
+          .to(autresCards, { opacity: 1, duration: 1 }, sortie)
+          .to(autresCopies, { paddingLeft: 40, paddingRight: 40, duration: 1 }, sortie);
+      });
+    }
+
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.matchMedia({
+        '(min-width: 900px) and (prefers-reduced-motion: no-preference)': function () {
+          pinEl.classList.add('js-zoom-active');
+          construireChronologieZoom();
+          return function () {
+            pinEl.classList.remove('js-zoom-active');
+            gsap.set(cards, { clearProps: 'all' });
+            gsap.set(media, { clearProps: 'all' });
+          };
+        },
+        '(max-width: 899px), (prefers-reduced-motion: reduce)': function () {
+          triptyqueRepli();
+        }
+      });
+    } else {
+      triptyqueRepli();
+    }
+  });
+  </script>
 </body>
 </html>
