@@ -497,6 +497,13 @@ section {
   display: block;
 }
 
+/* entrainement.webp est un portrait où le visage de l'athlète occupe le
+   haut du cadre ; en cover dans un panneau large, un recadrage centré coupe
+   la tête. On ancre le recadrage vers le haut pour garder le visage visible. */
+.pillar-card .card-media img.cadrage-haut {
+  object-position: center 12%;
+}
+
 /* Dégradé de marque temporaire pour « Le Soin », en attendant une vraie photo
    de massothérapie (voir le commentaire dans index.html). */
 .card-media-placeholder {
@@ -563,8 +570,22 @@ section {
 
 /* ---- Triptyque : épinglage + dépliage photo au défilement (desktop, JS) ---- */
 
+/* Plein écran pendant l'épinglage : la section sort de .container pour
+   occuper toute la largeur du viewport (technique des marges négatives),
+   afin que la carte active et sa photo prennent vraiment « toute la place de
+   l'écran » pendant leur tour. Ce plein écran s'applique dès que le JS est
+   prêt (pas seulement une fois épinglé) : la section peut donc être
+   légèrement plus large qu'aujourd'hui pendant la brève approche au
+   défilement, juste avant l'épinglage — c'est le compromis accepté pour
+   éviter tout désync entre la taille réelle de la section et l'espace que
+   ScrollTrigger lui réserve dans la page (voir le commentaire dans le script
+   plus bas). Au chargement, hors champ, rien n'est visible ni affecté. */
 .triptyque-pin.js-zoom-active {
-  padding: 48px 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  height: 100vh;
+  padding: 0 32px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -572,6 +593,7 @@ section {
 
 .triptyque-pin.js-zoom-active .pillars {
   display: flex;
+  justify-content: center;
   width: 100%;
   border: none;
 }
@@ -582,19 +604,21 @@ section {
    aucun espace résiduel ne peut rester coincé entre elles. */
 .triptyque-pin.js-zoom-active .pillar-card {
   flex: 0 0 auto;
-  min-height: 560px;
+  height: 74vh;
   will-change: opacity;
 }
 
+/* flex-basis:auto (pas une valeur fixe) pour que la largeur animée par GSAP
+   (voir construireChronologieZoom) fasse foi sur l'axe principal. */
 .triptyque-pin.js-zoom-active .card-copy {
-  flex: 0 0 260px;
+  flex: 0 0 auto;
   width: 260px;
-  max-width: 260px;
-  will-change: padding;
+  will-change: width, padding, opacity;
 }
 
 /* La photo de la carte active reçoit elle aussi flexGrow:0→1 (animé par GSAP) :
-   toute la largeur gagnée par sa carte lui revient intégralement. */
+   toute la largeur gagnée par sa carte — donc tout l'écran une fois les deux
+   autres cartes effacées — lui revient intégralement. */
 .triptyque-pin.js-zoom-active .card-media {
   flex: 0 0 0;
   width: 0;

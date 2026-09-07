@@ -98,7 +98,7 @@
                 <a href="services.html#entrainement" class="link">Découvrir</a>
               </div>
               <div class="card-media">
-                <img src="images/entrainement.webp" alt="Séance d'entraînement personnel" width="1200" height="1316" loading="lazy" decoding="async" />
+                <img src="images/entrainement.webp" alt="Séance d'entraînement personnel" width="1200" height="1316" loading="lazy" decoding="async" class="cadrage-haut" />
               </div>
             </article>
             <article class="pillar-card card-gauche" data-index="2">
@@ -263,13 +263,16 @@
 
     /* Desktop : chaque carte s'active à son tour (I → II → III). La carte
        active ET son panneau photo passent tous deux de flexGrow 0 → 1 : la
-       carte réclame l'espace libre de la rangée, puis le transmet en entier à
-       sa photo (la colonne texte, largeur fixe, ne le reçoit jamais). Les
-       cartes inactives restent à flexGrow 0 en permanence — rien d'autre ne
-       réclame cet espace, donc aucun résidu ne peut se coincer nulle part ;
-       elles se resserrent légèrement (padding) et s'estompent (opacité). */
+       carte réclame l'espace libre de la rangée (au départ, tout l'écran,
+       puisque .triptyque-pin est en plein écran pendant l'épinglage), puis la
+       transmet en entier à sa photo — la colonne texte, largeur fixe, ne la
+       reçoit jamais. Les deux autres cartes s'effacent en deux temps : elles
+       s'estompent D'ABORD (opacité), puis, une fois invisibles, leur largeur
+       se referme à zéro — jamais l'inverse, pour qu'on ne voie jamais le
+       texte se recomposer pendant qu'il rétrécit. À la sortie, la séquence se
+       déroule à l'envers : la largeur revient d'abord (encore invisible),
+       puis le texte réapparaît déjà à sa largeur normale. */
     function construireChronologieZoom() {
-      var ATTENUATION_INACTIF = 0.4;
       var PAUSE = 0.5;
       var copies = cards.map(function (c) { return c.querySelector('.card-copy'); });
 
@@ -298,14 +301,14 @@
         tl.addLabel(entree)
           .to(card, { flexGrow: 1, duration: 1 }, entree)
           .to(media[i], { flexGrow: 1, duration: 1 }, entree)
-          .to(autresCards, { opacity: ATTENUATION_INACTIF, duration: 1 }, entree)
-          .to(autresCopies, { paddingLeft: 26, paddingRight: 26, duration: 1 }, entree)
+          .to(autresCards, { opacity: 0, duration: 0.3 }, entree)
+          .to(autresCopies, { width: 0, paddingLeft: 0, paddingRight: 0, duration: 0.7 }, entree + '+=0.3')
           .to({}, { duration: PAUSE })
           .addLabel(sortie)
           .to(card, { flexGrow: 0, duration: 1 }, sortie)
           .to(media[i], { flexGrow: 0, duration: 1 }, sortie)
-          .to(autresCards, { opacity: 1, duration: 1 }, sortie)
-          .to(autresCopies, { paddingLeft: 40, paddingRight: 40, duration: 1 }, sortie);
+          .to(autresCopies, { width: 260, paddingLeft: 40, paddingRight: 40, duration: 0.7 }, sortie)
+          .to(autresCards, { opacity: 1, duration: 0.3 }, sortie + '+=0.7');
       });
     }
 
