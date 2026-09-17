@@ -558,7 +558,7 @@ section {
   font-size: 0.96rem;
 }
 
-.pillar-card .link {
+.link {
   font-size: 0.74rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -601,10 +601,20 @@ section {
 /* Chaque carte est dimensionnée à son seul contenu (flex-grow:0) : rien ne
    réclame l'espace libre de la rangée sauf la carte active (flexGrow animé
    par GSAP, 0 → 1). Comme les cartes inactives ne grandissent jamais,
-   aucun espace résiduel ne peut rester coincé entre elles. */
+   aucun espace résiduel ne peut rester coincé entre elles.
+
+   max-width plafonne la carte active à un ratio d'environ 1.5:1 par rapport
+   à sa hauteur fixe (74vh). Sans ce plafond, sur un écran large, la carte
+   active pouvait réclamer tout l'écran (jusqu'à ~2.5:1) alors que sa hauteur
+   restait fixe : object-fit:cover devait alors zoomer/rogner la photo bien
+   plus fort que ce que son cadrage prévoyait, un grossissement de fin de
+   course jugé excessif. Le plafond laisse la photo grossir pleinement, mais
+   l'arrête avant ce sur-zoom ; l'espace libéré est simplement recentré par
+   .pillars (justify-content: center). */
 .triptyque-pin.js-zoom-active .pillar-card {
   flex: 0 0 auto;
   height: 74vh;
+  max-width: calc(260px + 74vh * 1.5);
   will-change: opacity;
 }
 
@@ -842,6 +852,33 @@ section {
   margin-top: 26px;
 }
 
+/* ===== Galerie photo (page menu) ===== */
+
+.galerie-photo {
+  aspect-ratio: 4 / 3;
+  max-width: 760px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* ===== Menus (page menu) ===== */
+
+.menu-card h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin: 0 0 6px;
+}
+
+.menu-card .menu-souscription {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--charcoal-soft);
+  margin: 0 0 4px;
+}
+
 /* ===== Testimonial / CTA band ===== */
 
 .cta-band {
@@ -1010,13 +1047,6 @@ section {
 }
 
 .article-card .link {
-  font-size: 0.74rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--sage-dark);
-  border-bottom: 1px solid var(--sage);
-  padding-bottom: 3px;
   align-self: flex-start;
 }
 
