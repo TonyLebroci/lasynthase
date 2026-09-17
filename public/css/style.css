@@ -865,6 +865,40 @@ section {
 
 /* ===== Menus (page menu) ===== */
 
+/* Grid + subgrid : chaque menu est une colonne de 8 rangées (titre, nom,
+   sous-titre, puis les 5 services). Comme les trois colonnes partagent les
+   mêmes rangées, la rangée I se termine à la même hauteur dans les trois
+   menus avant que la rangée II ne commence — quelle que soit la longueur du
+   texte d'un menu à l'autre. row-gap:0 évite un espacement dupliqué avec le
+   padding déjà présent sur chaque <li> de .approach-list. */
+.menus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 32px;
+  row-gap: 0;
+}
+
+.menu-card {
+  grid-row: span 8;
+  display: grid;
+  grid-template-rows: subgrid;
+  border: 1px solid var(--line);
+  padding: 40px 34px;
+  transition: background 0.35s ease;
+}
+
+.menu-card:hover {
+  background: var(--cream-dark);
+}
+
+.menu-card .article-date {
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  margin: 0 0 18px;
+}
+
 .menu-card h3 {
   font-family: var(--font-serif);
   font-weight: 400;
@@ -876,7 +910,31 @@ section {
   font-size: 0.85rem;
   font-style: italic;
   color: var(--charcoal-soft);
-  margin: 0 0 4px;
+  margin: 0;
+}
+
+.menu-card .approach-list {
+  grid-row: span 5;
+  display: grid;
+  grid-template-rows: subgrid;
+  margin: 32px 0 0;
+}
+
+.menu-card .approach-list li {
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  .menus-grid {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+  }
+  .menu-card {
+    display: block;
+  }
+  .menu-card .approach-list {
+    display: block;
+  }
 }
 
 /* ===== Testimonial / CTA band ===== */
