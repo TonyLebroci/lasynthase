@@ -105,6 +105,32 @@ roughly a further 35% over WebP.
 - Services content is anchor-addressable: `services.html` has `id="chef"`, `id="entrainement"`,
   `id="masso"` sections, linked to from other pages via `services.html#chef` etc.
 
+## Publier un article (règle de Tony, 2026-10-09)
+
+Le site vit sur **`tony.lasynthase.ca`** depuis la bascule (`lasynthase.ca` redirige en 301 vers
+lui). La canonique d'un nouvel article pointe vers `https://tony.lasynthase.ca/articles/<nom>`.
+
+Incident du 2026-10-09 : l'article fourni en HTML contenait un commentaire d'intégration qui citait
+« `<article class="ls-article">` et `</article>` ». Une extraction par expression régulière a pris
+cette occurrence-là, et la note, un second `<style>` et un second `<body>` ont été publiés en haut de
+la page. Pour que ça n'arrive plus :
+
+1. **Extraire le contenu d'un fichier fourni après avoir retiré tous ses commentaires** (`<!-- … -->`),
+   seulement depuis son `<body>`, et **exiger exactement un** bloc `<article>`. Ne jamais prendre
+   « tout ce qui est entre deux balises » sur le fichier brut.
+2. **Ne rien changer au texte** : comparer le texte visible de la page produite à celui de l'original
+   (doit être identique).
+3. **`python3 outils/verifier-pages.py`** doit répondre « aucun problème ». Il est lancé
+   automatiquement avant chaque commit par `outils/hooks/pre-commit` ; après un nouveau clone,
+   l'activer avec `git config core.hooksPath outils/hooks`.
+4. **Regarder la page entière**, en commençant par **le haut** (date, titre, premier paragraphe),
+   en local puis en ligne après le déploiement, sur ordinateur et à 390 px de large.
+5. Carte en tête de `articles.html`, URL dans `sitemap.xml`.
+
+Les styles propres à un article (figures, encadrés) vont dans un `<style>` du `<head>` de la page,
+limités à une classe (`.ls-article`), aux couleurs de `:root`. Le site n'a pas de mode sombre : ne
+pas en importer.
+
 ## Contact wiring
 
 - The contact form in `contact.html` posts to FormSubmit.co (`action="https://formsubmit.co/..."`),

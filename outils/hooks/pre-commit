@@ -1,0 +1,8 @@
+#!/bin/sh
+# Refuse le commit si une page HTML de public/ est mal formée (collage raté, commentaire visible…).
+# Activé par : git config core.hooksPath outils/hooks
+racine=$(git rev-parse --show-toplevel)
+python3 -I "$racine/outils/verifier-pages.py" || {
+  echo "Commit refusé : corriger les pages ci-dessus (ou voir CLAUDE.md § Publier un article)." >&2
+  exit 1
+}
