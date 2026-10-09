@@ -3,4 +3,4 @@
 # On se contente donc d'indiquer le plan du site, pour ne pas créer un
 # second groupe « User-agent: * » qui ferait doublon.
 
-Sitemap: https://lasynthase.ca/sitemap.xml
+Sitemap: https://tony.lasynthase.ca/sitemap.xml

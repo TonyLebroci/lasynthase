@@ -170,7 +170,7 @@ The site has no template engine, so a new page needs four things:
 1. Copy the shell (head, header/nav, footer) from an existing page — they are duplicated in every
    file, there is no include.
 2. Set a unique `<title>`, `<meta name="description">`, and a
-   `<link rel="canonical" href="https://lasynthase.ca/…">` pointing at the extensionless URL.
+   `<link rel="canonical" href="https://tony.lasynthase.ca/…">` pointing at the extensionless URL.
 3. Add the URL to `public/sitemap.xml`.
 4. Add the page to the footer nav in **every** file if it belongs there.
 
