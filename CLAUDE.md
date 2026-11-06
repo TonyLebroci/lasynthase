@@ -70,10 +70,9 @@ avec des modules d'apprentissage, et un premier module interactif sur la zone 2.
   npx wrangler d1 migrations apply lasynthase-comptes --local   # une fois
   npx wrangler dev --port 8787                                   # http://127.0.0.1:8787
   ```
-- **Mise en ligne, la première fois** (avec l'accord de Tony) : `npx wrangler d1 create
-  lasynthase-comptes`, inscrire l'identifiant obtenu dans `database_id` de `wrangler.jsonc`
-  (remplace les zéros), `npx wrangler d1 migrations apply lasynthase-comptes --remote`, puis
-  pousser `main`. Toute nouvelle migration : l'appliquer en `--remote` **avant** de pousser.
+- **Mise en ligne** : la base D1 distante existe depuis le 2026-11-05 (identifiant dans
+  `wrangler.jsonc`, tables créées). Toute nouvelle migration : l'appliquer avec
+  `npx wrangler d1 migrations apply lasynthase-comptes --remote` **avant** de pousser `main`.
 
 ## Deployment
 

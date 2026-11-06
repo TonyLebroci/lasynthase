@@ -26,10 +26,8 @@
     {
       "binding": "DB",
       "database_name": "lasynthase-comptes",
-      // Identifiant réel à inscrire au moment de la mise en ligne
-      // (npx wrangler d1 create lasynthase-comptes). En local, n'importe
-      // quelle valeur fonctionne.
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      // Base créée le 2026-11-05 (npx wrangler d1 create lasynthase-comptes).
+      "database_id": "639eb474-cd08-40d8-93ac-d1c57824ab52",
       "migrations_dir": "migrations"
     }
   ]
