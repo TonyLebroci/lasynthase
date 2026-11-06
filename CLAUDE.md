@@ -7,11 +7,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Static marketing website (in French) for La Synthase, a business offering home-based personal chef,
 personal training, and massage therapy services in the Québec City area (and Victoriaville). No
 framework, no build step, no package manager — plain HTML/CSS/JS served as static files.
+Since 2026-11-05 a small Cloudflare Worker (`src/worker.js`) + D1 database adds a **member area**
+(accounts and learning modules) — see « Espace membre » below.
 
 ## Repository layout
 
 - `public/` — **everything that is published**. All site files live here.
 - `wrangler.jsonc` — Cloudflare Workers deployment config (repo root, not published).
+- `src/worker.js` — the member-area Worker (repo root, not published).
+- `migrations/` — D1 schema for the member area.
 - `CLAUDE.md` / `AGENTS.md` — agent guidance (repo root, not published).
 
 Anything placed inside `public/` becomes publicly reachable. Never put notes, credentials,
@@ -29,6 +33,47 @@ python3 -m http.server 8765 --directory public
 Then open `http://localhost:8765/index.html`. Since pages use relative links (`index.html`,
 `services.html#chef`, etc.) and no absolute routing, opening the files directly (`file://`) also
 works for quick checks, but prefer a local server to match production behavior.
+
+## Espace membre (2026-11-05)
+
+Demande de Tony : un bouton qui mène à une page de connexion / création de compte, un espace
+avec des modules d'apprentissage, et un premier module interactif sur la zone 2.
+
+- **Serveur** : `src/worker.js`. `wrangler.jsonc` → `run_worker_first: ["/api/*", "/espace*", "/modules/*"]` :
+  seules ces adresses passent par le Worker, tout le reste est servi en statique comme avant.
+  `/espace*` et `/modules/*` exigent une session ; sinon 302 vers `/connexion.html?retour=…`.
+- **Base** : D1 `lasynthase-comptes` (liaison `DB`), schéma dans `migrations/0001_comptes.sql`
+  (utilisateurs, sessions, progression, tentatives). Mots de passe en PBKDF2-SHA-256
+  100 000 itérations (plafond des Workers) ; la base ne garde que le SHA-256 du jeton de session.
+- **Témoins** : `ls_session` (HttpOnly, la vraie session, 30 jours) et `ls_connecte=1` (lisible
+  par `main.js`, sans secret : il change « Connexion » en « Mon espace » dans l'en-tête). Ils ne
+  sont posés qu'à la connexion : le site reste sans témoin pour les visiteurs, donc toujours sans
+  bannière. Décrits dans `confidentialite.html#compte` ; à garder à jour si ça change.
+- **Protection** : toute requête qui modifie (POST/PUT/DELETE) doit être en JSON et, si `Origin`
+  est présent, de même origine. 8 mauvais mots de passe en 15 min par courriel + IP → 429.
+  Pas de réinitialisation de mot de passe par courriel (aucun service d'envoi) : la page renvoie
+  à contact@lasynthase.ca.
+- **Pages** : `connexion.html`, `espace.html`, `modules/<id>.html` ; feuille `css/espace.css` ;
+  scripts `js/compte.js` (connexion, espace), `js/module.js` (moteur générique des modules :
+  étapes `<section class="etape" data-titre>`, questions `.question[data-bonne]` ou
+  `[data-type="nombre"][data-min][data-max]`, sauvegarde `PUT /api/progression/<id>`),
+  `js/<id>.js` pour les outils propres à un module. Ces pages ont `noindex` et ne vont **pas**
+  dans le sitemap.
+- **Ajouter un module** : copier `modules/zone-2.html`, changer `data-module`, écrire les étapes
+  et les questions (contenu tiré du coffre, sources citées, rien d'inventé), ajouter sa carte
+  dans `espace.html` avec `data-module` et `data-total` = nombre d'étapes + nombre de questions.
+- **Le bouton de l'en-tête** (`a.btn-compte[data-compte]`, juste avant `.nav-toggle`) est dans
+  **toutes** les pages : toute nouvelle page doit le reprendre (chemin `../` dans `articles/`
+  et `modules/`, `/` dans `404.html`).
+- **Essai local** (le serveur Python ne suffit plus pour l'espace membre) :
+  ```bash
+  npx wrangler d1 migrations apply lasynthase-comptes --local   # une fois
+  npx wrangler dev --port 8787                                   # http://127.0.0.1:8787
+  ```
+- **Mise en ligne, la première fois** (avec l'accord de Tony) : `npx wrangler d1 create
+  lasynthase-comptes`, inscrire l'identifiant obtenu dans `database_id` de `wrangler.jsonc`
+  (remplace les zéros), `npx wrangler d1 migrations apply lasynthase-comptes --remote`, puis
+  pousser `main`. Toute nouvelle migration : l'appliquer en `--remote` **avant** de pousser.
 
 ## Deployment
 
@@ -56,6 +101,11 @@ Always set `width`/`height` to the real pixel dimensions — it prevents the pag
 jumping as images load. Use `loading="lazy"` for anything below the fold. The three hero
 slides on the home page are above the fold instead: the visible one carries
 `fetchpriority="high"`, the other two `fetchpriority="low"` so they load without competing.
+
+`images/soin.webp` (Le Soin, accueil et services) est une photo **libre de droits d'Unsplash**
+(photo 7yeqemd-p90, licence Unsplash), recadrée sur les mains ; original dans
+`medias-sources/soin-original-unsplash.jpg`. À remplacer par une photo de Tony en séance dès
+qu'il en a une.
 
 To add or replace a photo: drop the original in `medias-sources/`, then run
 
@@ -156,7 +206,8 @@ HTML they are `<div class="tiers-invite" data-tiers="…" data-tiers-titre="…"
 explain what will happen; `js/main.js` builds the `<iframe>` on click and swaps it in. The CSS
 lives under `.tiers-invite`.
 
-This is why the site sets **no cookies at all** and needs **no consent banner**. Putting the
+This is why the site sets **no cookies for visitors** and needs **no consent banner** (the only
+cookies are the member-area session cookies, set only when someone logs in — see « Espace membre »). Putting the
 `<iframe>` elements back into the HTML would send every visitor's IP to Google on page load and
 create a Law 25 consent obligation. Keep the pattern.
 
@@ -190,3 +241,13 @@ every footer. It names the third parties that actually touch visitor data — Fo
 withdraw. **If you add, remove or replace any third party, update that page in the same commit.**
 The short notice under the form satisfies the separate obligation to inform at the moment of
 collection; keep it there.
+
+## Animations (2026-11-05)
+
+Couche d'agrément à la fin de `css/style.css` (« Animations et effets ») et de `js/main.js` :
+apparitions au défilement (`.a-reveler`, posées par le script), titres mot par mot, héros de
+l'accueil (zoom lent, lettres, parallaxe), bandeau défilant sobre sous le héros. Règles :
+rien n'est caché sans JavaScript (`html.anim`), tout s'arrête avec `prefers-reduced-motion`,
+et **aucune transformation sur `#triptyquePin` ni ses parents** (casserait l'épinglage GSAP).
+Un élément entièrement masqué par `clip-path` n'est jamais vu par IntersectionObserver : le
+masque du « rideau » est sur l'`img`, pas sur son cadre.

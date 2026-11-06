@@ -1,17 +1,36 @@
 {
   // Configuration de déploiement pour Cloudflare Workers.
-  // Le site est entièrement statique : aucune étape de compilation.
-  // Tout ce qui se trouve dans public/ est publié tel quel.
+  // Le site est statique : tout ce qui se trouve dans public/ est publié tel
+  // quel, sans compilation. Depuis le 2026-11-05, un petit Worker
+  // (src/worker.js) gère en plus l'espace membre : comptes, connexion,
+  // progression dans les modules d'apprentissage.
   "name": "lasynthase",
   "compatibility_date": "2026-08-24",
+  "main": "src/worker.js",
   "assets": {
     "directory": "./public/",
+    "binding": "ASSETS",
 
     // "/services" sert services.html, "/services/" sert services/index.html.
     // Les liens internes du site portent déjà l'extension .html : rien ne change.
     "html_handling": "auto-trailing-slash",
 
     // Une URL inexistante affiche public/404.html au lieu d'une page blanche.
-    "not_found_handling": "404-page"
-  }
+    "not_found_handling": "404-page",
+
+    // Seules ces adresses passent par le Worker ; tout le reste est servi
+    // directement, comme avant.
+    "run_worker_first": ["/api/*", "/espace*", "/modules/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "lasynthase-comptes",
+      // Identifiant réel à inscrire au moment de la mise en ligne
+      // (npx wrangler d1 create lasynthase-comptes). En local, n'importe
+      // quelle valeur fonctionne.
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ]
 }

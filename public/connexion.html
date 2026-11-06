@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connexion — La Synthase</title>
+  <meta name="description" content="Connectez-vous ou créez votre compte pour accéder aux modules d'apprentissage de La Synthase." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/espace.css" />
+</head>
+<body class="page-membre">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">La <span>Synthase</span></a>
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="articles.html">Articles</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="immersion.html" class="btn btn-gold">Immersion Signature</a>
+        <a href="contact.html" class="btn btn-primary">Entretien privé</a>
+      </nav>
+      <a href="connexion.html" class="btn-compte" data-compte><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg><span>Connexion</span></a>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero compte-hero">
+      <div class="hero-blob"></div>
+      <div class="container compte-grille">
+        <div class="compte-intro">
+          <p class="eyebrow">Espace membre</p>
+          <h1>Apprendre à votre rythme</h1>
+          <p class="lead">Votre compte donne accès aux modules d'apprentissage de La Synthase : de la théorie claire, des outils à essayer et des questions pour vérifier ce que vous avez retenu. Votre progression est sauvegardée.</p>
+          <ul class="compte-atouts">
+            <li>Premier module : la zone 2, l'endurance de base</li>
+            <li>Outils interactifs et questions corrigées sur-le-champ</li>
+            <li>Reprenez là où vous étiez, sur n'importe quel appareil</li>
+          </ul>
+        </div>
+
+        <div class="carte-compte">
+          <div class="onglets" role="tablist" data-actif="connexion">
+            <button type="button" role="tab" id="onglet-connexion" aria-controls="form-connexion" aria-selected="true">Se connecter</button>
+            <button type="button" role="tab" id="onglet-inscription" aria-controls="form-inscription" aria-selected="false">Créer un compte</button>
+            <span class="curseur" aria-hidden="true"></span>
+          </div>
+
+          <form class="form-compte" id="form-connexion" role="tabpanel" aria-labelledby="onglet-connexion" novalidate>
+            <div class="field">
+              <label for="connexion-courriel">Courriel</label>
+              <input type="email" id="connexion-courriel" name="courriel" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="connexion-mdp">Mot de passe</label>
+              <div class="champ-mdp">
+                <input type="password" id="connexion-mdp" name="motDePasse" autocomplete="current-password" required />
+                <button type="button" class="voir-mdp" aria-controls="connexion-mdp">Afficher</button>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Se connecter</button>
+            <p class="message-form" role="alert"></p>
+            <p class="note-compte">Mot de passe oublié ? Écrivez-moi à <a href="mailto:contact@lasynthase.ca">contact@lasynthase.ca</a>.</p>
+          </form>
+
+          <form class="form-compte" id="form-inscription" role="tabpanel" aria-labelledby="onglet-inscription" hidden novalidate>
+            <div class="field">
+              <label for="inscription-nom">Prénom et nom</label>
+              <input type="text" id="inscription-nom" name="nom" autocomplete="name" maxlength="80" required />
+            </div>
+            <div class="field">
+              <label for="inscription-courriel">Courriel</label>
+              <input type="email" id="inscription-courriel" name="courriel" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="inscription-mdp">Mot de passe</label>
+              <div class="champ-mdp">
+                <input type="password" id="inscription-mdp" name="motDePasse" autocomplete="new-password" minlength="10" required />
+                <button type="button" class="voir-mdp" aria-controls="inscription-mdp">Afficher</button>
+              </div>
+              <div class="force-mdp" aria-hidden="true"><span></span></div>
+              <p class="aide-champ" id="aide-mdp">Au moins 10 caractères.</p>
+            </div>
+            <label class="case-consentement">
+              <input type="checkbox" name="consentement" required />
+              <span>J'ai lu la <a href="confidentialite.html#compte" target="_blank" rel="noopener">politique de confidentialité</a> et j'accepte que mon nom, mon courriel et ma progression soient conservés pour faire fonctionner mon compte.</span>
+            </label>
+            <button type="submit" class="btn btn-primary">Créer mon compte</button>
+            <p class="message-form" role="alert"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">La Synthase</a>
+          <p>Maison privée de mieux-être — la table, le mouvement et le soin, réunis chez vous.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="menu.html">Menu dégustation</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="immersion.html">Immersion Signature</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Coordonnées</h5>
+          <ul>
+            <li><a href="mailto:contact@lasynthase.ca">contact@lasynthase.ca</a></li>
+            <li><a href="tel:+18195523047">819 552-3047</a></li>
+            <li>Ville de Québec et environs, ainsi que Victoriaville</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 La Synthase – Antoine Corbeil. Tous droits réservés.</span>
+        <span><a href="confidentialite.html">Politique de confidentialité</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/compte.js"></script>
+</body>
+</html>

@@ -1703,6 +1703,66 @@ section {
   transform: scaleX(1);
 }
 
+/* --- Bouton « Connexion » / « Mon espace » de l'en-tête (2026-11-05) ---
+   Placé entre le menu et le bouton ☰ ; margin-left:auto le colle à droite.
+   Le script (main.js) change son texte en « Mon espace » si on est connecté. */
+.btn-compte {
+  margin-left: auto;
+  margin-right: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--charcoal);
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-compte svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.btn-compte:hover {
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  color: var(--cream);
+}
+
+.accueil .site-header:not(.scrolled):not(.open) .btn-compte {
+  color: var(--cream);
+  border-color: rgba(247, 244, 238, 0.45);
+}
+
+.accueil .site-header:not(.scrolled):not(.open) .btn-compte:hover {
+  background: var(--cream);
+  border-color: var(--cream);
+  color: var(--charcoal);
+}
+
+@media (max-width: 480px) {
+  .btn-compte {
+    padding: 9px 10px;
+    margin-right: 10px;
+  }
+  .btn-compte span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
 /* --- Liens « Découvrir », « Lire l'article » : une flèche qui avance --- */
 .link {
   transition: color 0.3s ease, border-color 0.3s ease;
@@ -1859,13 +1919,16 @@ section {
   z-index: 1;
 }
 
-/* --- Bandeau défilant de l'accueil --- */
+/* --- Bandeau défilant de l'accueil ---
+   Version sobre (demande de Tony, 2026-11-05 : la première était trop
+   voyante) : petites capitales espacées, couleurs du site, simples points
+   comme séparateurs, défilement lent. */
 .defilant {
-  background: var(--charcoal);
-  color: var(--cream);
+  background: var(--cream);
+  color: var(--charcoal-soft);
   overflow: hidden;
-  padding: 24px 0;
-  border-top: 1px solid rgba(247, 244, 238, 0.08);
+  padding: 17px 0;
+  border-bottom: 1px solid var(--line);
 }
 
 .defilant-piste {
@@ -1877,18 +1940,20 @@ section {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
-  letter-spacing: 0.02em;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
 }
 
 .defilant span::after {
-  content: "\2726";
-  font-style: normal;
-  font-size: 0.6em;
-  color: var(--gold);
-  margin: 0 2.2rem;
+  content: "";
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--sage);
+  margin: 0 2.6rem;
 }
 
 /* --- Schéma des trois cercles (accueil) --- */
@@ -2068,7 +2133,7 @@ section {
 
   /* Bandeau défilant. */
   .defilant-piste {
-    animation: defile 42s linear infinite;
+    animation: defile 70s linear infinite;
   }
 
   .defilant:hover .defilant-piste {

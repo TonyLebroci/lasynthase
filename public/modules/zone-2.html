@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La zone 2, l'endurance de base — La Synthase</title>
+  <meta name="description" content="Module d'apprentissage : la zone 2, l'endurance de base." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/espace.css" />
+</head>
+<body class="page-membre">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="logo">La <span>Synthase</span></a>
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="../index.html">Accueil</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="../a-propos.html">À propos</a></li>
+          <li><a href="../articles.html">Articles</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+        <a href="../immersion.html" class="btn btn-gold">Immersion Signature</a>
+        <a href="../contact.html" class="btn btn-primary">Entretien privé</a>
+      </nav>
+      <a href="../connexion.html" class="btn-compte" data-compte><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg><span>Connexion</span></a>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero module-hero" style="padding-bottom: 50px;">
+      <div class="hero-blob"></div>
+      <div class="container">
+        <p class="eyebrow">Module 1 · Entraînement</p>
+        <h1>La zone 2, l'endurance de base</h1>
+        <p class="lead">Ce qu'elle est vraiment, comment la reconnaître chez vous, ce qu'elle développe et comment la pratiquer. Six étapes, des outils à essayer et dix questions pour vérifier ce que vous avez retenu.</p>
+      </div>
+    </section>
+
+    <section style="padding-top: 30px;">
+      <div class="container">
+        <div class="module-mise-en-page" id="module" data-module="zone-2">
+
+          <aside class="module-sommaire" aria-label="Étapes du module">
+            <div class="jauge" aria-hidden="true"><span id="jauge-module"></span></div>
+            <p class="pourcentage" id="pourcentage-module">0 % complété</p>
+            <ol id="sommaire"></ol>
+            <p class="sauvegarde" id="sauvegarde" role="status" aria-live="polite"></p>
+            <p class="note-compte" style="text-align:left;"><a href="../espace.html">&#8249; Retour à mon espace</a></p>
+          </aside>
+
+          <div class="module-contenu">
+
+            <!-- ===== Étape 1 ===== -->
+            <section class="etape" data-titre="Ce qu'est la zone 2">
+              <p class="etape-numero">Étape 1 sur 6</p>
+              <h2>Ce qu'est la zone 2</h2>
+              <p>La zone 2 est le travail <strong>long et facile</strong>, celui qui bâtit la base de toute l'endurance. Dans un système à cinq zones, elle se situe <strong>juste sous le premier seuil</strong> : le premier seuil de lactate (LT1) ou le premier seuil ventilatoire (VT1), qui en est la borne haute.</p>
+              <p>Le premier seuil, c'est le moment où, en augmentant peu à peu l'effort, le lactate dans le sang commence à monter nettement au-dessus de son niveau de repos. En dessous, l'effort se tient longtemps ; au-dessus, il coûte vite plus cher.</p>
+              <p>C'est la définition retenue en 2025 par un groupe de quatorze scientifiques et entraîneurs qui se sont mis d'accord sur ce que veut dire « zone 2 ».</p>
+
+              <h3>Le piège : deux systèmes, un même nom</h3>
+              <p>Il existe deux grandes façons de découper l'intensité. Le système à <strong>cinq zones</strong> (comme l'échelle I1 à I5 du centre olympique norvégien) sert à <em>prescrire</em> les séances. Le système à <strong>trois zones</strong> du chercheur Stephen Seiler sert à <em>décrire</em> l'entraînement, à partir de deux seuils mesurables. Dans ce second système, « zone 2 » désigne tout autre chose : l'espace <em>entre</em> les deux seuils, la fameuse « zone grise ».</p>
+
+              <div class="outil" id="outil-zones">
+                <p class="outil-titre">Outil · Trois zones contre cinq</p>
+                <p class="outil-consigne">Touchez une zone pour voir ses repères, puis demandez où se trouve la « zone 2 » dans chaque système. Schéma simplifié : les largeurs suivent les plages de fréquence cardiaque de l'échelle norvégienne.</p>
+
+                <div class="barre-zones" data-systeme="5">
+                  <p class="etiquette-barre">Système à cinq zones (prescrire)</p>
+                  <div class="segments">
+                    <button type="button" class="segment" style="flex: 17; background: #a9b79c;" data-detail="<strong>I1, récupération et endurance très facile.</strong> 55 à 72 % de la FC max, lactate 0,8 à 1,5 mmol/L, durée efficace 1 à 6 h.">I1</button>
+                    <button type="button" class="segment est-zone-2" style="flex: 10; background: var(--sage);" data-detail="<strong>I2, la zone 2 du système à cinq zones.</strong> 72 à 82 % de la FC max, lactate 1,5 à 2,5 mmol/L, durée efficace 1 à 3 h. Elle s'arrête au premier seuil.">I2</button>
+                    <button type="button" class="segment" style="flex: 5; background: var(--sage-dark);" data-detail="<strong>I3.</strong> 82 à 87 % de la FC max, lactate 2,5 à 4,0 mmol/L, durée efficace 50 à 90 min.">I3</button>
+                    <button type="button" class="segment" style="flex: 5; background: var(--gold-dark);" data-detail="<strong>I4, autour du seuil.</strong> 87 à 92 % de la FC max, lactate 4,0 à 6,0 mmol/L, durée efficace 30 à 40 min.">I4</button>
+                    <button type="button" class="segment" style="flex: 5; background: var(--terracotta);" data-detail="<strong>I5, près du maximum.</strong> 92 à 97 % de la FC max, lactate 6,0 à 10,0 mmol/L, durée efficace 15 à 25 min.">I5</button>
+                  </div>
+                </div>
+
+                <div class="barre-zones" data-systeme="3">
+                  <p class="etiquette-barre">Système à trois zones (décrire)</p>
+                  <div class="segments">
+                    <button type="button" class="segment" style="flex: 27; background: #a9b79c;" data-detail="<strong>Z1 du système à trois zones.</strong> Tout ce qui est sous le premier seuil (lactate sous environ 2 mmol/L) : elle regroupe I1 et I2.">Z1</button>
+                    <button type="button" class="segment est-zone-2" style="flex: 5; background: var(--sage-dark);" data-detail="<strong>Z2 du système à trois zones, la « zone grise ».</strong> Entre le premier et le second seuil. Rien à voir avec la zone 2 « endurance de base » : c'est l'intensité moyenne, plus exigeante.">Z2</button>
+                    <button type="button" class="segment" style="flex: 10; background: var(--terracotta);" data-detail="<strong>Z3 du système à trois zones.</strong> Au-dessus du second seuil (lactate au-dessus d'environ 4 mmol/L) : elle regroupe I4 et I5.">Z3</button>
+                  </div>
+                  <div class="repere-seuils" aria-hidden="true">
+                    <span style="left: 64.3%;">LT1</span>
+                    <span style="left: 76.2%;">LT2</span>
+                  </div>
+                </div>
+
+                <div class="detail-zone" id="detail-zone" role="status" aria-live="polite">Touchez une zone de l'une des deux barres.</div>
+                <p style="margin: 18px 0 0;"><button type="button" class="btn btn-ghost" id="montrer-zone-2">Où est la « zone 2 » ?</button></p>
+              </div>
+
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>Quand quelqu'un parle de « zone 2 », demandez toujours : dans quel système ? Dans ce module, la zone 2 est celle du système à cinq zones : juste sous le premier seuil.</p>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Sitko S. et al., « What is "zone 2 training"? Experts' viewpoint on definition, training methods, and expected adaptations », <em>International Journal of Sports Physiology and Performance</em>, 2025 (DOI 10.1123/ijspp.2024-0303) ; échelle d'intensité I1 à I5 d'Olympiatoppen ; modèle à trois zones de Seiler.</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 2 ===== -->
+            <section class="etape" data-titre="Les repères">
+              <p class="etape-numero">Étape 2 sur 6</p>
+              <h2>Les repères pour la reconnaître</h2>
+              <p>Les experts du consensus de 2025 combinent trois repères plutôt que d'en suivre un seul : la <strong>fréquence cardiaque</strong>, l'<strong>effort perçu</strong> et, quand on l'a, la <strong>puissance</strong> ou la vitesse.</p>
+              <ul>
+                <li><strong>Fréquence cardiaque :</strong> en moyenne 67 à 82 % de la FC maximale.</li>
+                <li><strong>Effort perçu :</strong> 2 à 3 sur 10. Facile, et ça doit le rester.</li>
+                <li><strong>Lactate :</strong> environ 1,5 à 2,5 mmol/L sur l'échelle norvégienne (I2).</li>
+              </ul>
+              <p>La zone 1 couvre 55 à 72 % de la FC max : les deux zones se chevauchent un peu. Le test de la parole (pouvoir encore tenir une conversation) aide, mais ne donne qu'une approximation grossière du premier seuil.</p>
+
+              <div class="encadre">
+                <p class="titre-encadre">Attention</p>
+                <p>La plage de 67 à 82 % décrit où se retrouvent <strong>en moyenne</strong> les athlètes entraînés par ces experts. Elle ne définit la zone 2 de personne en particulier. Selon le niveau d'entraînement, le premier seuil peut se situer vers 68 % comme vers 80 % de la FC max, et parfois plus haut chez un athlète très entraîné. Quand le seuil a été mesuré, c'est la mesure qui compte.</p>
+              </div>
+
+              <div class="outil" id="outil-fc">
+                <p class="outil-titre">Outil · Votre plage de départ</p>
+                <p class="outil-consigne">Entrez votre FC maximale. Si vous connaissez la fréquence cardiaque de votre premier seuil (mesurée par un test de lactate, par exemple), ajoutez-la : elle devient votre plafond.</p>
+                <div class="outil-champs">
+                  <div class="field">
+                    <label for="fc-max">FC maximale (bpm)</label>
+                    <input type="number" id="fc-max" inputmode="numeric" min="120" max="230" placeholder="ex. 190" />
+                  </div>
+                  <div class="field">
+                    <label for="fc-lt1">FC au premier seuil, si connue</label>
+                    <input type="number" id="fc-lt1" inputmode="numeric" min="80" max="225" placeholder="facultatif" />
+                  </div>
+                </div>
+                <div class="resultat" id="resultat-fc" aria-live="polite">
+                  <p>Entrez votre FC maximale pour voir votre plage.</p>
+                </div>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Sitko S. et al., 2025 (voir étape 1) ; <a href="https://www.wattkg.com/zone-2-training/" rel="noopener" target="_blank">« Zone 2 Training For Cyclists: What Coaches &amp; Scientists Do »</a>, W/KG, 2025 ; échelle I1 à I5 d'Olympiatoppen.</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 3 ===== -->
+            <section class="etape" data-titre="Ce que ça développe">
+              <p class="etape-numero">Étape 3 sur 6</p>
+              <h2>Ce que la zone 2 développe</h2>
+              <p>Voici ce que les experts du consensus <strong>s'attendent</strong> à voir avec l'entraînement en zone 2. Ce sont des attentes de spécialistes, pas des résultats mesurés dans leur étude. Touchez chaque carte.</p>
+
+              <div class="choix-cartes">
+                <button type="button" class="carte-choix" aria-expanded="false">Plus de capillaires<span class="reponse-carte">De plus petits vaisseaux sanguins autour des fibres musculaires : l'oxygène arrive mieux là où il est utilisé.</span></button>
+                <button type="button" class="carte-choix" aria-expanded="false">Plus d'enzymes mitochondriales<span class="reponse-carte">Surtout dans les fibres de type I, les fibres lentes et endurantes : le muscle produit mieux son énergie avec l'oxygène.</span></button>
+                <button type="button" class="carte-choix" aria-expanded="false">Une meilleure efficacité métabolique<span class="reponse-carte">Le même effort coûte moins cher à l'organisme.</span></button>
+                <button type="button" class="carte-choix" aria-expanded="false">Des gains modestes au sommet<span class="reponse-carte">Hausses modestes de la puissance critique et du VO2max. La zone 2 n'est pas l'outil principal pour ces deux qualités.</span></button>
+                <button type="button" class="carte-choix" aria-expanded="false">Une zone 2 plus « rapide »<span class="reponse-carte">La puissance (ou la vitesse) que vous tenez en zone 2 se rapproche de celle que vous tenez au seuil.</span></button>
+              </div>
+
+              <div class="encadre">
+                <p class="titre-encadre">Une nuance importante</p>
+                <p>Les adaptations forment un continuum : elles ne s'allument pas d'un coup à la frontière d'une zone. On attend peu de différence entre le haut de la zone 1, la zone 2 et le bas de la zone 3. Ce qui compte surtout, c'est d'accumuler beaucoup de temps facile, régulièrement.</p>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Sitko S. et al., 2025 ; W/KG, 2025 (lecture de l'auteur, lui-même coauteur du consensus).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 4 ===== -->
+            <section class="etape" data-titre="La pratiquer">
+              <p class="etape-numero">Étape 4 sur 6</p>
+              <h2>La pratiquer</h2>
+              <h3>Les formats de séance</h3>
+              <ul>
+                <li><strong>Continu</strong> : de 1 à 3 heures, de préférence plus de 2 heures pour les experts du consensus, avec une fréquence cardiaque stable.</li>
+                <li><strong>Continu varié</strong> : même intensité, mais en changeant de terrain ou de parcours pour éviter l'ennui.</li>
+                <li><strong>Autour des intervalles</strong> : de la zone 2 avant ou après une séance d'intervalles.</li>
+              </ul>
+              <h3>La règle de fin de sortie</h3>
+              <p>Sur une longue sortie, la fatigue s'installe. Si votre FC ou votre effort perçu montent alors que vous gardez la même allure, <strong>ralentissez</strong> (ou baissez la puissance) pour rester en zone 2. Une bonne séance de zone 2 ne montre pas de dérive cardiaque marquée.</p>
+
+              <div class="outil" id="outil-causes">
+                <p class="outil-titre">Outil · Pourquoi ma FC monte-t-elle ?</p>
+                <p class="outil-consigne">Vos jambes tournent à la même vitesse, mais votre FC grimpe d'une zone. Est-ce encore de la zone 2 ? Ça dépend de la cause. Touchez chacune.</p>
+                <div class="choix-cartes" style="margin: 0;">
+                  <button type="button" class="carte-choix" aria-expanded="false">Je pousse plus fort avec les bras<span class="reponse-carte"><strong>Encore de la zone 2 pour les jambes.</strong> La FC est un signal global : les bras s'ajoutent par-dessus le travail des jambes, qui reste au même niveau. La séance coûte toutefois plus de fatigue générale. (Cas typique en ski-alpinisme, avec les bâtons.)</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Il fait chaud<span class="reponse-carte"><strong>Ralentissez.</strong> La chaleur fait monter la FC sans que ce soit un travail de plus pour les jambes ; gardez la FC comme plafond lors d'une journée facile.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Je n'ai pas assez bu<span class="reponse-carte"><strong>Ralentissez et buvez.</strong> La déshydratation fait monter la FC ; ce n'est plus la séance facile prévue.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Je roule depuis deux heures<span class="reponse-carte"><strong>C'est la dérive cardiaque.</strong> La fatigue s'installe : baissez l'allure pour rester en zone 2, comme le veut la règle de fin de sortie.</span></button>
+                </div>
+              </div>
+
+              <div class="encadre">
+                <p class="titre-encadre">Le bon réflexe</p>
+                <p>Regardez la vitesse ou la puissance <strong>avec</strong> la fréquence cardiaque, pas la FC seule. Et pour connaître votre vrai premier seuil, rien ne remplace un test de lactate par paliers.</p>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Sitko S. et al., 2025 ; W/KG, 2025.</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 5 ===== -->
+            <section class="etape" data-titre="Le test des 10 %">
+              <p class="etape-numero">Étape 5 sur 6</p>
+              <h2>Votre base est-elle assez solide ? Le test des 10 %</h2>
+              <p>Les entraîneurs d'Uphill Athlete, spécialistes de l'endurance en montagne, proposent un test simple pour savoir s'il faut encore bâtir sa base en zones 1 et 2 avant d'ajouter de l'intensité. On compare deux fréquences cardiaques :</p>
+              <ul>
+                <li>la FC au <strong>seuil aérobie</strong> (le premier seuil) ;</li>
+                <li>la FC au <strong>seuil anaérobie</strong> (le second seuil), qu'on estime par exemple avec un contre-la-montre de 30 à 60 minutes.</li>
+              </ul>
+              <p>Si l'écart dépasse <strong>10 %</strong>, la base aérobie est en retard : on continue le volume facile et on refait le test plus tard. Si l'écart est de 10 % ou moins, on peut commencer à ajouter de l'intensité, en petite dose.</p>
+
+              <div class="outil" id="outil-10">
+                <p class="outil-titre">Outil · Calculez votre écart</p>
+                <p class="outil-consigne">Entrez vos deux fréquences cardiaques de seuil.</p>
+                <div class="outil-champs">
+                  <div class="field">
+                    <label for="fc-aet">FC au seuil aérobie (bpm)</label>
+                    <input type="number" id="fc-aet" inputmode="numeric" min="80" max="220" placeholder="ex. 140" />
+                  </div>
+                  <div class="field">
+                    <label for="fc-ant">FC au seuil anaérobie (bpm)</label>
+                    <input type="number" id="fc-ant" inputmode="numeric" min="90" max="230" placeholder="ex. 158" />
+                  </div>
+                </div>
+                <div class="resultat" id="resultat-10" aria-live="polite">
+                  <p>Entrez les deux valeurs pour voir votre écart.</p>
+                </div>
+              </div>
+
+              <div class="encadre">
+                <p class="titre-encadre">À savoir</p>
+                <p>Ce seuil de 10 % est une <strong>règle d'entraîneur</strong>, pas une limite établie par la recherche. Repères donnés par Uphill Athlete : 5 à 7 % chez les athlètes d'endurance d'élite, souvent 25 à 30 % chez ceux qui commencent avec eux. C'est un bon outil de suivi, pas un diagnostic.</p>
+              </div>
+
+              <div class="sources">
+                <p>Source : <a href="https://www.uphillathlete.com/when-to-add-intensity-training/" rel="noopener" target="_blank">« When and How to Add High-Intensity Training: The 10 Percent Test »</a>, Uphill Athlete.</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 6 : questions ===== -->
+            <section class="etape" data-titre="Questions">
+              <p class="etape-numero">Étape 6 sur 6</p>
+              <h2>Vérifiez ce que vous avez retenu</h2>
+              <p>Dix questions. Votre première réponse compte ; l'explication s'affiche tout de suite.</p>
+
+              <div id="quiz">
+                <div class="question" data-id="q1" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 1</span>Dans un système à cinq zones, où se situe la zone 2 ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Juste sous le premier seuil (LT1 ou VT1)</button>
+                    <button type="button" data-choix="b">Entre le premier et le second seuil</button>
+                    <button type="button" data-choix="c">Juste au-dessus du seuil anaérobie</button>
+                  </div>
+                  <div class="explication" hidden>Le premier seuil en est la borne haute. C'est la définition du consensus d'experts de 2025.</div>
+                </div>
+
+                <div class="question" data-id="q2" data-bonne="b">
+                  <p class="enonce"><span class="num-question">Question 2</span>Dans le modèle à trois zones de Seiler, « Z2 » désigne…</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">l'endurance facile, sous le premier seuil</button>
+                    <button type="button" data-choix="b">l'intensité entre les deux seuils, la « zone grise »</button>
+                    <button type="button" data-choix="c">la récupération active</button>
+                  </div>
+                  <div class="explication">Même nom, autre chose : c'est pourquoi il faut toujours demander de quel système on parle.</div>
+                </div>
+
+                <div class="question" data-id="q3" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 3</span>Quel effort perçu correspond en général à la zone 2 ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">2 à 3 sur 10</button>
+                    <button type="button" data-choix="b">5 à 6 sur 10</button>
+                    <button type="button" data-choix="c">7 à 8 sur 10</button>
+                  </div>
+                  <div class="explication">Facile, et ça doit le rester, même en fin de sortie.</div>
+                </div>
+
+                <div class="question" data-id="q4" data-type="nombre" data-min="154" data-max="158">
+                  <p class="enonce"><span class="num-question">Question 4</span>Votre FC max est de 190 bpm. Quelle est la borne haute de la plage type de zone 2 (82 %), arrondie au battement près ?</p>
+                  <div class="reponse-nombre">
+                    <input type="number" inputmode="numeric" aria-label="Votre réponse en battements par minute" placeholder="bpm" />
+                    <button type="button" class="btn btn-primary">Vérifier</button>
+                  </div>
+                  <div class="explication">190 × 0,82 = 155,8, donc environ 156 bpm. Un point de départ seulement : un seuil mesuré prime.</div>
+                </div>
+
+                <div class="question" data-id="q5" data-bonne="b">
+                  <p class="enonce"><span class="num-question">Question 5</span>Vrai ou faux : la plage de 67 à 82 % de la FC max définit précisément la zone 2 de chacun.</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Vrai</button>
+                    <button type="button" data-choix="b">Faux</button>
+                  </div>
+                  <div class="explication">Elle décrit où se retrouvent en moyenne des athlètes entraînés. D'une personne à l'autre, le premier seuil varie beaucoup.</div>
+                </div>
+
+                <div class="question" data-id="q6" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 6</span>Après deux heures à vitesse constante, votre FC et votre effort perçu montent. Que faire pour rester en zone 2 ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Ralentir ou baisser la puissance</button>
+                    <button type="button" data-choix="b">Garder la même vitesse</button>
+                    <button type="button" data-choix="c">Accélérer pour finir plus vite</button>
+                  </div>
+                  <div class="explication">C'est la règle de fin de sortie : on ajuste l'allure pour garder l'intensité.</div>
+                </div>
+
+                <div class="question" data-id="q7" data-bonne="d">
+                  <p class="enonce"><span class="num-question">Question 7</span>Laquelle n'est <em>pas</em> une adaptation attendue de la zone 2 ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Plus de capillaires dans les muscles</button>
+                    <button type="button" data-choix="b">Plus d'enzymes mitochondriales dans les fibres lentes</button>
+                    <button type="button" data-choix="c">Une meilleure efficacité métabolique</button>
+                    <button type="button" data-choix="d">Une forte hausse de la vitesse de sprint</button>
+                  </div>
+                  <div class="explication">La zone 2 travaille l'endurance de base. Même pour le VO2max et la puissance critique, les experts n'attendent que des gains modestes.</div>
+                </div>
+
+                <div class="question" data-id="q8" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 8</span>Seuil aérobie à 140 bpm, seuil anaérobie à 161 bpm : écart de 15 %. Que conseille le test des 10 % ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Bâtir encore la base en zones 1 et 2 avant d'ajouter de l'intensité</button>
+                    <button type="button" data-choix="b">Ajouter tout de suite deux séances intenses par semaine</button>
+                    <button type="button" data-choix="c">Arrêter l'entraînement facile</button>
+                  </div>
+                  <div class="explication">161 ÷ 140 = 1,15 : plus de 10 % d'écart, la base aérobie est en retard. On refait le test après un bloc de volume facile.</div>
+                </div>
+
+                <div class="question" data-id="q9" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 9</span>En ski-alpinisme, vous poussez plus fort sur les bâtons à la même vitesse de jambes. Votre FC monte d'une zone. Pour vos jambes, c'est…</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">encore essentiellement de la zone 2</button>
+                    <button type="button" data-choix="b">devenu de la zone 3</button>
+                  </div>
+                  <div class="explication">La FC est un signal global : le travail des bras s'ajoute, celui des jambes ne change pas. La séance coûte toutefois plus de fatigue générale.</div>
+                </div>
+
+                <div class="question" data-id="q10" data-bonne="b">
+                  <p class="enonce"><span class="num-question">Question 10</span>Le seuil de 10 % du test d'Uphill Athlete est…</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">une limite démontrée par de nombreuses études</button>
+                    <button type="button" data-choix="b">une règle d'entraîneur, utile pour le suivi</button>
+                    <button type="button" data-choix="c">un diagnostic médical</button>
+                  </div>
+                  <div class="explication">C'est un repère pratique d'entraîneurs, pas un seuil issu de la recherche.</div>
+                </div>
+              </div>
+
+              <div class="bilan-quiz" id="bilan-quiz" hidden>
+                <p class="score" id="score-quiz">0 / 10</p>
+                <p id="message-quiz"></p>
+                <button type="button" class="btn" id="recommencer-quiz">Recommencer les questions</button>
+                <a href="../espace.html" class="btn">Retour à mon espace</a>
+              </div>
+            </section>
+
+            <div class="navigation-etapes">
+              <button type="button" class="btn btn-ghost" id="etape-precedente">Précédent</button>
+              <button type="button" class="btn btn-primary" id="etape-suivante">Suivant</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo">La Synthase</a>
+          <p>Maison privée de mieux-être — la table, le mouvement et le soin, réunis chez vous.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="../menu.html">Menu dégustation</a></li>
+            <li><a href="../a-propos.html">À propos</a></li>
+            <li><a href="../articles.html">Articles</a></li>
+            <li><a href="../immersion.html">Immersion Signature</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Coordonnées</h5>
+          <ul>
+            <li><a href="mailto:contact@lasynthase.ca">contact@lasynthase.ca</a></li>
+            <li><a href="tel:+18195523047">819 552-3047</a></li>
+            <li>Ville de Québec et environs, ainsi que Victoriaville</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 La Synthase – Antoine Corbeil. Tous droits réservés.</span>
+        <span><a href="../confidentialite.html">Politique de confidentialité</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/module.js"></script>
+  <script src="../js/zone-2.js"></script>
+</body>
+</html>

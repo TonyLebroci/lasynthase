@@ -2,3 +2,5 @@
 .DS_Store
 _a-supprimer/
 __pycache__/
+.wrangler/
+node_modules/

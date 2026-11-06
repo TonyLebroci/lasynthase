@@ -138,6 +138,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+/* ===== Bouton de l'espace membre (2026-11-05) =====
+   Le serveur pose le témoin « ls_connecte=1 » à la connexion (il ne contient
+   aucun secret ; la vraie session est dans un témoin illisible par le
+   script). S'il est là, le bouton mène à l'espace au lieu de la connexion. */
+(function () {
+  if (!/(?:^|;\s*)ls_connecte=1/.test(document.cookie)) return;
+  document.querySelectorAll("[data-compte]").forEach(function (b) {
+    b.setAttribute("href", b.getAttribute("href").replace("connexion.html", "espace.html"));
+    var texte = b.querySelector("span");
+    if (texte) texte.textContent = "Mon espace";
+  });
+})();
+
 /* ===== Animations et effets (2026-11-05) =====
    Tout ce qui suit est une couche d'agrément : sans JavaScript, ou si le
    visiteur a demandé moins de mouvement (prefers-reduced-motion), le site

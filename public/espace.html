@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon espace — La Synthase</title>
+  <meta name="description" content="Vos modules d'apprentissage La Synthase." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/espace.css" />
+</head>
+<body class="page-membre">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">La <span>Synthase</span></a>
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="articles.html">Articles</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="immersion.html" class="btn btn-gold">Immersion Signature</a>
+        <a href="contact.html" class="btn btn-primary">Entretien privé</a>
+      </nav>
+      <a href="connexion.html" class="btn-compte" data-compte><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg><span>Connexion</span></a>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="padding-bottom: 50px;">
+      <div class="hero-blob"></div>
+      <div class="container">
+        <p class="eyebrow">Mon espace</p>
+        <h1>Vos modules d'apprentissage</h1>
+        <p class="lead">Bonjour <span id="nom-membre">et bienvenue</span>. Reprenez là où vous étiez, ou commencez un nouveau module.</p>
+      </div>
+    </section>
+
+    <section style="padding-top: 30px;">
+      <div class="container">
+        <div class="modules-grille">
+          <article class="module-carte" data-module="zone-2" data-total="16">
+            <div class="module-visuel" aria-hidden="true">
+              <svg viewBox="0 0 640 280" preserveAspectRatio="xMidYMid slice">
+                <rect width="640" height="280" fill="#201f1b" />
+                <g opacity="0.9">
+                  <rect x="0" y="196" width="259" height="84" fill="#a9b79c" opacity="0.35" />
+                  <rect x="262" y="150" width="152" height="130" fill="#7c9070" />
+                  <rect x="417" y="120" width="74" height="160" fill="#55654a" opacity="0.7" />
+                  <rect x="494" y="92" width="74" height="188" fill="#8a6c34" opacity="0.55" />
+                  <rect x="571" y="64" width="69" height="216" fill="#b06a4f" opacity="0.45" />
+                </g>
+                <text x="338" y="226" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, serif" font-size="46" font-style="italic" fill="#f7f4ee">2</text>
+              </svg>
+              <span class="numero">Module 1 · Entraînement</span>
+            </div>
+            <div class="module-corps">
+              <h3>La zone 2, l'endurance de base</h3>
+              <p>Ce qu'elle est vraiment, comment la reconnaître chez vous, ce qu'elle développe et comment la pratiquer.</p>
+              <p class="module-meta">6 étapes · 3 outils · 10 questions</p>
+              <div class="jauge" aria-hidden="true"><span></span></div>
+              <p class="module-etat">Pas encore commencé.</p>
+              <a href="modules/zone-2.html" class="btn btn-primary">Commencer</a>
+            </div>
+          </article>
+
+          <div class="module-carte a-venir">
+            <p>D'autres modules suivront.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt">
+      <div class="container">
+        <div class="compte-reglages">
+          <div>
+            <h3>Mon compte</h3>
+            <p>Connecté avec <strong id="courriel-membre">votre courriel</strong>.</p>
+            <button type="button" class="btn btn-ghost" id="deconnexion">Me déconnecter</button>
+          </div>
+          <div>
+            <h3>Mes données</h3>
+            <p>Votre compte ne garde que votre nom, votre courriel et votre progression. Vous pouvez le supprimer vous-même, en tout temps : tout est effacé aussitôt.</p>
+            <details class="zone-danger">
+              <summary>Supprimer mon compte</summary>
+              <form id="form-suppression" class="form-compte" style="padding: 0;" novalidate>
+                <div class="field">
+                  <label for="suppression-mdp">Confirmez avec votre mot de passe</label>
+                  <input type="password" id="suppression-mdp" autocomplete="current-password" required />
+                </div>
+                <button type="submit" class="btn btn-danger">Supprimer définitivement</button>
+                <p class="message-form" role="alert"></p>
+              </form>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">La Synthase</a>
+          <p>Maison privée de mieux-être — la table, le mouvement et le soin, réunis chez vous.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="menu.html">Menu dégustation</a></li>
+            <li><a href="a-propos.html">À propos</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="immersion.html">Immersion Signature</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Coordonnées</h5>
+          <ul>
+            <li><a href="mailto:contact@lasynthase.ca">contact@lasynthase.ca</a></li>
+            <li><a href="tel:+18195523047">819 552-3047</a></li>
+            <li>Ville de Québec et environs, ainsi que Victoriaville</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 La Synthase – Antoine Corbeil. Tous droits réservés.</span>
+        <span><a href="confidentialite.html">Politique de confidentialité</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/compte.js"></script>
+</body>
+</html>
