@@ -1620,3 +1620,560 @@ section {
     grid-template-columns: 1fr;
   }
 }
+
+/* =====================================================================
+   ===== Animations et effets (2026-11-05) =====
+   Demande de Tony : un site plus vivant, plus dynamique. Tout le mouvement
+   est réservé aux visiteurs qui n'ont pas demandé « moins d'animations »
+   (prefers-reduced-motion) ; les états cachés avant apparition n'existent
+   que sous html.anim, posé par js/main.js : sans JavaScript, rien n'est
+   caché. Ne jamais animer #triptyquePin ni ses parents (épinglage GSAP).
+   ===================================================================== */
+
+/* --- Barre de progression de lecture (créée par le script) --- */
+.barre-progression {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 120;
+  background: linear-gradient(90deg, var(--sage), var(--gold), var(--terracotta));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+/* --- En-tête : ombre au défilement ; sur l'accueil, il s'affine --- */
+.site-header {
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.site-header.scrolled {
+  box-shadow: 0 12px 32px -22px rgba(32, 31, 27, 0.45);
+}
+
+.accueil .site-header {
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.site-header .container {
+  transition: height 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.accueil .site-header.scrolled .container {
+  height: 72px;
+}
+
+/* Le menu se place sous l'en-tête, quelle que soit sa hauteur. */
+.site-header.open .nav {
+  top: 100%;
+}
+
+/* Bouton menu : les trois traits deviennent une croix. */
+.nav-toggle span {
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.25s ease, background 0.35s ease;
+}
+
+.site-header.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.site-header.open .nav-toggle span:nth-child(2) { opacity: 0; }
+.site-header.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Liens du menu : le trait se dessine de gauche à droite. */
+.nav-links a {
+  position: relative;
+  border-bottom: none;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--sage-dark);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  transform: scaleX(1);
+}
+
+/* --- Liens « Découvrir », « Lire l'article » : une flèche qui avance --- */
+.link {
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.link::after {
+  content: "\2192";
+  display: inline-block;
+  margin-left: 0.6em;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.link:hover {
+  color: var(--gold-dark);
+  border-bottom-color: var(--gold);
+}
+
+.link:hover::after {
+  transform: translateX(5px);
+}
+
+/* --- Cartes (articles, menus, Immersion) : relief, filet de couleur, halo --- */
+.article-card {
+  position: relative;
+  overflow: hidden;
+  transition: background 0.35s ease, transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.5s ease;
+}
+
+.article-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--sage), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.article-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(320px circle at var(--x, 50%) var(--y, 0%), rgba(171, 138, 75, 0.13), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.article-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 50px -30px rgba(32, 31, 27, 0.5);
+}
+
+.article-card:hover::before { transform: scaleX(1); }
+.article-card:hover::after { opacity: 1; }
+
+/* --- Petits mouvements au survol --- */
+.pillar-icon,
+.approach-list .num,
+.contact-detail .icon {
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.pillar-card:hover .pillar-icon { transform: translateX(6px); color: var(--gold-dark); }
+.approach-list li:hover .num { transform: translateX(5px); color: var(--gold-dark); }
+.contact-detail:hover .icon { transform: rotate(-10deg) scale(1.08); border-color: var(--gold); color: var(--gold-dark); }
+
+.service-visual,
+.approach-visual {
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.6s ease;
+}
+
+.service-visual:hover,
+.approach-visual:hover {
+  box-shadow: 0 30px 60px -34px rgba(32, 31, 27, 0.55);
+}
+
+.service-visual img,
+.article-photo img {
+  transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.service-visual:hover img,
+.article-photo:hover img {
+  transform: scale(1.06);
+}
+
+.footer-col a {
+  display: inline-block;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-col a:hover { transform: translateX(4px); }
+
+.field input,
+.field select,
+.field textarea {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  box-shadow: 0 0 0 4px rgba(124, 144, 112, 0.16);
+}
+
+/* --- Taches de couleur du haut des pages : une seconde, dorée, en bas à gauche --- */
+.hero::before {
+  content: "";
+  position: absolute;
+  bottom: -200px;
+  left: -180px;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  background: radial-gradient(circle closest-side, var(--gold) 0%, transparent 100%);
+  opacity: 0.14;
+  z-index: 0;
+  pointer-events: none;
+  translate: calc(var(--mx, 0) * 36px) calc(var(--my, 0) * 36px);
+  transition: translate 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.hero-blob {
+  /* Dégradé fondu jusqu'au bord du cercle : en dérivant, la tache ne doit
+     jamais montrer de contour net. */
+  background: radial-gradient(circle closest-side, var(--sage) 0%, transparent 100%);
+  opacity: 0.26;
+  translate: calc(var(--mx, 0) * -50px) calc(var(--my, 0) * -50px);
+  transition: translate 1s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* --- Bandeau du bas de page : lueur sage et or --- */
+.cta-band {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-band::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 32% 42%, rgba(124, 144, 112, 0.3), transparent 32%),
+    radial-gradient(circle at 68% 58%, rgba(171, 138, 75, 0.22), transparent 30%);
+  pointer-events: none;
+}
+
+.cta-band .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Bandeau défilant de l'accueil --- */
+.defilant {
+  background: var(--charcoal);
+  color: var(--cream);
+  overflow: hidden;
+  padding: 24px 0;
+  border-top: 1px solid rgba(247, 244, 238, 0.08);
+}
+
+.defilant-piste {
+  display: flex;
+  width: max-content;
+}
+
+.defilant span {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+  letter-spacing: 0.02em;
+}
+
+.defilant span::after {
+  content: "\2726";
+  font-style: normal;
+  font-size: 0.6em;
+  color: var(--gold);
+  margin: 0 2.2rem;
+}
+
+/* --- Schéma des trois cercles (accueil) --- */
+.approach-visual .anneau,
+.approach-visual .halo-vous {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.approach-visual .halo-vous {
+  opacity: 0;
+}
+
+/* --- Accueil : trait doré entre le titre et la devise --- */
+.hero-accueil .devise::before {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 1px;
+  margin: 0 auto 22px;
+  background: var(--gold);
+}
+
+.mot-lettres {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.titre-decoupe .mot {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.titre-decoupe .mot > span {
+  display: inline-block;
+}
+
+/* =====================================================================
+   Mouvement : seulement si le visiteur n'a pas demandé moins d'animations
+   ===================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Arrivée de la page : fondu (opacité seulement : une transformation sur
+     <main> casserait l'épinglage du triptyque). */
+  main {
+    animation: page-entre 0.7s ease backwards;
+  }
+
+  /* Boutons : reflet qui traverse, léger soulèvement. */
+  .btn {
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease,
+                transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease;
+  }
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -80%;
+    width: 50%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.75s ease;
+    pointer-events: none;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px -16px rgba(32, 31, 27, 0.6);
+  }
+
+  .btn:hover::after {
+    left: 135%;
+  }
+
+  /* Menu déroulant : glisse et ses liens arrivent en cascade. */
+  .site-header.open .nav {
+    animation: menu-ouvre 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .site-header.open .nav-links li,
+  .site-header.open .nav > .btn {
+    animation: monte-court 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .site-header.open .nav-links li:nth-child(2) { animation-delay: 0.04s; }
+  .site-header.open .nav-links li:nth-child(3) { animation-delay: 0.08s; }
+  .site-header.open .nav-links li:nth-child(4) { animation-delay: 0.12s; }
+  .site-header.open .nav-links li:nth-child(5) { animation-delay: 0.16s; }
+  .site-header.open .nav > .btn { animation-delay: 0.22s; }
+
+  /* Héros plein écran : zoom lent sur chaque photo (effet Ken Burns),
+     vers un point différent pour chacune. */
+  .hero-accueil .diapo.active img,
+  .hero-accueil .diapo.sortante img {
+    animation: ken-burns 7.5s ease-out forwards;
+  }
+
+  .hero-accueil .diapo:nth-child(2) img { transform-origin: 30% 65%; }
+  .hero-accueil .diapo:nth-child(3) img { transform-origin: 70% 35%; }
+
+  /* Entrée du texte de l'accueil. */
+  .hero-accueil .hero-centre .eyebrow {
+    animation: descend 1.1s 0.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero-accueil h1 {
+    animation: monte 1.2s 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero-accueil h1.en-lettres {
+    animation: none;
+  }
+
+  .hero-accueil .lettre {
+    display: inline-block;
+    animation: lettre-entre 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(0.45s + var(--i) * 0.065s);
+  }
+
+  .hero-accueil .devise {
+    animation: monte 1.2s 1.25s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero-accueil .devise::before {
+    animation: trait 1.2s 1.5s cubic-bezier(0.6, 0, 0.2, 1) both;
+  }
+
+  .fleche-defiler {
+    animation: apparait 1s 2s ease both, flotte 2.2s 2s ease-in-out infinite;
+  }
+
+  /* Haut des pages intérieures et des articles : entrée en cascade. */
+  body:not(.accueil) .hero .container > *,
+  .article-header > * {
+    animation: monte 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  body:not(.accueil) .hero .container > :nth-child(2),
+  .article-header > :nth-child(2) { animation-delay: 0.12s; }
+  body:not(.accueil) .hero .container > :nth-child(3),
+  .article-header > :nth-child(3) { animation-delay: 0.3s; }
+  body:not(.accueil) .hero .container > :nth-child(4) { animation-delay: 0.45s; }
+
+  body:not(.accueil) .hero h1.titre-decoupe {
+    animation: none;
+  }
+
+  /* Titres découpés en mots : chaque mot monte de derrière un masque. */
+  .anim .titre-decoupe .mot > span {
+    transform: translateY(110%);
+  }
+
+  .anim .titre-decoupe.titre-pret .mot > span {
+    transform: none;
+    transition: transform 1.05s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s);
+  }
+
+  /* Taches de couleur qui dérivent et changent de forme. */
+  .hero-blob {
+    animation: tache-derive 18s ease-in-out infinite alternate;
+  }
+
+  .hero::before {
+    animation: tache-derive 22s ease-in-out -7s infinite alternate-reverse;
+  }
+
+  .cta-band::before {
+    animation: lueur 16s ease-in-out infinite alternate;
+  }
+
+  /* Bandeau défilant. */
+  .defilant-piste {
+    animation: defile 42s linear infinite;
+  }
+
+  .defilant:hover .defilant-piste {
+    animation-play-state: paused;
+  }
+
+  /* Apparition au défilement (classes posées par js/main.js). */
+  .anim .a-reveler {
+    opacity: 0;
+    transform: translate3d(0, 36px, 0);
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.65, 0.3, 1) var(--delai, 0s),
+      transform 1.05s cubic-bezier(0.2, 0.65, 0.3, 1) var(--delai, 0s);
+  }
+
+  .anim .a-reveler.rv-droite { transform: translate3d(52px, 0, 0); }
+  .anim .a-reveler.rv-zoom { transform: scale(0.93); }
+
+  /* Rideau : le masque est sur la photo, pas sur son cadre. Un élément
+     entièrement masqué compte comme invisible pour IntersectionObserver,
+     et son apparition ne se déclencherait jamais. */
+  .anim .a-reveler.rv-rideau {
+    opacity: 1;
+    transform: none;
+  }
+
+  .anim .a-reveler.rv-rideau img {
+    clip-path: inset(0 100% 0 0);
+    transform: scale(1.2);
+    transition:
+      clip-path 1.3s cubic-bezier(0.7, 0, 0.2, 1) var(--delai, 0s),
+      transform 1.8s cubic-bezier(0.2, 0.65, 0.3, 1) var(--delai, 0s);
+  }
+
+  .anim .a-reveler.revele {
+    opacity: 1;
+    transform: none;
+  }
+
+  .anim .a-reveler.revele img {
+    clip-path: inset(0 0 0 0);
+    transform: none;
+  }
+
+  /* Les trois cercles se dessinent, se rejoignent sur « vous », puis respirent. */
+  .anim .approach-visual .anneau {
+    opacity: 0;
+    stroke-dasharray: 943;
+    stroke-dashoffset: 943;
+    transition: stroke-dashoffset 2.2s cubic-bezier(0.6, 0, 0.2, 1),
+                opacity 1s ease, transform 1.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .anim .approach-visual .anneau-1 { transform: translate(0, -48px); transition-delay: 0.2s; }
+  .anim .approach-visual .anneau-2 { transform: translate(-44px, 26px); transition-delay: 0.4s; }
+  .anim .approach-visual .anneau-3 { transform: translate(44px, 26px); transition-delay: 0.6s; }
+
+  .anim .approach-visual.vu .anneau {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    transform: none;
+  }
+
+  .anim .approach-visual.vu .anneau-1 { animation: respire 7s 2.6s ease-in-out infinite; }
+  .anim .approach-visual.vu .anneau-2 { animation: respire 7s 3.2s ease-in-out infinite; }
+  .anim .approach-visual.vu .anneau-3 { animation: respire 7s 3.8s ease-in-out infinite; }
+
+  .anim .approach-visual text {
+    opacity: 0;
+    transition: opacity 1.2s ease 1.6s;
+  }
+
+  .anim .approach-visual.vu text {
+    opacity: 1;
+  }
+
+  .approach-visual .halo-vous {
+    animation: pouls 2.8s ease-out infinite;
+  }
+}
+
+@keyframes page-entre { from { opacity: 0; } to { opacity: 1; } }
+@keyframes apparait { from { opacity: 0; } to { opacity: 1; } }
+@keyframes monte { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes monte-court { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes descend { from { opacity: 0; transform: translateY(-16px); } to { opacity: 0.85; transform: none; } }
+@keyframes menu-ouvre { from { opacity: 0; transform: translateY(-12px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes ken-burns { from { transform: scale(1); } to { transform: scale(1.13); } }
+@keyframes trait { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes defile { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes respire { 0%, 100% { scale: 1; } 50% { scale: 1.045; } }
+@keyframes pouls { 0% { opacity: 0.7; scale: 1; } 100% { opacity: 0; scale: 7; } }
+
+@keyframes lettre-entre {
+  from { opacity: 0; transform: translateY(0.45em) rotate(6deg); filter: blur(10px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+@keyframes tache-derive {
+  0% { transform: translate(0, 0) scale(1); border-radius: 50%; }
+  50% { transform: translate(-60px, 50px) scale(1.12); border-radius: 42% 58% 55% 45% / 50% 40% 60% 50%; }
+  100% { transform: translate(-20px, 110px) scale(0.94); border-radius: 55% 45% 40% 60% / 45% 60% 40% 55%; }
+}
+
+@keyframes lueur {
+  from { transform: translate(-7%, -4%) rotate(0deg); }
+  to { transform: translate(7%, 5%) rotate(22deg); }
+}
