@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  /* --- Trois zones contre cinq --- */
+  /* --- Les cinq zones --- */
   var detail = document.getElementById("detail-zone");
   var segments = document.querySelectorAll("#outil-zones .segment");
   segments.forEach(function (s) {
@@ -21,9 +21,8 @@
         void b.offsetWidth; // relance l'animation
         b.classList.add("montre");
       });
-      detail.innerHTML = "<strong>Les deux cases dorées portent le même nom, mais ce n'est pas la même intensité.</strong> " +
-        "Dans le système à cinq zones, la zone 2 (I2) est sous le premier seuil : l'endurance de base. " +
-        "Dans le système à trois zones, la Z2 est entre les deux seuils : la « zone grise ».";
+      detail.innerHTML = "<strong>La zone 2, c'est I2.</strong> " +
+        "Elle s'arrête au premier seuil (LT1) : 72 à 82 % de la FC max sur l'échelle norvégienne, lactate 1,5 à 2,5 mmol/L.";
     });
   }
 

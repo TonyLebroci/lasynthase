@@ -41,7 +41,7 @@
       <div class="container">
         <p class="eyebrow">Module 1 · Entraînement</p>
         <h1>La zone 2, l'endurance de base</h1>
-        <p class="lead">Ce qu'elle est vraiment, comment la reconnaître chez vous, ce qu'elle développe et comment la pratiquer. Six étapes, des outils à essayer et dix questions pour vérifier ce que vous avez retenu.</p>
+        <p class="lead">Ce qu'elle est vraiment, comment la reconnaître chez vous, ce qui se passe dans vos muscles, ce qu'elle développe et comment la pratiquer. Huit étapes, des outils à essayer et treize questions pour vérifier ce que vous avez retenu.</p>
       </div>
     </section>
 
@@ -61,21 +61,18 @@
 
             <!-- ===== Étape 1 ===== -->
             <section class="etape" data-titre="Ce qu'est la zone 2">
-              <p class="etape-numero">Étape 1 sur 6</p>
+              <p class="etape-numero">Étape 1 sur 8</p>
               <h2>Ce qu'est la zone 2</h2>
-              <p>La zone 2 est le travail <strong>long et facile</strong>, celui qui bâtit la base de toute l'endurance. Dans un système à cinq zones, elle se situe <strong>juste sous le premier seuil</strong> : le premier seuil de lactate (LT1) ou le premier seuil ventilatoire (VT1), qui en est la borne haute.</p>
+              <p>La zone 2 est le travail <strong>long et facile</strong>, celui qui bâtit la base de toute l'endurance. On découpe l'intensité en <strong>cinq zones</strong>, comme l'échelle I1 à I5 du centre olympique norvégien. La zone 2 s'y situe <strong>juste sous le premier seuil</strong> : le premier seuil de lactate (LT1) ou le premier seuil ventilatoire (VT1), qui en est la borne haute.</p>
               <p>Le premier seuil, c'est le moment où, en augmentant peu à peu l'effort, le lactate dans le sang commence à monter nettement au-dessus de son niveau de repos. En dessous, l'effort se tient longtemps ; au-dessus, il coûte vite plus cher.</p>
               <p>C'est la définition retenue en 2025 par un groupe de quatorze scientifiques et entraîneurs qui se sont mis d'accord sur ce que veut dire « zone 2 ».</p>
 
-              <h3>Le piège : deux systèmes, un même nom</h3>
-              <p>Il existe deux grandes façons de découper l'intensité. Le système à <strong>cinq zones</strong> (comme l'échelle I1 à I5 du centre olympique norvégien) sert à <em>prescrire</em> les séances. Le système à <strong>trois zones</strong> du chercheur Stephen Seiler sert à <em>décrire</em> l'entraînement, à partir de deux seuils mesurables. Dans ce second système, « zone 2 » désigne tout autre chose : l'espace <em>entre</em> les deux seuils, la fameuse « zone grise ».</p>
-
               <div class="outil" id="outil-zones">
-                <p class="outil-titre">Outil · Trois zones contre cinq</p>
-                <p class="outil-consigne">Touchez une zone pour voir ses repères, puis demandez où se trouve la « zone 2 » dans chaque système. Schéma simplifié : les largeurs suivent les plages de fréquence cardiaque de l'échelle norvégienne.</p>
+                <p class="outil-titre">Outil · Les cinq zones</p>
+                <p class="outil-consigne">Touchez une zone pour voir ses repères. Schéma simplifié : les largeurs suivent les plages de fréquence cardiaque de l'échelle norvégienne.</p>
 
                 <div class="barre-zones" data-systeme="5">
-                  <p class="etiquette-barre">Système à cinq zones (prescrire)</p>
+                  <p class="etiquette-barre">Les cinq zones d'intensité</p>
                   <div class="segments">
                     <button type="button" class="segment" style="flex: 17; background: #a9b79c;" data-detail="<strong>I1, récupération et endurance très facile.</strong> 55 à 72 % de la FC max, lactate 0,8 à 1,5 mmol/L, durée efficace 1 à 6 h.">I1</button>
                     <button type="button" class="segment est-zone-2" style="flex: 10; background: var(--sage);" data-detail="<strong>I2, la zone 2 du système à cinq zones.</strong> 72 à 82 % de la FC max, lactate 1,5 à 2,5 mmol/L, durée efficace 1 à 3 h. Elle s'arrête au premier seuil.">I2</button>
@@ -83,38 +80,28 @@
                     <button type="button" class="segment" style="flex: 5; background: var(--gold-dark);" data-detail="<strong>I4, autour du seuil.</strong> 87 à 92 % de la FC max, lactate 4,0 à 6,0 mmol/L, durée efficace 30 à 40 min.">I4</button>
                     <button type="button" class="segment" style="flex: 5; background: var(--terracotta);" data-detail="<strong>I5, près du maximum.</strong> 92 à 97 % de la FC max, lactate 6,0 à 10,0 mmol/L, durée efficace 15 à 25 min.">I5</button>
                   </div>
-                </div>
-
-                <div class="barre-zones" data-systeme="3">
-                  <p class="etiquette-barre">Système à trois zones (décrire)</p>
-                  <div class="segments">
-                    <button type="button" class="segment" style="flex: 27; background: #a9b79c;" data-detail="<strong>Z1 du système à trois zones.</strong> Tout ce qui est sous le premier seuil (lactate sous environ 2 mmol/L) : elle regroupe I1 et I2.">Z1</button>
-                    <button type="button" class="segment est-zone-2" style="flex: 5; background: var(--sage-dark);" data-detail="<strong>Z2 du système à trois zones, la « zone grise ».</strong> Entre le premier et le second seuil. Rien à voir avec la zone 2 « endurance de base » : c'est l'intensité moyenne, plus exigeante.">Z2</button>
-                    <button type="button" class="segment" style="flex: 10; background: var(--terracotta);" data-detail="<strong>Z3 du système à trois zones.</strong> Au-dessus du second seuil (lactate au-dessus d'environ 4 mmol/L) : elle regroupe I4 et I5.">Z3</button>
-                  </div>
                   <div class="repere-seuils" aria-hidden="true">
                     <span style="left: 64.3%;">LT1</span>
-                    <span style="left: 76.2%;">LT2</span>
                   </div>
                 </div>
 
-                <div class="detail-zone" id="detail-zone" role="status" aria-live="polite">Touchez une zone de l'une des deux barres.</div>
-                <p style="margin: 18px 0 0;"><button type="button" class="btn btn-ghost" id="montrer-zone-2">Où est la « zone 2 » ?</button></p>
+                <div class="detail-zone" id="detail-zone" role="status" aria-live="polite">Touchez une zone de la barre.</div>
+                <p style="margin: 18px 0 0;"><button type="button" class="btn btn-ghost" id="montrer-zone-2">Où est la zone 2 ?</button></p>
               </div>
 
               <div class="encadre">
                 <p class="titre-encadre">À retenir</p>
-                <p>Quand quelqu'un parle de « zone 2 », demandez toujours : dans quel système ? Dans ce module, la zone 2 est celle du système à cinq zones : juste sous le premier seuil.</p>
+                <p>La zone 2, c'est I2 : juste sous le premier seuil. Le premier seuil en est le plafond.</p>
               </div>
 
               <div class="sources">
-                <p>Sources : Sitko S. et al., « What is "zone 2 training"? Experts' viewpoint on definition, training methods, and expected adaptations », <em>International Journal of Sports Physiology and Performance</em>, 2025 (DOI 10.1123/ijspp.2024-0303) ; échelle d'intensité I1 à I5 d'Olympiatoppen ; modèle à trois zones de Seiler.</p>
+                <p>Sources : Sitko S. et al., « What is "zone 2 training"? Experts' viewpoint on definition, training methods, and expected adaptations », <em>International Journal of Sports Physiology and Performance</em>, 2025 (DOI 10.1123/ijspp.2024-0303) ; échelle d'intensité I1 à I5 d'Olympiatoppen.</p>
               </div>
             </section>
 
             <!-- ===== Étape 2 ===== -->
             <section class="etape" data-titre="Les repères">
-              <p class="etape-numero">Étape 2 sur 6</p>
+              <p class="etape-numero">Étape 2 sur 8</p>
               <h2>Les repères pour la reconnaître</h2>
               <p>Les experts du consensus de 2025 combinent trois repères plutôt que d'en suivre un seul : la <strong>fréquence cardiaque</strong>, l'<strong>effort perçu</strong> et, quand on l'a, la <strong>puissance</strong> ou la vitesse.</p>
               <ul>
@@ -152,9 +139,80 @@
               </div>
             </section>
 
-            <!-- ===== Étape 3 ===== -->
+            <!-- ===== Étape 3 (2026-11-08) ===== -->
+            <section class="etape" data-titre="Dans le muscle">
+              <p class="etape-numero">Étape 3 sur 8</p>
+              <h2>Ce qui se passe dans le muscle</h2>
+              <p>En zone 2, le travail se fait surtout dans les <strong>fibres lentes</strong>, dites de type I. « Lentes » parle de leur vitesse de contraction, pas de leur longueur : elles se contractent moins vite que les fibres rapides (type II), mais se fatiguent peu. Elles sont bâties pour durer : beaucoup de <strong>mitochondries</strong> (les centrales qui produisent l'énergie avec l'oxygène), un réseau serré de <strong>capillaires</strong> et beaucoup de <strong>myoglobine</strong>, la protéine qui garde l'oxygène dans la fibre.</p>
+
+              <h3>Les fibres lentes travaillent en premier</h3>
+              <p>Quand l'effort est modéré, le système nerveux recrute d'abord les fibres lentes. Une expérience classique l'a montré en 1974 : à vélo, à toutes les intensités sous le VO2max, ce sont les fibres lentes qui ont perdu leur glycogène (leur réserve de sucre) en premier. Après 3 heures à faible intensité, le glycogène qui restait dans le muscle se trouvait presque uniquement dans les fibres rapides : elles avaient peu servi.</p>
+
+              <h3>Le carburant : une grande part de graisses</h3>
+              <p>Les fibres brûlent deux carburants : les graisses et les sucres. À faible intensité, les graisses fournissent une grande part de l'énergie. Elles viennent de deux endroits :</p>
+              <ul>
+                <li><strong>le sang</strong> : des acides gras libérés par le tissu adipeux ;</li>
+                <li><strong>la fibre elle-même</strong> : de petites gouttelettes de gras stockées dans la cellule (les triglycérides intramusculaires).</li>
+              </ul>
+              <p>Chez des cyclistes entraînés, à jeun, deux heures à 60 % du VO2max ont fait baisser de 62 % le gras stocké dans les fibres de type I, et seulement dans celles-là.</p>
+
+              <div class="outil" id="outil-trajet">
+                <p class="outil-titre">Outil · Le trajet d'un acide gras</p>
+                <p class="outil-consigne">Du sang jusqu'à l'énergie de la contraction, en cinq étapes. Touchez-les dans l'ordre.</p>
+                <div class="choix-cartes" style="margin: 0;">
+                  <button type="button" class="carte-choix" aria-expanded="false">1. Il entre dans la fibre<span class="reponse-carte">L'acide gras arrive par le sang, ou sort d'une gouttelette de gras de la fibre. Dans la cellule, il est d'abord activé pour pouvoir être brûlé.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">2. Il passe la porte de la mitochondrie<span class="reponse-carte">Il ne peut pas entrer seul. Il est accroché à la <strong>carnitine</strong>, et une enzyme, la <strong>CPT1</strong>, lui fait passer la membrane. C'est la porte d'entrée des graisses ; c'est elle qui ralentit quand l'effort devient intense (étape suivante).</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">3. Il est découpé<span class="reponse-carte">Dans la mitochondrie, la <strong>bêta-oxydation</strong> coupe l'acide gras, deux carbones à la fois, en morceaux d'acétyl-CoA.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">4. Le cycle de Krebs<span class="reponse-carte">L'acétyl-CoA entre dans le <strong>cycle de Krebs</strong>, qui en retire des électrons, portés par le NADH et le FADH2.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">5. L'oxygène et l'ATP<span class="reponse-carte">Les électrons passent dans la <strong>chaîne respiratoire</strong>. Au bout, l'oxygène les reçoit, et la mitochondrie fabrique l'<strong>ATP</strong>, l'énergie de la contraction. Les graisses ne se brûlent qu'avec de l'oxygène, dans la mitochondrie.</span></button>
+                </div>
+              </div>
+
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>En zone 2, ce sont surtout les fibres lentes qui travaillent. Elles reçoivent assez d'oxygène pour brûler une grande part de graisses dans leurs mitochondries.</p>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Gollnick P. D., Piehl K., Saltin B., <em>Journal of Physiology</em>, 1974 (DOI 10.1113/jphysiol.1974.sp010639) ; van Loon L. J. et al., <em>Journal of Physiology</em>, 2003 (DOI 10.1113/jphysiol.2003.052431) ; van Loon L. J. et al., <em>Journal of Physiology</em>, 2001 (DOI 10.1111/j.1469-7793.2001.00295.x) ; Schiaffino S., Reggiani C., « Fiber types in mammalian skeletal muscles », <em>Physiological Reviews</em>, 2011 (DOI 10.1152/physrev.00031.2010).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 4 (2026-11-08) ===== -->
+            <section class="etape" data-titre="Fatmax">
+              <p class="etape-numero">Étape 4 sur 8</p>
+              <h2>Fatmax : là où l'on brûle le plus de gras</h2>
+              <p>Plus l'effort monte, plus on brûle de gras par minute, jusqu'à un sommet ; ensuite, la courbe redescend. Ce sommet s'appelle <strong>Fatmax</strong> : l'intensité où le gras brûlé par minute est le plus élevé. Il se mesure en laboratoire, en analysant l'air expiré pendant un test par paliers.</p>
+              <ul>
+                <li><strong>Chez 18 cyclistes modérément entraînés</strong> : Fatmax à 64 % du VO2max, soit 74 % de la FC max. Le gras brûlé restait à moins de 10 % de son sommet entre 55 et 72 % du VO2max, et devenait négligeable au-dessus de 89 %.</li>
+                <li><strong>Chez 300 adultes en santé</strong> (pas des athlètes) : Fatmax en moyenne à 48 % du VO2max (environ 62 % de la FC max), plus bas chez les hommes (45 %) que chez les femmes (52 %). Les écarts d'une personne à l'autre restaient en grande partie inexpliqués.</li>
+              </ul>
+
+              <div class="encadre">
+                <p class="titre-encadre">Fatmax et zone 2</p>
+                <p>Ce ne sont pas deux noms pour la même chose. La zone 2 se définit par le premier seuil de lactate ; Fatmax, par le gras brûlé, mesuré dans l'air expiré. Chez les cyclistes de la première étude, Fatmax (74 % de la FC max) tombait dans la plage type de la zone 2 (67 à 82 %). Mais comme le premier seuil, il varie beaucoup d'une personne à l'autre : seule une mesure le situe chez vous.</p>
+              </div>
+
+              <h3>Pourquoi le gras baisse quand on accélère</h3>
+              <p>Au-dessus de Fatmax, le muscle brûle de plus en plus de sucre. Le sucre découpé fournit beaucoup d'acétyls, qui s'accrochent à la carnitine. Il reste alors moins de carnitine libre pour faire entrer les graisses : la porte CPT1 ralentit. Une étude sur huit cyclistes l'a mesuré directement dans le muscle : le gras brûlé montait jusqu'à 55 % de la puissance maximale, puis baissait à 75 %, en même temps que la carnitine libre. La hausse d'acidité dans la fibre pourrait aussi freiner cette porte.</p>
+
+              <h3>Le lactate, l'autre signal</h3>
+              <p>Le lactate n'est pas un déchet. Il se forme en continu, même quand l'oxygène suffit, et d'autres cellules le reprennent pour le brûler comme carburant. Quand l'intensité monte, le muscle brûle plus de sucre et produit plus de lactate qu'il n'en est repris : le lactate du sang monte. Le premier seuil marque le début de cette montée.</p>
+              <p>Le gras brûlé et le lactate vont en sens inverse. Chez des cyclistes professionnels, des personnes modérément actives et des personnes atteintes du syndrome métabolique, plus le lactate montait, moins on brûlait de gras, et ce dans chacun des trois groupes. Les professionnels brûlaient plus de gras et avaient moins de lactate que les deux autres groupes.</p>
+
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>La zone 2 entraîne exactement la machinerie qui brûle les graisses : plus de mitochondries et plus de capillaires autour des fibres lentes. Le volume compte : selon une revue de 2018, la quantité d'entraînement serait le facteur clé de la quantité de mitochondries, et l'intensité, celui de leur qualité de fonctionnement.</p>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Achten J., Gleeson M., Jeukendrup A. E., <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 2002 (DOI 10.1097/00005768-200201000-00015) ; Venables M. C., Achten J., Jeukendrup A. E., <em>Journal of Applied Physiology</em>, 2005 (DOI 10.1152/japplphysiol.00662.2003) ; van Loon L. J. et al., <em>Journal of Physiology</em>, 2001 ; Brooks G. A., « The Science and Translation of Lactate Shuttle Theory », <em>Cell Metabolism</em>, 2018 (DOI 10.1016/j.cmet.2018.03.008) ; San-Millán I., Brooks G. A., <em>Sports Medicine</em>, 2018 (DOI 10.1007/s40279-017-0751-x) ; Granata C., Jamnick N. A., Bishop D. J., <em>Sports Medicine</em>, 2018 (DOI 10.1007/s40279-018-0936-y).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 5 ===== -->
             <section class="etape" data-titre="Ce que ça développe">
-              <p class="etape-numero">Étape 3 sur 6</p>
+              <p class="etape-numero">Étape 5 sur 8</p>
               <h2>Ce que la zone 2 développe</h2>
               <p>Voici ce que les experts du consensus <strong>s'attendent</strong> à voir avec l'entraînement en zone 2. Ce sont des attentes de spécialistes, pas des résultats mesurés dans leur étude. Touchez chaque carte.</p>
 
@@ -168,7 +226,7 @@
 
               <div class="encadre">
                 <p class="titre-encadre">Une nuance importante</p>
-                <p>Les adaptations forment un continuum : elles ne s'allument pas d'un coup à la frontière d'une zone. On attend peu de différence entre le haut de la zone 1, la zone 2 et le bas de la zone 3. Ce qui compte surtout, c'est d'accumuler beaucoup de temps facile, régulièrement.</p>
+                <p>Les adaptations forment un continuum : elles ne s'allument pas d'un coup à la frontière d'une zone. On attend peu de différence entre le haut de la zone 1, la zone 2 et l'intensité juste au-dessus du premier seuil. Ce qui compte surtout, c'est d'accumuler beaucoup de temps facile, régulièrement.</p>
               </div>
 
               <div class="sources">
@@ -176,9 +234,9 @@
               </div>
             </section>
 
-            <!-- ===== Étape 4 ===== -->
+            <!-- ===== Étape 6 ===== -->
             <section class="etape" data-titre="La pratiquer">
-              <p class="etape-numero">Étape 4 sur 6</p>
+              <p class="etape-numero">Étape 6 sur 8</p>
               <h2>La pratiquer</h2>
               <h3>Les formats de séance</h3>
               <ul>
@@ -210,9 +268,9 @@
               </div>
             </section>
 
-            <!-- ===== Étape 5 ===== -->
+            <!-- ===== Étape 7 ===== -->
             <section class="etape" data-titre="Le test des 10 %">
-              <p class="etape-numero">Étape 5 sur 6</p>
+              <p class="etape-numero">Étape 7 sur 8</p>
               <h2>Votre base est-elle assez solide ? Le test des 10 %</h2>
               <p>Les entraîneurs d'Uphill Athlete, spécialistes de l'endurance en montagne, proposent un test simple pour savoir s'il faut encore bâtir sa base en zones 1 et 2 avant d'ajouter de l'intensité. On compare deux fréquences cardiaques :</p>
               <ul>
@@ -249,11 +307,11 @@
               </div>
             </section>
 
-            <!-- ===== Étape 6 : questions ===== -->
+            <!-- ===== Étape 8 : questions ===== -->
             <section class="etape" data-titre="Questions">
-              <p class="etape-numero">Étape 6 sur 6</p>
+              <p class="etape-numero">Étape 8 sur 8</p>
               <h2>Vérifiez ce que vous avez retenu</h2>
-              <p>Dix questions. Votre première réponse compte ; l'explication s'affiche tout de suite.</p>
+              <p>Treize questions. Votre première réponse compte ; l'explication s'affiche tout de suite.</p>
 
               <div id="quiz">
                 <div class="question" data-id="q1" data-bonne="a">
@@ -266,18 +324,8 @@
                   <div class="explication" hidden>Le premier seuil en est la borne haute. C'est la définition du consensus d'experts de 2025.</div>
                 </div>
 
-                <div class="question" data-id="q2" data-bonne="b">
-                  <p class="enonce"><span class="num-question">Question 2</span>Dans le modèle à trois zones de Seiler, « Z2 » désigne…</p>
-                  <div class="options">
-                    <button type="button" data-choix="a">l'endurance facile, sous le premier seuil</button>
-                    <button type="button" data-choix="b">l'intensité entre les deux seuils, la « zone grise »</button>
-                    <button type="button" data-choix="c">la récupération active</button>
-                  </div>
-                  <div class="explication">Même nom, autre chose : c'est pourquoi il faut toujours demander de quel système on parle.</div>
-                </div>
-
                 <div class="question" data-id="q3" data-bonne="a">
-                  <p class="enonce"><span class="num-question">Question 3</span>Quel effort perçu correspond en général à la zone 2 ?</p>
+                  <p class="enonce"><span class="num-question">Question 2</span>Quel effort perçu correspond en général à la zone 2 ?</p>
                   <div class="options">
                     <button type="button" data-choix="a">2 à 3 sur 10</button>
                     <button type="button" data-choix="b">5 à 6 sur 10</button>
@@ -287,7 +335,7 @@
                 </div>
 
                 <div class="question" data-id="q4" data-type="nombre" data-min="154" data-max="158">
-                  <p class="enonce"><span class="num-question">Question 4</span>Votre FC max est de 190 bpm. Quelle est la borne haute de la plage type de zone 2 (82 %), arrondie au battement près ?</p>
+                  <p class="enonce"><span class="num-question">Question 3</span>Votre FC max est de 190 bpm. Quelle est la borne haute de la plage type de zone 2 (82 %), arrondie au battement près ?</p>
                   <div class="reponse-nombre">
                     <input type="number" inputmode="numeric" aria-label="Votre réponse en battements par minute" placeholder="bpm" />
                     <button type="button" class="btn btn-primary">Vérifier</button>
@@ -296,7 +344,7 @@
                 </div>
 
                 <div class="question" data-id="q5" data-bonne="b">
-                  <p class="enonce"><span class="num-question">Question 5</span>Vrai ou faux : la plage de 67 à 82 % de la FC max définit précisément la zone 2 de chacun.</p>
+                  <p class="enonce"><span class="num-question">Question 4</span>Vrai ou faux : la plage de 67 à 82 % de la FC max définit précisément la zone 2 de chacun.</p>
                   <div class="options">
                     <button type="button" data-choix="a">Vrai</button>
                     <button type="button" data-choix="b">Faux</button>
@@ -304,8 +352,48 @@
                   <div class="explication">Elle décrit où se retrouvent en moyenne des athlètes entraînés. D'une personne à l'autre, le premier seuil varie beaucoup.</div>
                 </div>
 
+                <div class="question" data-id="q11" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 5</span>En zone 2, quelles fibres font surtout le travail ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Les fibres lentes (type I)</button>
+                    <button type="button" data-choix="b">Les fibres rapides (type II)</button>
+                    <button type="button" data-choix="c">Les deux autant</button>
+                  </div>
+                  <div class="explication">À effort modéré, les fibres lentes sont recrutées en premier. « Lentes » parle de leur vitesse de contraction, pas de leur longueur : riches en mitochondries, en capillaires et en myoglobine, elles sont faites pour durer.</div>
+                </div>
+
+                <div class="question" data-id="q12" data-bonne="b">
+                  <p class="enonce"><span class="num-question">Question 6</span>Où les graisses sont-elles brûlées dans la fibre ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Dans le sang, avant d'arriver au muscle</button>
+                    <button type="button" data-choix="b">Dans les mitochondries, avec de l'oxygène</button>
+                    <button type="button" data-choix="c">Hors des mitochondries, sans oxygène</button>
+                  </div>
+                  <div class="explication">L'acide gras passe la porte de la mitochondrie (carnitine et CPT1), y est découpé (bêta-oxydation), puis le cycle de Krebs et la chaîne respiratoire en tirent l'ATP. Sans oxygène, pas de graisses brûlées.</div>
+                </div>
+
+                <div class="question" data-id="q13" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 7</span>Fatmax, c'est…</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">l'intensité où l'on brûle le plus de gras par minute</button>
+                    <button type="button" data-choix="b">la fréquence cardiaque la plus haute qu'on tient une heure</button>
+                    <button type="button" data-choix="c">la quantité de gras qu'on a en réserve</button>
+                  </div>
+                  <div class="explication">Il se mesure dans l'air expiré pendant un test par paliers. Il varie beaucoup d'une personne à l'autre : 64 % du VO2max en moyenne chez des cyclistes entraînés, 48 % chez des adultes en santé.</div>
+                </div>
+
+                <div class="question" data-id="q14" data-bonne="c">
+                  <p class="enonce"><span class="num-question">Question 8</span>Au-dessus de Fatmax, pourquoi brûle-t-on moins de gras ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Le corps n'a plus de gras en réserve</button>
+                    <button type="button" data-choix="b">Le cœur n'envoie plus assez de sang</button>
+                    <button type="button" data-choix="c">Le sucre occupe la carnitine : la porte CPT1 des mitochondries ralentit</button>
+                  </div>
+                  <div class="explication">Plus on brûle de sucre, plus les acétyls s'accrochent à la carnitine. Il en reste moins de libre pour faire entrer les graisses dans la mitochondrie.</div>
+                </div>
+
                 <div class="question" data-id="q6" data-bonne="a">
-                  <p class="enonce"><span class="num-question">Question 6</span>Après deux heures à vitesse constante, votre FC et votre effort perçu montent. Que faire pour rester en zone 2 ?</p>
+                  <p class="enonce"><span class="num-question">Question 9</span>Après deux heures à vitesse constante, votre FC et votre effort perçu montent. Que faire pour rester en zone 2 ?</p>
                   <div class="options">
                     <button type="button" data-choix="a">Ralentir ou baisser la puissance</button>
                     <button type="button" data-choix="b">Garder la même vitesse</button>
@@ -315,7 +403,7 @@
                 </div>
 
                 <div class="question" data-id="q7" data-bonne="d">
-                  <p class="enonce"><span class="num-question">Question 7</span>Laquelle n'est <em>pas</em> une adaptation attendue de la zone 2 ?</p>
+                  <p class="enonce"><span class="num-question">Question 10</span>Laquelle n'est <em>pas</em> une adaptation attendue de la zone 2 ?</p>
                   <div class="options">
                     <button type="button" data-choix="a">Plus de capillaires dans les muscles</button>
                     <button type="button" data-choix="b">Plus d'enzymes mitochondriales dans les fibres lentes</button>
@@ -326,7 +414,7 @@
                 </div>
 
                 <div class="question" data-id="q8" data-bonne="a">
-                  <p class="enonce"><span class="num-question">Question 8</span>Seuil aérobie à 140 bpm, seuil anaérobie à 161 bpm : écart de 15 %. Que conseille le test des 10 % ?</p>
+                  <p class="enonce"><span class="num-question">Question 11</span>Seuil aérobie à 140 bpm, seuil anaérobie à 161 bpm : écart de 15 %. Que conseille le test des 10 % ?</p>
                   <div class="options">
                     <button type="button" data-choix="a">Bâtir encore la base en zones 1 et 2 avant d'ajouter de l'intensité</button>
                     <button type="button" data-choix="b">Ajouter tout de suite deux séances intenses par semaine</button>
@@ -336,16 +424,16 @@
                 </div>
 
                 <div class="question" data-id="q9" data-bonne="a">
-                  <p class="enonce"><span class="num-question">Question 9</span>En ski-alpinisme, vous poussez plus fort sur les bâtons à la même vitesse de jambes. Votre FC monte d'une zone. Pour vos jambes, c'est…</p>
+                  <p class="enonce"><span class="num-question">Question 12</span>En ski-alpinisme, vous poussez plus fort sur les bâtons à la même vitesse de jambes. Votre FC monte d'une zone. Pour vos jambes, c'est…</p>
                   <div class="options">
                     <button type="button" data-choix="a">encore essentiellement de la zone 2</button>
-                    <button type="button" data-choix="b">devenu de la zone 3</button>
+                    <button type="button" data-choix="b">sorti de la zone 2</button>
                   </div>
                   <div class="explication">La FC est un signal global : le travail des bras s'ajoute, celui des jambes ne change pas. La séance coûte toutefois plus de fatigue générale.</div>
                 </div>
 
                 <div class="question" data-id="q10" data-bonne="b">
-                  <p class="enonce"><span class="num-question">Question 10</span>Le seuil de 10 % du test d'Uphill Athlete est…</p>
+                  <p class="enonce"><span class="num-question">Question 13</span>Le seuil de 10 % du test d'Uphill Athlete est…</p>
                   <div class="options">
                     <button type="button" data-choix="a">une limite démontrée par de nombreuses études</button>
                     <button type="button" data-choix="b">une règle d'entraîneur, utile pour le suivi</button>
@@ -356,7 +444,7 @@
               </div>
 
               <div class="bilan-quiz" id="bilan-quiz" hidden>
-                <p class="score" id="score-quiz">0 / 10</p>
+                <p class="score" id="score-quiz">0 / 13</p>
                 <p id="message-quiz"></p>
                 <button type="button" class="btn" id="recommencer-quiz">Recommencer les questions</button>
                 <a href="../espace.html" class="btn">Retour à mon espace</a>
