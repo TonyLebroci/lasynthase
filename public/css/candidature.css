@@ -120,8 +120,11 @@
 .note-ligne .pastilles span {
   display: grid;
   place-items: center;
-  width: 34px;
+  min-width: 34px;
   height: 34px;
+  padding: 0 10px;
+  font-size: 0.8rem;
+  white-space: nowrap;
   border: 1px solid var(--line);
   font-size: 0.9rem;
   color: var(--charcoal-soft);
@@ -560,6 +563,26 @@
 .choix-citation label {
   font-size: 0.92rem;
   color: var(--charcoal-soft);
+}
+
+.choix-citation .citation-perso {
+  flex-basis: 100%;
+  display: grid;
+  gap: 8px;
+}
+
+.choix-citation .citation-perso[hidden] {
+  display: none;
+}
+
+.choix-citation textarea,
+.choix-citation input {
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+  width: 100%;
 }
 
 .choix-citation select {

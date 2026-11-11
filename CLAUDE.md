@@ -96,6 +96,14 @@ structure de l'objectif, que la personne soit retenue ou non.
   Un seul pourquoi, intrinsèque. Critères du projet : intervals.icu + ceinture cardiaque ou capteur
   de puissance. Le bilan formule l'objectif en **SMART** (phrase + grille S-M-A-R-T). Clé du
   navigateur `ls-candidature-pilote-v2` ; la version est gardée dans la colonne `version`.
+  Précisé ensuite par Tony : capacités en **force / ni l'un ni l'autre / faiblesse** (valeurs 5, 3, 1) ;
+  les trois habitudes deviennent des **actions de confiance** (pas forcément de l'entraînement :
+  douche froide, méditation, journal) ; exemple si-alors pour des athlètes déjà disciplinés (ne pas
+  pousser à s'entraîner fatigué) ; **pas de blocs d'entraînement dans le bilan** (Tony ne veut pas
+  d'un plan avant de connaître l'athlète) ; citation personnelle possible (« Ma propre citation… »).
+- **Les fiches sont privées** : construites dans le navigateur, jamais envoyées ; la citation
+  personnelle reste dans le navigateur (`citationPerso`). Seules les réponses partent avec la
+  candidature. La page le dit : ne jamais envoyer les fiches au serveur.
 - **Lire les candidatures** : `node outils/candidatures.mjs` (hors critères en dernier, puis
   classement sur 100 : complétude 30, clarté 20, réflexion 20, réalisme 15, motivation 15),
   `--detail <id>`, `--local`. Sortie dans le

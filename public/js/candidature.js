@@ -28,26 +28,26 @@
   var navigation = form.querySelector(".navigation-etapes");
   var courante = 0;
 
-  /* ---------- Notes de 1 à 5 ---------- */
+  /* ---------- Force ou faiblesse (valeurs 1, 3, 5) ---------- */
+  var NIVEAUX_CAPACITE = [["1", "Faiblesse"], ["3", "Ni l'un ni l'autre"], ["5", "Force"]];
   form.querySelectorAll(".note-ligne").forEach(function (ligne) {
     var nom = ligne.getAttribute("data-nom");
     var pastilles = document.createElement("div");
     pastilles.className = "pastilles";
     pastilles.setAttribute("role", "radiogroup");
     pastilles.setAttribute("aria-label", ligne.textContent.trim());
-    for (var i = 1; i <= 5; i++) {
+    NIVEAUX_CAPACITE.forEach(function (niv) {
       var l = document.createElement("label");
       var r = document.createElement("input");
       r.type = "radio";
       r.name = nom;
-      r.value = String(i);
-      r.setAttribute("aria-label", i + " sur 5");
+      r.value = niv[0];
       var s = document.createElement("span");
-      s.textContent = String(i);
+      s.textContent = niv[1];
       l.appendChild(r);
       l.appendChild(s);
       pastilles.appendChild(l);
-    }
+    });
     ligne.appendChild(pastilles);
   });
 
@@ -297,12 +297,16 @@
     cap_recuperation: "Récupération"
   };
 
+  // Forces = « Force » (5), faiblesses = « Faiblesse » (1). Les anciennes notes de 1 à 5
+  // (questionnaire du début) se lisent pareil : 4-5 force, 1-2 faiblesse.
   function forcesEtFaiblesses(r) {
     var notes = Object.keys(CAPACITES).filter(function (k) { return r[k]; })
       .map(function (k) { return { nom: CAPACITES[k], note: Number(r[k]) }; });
     if (notes.length < 3) return null;
-    var tri = notes.slice().sort(function (a, b) { return b.note - a.note; });
-    return { forces: tri.slice(0, 2), faiblesses: tri.slice(-2).reverse() };
+    return {
+      forces: notes.filter(function (x) { return x.note >= 4; }),
+      faiblesses: notes.filter(function (x) { return x.note <= 2; })
+    };
   }
 
   function lectureVolume(r) {
@@ -375,32 +379,10 @@
     if (s !== null) lignes.push(s >= 0 ? "Votre objectif est dans " + s + " semaine" + (s > 1 ? "s" : "") + "." : "La date de l'objectif est déjà passée : revenez à l'étape 1 pour la corriger.");
     var v = lectureVolume(r); if (v) lignes.push(v);
     var ff = forcesEtFaiblesses(r);
-    if (ff) lignes.push("Vos points forts déclarés : " + ff.forces.map(function (x) { return x.nom.toLowerCase(); }).join(" et ") + ". Vos points faibles : " + ff.faiblesses.map(function (x) { return x.nom.toLowerCase(); }).join(" et ") + ".");
+    if (ff && ff.forces.length) lignes.push("Vos forces : " + ff.forces.map(function (x) { return x.nom.toLowerCase(); }).join(", ") + ".");
+    if (ff && ff.faiblesses.length) lignes.push("Vos faiblesses : " + ff.faiblesses.map(function (x) { return x.nom.toLowerCase(); }).join(", ") + ".");
     lignes.forEach(function (t) { var p = document.createElement("p"); p.textContent = t; zone.appendChild(p); });
     boite.hidden = lignes.length === 0;
-  }
-
-  /* ---------- Les blocs ---------- */
-  var TEXTE_BLOCS = {
-    "Base": "Bâtir le moteur : beaucoup d'effort facile, la régularité d'abord, le volume qui monte par paliers.",
-    "Développement": "Élever le seuil : séances au seuil et intervalles, sur une base qui reste large.",
-    "Spécifique": "Ressembler au jour J : des séances qui imitent l'épreuve (durée, terrain, allure).",
-    "Affûtage": "Arriver frais : moins de volume, la même intensité. Environ deux semaines.",
-    "Préparation courte": "Le délai est court : consolider ce qui est acquis et arriver reposé."
-  };
-  var COULEURS = { "Base": "#a9b79c", "Développement": "var(--sage)", "Spécifique": "var(--sage-dark)", "Affûtage": "var(--gold-dark)", "Préparation courte": "var(--sage-dark)" };
-
-  function blocs(s) {
-    if (s === null || s < 0) return [];
-    if (s < 4) return [["Préparation courte", s]];
-    var avant = s - 2;
-    if (s < 10) return [["Spécifique", avant], ["Affûtage", 2]];
-    if (s < 20) {
-      var base = Math.round(avant * 0.5);
-      return [["Base", base], ["Spécifique", avant - base], ["Affûtage", 2]];
-    }
-    var b = Math.round(avant * 0.4), dv = Math.round(avant * 0.3);
-    return [["Base", b], ["Développement", dv], ["Spécifique", avant - b - dv], ["Affûtage", 2]];
   }
 
   /* ---------- Construction du bilan ---------- */
@@ -431,6 +413,9 @@
   // puis le genre d'objectif, puis l'horizon. Un choix fait par la personne prime.
   function choisirCitation(r, s) {
     var etat = charger();
+    if (etat && etat.citation === "perso" && etat.citationPerso && etat.citationPerso.texte) {
+      return { texte: etat.citationPerso.texte, auteur: etat.citationPerso.auteur || r.prenom || "Moi" };
+    }
     if (etat && typeof etat.citation === "number" && CITATIONS[etat.citation]) return CITATIONS[etat.citation];
     if (r.confiance !== undefined && r.confiance <= 5) return CITATIONS[4];
     if (r.type_objectif === "terminer") return CITATIONS[10];
@@ -473,7 +458,7 @@
 
     var hab = [r.habitude_1, r.habitude_2, r.habitude_3].filter(Boolean);
     if (hab.length) {
-      f.appendChild(el("p", "Cette semaine, je fais", "fiche-etiquette"));
+      f.appendChild(el("p", "Mes actions de confiance", "fiche-etiquette"));
       var ul = el("ul", null, "fiche-habitudes");
       hab.forEach(function (h) { ul.appendChild(el("li", h)); });
       f.appendChild(ul);
@@ -521,6 +506,10 @@
     bilan.appendChild(el("p", "Votre bilan", "eyebrow", "ecran"));
     bilan.appendChild(el("h2", "Vos deux fiches", null, "ecran"));
     bilan.appendChild(el("p", "Tout vient de vos réponses. La fiche du matin se colle sur une vitre ou un miroir et se lit chaque matin. La fiche détaillée se relit au début de chaque mois.", null, "ecran"));
+    var prive = el("div", null, "encadre", "ecran");
+    prive.appendChild(el("p", "Ces fiches sont à vous seulement", "titre-encadre"));
+    prive.appendChild(el("p", "Elles sont construites dans votre navigateur. Je n'y ai pas accès et je ne les garde pas : ni les fiches, ni la citation que vous choisissez ou écrivez. Ce que je reçois, ce sont seulement vos réponses au questionnaire, pour étudier votre candidature. Imprimez vos fiches ou enregistrez-les en PDF : c'est la seule copie."));
+    bilan.appendChild(prive);
     if (statutEnvoi) bilan.appendChild(el("p", statutEnvoi.texte, "message-form ecran" + (statutEnvoi.ok ? " ok" : "")));
 
     // Fiche 1 : la fiche du matin
@@ -539,17 +528,52 @@
       if (c === citation) o.selected = true;
       sel.appendChild(o);
     });
-    sel.addEventListener("change", function () {
-      var nouvelle = construireFicheMatin(r, CITATIONS[Number(sel.value)]);
+    var optPerso = el("option", "Ma propre citation…");
+    optPerso.value = "perso";
+    sel.appendChild(optPerso);
+
+    // Citation personnelle : gardée dans ce navigateur seulement, jamais envoyée.
+    var perso = el("div", null, "citation-perso");
+    var etatC = charger() || {};
+    var cp = etatC.citationPerso || { texte: "", auteur: "" };
+    var champTexte = document.createElement("textarea");
+    champTexte.rows = 2; champTexte.maxLength = 220; champTexte.placeholder = "Votre citation";
+    champTexte.value = cp.texte || "";
+    champTexte.setAttribute("aria-label", "Votre citation");
+    var champAuteur = document.createElement("input");
+    champAuteur.type = "text"; champAuteur.maxLength = 80; champAuteur.placeholder = "Qui l'a dite (vous, un parent, un athlète…)";
+    champAuteur.value = cp.auteur || "";
+    champAuteur.setAttribute("aria-label", "Auteur de la citation");
+    perso.appendChild(champTexte);
+    perso.appendChild(champAuteur);
+    if (etatC.citation === "perso" && cp.texte) { sel.value = "perso"; } else { perso.hidden = true; }
+
+    function citationCourante() {
+      if (sel.value === "perso") {
+        return { texte: champTexte.value.trim() || "…", auteur: champAuteur.value.trim() || (r.prenom || "Moi") };
+      }
+      return CITATIONS[Number(sel.value)];
+    }
+    function redessiner() {
+      var nouvelle = construireFicheMatin(r, citationCourante());
       bilan.replaceChild(nouvelle, bilan.querySelector(".fiche-matin"));
       try {
         var etat = charger() || {};
-        etat.citation = Number(sel.value);
+        etat.citation = sel.value === "perso" ? "perso" : Number(sel.value);
+        etat.citationPerso = { texte: champTexte.value.trim(), auteur: champAuteur.value.trim() };
         localStorage.setItem(CLE, JSON.stringify(etat));
       } catch (e) { /* rien */ }
+    }
+    sel.addEventListener("change", function () {
+      perso.hidden = sel.value !== "perso";
+      if (sel.value === "perso") champTexte.focus();
+      redessiner();
     });
+    champTexte.addEventListener("input", redessiner);
+    champAuteur.addEventListener("input", redessiner);
     choixCitation.appendChild(lab);
     choixCitation.appendChild(sel);
+    choixCitation.appendChild(perso);
     bilan.appendChild(choixCitation);
 
     // Fiche 2 : la fiche détaillée
@@ -603,8 +627,8 @@
     var crit = lectureCriteres(r); if (crit) detail.appendChild(el("p", crit));
     var ff = forcesEtFaiblesses(r);
     if (ff) {
-      detail.appendChild(el("p", "Points forts : " + ff.forces.map(function (x) { return x.nom + " (" + x.note + "/5)"; }).join(", ") + "."));
-      detail.appendChild(el("p", "Points faibles : " + ff.faiblesses.map(function (x) { return x.nom + " (" + x.note + "/5)"; }).join(", ") + "."));
+      if (ff.forces.length) detail.appendChild(el("p", "Vos forces : " + ff.forces.map(function (x) { return x.nom; }).join(", ") + "."));
+      if (ff.faiblesses.length) detail.appendChild(el("p", "Vos faiblesses : " + ff.faiblesses.map(function (x) { return x.nom; }).join(", ") + "."));
     }
 
     // 4. L'écart
@@ -619,39 +643,11 @@
     var vol = lectureVolume(r); if (vol) detail.appendChild(el("p", vol));
     if (r.preuve) detail.appendChild(el("p", "Votre preuve que c'est atteignable : " + r.preuve));
 
-    // 5. Le chemin
-    detail.appendChild(el("h3", "5. Le chemin"));
-    var bl = blocs(s);
-    if (bl.length) {
-      var rangee = el("div", null, "blocs");
-      bl.forEach(function (b) {
-        var d = el("div", null, "bloc");
-        d.style.flex = String(Math.max(b[1], 1));
-        d.style.background = COULEURS[b[0]];
-        d.appendChild(el("p", b[0], "nom-bloc"));
-        d.appendChild(el("p", b[1] + " sem."));
-        rangee.appendChild(d);
-      });
-      detail.appendChild(rangee);
-      var ul = document.createElement("ul");
-      bl.forEach(function (b) {
-        var li = document.createElement("li");
-        li.appendChild(el("strong", b[0] + " (" + b[1] + " sem.) : "));
-        li.appendChild(document.createTextNode(TEXTE_BLOCS[b[0]]));
-        ul.appendChild(li);
-      });
-      detail.appendChild(ul);
-      if (s >= 8) detail.appendChild(el("p", "Toutes les 3 à 4 semaines, une semaine allégée : 25 à 35 % de volume en moins, en retirant du facile, jamais l'intensité. C'est pendant ces semaines que le corps encaisse le travail."));
-      detail.appendChild(el("p", "C'est une structure de départ. Le vrai plan se bâtit sur votre historique réel et vos contraintes."));
-    } else {
-      detail.appendChild(el("p", "Précisez la date de l'objectif pour voir la structure en blocs."));
-    }
-
     // 6. L'engagement
-    detail.appendChild(el("h3", "6. Votre engagement"));
+    detail.appendChild(el("h3", "5. Votre engagement"));
     var hab = [r.habitude_1, r.habitude_2, r.habitude_3].filter(Boolean);
     if (hab.length) {
-      detail.appendChild(el("p", "Vos habitudes de chaque semaine, celles qui comptent plus que le résultat :"));
+      detail.appendChild(el("p", "Vos trois actions de confiance : chaque fois que vous les faites, vous vous prouvez que vous avez la discipline d'aller au bout."));
       var ulh = el("ol", null, "chaine");
       hab.forEach(function (h) { ulh.appendChild(el("li", h)); });
       detail.appendChild(ulh);
@@ -664,7 +660,7 @@
     detail.appendChild(te);
 
     // 7. Les obstacles
-    detail.appendChild(el("h3", "7. L'obstacle et votre plan"));
+    detail.appendChild(el("h3", "6. L'obstacle et votre plan"));
     if (r.obstacle) detail.appendChild(el("p", "L'obstacle principal : " + r.obstacle));
     [[r.si_1, r.alors_1]].forEach(function (p) {
       if (p[0] && p[1]) {
@@ -680,7 +676,7 @@
     if (r.abandon) detail.appendChild(el("p", "Ce que vous retenez de la dernière fois : " + r.abandon));
 
     // 8. La motivation
-    detail.appendChild(el("h3", "8. Votre motivation"));
+    detail.appendChild(el("h3", "7. Votre motivation"));
     var tm = document.createElement("table");
     if (r.importance !== undefined) ligne(tm, "Importance", r.importance + " sur 10");
     if (r.confiance !== undefined) ligne(tm, "Confiance", r.confiance + " sur 10");
