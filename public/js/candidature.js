@@ -12,7 +12,8 @@
 (function () {
   "use strict";
 
-  var CLE = "ls-candidature-pilote-v1";
+  var CLE = "ls-candidature-pilote-v2"; // v2 (2026-11-11) : questionnaire raccourci
+  var VERSION = 2;
   var form = document.getElementById("candidature");
   if (!form) return;
 
@@ -125,6 +126,17 @@
     });
   });
 
+  /* ---------- Terminer ou chrono ---------- */
+  function majTypeObjectif() {
+    var choisi = form.querySelector('input[name="type_objectif"]:checked');
+    form.querySelectorAll("[data-si-type]").forEach(function (b) {
+      b.hidden = !choisi || b.getAttribute("data-si-type") !== choisi.value;
+    });
+  }
+  form.querySelectorAll('input[name="type_objectif"]').forEach(function (r) {
+    r.addEventListener("change", function () { majTypeObjectif(); majJauge(); });
+  });
+
   /* ---------- Deux leviers au plus ---------- */
   var leviers = document.getElementById("leviers");
   leviers.addEventListener("change", function (e) {
@@ -139,9 +151,10 @@
     var liste = [];
     etape.querySelectorAll("input, select, textarea").forEach(function (el) {
       if (!el.name || el.name === "site_web" || vus[el.name]) return;
+      if (el.closest("[data-si-type][hidden]")) return;
       var groupe = el.type === "radio" || (el.type === "checkbox" && !/^(majeur|consentement|comprend)$/.test(el.name));
       var requis = el.required || groupe || el.type === "range";
-      if (el.name === "outils" || el.name === "repetition" || el.name === "evenement" || el.name === "perf_recente") requis = false;
+      if (el.name === "evenement" || el.name === "perf_recente" || el.name === "barriere") requis = false;
       if (!requis) return;
       vus[el.name] = true;
       liste.push(el.name);
@@ -298,12 +311,54 @@
     return "Vous visez " + heures(d) + " par semaine, proche de ce que vous faites aujourd'hui (" + heures(a) + ") : la continuité est un atout.";
   }
 
-  function lectureDonnees(r) {
-    var outils = r.outils || [];
-    if (r.montre === "Aucune") return "Sans montre, le suivi sera très limité : une montre qui enregistre la fréquence cardiaque est presque indispensable au projet.";
-    if (!r.montre) return null;
-    if (outils.indexOf("Ceinture cardiaque") !== -1) return "Montre et ceinture cardiaque : la séance étalon pourra se lire à fréquence cardiaque fixe, comme chez les athlètes de haut niveau.";
-    return "La fréquence cardiaque au poignet est moins fiable pendant l'effort : la séance étalon pourra aussi se lire à l'allure. Une ceinture cardiaque serait un plus.";
+  function lectureCriteres(r) {
+    var manque = [];
+    if (r.crit_intervals === "non") manque.push("vos séances ne sont pas encore dans intervals.icu");
+    if (r.crit_capteur === "non") manque.push("vous n'avez ni ceinture cardiaque ni capteur de puissance");
+    if (!manque.length) return r.crit_intervals && r.crit_capteur ? "Vous répondez aux critères du projet : historique dans intervals.icu et capteur fiable." : null;
+    return "À noter : " + manque.join(" et ") + ". C'est un critère du projet pilote ; sans ça, la séance étalon ne peut pas mesurer votre forme avec précision.";
+  }
+
+  /* ---------- L'objectif formulé SMART ---------- */
+  function minusculeInitiale(t) {
+    return /^[A-ZÀ-Ý][a-zà-ÿ]/.test(t) ? t.charAt(0).toLowerCase() + t.slice(1) : t;
+  }
+
+  function phraseSmart(r) {
+    var obj = minusculeInitiale((r.objectif || "atteindre mon objectif").replace(/[.\s]+$/, ""));
+    var p = (r.date_objectif ? "D'ici le " + dateLongue(r.date_objectif) + ", " : "") + obj;
+    if (r.type_objectif === "terminer") {
+      if (r.barriere) p += ", avant le temps limite de " + r.barriere;
+      if (r.comment_finir) p += ", " + minusculeInitiale(r.comment_finir.replace(/[.\s]+$/, ""));
+    } else if (r.niveau_cible) {
+      // La cible est souvent déjà dans la phrase de l'objectif : ne pas la répéter.
+      var n = (r.objectif || "").toLowerCase().indexOf(r.niveau_cible.toLowerCase()) === -1 ? ["cible : " + r.niveau_cible] : [];
+      if (r.niveau_seuil) n.push("seuil : " + r.niveau_seuil);
+      if (r.niveau_reve) n.push("rêve : " + r.niveau_reve);
+      if (n.length) p += " (" + n.join(" ; ") + ")";
+    }
+    if (r.heures_dispo !== undefined) p += ", en m'entraînant " + heures(r.heures_dispo) + " par semaine";
+    p = p.charAt(0).toUpperCase() + p.slice(1);
+    return p + ".";
+  }
+
+  function grilleSmart(r, s) {
+    var mesurable;
+    if (r.type_objectif === "terminer") {
+      mesurable = "Franchir la ligne d'arrivée" + (r.barriere ? " avant le temps limite de " + r.barriere : "") + (r.comment_finir ? ", " + minusculeInitiale(r.comment_finir) : "") + ".";
+    } else {
+      mesurable = r.niveau_cible ? "Cible : " + r.niveau_cible + (r.niveau_seuil ? " · seuil : " + r.niveau_seuil : "") + (r.niveau_reve ? " · rêve : " + r.niveau_reve : "") + "." : "À préciser : un chiffre qui se vérifie sans discussion.";
+    }
+    var realiste = r.heures_dispo !== undefined
+      ? heures(r.heures_dispo) + " par semaine" + (r.jours && r.jours.length ? " sur " + r.jours.length + " jours" : "") + (r.heures_actuelles !== undefined ? ", contre " + heures(r.heures_actuelles) + " aujourd'hui." : ".")
+      : "À préciser : le temps que vous pouvez y mettre.";
+    return [
+      ["S", "Spécifique", (r.objectif || "À préciser") + (r.evenement ? " · " + r.evenement : "") + (r.sport ? " · " + r.sport : "")],
+      ["M", "Mesurable", mesurable],
+      ["A", "Atteignable", r.preuve ? "Votre preuve : " + r.preuve : "À démontrer : aucune preuve donnée pour l'instant."],
+      ["R", "Réaliste", realiste],
+      ["T", "Temporel", r.date_objectif ? dateLongue(r.date_objectif) + (s !== null && s >= 0 ? ", dans " + s + " semaine" + (s > 1 ? "s" : "") : "") + "." : "À préciser : une date."]
+    ];
   }
 
   function lectureEcart() {
@@ -364,24 +419,19 @@
     { texte: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", auteur: "Will Durant", source: "The Story of Philosophy" },
     { texte: "Mens sana in corpore sano. Un esprit sain dans un corps sain.", auteur: "Juvénal", source: "Satires" },
     { texte: "Le hasard ne favorise que les esprits préparés.", auteur: "Louis Pasteur" },
-    { texte: "The credit belongs to the man who is actually in the arena.", auteur: "Theodore Roosevelt", source: "Discours de la Sorbonne, 1910" }
+    { texte: "The credit belongs to the man who is actually in the arena.", auteur: "Theodore Roosevelt", source: "Discours de la Sorbonne, 1910" },
+    { texte: "The miracle isn't that I finished. The miracle is that I had the courage to start.", auteur: "John Bingham" }
   ];
 
   // La citation qui parle le plus selon les réponses : d'abord une confiance basse,
-  // puis ce qui pousse la personne, puis l'horizon. Un choix fait par la personne prime.
+  // puis le genre d'objectif, puis l'horizon. Un choix fait par la personne prime.
   function choisirCitation(r, s) {
     var etat = charger();
     if (etat && typeof etat.citation === "number" && CITATIONS[etat.citation]) return CITATIONS[etat.citation];
     if (r.confiance !== undefined && r.confiance <= 5) return CITATIONS[4];
-    var parMoteur = {
-      "Le défi et le plaisir de progresser": 5,
-      "Une fierté personnelle, une promesse à moi-même": 3,
-      "Ma santé, mon énergie au quotidien": 7,
-      "Prouver quelque chose à quelqu'un": 9,
-      "Quelqu'un d'autre me l'a proposé": 0
-    };
-    if (r.moteur && parMoteur[r.moteur] !== undefined) return CITATIONS[parMoteur[r.moteur]];
+    if (r.type_objectif === "terminer") return CITATIONS[10];
     if (s !== null && s >= 30) return CITATIONS[1];
+    if (r.type_objectif === "chrono") return CITATIONS[5];
     return CITATIONS[6];
   }
 
@@ -397,7 +447,10 @@
     if (quand.length) f.appendChild(el("p", quand.join(" · "), "fiche-date"));
 
     var niv = el("div", null, "fiche-niveaux");
-    [["Seuil", r.niveau_seuil], ["Cible", r.niveau_cible], ["Rêve", r.niveau_reve]].forEach(function (n) {
+    var niveaux = r.type_objectif === "terminer"
+      ? [["Cible", "Terminer" + (r.barriere ? " en moins de " + r.barriere : "")]]
+      : [["Seuil", r.niveau_seuil], ["Cible", r.niveau_cible], ["Rêve", r.niveau_reve]];
+    niveaux.forEach(function (n) {
       if (!n[1]) return;
       var d = el("div", null, n[0] === "Cible" ? "est-cible" : null);
       d.appendChild(el("span", n[0]));
@@ -406,7 +459,7 @@
     });
     if (niv.children.length) f.appendChild(niv);
 
-    var pourquoi = r.pourquoi_3 || r.pourquoi_2 || r.pourquoi_1;
+    var pourquoi = r.pourquoi_1;
     if (pourquoi) {
       f.appendChild(el("p", "Pourquoi", "fiche-etiquette"));
       // Une fiche se lit d'un coup d'œil : le pourquoi au long reste dans la fiche détaillée.
@@ -501,50 +554,54 @@
     detail.appendChild(el("h2", "La structure de votre objectif"));
     bilan.appendChild(detail);
 
-    // 1. L'objectif
-    detail.appendChild(el("h3", "1. L'objectif"));
-    var phrase = (r.objectif || "Objectif à préciser");
-    if (r.date_objectif) phrase += ", le " + dateLongue(r.date_objectif);
-    if (r.evenement) phrase += " (" + r.evenement + ")";
-    detail.appendChild(el("p", phrase + ".", "phrase-objectif"));
-    var niv = el("div", null, "niveaux");
-    [["Seuil", r.niveau_seuil, "le minimum"], ["Cible", r.niveau_cible, "ambitieux et réaliste"], ["Rêve", r.niveau_reve, "si tout s'aligne"]].forEach(function (n) {
-      var d = el("div", null, "niveau");
-      d.appendChild(el("p", n[0] + " · " + n[2], "etiquette"));
-      d.appendChild(el("p", n[1] || "À préciser"));
-      niv.appendChild(d);
+    // 1. L'objectif, formulé SMART
+    detail.appendChild(el("h3", "1. Votre objectif, formulé SMART"));
+    detail.appendChild(el("p", phraseSmart(r), "phrase-objectif"));
+    var ts = el("table", null, "table-smart");
+    grilleSmart(r, s).forEach(function (g) {
+      var tr = document.createElement("tr");
+      var th = el("th");
+      th.appendChild(el("strong", g[0] + " "));
+      th.appendChild(document.createTextNode(g[1]));
+      tr.appendChild(th);
+      tr.appendChild(el("td", g[2]));
+      ts.appendChild(tr);
     });
-    detail.appendChild(niv);
-    if (s !== null && s >= 0) detail.appendChild(el("p", "Il vous reste " + s + " semaine" + (s > 1 ? "s" : "") + "." + (s > 52 ? " C'est plus d'un an : votre objectif d'étape deviendra le premier vrai rendez-vous." : "")));
+    detail.appendChild(ts);
+    if (r.type_objectif !== "terminer" && (r.niveau_seuil || r.niveau_cible || r.niveau_reve)) {
+      var niv = el("div", null, "niveaux");
+      [["Seuil", r.niveau_seuil, "le minimum"], ["Cible", r.niveau_cible, "ambitieux et réaliste"], ["Rêve", r.niveau_reve, "si tout s'aligne"]].forEach(function (n) {
+        var d = el("div", null, "niveau");
+        d.appendChild(el("p", n[0] + " · " + n[2], "etiquette"));
+        d.appendChild(el("p", n[1] || "À préciser"));
+        niv.appendChild(d);
+      });
+      detail.appendChild(niv);
+    }
+    if (r.jour_j) detail.appendChild(el("p", "Le jour J : " + r.jour_j));
 
     // 2. Le pourquoi
-    if (r.pourquoi_1 || r.pourquoi_2 || r.pourquoi_3) {
+    if (r.pourquoi_1) {
       detail.appendChild(el("h3", "2. Votre pourquoi"));
-      var ch = el("ol", null, "chaine");
-      [r.pourquoi_1, r.pourquoi_2, r.pourquoi_3].forEach(function (t) { if (t) ch.appendChild(el("li", t)); });
-      detail.appendChild(ch);
-      if (r.pourquoi_3) detail.appendChild(el("p", "La dernière ligne est celle à relire les jours où vous n'aurez pas envie."));
+      detail.appendChild(el("p", r.pourquoi_1, "encadre"));
+      detail.appendChild(el("p", "À relire les jours où vous n'aurez pas envie."));
     }
 
     // 3. Le point de départ
     detail.appendChild(el("h3", "3. Le point de départ"));
     var t = document.createElement("table");
     ligne(t, "Pratique", r.annees);
-    if (r.heures_actuelles !== undefined) ligne(t, "Volume actuel", heures(r.heures_actuelles) + " par semaine" + (r.seances_sem !== undefined ? ", " + r.seances_sem + " séances" : ""));
-    if (r.plus_grosse_semaine !== undefined) ligne(t, "Plus grosse semaine (12 mois)", heures(r.plus_grosse_semaine));
-    if (r.plus_longue_seance !== undefined) ligne(t, "Plus longue séance (3 mois)", heures(r.plus_longue_seance));
+    if (r.heures_actuelles !== undefined) ligne(t, "Volume actuel", heures(r.heures_actuelles) + " par semaine");
     ligne(t, "Performance de référence", r.perf_recente);
-    ligne(t, "Musculation", r.muscu_actuelle);
-    ligne(t, "Montre", r.montre);
-    ligne(t, "Historique enregistré", r.historique);
+    if (r.crit_intervals) ligne(t, "Séances dans intervals.icu", r.crit_intervals === "oui" ? "Oui" : "Pas encore");
+    if (r.crit_capteur) ligne(t, "Ceinture cardiaque ou capteur de puissance", r.crit_capteur === "oui" ? "Oui" : "Non");
     detail.appendChild(t);
+    var crit = lectureCriteres(r); if (crit) detail.appendChild(el("p", crit));
     var ff = forcesEtFaiblesses(r);
     if (ff) {
       detail.appendChild(el("p", "Points forts : " + ff.forces.map(function (x) { return x.nom + " (" + x.note + "/5)"; }).join(", ") + "."));
       detail.appendChild(el("p", "Points faibles : " + ff.faiblesses.map(function (x) { return x.nom + " (" + x.note + "/5)"; }).join(", ") + "."));
     }
-    if (r.ce_qui_a_marche) detail.appendChild(el("p", "Ce qui a marché : " + r.ce_qui_a_marche));
-    if (r.ce_qui_a_casse) detail.appendChild(el("p", "Ce qui a cassé : " + r.ce_qui_a_casse));
 
     // 4. L'écart
     detail.appendChild(el("h3", "4. L'écart"));
@@ -556,9 +613,6 @@
       if (communs.length === 0) detail.appendChild(el("p", "À noter : vos leviers ne sont pas vos points faibles déclarés. Ce n'est pas une erreur, mais la question mérite d'être posée : est-ce vraiment là que se joue votre objectif ?"));
     }
     var vol = lectureVolume(r); if (vol) detail.appendChild(el("p", vol));
-    if (r.duree_longue_max !== undefined && r.plus_longue_seance !== undefined && r.duree_longue_max > r.plus_longue_seance * 1.5 && r.plus_longue_seance > 0) {
-      detail.appendChild(el("p", "Votre séance longue pourra aller jusqu'à " + heures(r.duree_longue_max) + ", contre " + heures(r.plus_longue_seance) + " au plus ces derniers mois : elle s'allongera graduellement."));
-    }
     if (r.preuve) detail.appendChild(el("p", "Votre preuve que c'est atteignable : " + r.preuve));
 
     // 5. Le chemin
@@ -588,10 +642,6 @@
     } else {
       detail.appendChild(el("p", "Précisez la date de l'objectif pour voir la structure en blocs."));
     }
-    var etapesChemin = document.createElement("table");
-    ligne(etapesChemin, "Objectif d'étape (à mi-chemin)", r.objectif_etape);
-    ligne(etapesChemin, "Répétition avant le jour J", r.repetition);
-    if (etapesChemin.children.length) detail.appendChild(etapesChemin);
 
     // 6. L'engagement
     detail.appendChild(el("h3", "6. Votre engagement"));
@@ -606,17 +656,13 @@
     if (r.jours && r.jours.length) ligne(te, "Jours disponibles", r.jours.join(", ") + " (" + r.jours.length + " jours)");
     if (r.heures_dispo !== undefined) ligne(te, "Volume tenable", heures(r.heures_dispo) + " par semaine");
     if (r.jour_long) ligne(te, "Séance longue", r.jour_long + (r.duree_longue_max !== undefined ? ", jusqu'à " + heures(r.duree_longue_max) : ""));
-    ligne(te, "Moment", r.moment);
     ligne(te, "Musculation", r.muscu_plan);
-    ligne(te, "Terrain et matériel", r.terrain);
-    ligne(te, "Contraintes à prévoir", r.contraintes);
-    ligne(te, "Ce que vous changez", r.renoncer);
     detail.appendChild(te);
 
     // 7. Les obstacles
-    detail.appendChild(el("h3", "7. Les obstacles et vos plans"));
-    if (r.obstacle) detail.appendChild(el("p", "L'obstacle principal : " + r.obstacle + (r.obstacle_quand ? " Il apparaît surtout : " + r.obstacle_quand + "." : "")));
-    [[r.si_1, r.alors_1], [r.si_2, r.alors_2]].forEach(function (p) {
+    detail.appendChild(el("h3", "7. L'obstacle et votre plan"));
+    if (r.obstacle) detail.appendChild(el("p", "L'obstacle principal : " + r.obstacle));
+    [[r.si_1, r.alors_1]].forEach(function (p) {
       if (p[0] && p[1]) {
         var d = el("p", null, "encadre");
         var elision = /^ils?\b/i.test(p[0]);
@@ -634,11 +680,9 @@
     var tm = document.createElement("table");
     if (r.importance !== undefined) ligne(tm, "Importance", r.importance + " sur 10");
     if (r.confiance !== undefined) ligne(tm, "Confiance", r.confiance + " sur 10");
-    ligne(tm, "Ce qui vous pousse", r.moteur);
     detail.appendChild(tm);
     if (r.importance_pourquoi) detail.appendChild(el("p", "Pourquoi ce chiffre : " + r.importance_pourquoi));
     if (r.confiance_plus) detail.appendChild(el("p", "Ce qui ferait monter votre confiance : " + r.confiance_plus + " C'est votre première action."));
-    if (r.maintenant) detail.appendChild(el("p", "Pourquoi maintenant : " + r.maintenant));
     if (r.confiance !== undefined && r.confiance <= 6) detail.appendChild(el("p", "Une confiance moyenne au départ est normale. Elle monte quand les habitudes se font, semaine après semaine : c'est pour ça qu'elles passent avant le résultat."));
 
     // Prochaine étape
@@ -707,7 +751,7 @@
     envoiEnCours = true;
     suivant.disabled = true;
     suivant.textContent = "Envoi…";
-    var corps = JSON.stringify({ reponses: r, completude: majJauge(), piege: (form.querySelector('[name="site_web"]') || {}).value || "" });
+    var corps = JSON.stringify({ version: VERSION, reponses: r, completude: majJauge(), piege: (form.querySelector('[name="site_web"]') || {}).value || "" });
     fetch("/api/candidature", { method: "POST", headers: { "Content-Type": "application/json" }, body: corps, credentials: "same-origin" })
       .then(function (rep) { return rep.json().catch(function () { return {}; }).then(function (d) { return { ok: rep.ok, d: d }; }); })
       .then(function (x) {
@@ -732,6 +776,7 @@
   /* ---------- Démarrage ---------- */
   var etat = charger();
   if (etat && etat.reponses) ecrire(etat.reponses);
+  majTypeObjectif();
   majJauge();
   if (etat && etat.envoye && etat.reponses) {
     montrerBilan(etat.reponses, { ok: true, texte: "Candidature déjà envoyée le " + new Date(etat.envoye).toLocaleDateString("fr-CA", { day: "numeric", month: "long" }) + ". Pour la modifier, écrivez à contact@lasynthase.ca." });

@@ -10,8 +10,9 @@
  *   node outils/candidatures.mjs --local         classement (base de wrangler dev)
  *   node outils/candidatures.mjs --detail <id>   le dossier complet d'une personne
  *
- * Note sur 100 = complétude (30) + clarté de l'objectif (20) + réflexion (20)
- * + réalisme (15) + motivation et engagement (15). Les poids sont ceux choisis
+ * Les dossiers hors critères (pas dans intervals.icu, pas de capteur fiable,
+ * pas d'entraînement) passent en dernier. Puis note sur 100 = complétude (30)
+ * + clarté de l'objectif (20) + réflexion (20) + réalisme (15) + motivation (15). Les poids sont ceux choisis
  * le 2026-11-11 ; ils se changent ici, nulle part ailleurs.
  */
 import { execFileSync } from "node:child_process";
@@ -52,23 +53,33 @@ export function noter(r, completude) {
   const notes = {};
   const drapeaux = [];
 
+  // Critères du projet (2026-11-11) : historique dans intervals.icu, capteur fiable.
+  const horsCriteres = [];
+  if (r.crit_intervals !== "oui") horsCriteres.push("pas dans intervals.icu");
+  if (r.crit_capteur !== "oui") horsCriteres.push("pas de ceinture ni de capteur de puissance");
+  if (!(Number(r.heures_actuelles) > 0)) horsCriteres.push("ne s'entraîne pas encore");
+
   // 1. Complétude (30)
   notes.completude = Math.round((Math.min(100, completude || 0) / 100) * 30);
 
   // 2. Clarté de l'objectif (20)
   let c = 0;
   if (r.date_objectif && semainesAvant(r.date_objectif) !== null) c += 5;
-  if (/\d/.test((r.niveau_cible || "") + (r.objectif || ""))) c += 5; else drapeaux.push("objectif sans chiffre");
-  if (r.niveau_seuil && r.niveau_cible && r.niveau_reve) c += 5;
+  if (r.type_objectif === "terminer") {
+    c += 5;
+    if (r.comment_finir || r.barriere) c += 5;
+  } else {
+    if (/\d/.test((r.niveau_cible || "") + (r.objectif || ""))) c += 5; else drapeaux.push("objectif sans chiffre");
+    if (r.niveau_seuil && r.niveau_cible && r.niveau_reve) c += 5;
+  }
   c += 5 * pointsTexte(r.jour_j, 150);
   notes.clarte = Math.round(c);
 
   // 3. Réflexion (20) : les réponses qui demandent de creuser
-  const reflexifs = ["pourquoi_3", "ce_qui_a_casse", "ecart", "preuve", "obstacle", "abandon", "renoncer", "importance_pourquoi", "confiance_plus", "maintenant"];
+  const reflexifs = ["pourquoi_1", "ecart", "preuve", "obstacle", "abandon", "importance_pourquoi", "confiance_plus"];
   const somme = reflexifs.reduce((s, k) => s + pointsTexte(r[k], 120), 0);
   notes.reflexion = Math.round((somme / reflexifs.length) * 20);
-  const siAlors = [r.si_1 && r.alors_1, r.si_2 && r.alors_2].filter(Boolean).length;
-  if (siAlors < 2) drapeaux.push("plans si-alors incomplets");
+  if (!(r.si_1 && r.alors_1)) drapeaux.push("plan si-alors manquant");
 
   // 4. Réalisme (15)
   let re = 0;
@@ -80,25 +91,22 @@ export function noter(r, completude) {
     if (d >= a * 0.7 && d <= a * 1.6 + 2) re += 5;
     else drapeaux.push(`volume ${a} h → ${d} h`);
   }
-  if (r.montre && r.montre !== "Aucune") re += 3; else drapeaux.push("pas de montre");
-  if ((r.outils || []).includes("Ceinture cardiaque")) re += 1;
-  if (r.historique === "6 à 12 mois" || r.historique === "Plus d'un an") re += 1;
+  if (r.crit_intervals === "oui") re += 3;
+  if (r.crit_capteur === "oui") re += 2;
   notes.realisme = re;
 
   // 5. Motivation et engagement (15)
   let m = 0;
   const imp = Number(r.importance), conf = Number(r.confiance);
   if (imp >= 8) m += 5; else if (imp >= 6) m += 2;
-  if (conf >= 6) m += 3; else if (conf >= 4) m += 1;
+  if (conf >= 6) m += 5; else if (conf >= 4) m += 2;
   const eng = (r.engagements || []).length;
-  m += Math.round((eng / 5) * 5);
-  if (eng < 5) drapeaux.push(`${eng}/5 engagements`);
-  if (r.moteur === "Quelqu'un d'autre me l'a proposé" || r.moteur === "Prouver quelque chose à quelqu'un") drapeaux.push(`moteur : ${r.moteur.toLowerCase()}`);
-  else if (r.moteur) m += 2;
+  m += Math.round((eng / 4) * 5);
+  if (eng < 4) drapeaux.push(`${eng}/4 engagements`);
   notes.motivation = Math.min(15, m);
 
   const total = notes.completude + notes.clarte + notes.reflexion + notes.realisme + notes.motivation;
-  return { total, notes, drapeaux };
+  return { total, notes, drapeaux, horsCriteres };
 }
 
 function afficherClassement(lignes) {
@@ -106,7 +114,8 @@ function afficherClassement(lignes) {
   const dossiers = lignes.map((l) => {
     const r = JSON.parse(l.reponses);
     return { l, r, ...noter(r, l.completude) };
-  }).sort((x, y) => y.total - x.total);
+  // Ceux qui répondent aux critères d'abord, puis par note.
+  }).sort((x, y) => (x.horsCriteres.length > 0) - (y.horsCriteres.length > 0) || y.total - x.total);
 
   console.log(`\n${dossiers.length} candidature(s), de la mieux notée à la moins bien notée\n`);
   dossiers.forEach((x, i) => {
@@ -115,6 +124,7 @@ function afficherClassement(lignes) {
       `  (complet ${x.notes.completude}/30 · clarté ${x.notes.clarte}/20 · réflexion ${x.notes.reflexion}/20 · réalisme ${x.notes.realisme}/15 · motivation ${x.notes.motivation}/15)`);
     console.log(`    ${x.r.sport || "?"} · ${x.r.objectif || "objectif ?"}${s !== null ? ` · dans ${s} sem.` : ""} · ${x.r.region || ""}`);
     console.log(`    importance ${x.r.importance ?? "?"}/10, confiance ${x.r.confiance ?? "?"}/10 · ${x.r.heures_actuelles ?? "?"} h → ${x.r.heures_dispo ?? "?"} h/sem · reçu ${x.l.maj}${x.l.envois > 1 ? ` (${x.l.envois} envois)` : ""}`);
+    if (x.horsCriteres.length) console.log(`    HORS CRITÈRES : ${x.horsCriteres.join(" ; ")}`);
     if (x.drapeaux.length) console.log(`    À regarder : ${x.drapeaux.join(" ; ")}`);
   });
   console.log("\nDossier complet : node outils/candidatures.mjs --detail <id>\n");

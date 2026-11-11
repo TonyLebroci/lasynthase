@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projet pilote en endurance : candidature — La Synthase</title>
-  <meta name="description" content="Cinq athlètes accompagnés pendant 4 à 6 mois. Un questionnaire pour bâtir la structure de votre objectif, que vous soyez retenu ou non." />
+  <meta name="description" content="Cinq athlètes accompagnés pendant 4 à 6 mois. Un questionnaire de 15 minutes pour bâtir votre objectif, que vous soyez retenu ou non." />
   <meta name="robots" content="noindex" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -66,24 +66,29 @@
               <p>J'accompagne <strong>cinq athlètes</strong> pendant <strong>4 à 6 mois</strong>, gratuitement, pour mettre à l'épreuve un système d'entraînement inspiré du modèle d'Olympiatoppen, le centre de performance olympique de la Norvège : un objectif analysé comme une épreuve, des tests réguliers plutôt que des impressions, et une échelle d'intensité à cinq zones. En échange, je vous demande de jouer le jeu et de me dire franchement ce qui marche et ce qui ne marche pas.</p>
               <h3>Si vous êtes retenu, vous recevez</h3>
               <ul>
-                <li>un plan en blocs, bâti sur votre objectif, vos contraintes et votre historique d'entraînement réel (montre, Strava ou intervals.icu) ;</li>
+                <li>un plan en blocs, bâti sur votre objectif et sur votre historique d'entraînement réel ;</li>
                 <li>une <strong>séance étalon</strong> qui revient toutes les deux semaines et mesure, en chiffres, si votre forme progresse ;</li>
                 <li>votre page personnelle : la séance du jour, le plan des semaines à venir, vos questions ;</li>
                 <li>un bilan à la fin de chaque bloc : le plan a-t-il été suivi, la forme a-t-elle progressé, et pourquoi ;</li>
                 <li>l'explication de chaque étape, pour que vous compreniez ce que vous faites ;</li>
                 <li>au besoin, de la musculation adaptée à votre sport.</li>
               </ul>
-              <h3>Comment je choisis</h3>
-              <p>Je retiens les dossiers <strong>les plus complets et les plus réfléchis</strong>. Prenez le temps : comptez 20 à 30 minutes. Vos réponses sont gardées dans votre navigateur à mesure ; vous pouvez fermer la page et revenir.</p>
+              <h3>Pour être retenu</h3>
+              <ul>
+                <li>vous vous entraînez déjà régulièrement ;</li>
+                <li>vos séances sont enregistrées dans <strong>intervals.icu</strong> (gratuit) ;</li>
+                <li>vous utilisez une <strong>ceinture cardiaque</strong>, ou un <strong>capteur de puissance</strong> à vélo.</li>
+              </ul>
+              <p>Parmi les candidatures qui répondent à ces critères, je retiens les dossiers <strong>les plus complets et les plus réfléchis</strong>. Comptez 15 minutes. Vos réponses sont gardées dans votre navigateur à mesure ; vous pouvez fermer la page et revenir.</p>
               <div class="encadre">
                 <p class="titre-encadre">À savoir</p>
                 <p>Ne donnez ici <strong>aucun renseignement de santé</strong> (blessure, maladie, médicament). Si vous êtes retenu, on en parle de vive voix, avec un questionnaire de santé et un consentement à part. Le projet est réservé aux personnes de 18 ans et plus.</p>
               </div>
             </section>
 
-            <!-- ===== 1. La vision ===== -->
-            <section class="etape" data-titre="La vision">
-              <p class="etape-numero">Étape 1 sur 7</p>
+            <!-- ===== 1. L'objectif ===== -->
+            <section class="etape" data-titre="L'objectif">
+              <p class="etape-numero">Étape 1 sur 5</p>
               <h2>Où voulez-vous aller ?</h2>
               <p>Un objectif flou donne un entraînement flou. On commence par voir clairement l'arrivée.</p>
 
@@ -99,11 +104,9 @@
                     <option value="">Choisir…</option>
                     <option>Course sur route</option>
                     <option>Trail et course en montagne</option>
-                    <option>Ski de fond</option>
-                    <option>Ski-alpinisme et ski de randonnée</option>
+                    <option>Skimo</option>
                     <option>Vélo</option>
                     <option>Triathlon</option>
-                    <option>Autre</option>
                   </select>
                 </div>
                 <div class="field">
@@ -117,58 +120,63 @@
                 <input type="text" id="evenement" name="evenement" maxlength="120" placeholder="Ex. : Ultra-Trail Harricana, 65 km" />
               </div>
 
-              <h3>Trois niveaux, pas un seul chiffre</h3>
-              <p>Un coach ne fixe pas un chiffre : il en fixe trois. Le <strong>seuil</strong>, sous lequel vous seriez déçu ; la <strong>cible</strong>, ambitieuse et réaliste ; le <strong>rêve</strong>, si tout s'aligne. Chacun doit se vérifier sans discussion : un temps, une distance, un dénivelé, un classement.</p>
-              <div class="champs-trois">
-                <div class="field">
-                  <label for="niveau_seuil">Seuil</label>
-                  <input type="text" id="niveau_seuil" name="niveau_seuil" maxlength="100" placeholder="Ex. : moins de 2 h" required />
+              <fieldset class="choix" id="type-objectif">
+                <legend>Ce que vous visez</legend>
+                <label><input type="radio" name="type_objectif" value="terminer" required /> Terminer l'épreuve</label>
+                <label><input type="radio" name="type_objectif" value="chrono" /> Un temps, une distance ou un classement</label>
+              </fieldset>
+
+              <div data-si-type="chrono" hidden>
+                <h3>Trois niveaux, pas un seul chiffre</h3>
+                <p>Un coach ne fixe pas un chiffre : il en fixe trois. Le <strong>seuil</strong>, sous lequel vous seriez déçu ; la <strong>cible</strong>, ambitieuse et réaliste ; le <strong>rêve</strong>, si tout s'aligne.</p>
+                <div class="champs-trois">
+                  <div class="field">
+                    <label for="niveau_seuil">Seuil</label>
+                    <input type="text" id="niveau_seuil" name="niveau_seuil" maxlength="100" placeholder="Ex. : moins de 2 h" />
+                  </div>
+                  <div class="field">
+                    <label for="niveau_cible">Cible</label>
+                    <input type="text" id="niveau_cible" name="niveau_cible" maxlength="100" placeholder="Ex. : moins de 1 h 50" />
+                  </div>
+                  <div class="field">
+                    <label for="niveau_reve">Rêve</label>
+                    <input type="text" id="niveau_reve" name="niveau_reve" maxlength="100" placeholder="Ex. : moins de 1 h 45" />
+                  </div>
                 </div>
-                <div class="field">
-                  <label for="niveau_cible">Cible</label>
-                  <input type="text" id="niveau_cible" name="niveau_cible" maxlength="100" placeholder="Ex. : moins de 1 h 50" required />
-                </div>
-                <div class="field">
-                  <label for="niveau_reve">Rêve</label>
-                  <input type="text" id="niveau_reve" name="niveau_reve" maxlength="100" placeholder="Ex. : moins de 1 h 45" required />
+              </div>
+
+              <div data-si-type="terminer" hidden>
+                <h3>Terminer, c'est déjà un chiffre</h3>
+                <p>Pour une première fois ou une épreuve très longue, franchir la ligne est l'objectif. Ce qui le rend mesurable : le temps limite de l'épreuve, et l'état dans lequel vous voulez arriver.</p>
+                <div class="champs-deux">
+                  <div class="field">
+                    <label for="barriere">Temps limite de l'épreuve, s'il y en a un</label>
+                    <input type="text" id="barriere" name="barriere" maxlength="100" placeholder="Ex. : 18 h" />
+                  </div>
+                  <div class="field">
+                    <label for="comment_finir">Comment voulez-vous terminer ?</label>
+                    <input type="text" id="comment_finir" name="comment_finir" maxlength="150" placeholder="Ex. : en courant le dernier kilomètre" />
+                  </div>
                 </div>
               </div>
 
               <div class="field">
-                <label for="jour_j">Le jour J : décrivez les dix dernières minutes. Ce que vous voyez, ce que vous ressentez, ce que vous vous dites.</label>
+                <label for="jour_j">Le jour J : décrivez les dix dernières minutes de l'effort. Ce que vous voyez, ce que vous ressentez, ce que vous vous dites.</label>
                 <textarea id="jour_j" name="jour_j" rows="4" maxlength="1500" required></textarea>
               </div>
 
-              <h3>Le pourquoi, en trois niveaux</h3>
-              <p>La première raison est souvent la plus courte. Creusez : c'est la raison profonde qui vous fera sortir sous la pluie en février.</p>
               <div class="field">
-                <label for="pourquoi_1">Pourquoi cet objectif ?</label>
-                <textarea id="pourquoi_1" name="pourquoi_1" rows="2" maxlength="800" required></textarea>
+                <label for="pourquoi_1">Pourquoi cet objectif est-il important pour vous ?</label>
+                <p class="aide-champ">Une raison qui vient de vous : ce que vous voulez vivre, sentir ou devenir. Pas « pour que les autres voient que je suis bon ». C'est cette raison-là qui vous fera sortir par -40 en février.</p>
+                <textarea id="pourquoi_1" name="pourquoi_1" rows="3" maxlength="1000" required></textarea>
               </div>
-              <div class="field">
-                <label for="pourquoi_2">Et pourquoi est-ce important pour vous ?</label>
-                <textarea id="pourquoi_2" name="pourquoi_2" rows="2" maxlength="800" required></textarea>
-              </div>
-              <div class="field">
-                <label for="pourquoi_3">Et derrière ça, qu'est-ce qui compte vraiment ?</label>
-                <textarea id="pourquoi_3" name="pourquoi_3" rows="2" maxlength="800" required></textarea>
-              </div>
-
-              <fieldset class="choix">
-                <legend>Ce qui vous pousse le plus</legend>
-                <label><input type="radio" name="moteur" value="Le défi et le plaisir de progresser" required /> Le défi et le plaisir de progresser</label>
-                <label><input type="radio" name="moteur" value="Une fierté personnelle, une promesse à moi-même" /> Une fierté personnelle, une promesse à moi-même</label>
-                <label><input type="radio" name="moteur" value="Ma santé, mon énergie au quotidien" /> Ma santé, mon énergie au quotidien</label>
-                <label><input type="radio" name="moteur" value="Prouver quelque chose à quelqu'un" /> Prouver quelque chose à quelqu'un</label>
-                <label><input type="radio" name="moteur" value="Quelqu'un d'autre me l'a proposé" /> Quelqu'un d'autre me l'a proposé</label>
-              </fieldset>
             </section>
 
             <!-- ===== 2. Le point de départ ===== -->
             <section class="etape" data-titre="Le point de départ">
-              <p class="etape-numero">Étape 2 sur 7</p>
+              <p class="etape-numero">Étape 2 sur 5</p>
               <h2>D'où partez-vous ?</h2>
-              <p>On ne planifie pas contre l'objectif seulement : on planifie à partir de ce que votre corps fait déjà. Soyez honnête, pas flatteur. Si vous avez une montre, vos chiffres y sont.</p>
+              <p>On ne planifie pas seulement contre l'objectif : on planifie à partir de ce que votre corps fait déjà. Soyez honnête, pas flatteur.</p>
 
               <div class="champs-deux">
                 <div class="field">
@@ -182,37 +190,14 @@
                   </select>
                 </div>
                 <div class="field">
-                  <label for="seances_sem">Séances par semaine, en moyenne, ces 3 derniers mois</label>
-                  <input type="number" id="seances_sem" name="seances_sem" min="0" max="20" step="1" inputmode="numeric" required />
-                </div>
-              </div>
-              <div class="champs-trois">
-                <div class="field">
-                  <label for="heures_actuelles">Heures par semaine, en moyenne (3 derniers mois)</label>
+                  <label for="heures_actuelles">Heures par semaine, en moyenne, ces 3 derniers mois</label>
                   <input type="number" id="heures_actuelles" name="heures_actuelles" min="0" max="40" step="0.5" inputmode="decimal" required />
-                </div>
-                <div class="field">
-                  <label for="plus_grosse_semaine">Votre plus grosse semaine des 12 derniers mois (heures)</label>
-                  <input type="number" id="plus_grosse_semaine" name="plus_grosse_semaine" min="0" max="60" step="0.5" inputmode="decimal" required />
-                </div>
-                <div class="field">
-                  <label for="plus_longue_seance">Votre plus longue séance des 3 derniers mois (heures)</label>
-                  <input type="number" id="plus_longue_seance" name="plus_longue_seance" min="0" max="24" step="0.25" inputmode="decimal" required />
                 </div>
               </div>
 
               <div class="field">
                 <label for="perf_recente">Votre meilleure performance récente qui ressemble à l'objectif (épreuve, date, résultat)</label>
                 <input type="text" id="perf_recente" name="perf_recente" maxlength="200" placeholder="Ex. : 10 km de Lévis, mai 2026, 49 min 30 s" />
-              </div>
-
-              <div class="field">
-                <label for="ce_qui_a_marche">Ce qui a le mieux marché dans votre entraînement jusqu'ici</label>
-                <textarea id="ce_qui_a_marche" name="ce_qui_a_marche" rows="3" maxlength="1200" required></textarea>
-              </div>
-              <div class="field">
-                <label for="ce_qui_a_casse">Ce qui n'a pas marché, ou ce qui vous a déjà fait arrêter</label>
-                <textarea id="ce_qui_a_casse" name="ce_qui_a_casse" rows="3" maxlength="1200" required></textarea>
               </div>
 
               <h3>Vos capacités aujourd'hui</h3>
@@ -227,58 +212,29 @@
                 <div class="note-ligne" data-nom="cap_recuperation"><span>Récupération (sommeil, repos, jours faciles vraiment faciles)</span></div>
               </div>
 
-              <h3>Vos données</h3>
-              <div class="champs-deux">
-                <div class="field">
-                  <label for="montre">Votre montre</label>
-                  <select id="montre" name="montre" required>
-                    <option value="">Choisir…</option>
-                    <option>Garmin</option>
-                    <option>Coros</option>
-                    <option>Suunto</option>
-                    <option>Polar</option>
-                    <option>Apple Watch</option>
-                    <option>Autre</option>
-                    <option>Aucune</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="historique">Depuis quand vos séances sont-elles enregistrées ?</label>
-                  <select id="historique" name="historique" required>
-                    <option value="">Choisir…</option>
-                    <option>Pas d'historique</option>
-                    <option>Moins de 6 mois</option>
-                    <option>6 à 12 mois</option>
-                    <option>Plus d'un an</option>
-                  </select>
-                </div>
-              </div>
+              <h3>Les critères du projet</h3>
               <fieldset class="choix">
-                <legend>Ce que vous utilisez déjà (cochez tout ce qui s'applique)</legend>
-                <label><input type="checkbox" name="outils" value="Ceinture cardiaque" /> Ceinture cardiaque (pas seulement le poignet)</label>
-                <label><input type="checkbox" name="outils" value="Strava" /> Strava</label>
-                <label><input type="checkbox" name="outils" value="intervals.icu" /> intervals.icu</label>
-                <label><input type="checkbox" name="outils" value="Capteur de puissance" /> Capteur de puissance (vélo ou course)</label>
+                <legend>Vos séances sont-elles enregistrées dans intervals.icu ?</legend>
+                <label><input type="radio" name="crit_intervals" value="oui" required /> Oui</label>
+                <label><input type="radio" name="crit_intervals" value="non" /> Pas encore</label>
               </fieldset>
               <fieldset class="choix">
-                <legend>La musculation, aujourd'hui</legend>
-                <label><input type="radio" name="muscu_actuelle" value="Jamais" required /> Jamais</label>
-                <label><input type="radio" name="muscu_actuelle" value="De temps en temps" /> De temps en temps</label>
-                <label><input type="radio" name="muscu_actuelle" value="Une fois par semaine" /> Une fois par semaine</label>
-                <label><input type="radio" name="muscu_actuelle" value="Deux fois par semaine ou plus" /> Deux fois par semaine ou plus</label>
+                <legend>Utilisez-vous une ceinture cardiaque, ou un capteur de puissance à vélo ?</legend>
+                <label><input type="radio" name="crit_capteur" value="oui" required /> Oui</label>
+                <label><input type="radio" name="crit_capteur" value="non" /> Non, seulement la fréquence cardiaque au poignet, ou rien</label>
               </fieldset>
             </section>
 
             <!-- ===== 3. L'écart ===== -->
             <section class="etape" data-titre="L'écart">
-              <p class="etape-numero">Étape 3 sur 7</p>
+              <p class="etape-numero">Étape 3 sur 5</p>
               <h2>Ce qui vous sépare de l'objectif</h2>
               <div class="outil" id="lecture-ecart" hidden>
                 <p class="outil-titre">Ce que disent vos réponses</p>
                 <div id="lecture-ecart-texte"></div>
               </div>
               <div class="field">
-                <label for="ecart">Dans vos mots : qu'est-ce qui vous sépare de votre cible aujourd'hui ?</label>
+                <label for="ecart">Dans vos mots : qu'est-ce qui vous sépare de votre objectif aujourd'hui ?</label>
                 <textarea id="ecart" name="ecart" rows="3" maxlength="1200" required></textarea>
               </div>
               <fieldset class="choix" data-max="2" id="leviers">
@@ -292,43 +248,14 @@
                 <label><input type="checkbox" name="leviers" value="Récupération" /> Récupération</label>
               </fieldset>
               <div class="field">
-                <label for="preuve">Quelle preuve avez-vous que la cible est atteignable ? (une performance, une progression, quelqu'un qui vous ressemble et l'a fait)</label>
+                <label for="preuve">Quelle preuve avez-vous que c'est atteignable ? (une performance, une progression, quelqu'un qui vous ressemble et l'a fait)</label>
                 <textarea id="preuve" name="preuve" rows="3" maxlength="1200" required></textarea>
               </div>
             </section>
 
-            <!-- ===== 4. Le chemin ===== -->
-            <section class="etape" data-titre="Le chemin">
-              <p class="etape-numero">Étape 4 sur 7</p>
-              <h2>Les étapes du chemin</h2>
-              <p>Le résultat final ne se contrôle pas au jour le jour. Ce qui se contrôle, ce sont les étapes et les habitudes. Les athlètes qui se fixent des objectifs de <strong>processus</strong> (ce que je fais) en plus du résultat (ce que j'obtiens) gardent mieux confiance et progressent plus régulièrement.</p>
-              <div class="field">
-                <label for="objectif_etape">Un objectif d'étape à mi-chemin : qu'aimeriez-vous être capable de faire dans la moitié du temps ?</label>
-                <input type="text" id="objectif_etape" name="objectif_etape" maxlength="200" placeholder="Ex. : courir 1 h 30 sans marcher, ou un 10 km en 47 min" required />
-              </div>
-              <div class="field">
-                <label for="repetition">Une course ou un test qui pourrait servir de répétition avant le jour J (facultatif)</label>
-                <input type="text" id="repetition" name="repetition" maxlength="200" />
-              </div>
-              <h3>Vos trois habitudes</h3>
-              <p>Les trois choses qui, faites chaque semaine, rendraient l'objectif presque inévitable. Concrètes et vérifiables : « une sortie longue chaque dimanche », pas « être plus motivé ».</p>
-              <div class="field">
-                <label for="habitude_1">Habitude 1</label>
-                <input type="text" id="habitude_1" name="habitude_1" maxlength="160" required />
-              </div>
-              <div class="field">
-                <label for="habitude_2">Habitude 2</label>
-                <input type="text" id="habitude_2" name="habitude_2" maxlength="160" required />
-              </div>
-              <div class="field">
-                <label for="habitude_3">Habitude 3</label>
-                <input type="text" id="habitude_3" name="habitude_3" maxlength="160" required />
-              </div>
-            </section>
-
-            <!-- ===== 5. L'engagement ===== -->
+            <!-- ===== 4. L'engagement ===== -->
             <section class="etape" data-titre="L'engagement">
-              <p class="etape-numero">Étape 5 sur 7</p>
+              <p class="etape-numero">Étape 4 sur 5</p>
               <h2>Ce que vous êtes prêt à faire</h2>
               <p>Pas votre meilleure semaine : celle que vous pouvez tenir quatre mois, avec le travail, la famille et la fatigue.</p>
               <fieldset class="choix choix-jours">
@@ -341,7 +268,7 @@
                 <label><input type="checkbox" name="jours" value="Samedi" /> Sam</label>
                 <label><input type="checkbox" name="jours" value="Dimanche" /> Dim</label>
               </fieldset>
-              <div class="champs-deux">
+              <div class="champs-trois">
                 <div class="field">
                   <label for="heures_dispo">Heures par semaine que vous pouvez tenir</label>
                   <input type="number" id="heures_dispo" name="heures_dispo" min="0" max="40" step="0.5" inputmode="decimal" required />
@@ -354,35 +281,27 @@
                     <option>Vendredi</option><option>Samedi</option><option>Dimanche</option>
                   </select>
                 </div>
-              </div>
-              <div class="champs-deux">
                 <div class="field">
-                  <label for="duree_longue_max">Durée maximale de cette séance longue (heures)</label>
+                  <label for="duree_longue_max">Durée maximale de cette séance (heures)</label>
                   <input type="number" id="duree_longue_max" name="duree_longue_max" min="0" max="12" step="0.25" inputmode="decimal" required />
                 </div>
-                <div class="field">
-                  <label for="moment">Votre moment de la journée</label>
-                  <select id="moment" name="moment" required>
-                    <option value="">Choisir…</option>
-                    <option>Tôt le matin</option>
-                    <option>Le midi</option>
-                    <option>Le soir</option>
-                    <option>Ça varie</option>
-                  </select>
-                </div>
+              </div>
+
+              <h3>Vos trois habitudes</h3>
+              <p>Le résultat ne se contrôle pas au jour le jour ; les habitudes, oui. Nommez les trois choses qui, faites chaque semaine, rendraient l'objectif presque inévitable. Concrètes et vérifiables : « une sortie longue chaque dimanche », pas « être plus motivé ». Elles seront sur votre fiche du matin, à cocher.</p>
+              <div class="field">
+                <label for="habitude_1">Habitude 1</label>
+                <input type="text" id="habitude_1" name="habitude_1" maxlength="160" required />
               </div>
               <div class="field">
-                <label for="terrain">Le terrain et le matériel à votre portée (côtes, sentiers, piste, tapis, vélo d'intérieur, gym…)</label>
-                <textarea id="terrain" name="terrain" rows="2" maxlength="800" required></textarea>
+                <label for="habitude_2">Habitude 2</label>
+                <input type="text" id="habitude_2" name="habitude_2" maxlength="160" required />
               </div>
               <div class="field">
-                <label for="contraintes">Les contraintes connues des six prochains mois (voyages, examens, périodes chargées au travail, famille)</label>
-                <textarea id="contraintes" name="contraintes" rows="3" maxlength="1200" required></textarea>
+                <label for="habitude_3">Habitude 3</label>
+                <input type="text" id="habitude_3" name="habitude_3" maxlength="160" required />
               </div>
-              <div class="field">
-                <label for="renoncer">À quoi êtes-vous prêt à renoncer, ou qu'êtes-vous prêt à changer, pour cet objectif ?</label>
-                <textarea id="renoncer" name="renoncer" rows="3" maxlength="1200" required></textarea>
-              </div>
+
               <fieldset class="choix">
                 <legend>La musculation dans le plan</legend>
                 <label><input type="radio" name="muscu_plan" value="Oui, deux fois par semaine" required /> Oui, deux fois par semaine</label>
@@ -391,7 +310,6 @@
               </fieldset>
               <fieldset class="choix" id="engagements">
                 <legend>Si vous êtes retenu, vous vous engagez à :</legend>
-                <label><input type="checkbox" name="engagements" value="montre" /> brancher votre montre sur intervals.icu (gratuit ; je vous guide)</label>
                 <label><input type="checkbox" name="engagements" value="matin" /> répondre à trois questions chaque matin (une minute)</label>
                 <label><input type="checkbox" name="engagements" value="etalon" /> faire la séance étalon toutes les deux semaines, dans les mêmes conditions</label>
                 <label><input type="checkbox" name="engagements" value="lire" /> lire l'explication de chaque bloc avant de le commencer</label>
@@ -399,39 +317,27 @@
               </fieldset>
             </section>
 
-            <!-- ===== 6. Les obstacles ===== -->
-            <section class="etape" data-titre="Les obstacles">
-              <p class="etape-numero">Étape 6 sur 7</p>
+            <!-- ===== 5. Les obstacles et la motivation ===== -->
+            <section class="etape" data-titre="Obstacles et motivation">
+              <p class="etape-numero">Étape 5 sur 5</p>
               <h2>Ce qui pourrait vous arrêter</h2>
-              <p>Rêver de l'arrivée ne suffit pas, et peut même nuire. Ce qui aide, c'est de mettre côte à côte ce que vous voulez et ce qui vous en empêche, puis de décider d'avance quoi faire quand l'obstacle se présente.</p>
+              <p>Rêver de l'arrivée ne suffit pas. Ce qui aide, c'est de nommer ce qui vous en empêche, puis de décider d'avance quoi faire quand ça se présente.</p>
               <div class="field">
-                <label for="obstacle">L'obstacle principal, en vous plutôt qu'autour de vous (une habitude, une émotion, une pensée)</label>
-                <textarea id="obstacle" name="obstacle" rows="3" maxlength="1000" required></textarea>
+                <label for="obstacle">L'obstacle principal, en vous plutôt qu'autour de vous (une habitude, une émotion, une pensée), et quand il apparaît</label>
+                <textarea id="obstacle" name="obstacle" rows="3" maxlength="1000" placeholder="Ex. : je lâche toute la semaine quand je rate une séance, surtout après une grosse journée" required></textarea>
               </div>
-              <div class="field">
-                <label for="obstacle_quand">Quand apparaît-il le plus souvent ?</label>
-                <input type="text" id="obstacle_quand" name="obstacle_quand" maxlength="200" placeholder="Ex. : le soir après une grosse journée, quand il pleut" required />
-              </div>
-              <h3>Deux plans « si… alors… »</h3>
+              <h3>Votre plan « si… alors… »</h3>
               <p>Décidez maintenant de votre réaction. Ex. : « Si je rentre trop fatigué pour la séance prévue, alors je fais 30 minutes faciles au lieu de rien. »</p>
               <div class="si-alors">
                 <div class="field"><label for="si_1">Si…</label><input type="text" id="si_1" name="si_1" maxlength="200" required /></div>
                 <div class="field"><label for="alors_1">alors je…</label><input type="text" id="alors_1" name="alors_1" maxlength="200" required /></div>
               </div>
-              <div class="si-alors">
-                <div class="field"><label for="si_2">Si…</label><input type="text" id="si_2" name="si_2" maxlength="200" required /></div>
-                <div class="field"><label for="alors_2">alors je…</label><input type="text" id="alors_2" name="alors_2" maxlength="200" required /></div>
-              </div>
               <div class="field">
                 <label for="abandon">La dernière fois que vous avez laissé tomber un objectif : que s'est-il passé, et qu'en retenez-vous ?</label>
                 <textarea id="abandon" name="abandon" rows="3" maxlength="1200" required></textarea>
               </div>
-            </section>
 
-            <!-- ===== 7. La motivation ===== -->
-            <section class="etape" data-titre="La motivation">
-              <p class="etape-numero">Étape 7 sur 7</p>
-              <h2>À quel point y tenez-vous ?</h2>
+              <h3>À quel point y tenez-vous ?</h3>
               <div class="echelle-bloc">
                 <label for="importance">De 0 à 10, à quel point cet objectif est-il important pour vous ?</label>
                 <div class="echelle"><input type="range" id="importance" name="importance" min="0" max="10" step="1" value="5" data-touche="non" /><output for="importance" id="importance-valeur">–</output></div>
@@ -447,10 +353,6 @@
               <div class="field">
                 <label for="confiance_plus">Qu'est-ce qui ferait monter ce chiffre d'un point ?</label>
                 <textarea id="confiance_plus" name="confiance_plus" rows="2" maxlength="800" required></textarea>
-              </div>
-              <div class="field">
-                <label for="maintenant">Pourquoi maintenant, et pas dans un an ?</label>
-                <textarea id="maintenant" name="maintenant" rows="2" maxlength="800" required></textarea>
               </div>
             </section>
 
@@ -506,7 +408,7 @@
             <article class="bilan-objectif" id="bilan" hidden aria-live="polite"></article>
 
             <div class="sources">
-              <p><strong>Sur quoi s'appuie ce questionnaire.</strong> Le déroulé suit le modèle GROW utilisé en coaching (objectif, réalité, options, volonté ; J. Whitmore, <em>Coaching for Performance</em>, 1992). Les trois niveaux et les objectifs de processus viennent de la psychologie du sport (Locke et Latham, 2002 ; Kingston et Hardy, 1997). Les obstacles et les plans « si… alors… » suivent la méthode WOOP (G. Oettingen) et les intentions d'implémentation (Gollwitzer et Sheeran, 2006). Les échelles d'importance et de confiance viennent de l'entretien motivationnel (Miller et Rollnick).</p>
+              <p><strong>Sur quoi s'appuie ce questionnaire.</strong> Le déroulé suit le modèle GROW utilisé en coaching (objectif, réalité, options, volonté ; J. Whitmore, <em>Coaching for Performance</em>, 1992). La formulation SMART, les trois niveaux et les objectifs de processus viennent de la psychologie du sport (Locke et Latham, 2002 ; Kingston et Hardy, 1997). Les obstacles et les plans « si… alors… » suivent la méthode WOOP (G. Oettingen) et les intentions d'implémentation (Gollwitzer et Sheeran, 2006). Les échelles d'importance et de confiance viennent de l'entretien motivationnel (Miller et Rollnick).</p>
               <p>Ce projet s'inspire des principes d'Olympiatoppen ; il n'y est pas affilié et n'est pas approuvé par Olympiatoppen.</p>
             </div>
           </div>

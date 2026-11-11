@@ -371,6 +371,22 @@
   }
 }
 
+.bilan-objectif .table-smart th strong {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--gold-dark);
+  margin-right: 6px;
+}
+
+.bilan-objectif .table-smart th {
+  width: 30%;
+  white-space: nowrap;
+}
+
+.module-contenu .aide-champ {
+  margin: -4px 0 10px;
+}
+
 /* ---------- Les deux fiches (2026-11-11) ---------- */
 
 .fiche {

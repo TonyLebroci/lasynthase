@@ -227,11 +227,12 @@ async function recevoirCandidature(request, env) {
   ).bind(cle, maintenant, FENETRE_CANDIDATURES_MS).run();
 
   const completude = Math.max(0, Math.min(100, Math.round(Number(d.completude) || 0)));
+  const version = Math.max(1, Math.min(99, Math.round(Number(d.version) || 1)));
   await env.DB.prepare(
-    "INSERT INTO candidatures (courriel, prenom, nom, reponses, completude) VALUES (?1, ?2, ?3, ?4, ?5) " +
+    "INSERT INTO candidatures (courriel, prenom, nom, reponses, completude, version) VALUES (?1, ?2, ?3, ?4, ?5, ?6) " +
     "ON CONFLICT(courriel) DO UPDATE SET prenom = excluded.prenom, nom = excluded.nom, reponses = excluded.reponses, " +
-    "completude = excluded.completude, envois = envois + 1, maj = datetime('now')"
-  ).bind(courriel, prenom, nom, JSON.stringify(r), completude).run();
+    "completude = excluded.completude, version = excluded.version, envois = envois + 1, maj = datetime('now')"
+  ).bind(courriel, prenom, nom, JSON.stringify(r), completude, version).run();
   return json({ ok: true });
 }
 

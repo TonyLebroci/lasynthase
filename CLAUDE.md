@@ -90,8 +90,15 @@ structure de l'objectif, que la personne soit retenue ou non.
 - **Serveur** : `POST /api/candidature` (sans compte), table D1 `candidatures`
   (`migrations/0002_candidatures.sql`), une ligne par courriel (un nouvel envoi remplace),
   champ piège `site_web`, 5 envois par heure et par IP, 40 Ko au plus.
-- **Lire les candidatures** : `node outils/candidatures.mjs` (classement sur 100 : complétude 30,
-  clarté 20, réflexion 20, réalisme 15, motivation 15), `--detail <id>`, `--local`. Sortie dans le
+- **Version 2 (2026-11-11, demandée par Tony)** : raccourcie à 5 étapes (objectif, point de départ,
+  écart, engagement, obstacles et motivation), 15 minutes. « Terminer l'épreuve » ou « un chrono » :
+  seuil/cible/rêve seulement pour le chrono ; temps limite et « comment terminer » pour terminer.
+  Un seul pourquoi, intrinsèque. Critères du projet : intervals.icu + ceinture cardiaque ou capteur
+  de puissance. Le bilan formule l'objectif en **SMART** (phrase + grille S-M-A-R-T). Clé du
+  navigateur `ls-candidature-pilote-v2` ; la version est gardée dans la colonne `version`.
+- **Lire les candidatures** : `node outils/candidatures.mjs` (hors critères en dernier, puis
+  classement sur 100 : complétude 30, clarté 20, réflexion 20, réalisme 15, motivation 15),
+  `--detail <id>`, `--local`. Sortie dans le
   terminal seulement : ne jamais écrire ces réponses dans le coffre ni dans git.
 - **Effacement** : candidature non retenue effacée au plus tard 6 mois après l'envoi
   (`confidentialite.html#candidature`).
