@@ -95,6 +95,16 @@ structure de l'objectif, que la personne soit retenue ou non.
   terminal seulement : ne jamais écrire ces réponses dans le coffre ni dans git.
 - **Effacement** : candidature non retenue effacée au plus tard 6 mois après l'envoi
   (`confidentialite.html#candidature`).
+- **Deux fiches** (2026-11-11) : la **fiche du matin** (1 page Letter, à coller sur une vitre :
+  objectif, date, seuil/cible/rêve, pourquoi profond, 3 habitudes, un plan si-alors, une citation)
+  et la **fiche détaillée** (le bilan complet). Boutons d'impression séparés (`imprimer-matin`,
+  `imprimer-detail` sur `body`). La citation est choisie selon les réponses (`choisirCitation`) et
+  la personne peut en changer ; **liste `CITATIONS` : attributions vérifiées seulement**. Fiche du
+  matin trop chargée → classe `dense` (plus petit) ; ne jamais couper la citation.
+- **Olympiatoppen** : nommé seulement comme inspiration, avec la mention « pas affilié, pas
+  approuvé » (au bas de la page). Jamais dans le nom du projet, un logo ou une adresse.
+- La structure de l'objectif est le **modèle** de la future app de Tony :
+  `04 Projets/olympiatoppen-open/Modèle d'objectif.md`. Changer une question ici = la changer là.
 
 ## Deployment
 
