@@ -119,10 +119,14 @@
     var sortie = document.getElementById(el.id + "-valeur");
     if (sortie) sortie.textContent = el.getAttribute("data-touche") === "oui" ? el.value : "–";
   }
+  // Toucher le curseur compte comme une réponse, même sans le déplacer (ex. laisser 5).
   form.querySelectorAll('input[type="range"]').forEach(function (el) {
-    el.addEventListener("input", function () {
-      el.setAttribute("data-touche", "oui");
-      afficherEchelle(el);
+    ["input", "change", "pointerup", "touchend", "keyup"].forEach(function (evt) {
+      el.addEventListener(evt, function () {
+        el.setAttribute("data-touche", "oui");
+        afficherEchelle(el);
+        memoriser();
+      });
     });
   });
 
