@@ -74,6 +74,28 @@ avec des modules d'apprentissage, et un premier module interactif sur la zone 2.
   `wrangler.jsonc`, tables créées). Toute nouvelle migration : l'appliquer avec
   `npx wrangler d1 migrations apply lasynthase-comptes --remote` **avant** de pousser `main`.
 
+## Candidature au projet pilote en endurance (2026-11-11)
+
+Demande de Tony : une vidéo Facebook renvoie vers un questionnaire ; 5 athlètes retenus pour un
+pilote de 4 à 6 mois (Olympiatoppen Open, `04 Projets/olympiatoppen-open/Plan directeur.md`). Le
+questionnaire bâtit l'objectif comme un coach (GROW, seuil/cible/rêve, objectifs de processus,
+WOOP et plans si-alors, échelles d'importance et de confiance) et affiche à la fin un bilan, la
+structure de l'objectif, que la personne soit retenue ou non.
+
+- **Page** `public/candidature.html` (`/candidature`, `noindex`, hors sitemap), `css/candidature.css`,
+  `js/candidature.js`. Une étape à la fois ; réponses gardées dans le navigateur (localStorage)
+  jusqu'à l'envoi ; un champ vide est signalé, pas bloquant (la complétude sert à la sélection).
+  Le bilan est construit dans le navigateur, **toujours par `textContent`** (texte de la personne).
+- **Aucun champ de santé** (règle de la section « Privacy note ») ; la page le dit.
+- **Serveur** : `POST /api/candidature` (sans compte), table D1 `candidatures`
+  (`migrations/0002_candidatures.sql`), une ligne par courriel (un nouvel envoi remplace),
+  champ piège `site_web`, 5 envois par heure et par IP, 40 Ko au plus.
+- **Lire les candidatures** : `node outils/candidatures.mjs` (classement sur 100 : complétude 30,
+  clarté 20, réflexion 20, réalisme 15, motivation 15), `--detail <id>`, `--local`. Sortie dans le
+  terminal seulement : ne jamais écrire ces réponses dans le coffre ni dans git.
+- **Effacement** : candidature non retenue effacée au plus tard 6 mois après l'envoi
+  (`confidentialite.html#candidature`).
+
 ## Deployment
 
 Hosted on **Cloudflare Workers** (static assets), deployed automatically from the `main` branch

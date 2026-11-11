@@ -1,0 +1,374 @@
+/* ===== Questionnaire de candidature au projet pilote (2026-11-11) =====
+   Reprend la mise en page des modules (espace.css) ; ce fichier n'ajoute que
+   les champs propres au questionnaire et le bilan final. */
+
+.champs-deux,
+.champs-trois {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 22px;
+}
+
+.champs-trois {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.champs-deux .field label,
+.champs-trois .field label {
+  min-height: 2.6em;
+}
+
+.module-contenu .field {
+  margin-bottom: 22px;
+}
+
+.module-contenu .field label {
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+}
+
+.module-contenu .field textarea {
+  min-height: 0;
+  resize: vertical;
+}
+
+.field.manque input,
+.field.manque select,
+.field.manque textarea,
+.choix.manque,
+.note-ligne.manque {
+  border-color: var(--terracotta);
+}
+
+.choix {
+  border: 1px solid var(--line);
+  padding: 18px 22px 10px;
+  margin: 0 0 22px;
+  background: var(--cream);
+}
+
+.choix legend {
+  font-size: 0.95rem;
+  padding: 0 8px;
+  color: var(--charcoal);
+}
+
+.choix label {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin: 0 0 10px;
+  color: var(--charcoal-soft);
+  cursor: pointer;
+}
+
+.choix input {
+  accent-color: var(--sage-dark);
+}
+
+.choix-jours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+
+.choix-jours legend {
+  width: 100%;
+}
+
+/* Notes de 1 à 5 */
+.grille-notes {
+  border-top: 1px solid var(--line);
+  margin: 0 0 30px;
+}
+
+.note-ligne {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  border-left: 2px solid transparent;
+}
+
+.note-ligne > span {
+  color: var(--charcoal-soft);
+  font-size: 0.98rem;
+}
+
+.note-ligne .pastilles {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.note-ligne .pastilles label {
+  position: relative;
+  cursor: pointer;
+}
+
+.note-ligne .pastilles input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+
+.note-ligne .pastilles span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  font-size: 0.9rem;
+  color: var(--charcoal-soft);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.note-ligne .pastilles input:checked + span {
+  background: var(--sage-dark);
+  border-color: var(--sage-dark);
+  color: var(--cream);
+}
+
+.note-ligne .pastilles input:focus-visible + span {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Échelles de 0 à 10 */
+.echelle-bloc {
+  margin: 10px 0 18px;
+}
+
+.echelle-bloc > label {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
+}
+
+.echelle {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.echelle input[type="range"] {
+  flex: 1;
+  accent-color: var(--sage-dark);
+}
+
+.echelle output {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  min-width: 2ch;
+  text-align: right;
+  color: var(--sage-deep);
+}
+
+.si-alors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 22px;
+  border-left: 2px solid var(--gold);
+  padding-left: 18px;
+  margin-bottom: 12px;
+}
+
+/* Champ piège contre les robots : hors de l'écran, jamais visible. */
+.piege {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.module-sommaire li.manque .puce {
+  color: var(--terracotta);
+}
+
+/* ---------- Bilan ---------- */
+
+.bilan-objectif {
+  animation: etape-entre 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.bilan-objectif h2 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3.2vw, 2.5rem);
+  line-height: 1.15;
+  margin: 0 0 10px;
+}
+
+.bilan-objectif h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 1.35rem;
+  margin: 42px 0 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.bilan-objectif p,
+.bilan-objectif li,
+.bilan-objectif td,
+.bilan-objectif th {
+  color: var(--charcoal-soft);
+  font-size: 1rem;
+}
+
+.bilan-objectif strong {
+  color: var(--charcoal);
+  font-weight: 500;
+}
+
+.bilan-objectif .phrase-objectif {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  line-height: 1.3;
+  color: var(--charcoal);
+  border-left: 2px solid var(--gold);
+  padding: 6px 0 6px 22px;
+  margin: 24px 0;
+}
+
+.bilan-objectif .niveaux {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.bilan-objectif .niveau {
+  border: 1px solid var(--line);
+  background: var(--cream);
+  padding: 16px 18px;
+}
+
+.bilan-objectif .niveau p {
+  margin: 0;
+}
+
+.bilan-objectif .niveau .etiquette {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  margin-bottom: 6px;
+}
+
+.bilan-objectif .chaine {
+  list-style: none;
+  padding: 0;
+  counter-reset: chaine;
+}
+
+.bilan-objectif .chaine li {
+  position: relative;
+  padding-left: 34px;
+  margin-bottom: 12px;
+}
+
+.bilan-objectif .chaine li::before {
+  counter-increment: chaine;
+  content: counter(chaine);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--gold-dark);
+}
+
+.bilan-objectif table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+.bilan-objectif th,
+.bilan-objectif td {
+  text-align: left;
+  padding: 9px 10px 9px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.bilan-objectif th {
+  font-weight: 400;
+  width: 42%;
+}
+
+.bilan-objectif .blocs {
+  display: flex;
+  gap: 4px;
+  margin: 18px 0 8px;
+}
+
+.bilan-objectif .bloc {
+  padding: 14px 12px;
+  color: var(--cream);
+  min-width: 0;
+}
+
+.bilan-objectif .bloc p {
+  color: var(--cream);
+  margin: 0;
+  font-size: 0.86rem;
+}
+
+.bilan-objectif .bloc .nom-bloc {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.bilan-objectif .actions-bilan {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 40px;
+}
+
+@media (max-width: 720px) {
+  .champs-deux,
+  .champs-trois,
+  .si-alors,
+  .bilan-objectif .niveaux {
+    grid-template-columns: 1fr;
+  }
+  .champs-deux .field label,
+  .champs-trois .field label {
+    min-height: 0;
+  }
+  .note-ligne {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bilan-objectif .blocs {
+    flex-direction: column;
+  }
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .hero,
+  .module-sommaire,
+  .navigation-etapes,
+  .actions-bilan,
+  .sources,
+  .etape {
+    display: none !important;
+  }
+  .module-mise-en-page {
+    display: block;
+  }
+  .bilan-objectif .bloc {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

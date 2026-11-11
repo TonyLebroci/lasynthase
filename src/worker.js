@@ -2,7 +2,8 @@
  *
  * Le site reste statique : Cloudflare sert public/ directement. Ce Worker ne
  * reçoit que les adresses listées dans wrangler.jsonc (run_worker_first) :
- *   /api/*       comptes, connexion, progression dans les modules
+ *   /api/*       comptes, connexion, progression dans les modules ;
+ *                candidature au projet pilote (POST /api/candidature, sans compte)
  *   /espace*     page du compte          } réservées aux personnes connectées :
  *   /modules/*   modules d'apprentissage } sinon, renvoi vers la connexion
  *
@@ -70,6 +71,7 @@ async function api(request, env, url) {
   if (chemin === "/api/deconnexion" && methode === "POST") return deconnexion(request, env);
   if (chemin === "/api/moi" && methode === "GET") return moi(request, env);
   if (chemin === "/api/compte" && methode === "DELETE") return supprimerCompte(request, env);
+  if (chemin === "/api/candidature" && methode === "POST") return recevoirCandidature(request, env);
 
   const m = chemin.match(/^\/api\/progression\/([a-z0-9-]{1,40})$/);
   if (m && methode === "PUT") return enregistrerProgression(request, env, m[1]);
@@ -182,6 +184,55 @@ async function supprimerCompte(request, env) {
     env.DB.prepare("DELETE FROM utilisateurs WHERE id = ?").bind(u.id),
   ]);
   return json({ ok: true }, 200, temoinsEffaces());
+}
+
+/* ---------- Candidature au projet pilote (2026-11-11) ---------- */
+
+const MAX_CANDIDATURES_PAR_IP = 5;          // par heure
+const FENETRE_CANDIDATURES_MS = 60 * 60 * 1000;
+const TAILLE_MAX_CANDIDATURE = 40000;       // octets de JSON
+
+async function recevoirCandidature(request, env) {
+  const texte = await request.text();
+  if (texte.length > TAILLE_MAX_CANDIDATURE) return json({ erreur: "Réponses trop longues." }, 413);
+  let d;
+  try { d = JSON.parse(texte); } catch (e) { return json({ erreur: "Données invalides." }, 400); }
+  if (!d || typeof d !== "object") return json({ erreur: "Données invalides." }, 400);
+
+  // Champ piège : rempli seulement par les robots. On répond « reçu » sans rien garder.
+  if (d.piege) return json({ ok: true });
+
+  const r = d.reponses;
+  if (!r || typeof r !== "object" || Array.isArray(r)) return json({ erreur: "Données invalides." }, 400);
+  const prenom = String(r.prenom || "").trim().slice(0, 60);
+  const nom = String(r.nom || "").trim().slice(0, 60);
+  const courriel = String(r.courriel || "").trim().toLowerCase();
+  if (!prenom) return json({ erreur: "Indiquez votre prénom." }, 400);
+  if (!courrielValide(courriel)) return json({ erreur: "Ce courriel ne semble pas valide." }, 400);
+  if (r.majeur !== true || r.consentement !== true || r.comprend !== true) {
+    return json({ erreur: "Il faut cocher les trois cases de la dernière étape." }, 400);
+  }
+
+  const ip = request.headers.get("CF-Connecting-IP") || "local";
+  const cle = "candidature:" + ip;
+  const t = await env.DB.prepare("SELECT nombre, debut FROM tentatives WHERE cle = ?").bind(cle).first();
+  if (t && Date.now() - t.debut < FENETRE_CANDIDATURES_MS && t.nombre >= MAX_CANDIDATURES_PAR_IP) {
+    return json({ erreur: "Trop d'envois en peu de temps. Réessayez dans une heure." }, 429);
+  }
+  const maintenant = Date.now();
+  await env.DB.prepare(
+    "INSERT INTO tentatives (cle, nombre, debut) VALUES (?1, 1, ?2) ON CONFLICT(cle) DO UPDATE SET " +
+    "nombre = CASE WHEN ?2 - debut > ?3 THEN 1 ELSE nombre + 1 END, " +
+    "debut = CASE WHEN ?2 - debut > ?3 THEN ?2 ELSE debut END"
+  ).bind(cle, maintenant, FENETRE_CANDIDATURES_MS).run();
+
+  const completude = Math.max(0, Math.min(100, Math.round(Number(d.completude) || 0)));
+  await env.DB.prepare(
+    "INSERT INTO candidatures (courriel, prenom, nom, reponses, completude) VALUES (?1, ?2, ?3, ?4, ?5) " +
+    "ON CONFLICT(courriel) DO UPDATE SET prenom = excluded.prenom, nom = excluded.nom, reponses = excluded.reponses, " +
+    "completude = excluded.completude, envois = envois + 1, maj = datetime('now')"
+  ).bind(courriel, prenom, nom, JSON.stringify(r), completude).run();
+  return json({ ok: true });
 }
 
 /* ---------- Sessions ---------- */
