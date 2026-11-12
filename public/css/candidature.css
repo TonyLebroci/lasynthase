@@ -681,6 +681,17 @@
   .fiche-matin.dense .fiche-citation { margin-top: 0.2in; padding-top: 0.14in; }
   .fiche-matin.dense .fiche-citation p { font-size: 13pt; }
   .fiche-matin.dense .fiche-etiquette { margin-top: 0.16in; }
+  .fiche-matin.dense .fiche-niveaux { margin: 8px 0 6px; }
+  /* v3 : textes très longs (jalon en plus) : un cran plus petit, pour rester sur une page. */
+  .fiche-matin.tres-dense { padding-top: 0.1in; }
+  .fiche-matin.tres-dense .fiche-objectif { font-size: 17pt; }
+  .fiche-matin.tres-dense .fiche-date { margin-bottom: 0.1in; }
+  .fiche-matin.tres-dense .fiche-pourquoi { font-size: 10.5pt; }
+  .fiche-matin.tres-dense .fiche-habitudes li { font-size: 10pt; margin-bottom: 2px; }
+  .fiche-matin.tres-dense .fiche-plan { font-size: 10pt; }
+  .fiche-matin.tres-dense .fiche-etiquette { margin-top: 0.1in; }
+  .fiche-matin.tres-dense .fiche-citation { margin-top: 0.12in; padding-top: 0.1in; }
+  .fiche-matin.tres-dense .fiche-citation p { font-size: 12pt; }
   .fiche-matin .fiche-niveaux .est-cible {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -692,4 +703,17 @@
     display: none !important;
   }
   body.imprimer-matin .fiche-matin { break-after: auto; }
+}
+
+/* v3 : les leviers se choisissent d'abord parmi les faiblesses déclarées. */
+.choix .marque-faiblesse {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  white-space: nowrap;
+}
+
+.fiche-matin .fiche-niveaux {
+  margin: 16px 0 18px;
 }

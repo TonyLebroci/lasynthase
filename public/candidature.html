@@ -167,7 +167,7 @@
 
               <div class="field">
                 <label for="pourquoi_1">Pourquoi cet objectif est-il important pour vous ?</label>
-                <p class="aide-champ">Une raison qui vient de vous : ce que vous voulez vivre, sentir ou devenir. Pas « pour que les autres voient que je suis bon ». C'est cette raison-là qui vous fera sortir par -40 en février.</p>
+                <p class="aide-champ">Si personne ne savait jamais que vous l'avez fait, le feriez-vous quand même ? Pourquoi ?</p>
                 <textarea id="pourquoi_1" name="pourquoi_1" rows="3" maxlength="1000" required></textarea>
               </div>
             </section>
@@ -238,7 +238,7 @@
                 <textarea id="ecart" name="ecart" rows="3" maxlength="1200" required></textarea>
               </div>
               <fieldset class="choix" data-max="2" id="leviers">
-                <legend>Les deux capacités qui, si elles progressaient, vous rapprocheraient le plus de l'objectif (deux au plus)</legend>
+                <legend>Les deux capacités qui, si elles progressaient, vous rapprocheraient le plus de l'objectif (deux au plus). Vos faiblesses sont en premier.</legend>
                 <label><input type="checkbox" name="leviers" value="Endurance de base" /> Endurance de base</label>
                 <label><input type="checkbox" name="leviers" value="Vitesse au seuil" /> Vitesse au seuil</label>
                 <label><input type="checkbox" name="leviers" value="Vitesse et puissance courtes" /> Vitesse et puissance courtes</label>
@@ -250,6 +250,10 @@
               <div class="field">
                 <label for="preuve">Quelle preuve avez-vous que c'est atteignable ? (une performance, une progression, quelqu'un qui vous ressemble et l'a fait)</label>
                 <textarea id="preuve" name="preuve" rows="3" maxlength="1200" required></textarea>
+              </div>
+              <div class="field">
+                <label for="jalon">Dans 6 à 8 semaines, quel résultat concret vous dirait que vous êtes sur la bonne voie ?</label>
+                <input type="text" id="jalon" name="jalon" maxlength="200" placeholder="Ex. : courir 10 km à 5 min 15 s du kilomètre sans dépasser ma zone 3" required />
               </div>
             </section>
 
@@ -268,52 +272,34 @@
                 <label><input type="checkbox" name="jours" value="Samedi" /> Sam</label>
                 <label><input type="checkbox" name="jours" value="Dimanche" /> Dim</label>
               </fieldset>
-              <div class="champs-trois">
-                <div class="field">
-                  <label for="heures_dispo">Heures par semaine que vous pouvez tenir</label>
-                  <input type="number" id="heures_dispo" name="heures_dispo" min="0" max="40" step="0.5" inputmode="decimal" required />
-                </div>
-                <div class="field">
-                  <label for="jour_long">Le jour de votre séance longue</label>
-                  <select id="jour_long" name="jour_long" required>
-                    <option value="">Choisir…</option>
-                    <option>Lundi</option><option>Mardi</option><option>Mercredi</option><option>Jeudi</option>
-                    <option>Vendredi</option><option>Samedi</option><option>Dimanche</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="duree_longue_max">Durée maximale de cette séance (heures)</label>
-                  <input type="number" id="duree_longue_max" name="duree_longue_max" min="0" max="12" step="0.25" inputmode="decimal" required />
-                </div>
+              <div class="field">
+                <label for="heures_dispo">Heures par semaine que vous pouvez tenir</label>
+                <input type="number" id="heures_dispo" name="heures_dispo" min="0" max="40" step="0.5" inputmode="decimal" required />
               </div>
 
               <h3>Vos trois actions de confiance</h3>
-              <p>Trois actions qui, chaque fois que vous les faites, vous prouvent que vous avez la discipline d'atteindre votre objectif. Écrivez-les comme elles vous viennent : une douche froide, une séance de méditation, une heure sans rien faire, quelques lignes dans un journal… Elles n'ont pas besoin d'être liées à l'entraînement. Elles seront sur votre fiche du matin, à cocher.</p>
+              <p>Trois actions que vous contrôlez à 100 %, et qui, chaque fois que vous les faites, vous prouvent que vous avez la discipline d'atteindre votre objectif. <strong>Deux dans votre entraînement</strong> : c'est là que la confiance compte le jour J. <strong>Une libre</strong> : une douche froide, une séance de méditation, quelques lignes dans un journal… Elles seront sur votre fiche du matin, à cocher.</p>
               <div class="field">
-                <label for="habitude_1">Action 1</label>
-                <input type="text" id="habitude_1" name="habitude_1" maxlength="160" required />
+                <label for="habitude_1">Action 1, dans l'entraînement</label>
+                <input type="text" id="habitude_1" name="habitude_1" maxlength="160" placeholder="Ex. : mes sorties faciles restent vraiment faciles" required />
               </div>
               <div class="field">
-                <label for="habitude_2">Action 2</label>
-                <input type="text" id="habitude_2" name="habitude_2" maxlength="160" required />
+                <label for="habitude_2">Action 2, dans l'entraînement</label>
+                <input type="text" id="habitude_2" name="habitude_2" maxlength="160" placeholder="Ex. : je fais mon échauffement au complet, même pressé" required />
               </div>
               <div class="field">
-                <label for="habitude_3">Action 3</label>
-                <input type="text" id="habitude_3" name="habitude_3" maxlength="160" required />
+                <label for="habitude_3">Action 3, libre</label>
+                <input type="text" id="habitude_3" name="habitude_3" maxlength="160" placeholder="Ex. : une douche froide chaque matin" required />
               </div>
 
-              <fieldset class="choix">
-                <legend>La musculation dans le plan</legend>
-                <label><input type="radio" name="muscu_plan" value="Oui, deux fois par semaine" required /> Oui, deux fois par semaine</label>
-                <label><input type="radio" name="muscu_plan" value="Oui, une fois par semaine" /> Oui, une fois par semaine</label>
-                <label><input type="radio" name="muscu_plan" value="Je préfère m'en passer" /> Je préfère m'en passer</label>
-              </fieldset>
+              <div class="field">
+                <label for="soutien">Qui, autour de vous, va savoir que vous visez cet objectif ?</label>
+                <input type="text" id="soutien" name="soutien" maxlength="160" placeholder="Ex. : ma conjointe et mon club de course" required />
+              </div>
+
               <fieldset class="choix" id="engagements">
-                <legend>Si vous êtes retenu, vous vous engagez à :</legend>
-                <label><input type="checkbox" name="engagements" value="matin" /> répondre à trois questions chaque matin (une minute)</label>
-                <label><input type="checkbox" name="engagements" value="etalon" /> faire la séance étalon toutes les deux semaines, dans les mêmes conditions</label>
-                <label><input type="checkbox" name="engagements" value="lire" /> lire l'explication de chaque bloc avant de le commencer</label>
-                <label><input type="checkbox" name="engagements" value="retour" /> donner un retour honnête à chaque bilan</label>
+                <legend>Si vous êtes retenu</legend>
+                <label><input type="checkbox" name="engagements" value="tous" /> Je m'engage à répondre à trois questions chaque matin (une minute), à faire la séance étalon toutes les deux semaines dans les mêmes conditions, à lire l'explication de chaque bloc avant de le commencer et à donner un retour honnête à chaque bilan.</label>
               </fieldset>
             </section>
 
@@ -323,7 +309,7 @@
               <h2>Ce qui pourrait vous arrêter</h2>
               <p>Rêver de l'arrivée ne suffit pas. Ce qui aide, c'est de nommer ce qui vous en empêche, puis de décider d'avance quoi faire quand ça se présente.</p>
               <div class="field">
-                <label for="obstacle">L'obstacle principal, en vous plutôt qu'autour de vous (une habitude, une émotion, une pensée), et quand il apparaît</label>
+                <label for="obstacle">Pensez à la dernière fois que vous avez lâché un objectif ou un plan. Qu'est-ce qui, en vous, vous a fait décrocher (une habitude, une émotion, une pensée), et que vous êtes-vous dit ?</label>
                 <textarea id="obstacle" name="obstacle" rows="3" maxlength="1000" placeholder="Ex. : je veux toujours en faire plus que prévu, surtout quand je me sens bien" required></textarea>
               </div>
               <h3>Votre plan « si… alors… »</h3>
@@ -332,20 +318,8 @@
                 <div class="field"><label for="si_1">Si…</label><input type="text" id="si_1" name="si_1" maxlength="200" required /></div>
                 <div class="field"><label for="alors_1">alors je…</label><input type="text" id="alors_1" name="alors_1" maxlength="200" required /></div>
               </div>
-              <div class="field">
-                <label for="abandon">La dernière fois que vous avez laissé tomber un objectif : que s'est-il passé, et qu'en retenez-vous ?</label>
-                <textarea id="abandon" name="abandon" rows="3" maxlength="1200" required></textarea>
-              </div>
 
-              <h3>À quel point y tenez-vous ?</h3>
-              <div class="echelle-bloc">
-                <label for="importance">De 0 à 10, à quel point cet objectif est-il important pour vous ?</label>
-                <div class="echelle"><input type="range" id="importance" name="importance" min="0" max="10" step="1" value="5" data-touche="non" /><output for="importance" id="importance-valeur">–</output></div>
-              </div>
-              <div class="field">
-                <label for="importance_pourquoi">Pourquoi ce chiffre, et pas un chiffre plus bas ?</label>
-                <textarea id="importance_pourquoi" name="importance_pourquoi" rows="2" maxlength="800" required></textarea>
-              </div>
+              <h3>Votre confiance</h3>
               <div class="echelle-bloc">
                 <label for="confiance">De 0 à 10, à quel point êtes-vous confiant d'y arriver ?</label>
                 <div class="echelle"><input type="range" id="confiance" name="confiance" min="0" max="10" step="1" value="5" data-touche="non" /><output for="confiance" id="confiance-valeur">–</output></div>
@@ -408,7 +382,7 @@
             <article class="bilan-objectif" id="bilan" hidden aria-live="polite"></article>
 
             <div class="sources">
-              <p><strong>Sur quoi s'appuie ce questionnaire.</strong> Le déroulé suit le modèle GROW utilisé en coaching (objectif, réalité, options, volonté ; J. Whitmore, <em>Coaching for Performance</em>, 1992). La formulation SMART, les trois niveaux et les objectifs de processus viennent de la psychologie du sport (Locke et Latham, 2002 ; Kingston et Hardy, 1997). Les obstacles et les plans « si… alors… » suivent la méthode WOOP (G. Oettingen) et les intentions d'implémentation (Gollwitzer et Sheeran, 2006). Les échelles d'importance et de confiance viennent de l'entretien motivationnel (Miller et Rollnick).</p>
+              <p><strong>Sur quoi s'appuie ce questionnaire.</strong> Le déroulé suit le modèle GROW utilisé en coaching (objectif, réalité, options, volonté ; J. Whitmore, <em>Coaching for Performance</em>, 1992). La formulation SMART, les trois niveaux et les objectifs de processus viennent de la psychologie du sport (Locke et Latham, 2002 ; Kingston et Hardy, 1997). Les obstacles et les plans « si… alors… » suivent la méthode WOOP (G. Oettingen) et les intentions d'implémentation (Gollwitzer et Sheeran, 2006). Le jalon à 6 à 8 semaines suit les objectifs proches (Bandura et Schunk, 1981). L'échelle de confiance vient de l'entretien motivationnel (Miller et Rollnick).</p>
               <p>Ce projet s'inspire des principes d'Olympiatoppen ; il n'y est pas affilié et n'est pas approuvé par Olympiatoppen.</p>
             </div>
           </div>

@@ -101,6 +101,15 @@ structure de l'objectif, que la personne soit retenue ou non.
   douche froide, méditation, journal) ; exemple si-alors pour des athlètes déjà disciplinés (ne pas
   pousser à s'entraîner fatigué) ; **pas de blocs d'entraînement dans le bilan** (Tony ne veut pas
   d'un plan avant de connaître l'athlète) ; citation personnelle possible (« Ma propre citation… »).
+- **Version 3 (2026-11-11, révision par quatre experts, go de Tony)** : clé `ls-candidature-pilote-v3`.
+  Retirés : importance sur 10 et sa relance, séance longue, durée maximale, musculation (vont à
+  l'accueil des retenus), 4 cases d'engagement → une seule (`engagements: ["tous"]`), « dernier
+  abandon » (fusionné dans `obstacle`). Ajoutés : `jalon` (6 à 8 semaines) et `soutien` (qui va le
+  savoir). Actions de confiance : 2 dans l'entraînement, 1 libre. Leviers : faiblesses de l'étape 2
+  en premier. SMART : A = **Ambitieux**, R = **Rétroaction** (jalon + séance étalon). Fiche du matin :
+  actions, puis jalon (daté à l'envoi + 8 semaines), puis la cible seulement ; modes `dense` (> 330
+  caractères) et `tres-dense` (> 520) pour tenir sur une page. `candidatures.mjs` note encore la v2.
+  Détail : `04 Projets/olympiatoppen-open/Révision du questionnaire — 2026-11-11.md`.
 - **Les fiches sont privées** : construites dans le navigateur, jamais envoyées ; la citation
   personnelle reste dans le navigateur (`citationPerso`). Seules les réponses partent avec la
   candidature. La page le dit : ne jamais envoyer les fiches au serveur.

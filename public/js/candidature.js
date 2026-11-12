@@ -12,8 +12,10 @@
 (function () {
   "use strict";
 
-  var CLE = "ls-candidature-pilote-v2"; // v2 (2026-11-11) : questionnaire raccourci
-  var VERSION = 2;
+  // v3 (2026-11-11) : révision par quatre experts (jalon, soutien, actions de
+  // confiance liées à l'entraînement, plus d'importance sur 10 ni de questions de plan).
+  var CLE = "ls-candidature-pilote-v3";
+  var VERSION = 3;
   var form = document.getElementById("candidature");
   if (!form) return;
 
@@ -279,6 +281,14 @@
     return Math.floor((cible - auj) / (7 * 24 * 3600 * 1000));
   }
 
+  // Le jalon se date à partir de l'envoi (pas du jour où l'on réimprime la fiche).
+  function dansSemaines(n) {
+    var etat = charger();
+    var d = etat && etat.envoye ? new Date(etat.envoye) : new Date();
+    d.setDate(d.getDate() + n * 7);
+    return d.toLocaleDateString("fr-CA", { day: "numeric", month: "long" });
+  }
+
   function dateLongue(dateIso) {
     var d = new Date(dateIso + "T12:00:00");
     if (isNaN(d)) return "";
@@ -357,20 +367,49 @@
     } else {
       mesurable = r.niveau_cible ? "Cible : " + r.niveau_cible + (r.niveau_seuil ? " · seuil : " + r.niveau_seuil : "") + (r.niveau_reve ? " · rêve : " + r.niveau_reve : "") + "." : "À préciser : un chiffre qui se vérifie sans discussion.";
     }
-    var realiste = r.heures_dispo !== undefined
-      ? heures(r.heures_dispo) + " par semaine" + (r.jours && r.jours.length ? " sur " + r.jours.length + " jours" : "") + (r.heures_actuelles !== undefined ? ", contre " + heures(r.heures_actuelles) + " aujourd'hui." : ".")
-      : "À préciser : le temps que vous pouvez y mettre.";
+    // Locke et Latham : un objectif difficile mais à sa portée donne plus qu'un objectif
+    // facile. A = Ambitieux (on part d'où ?) ; R = Rétroaction (comment on saura).
+    var ambitieux = [];
+    if (r.perf_recente) ambitieux.push("Vous partez de : " + r.perf_recente + ".");
+    if (r.preuve) ambitieux.push("Votre preuve que c'est à votre portée : " + r.preuve);
+    if (!ambitieux.length) ambitieux.push("À démontrer : d'où vous partez, et pourquoi c'est à votre portée.");
+    var retro = (r.jalon ? "Jalon d'ici le " + dansSemaines(8) + " : " + r.jalon.replace(/[.\s]+$/, "") + ". " : "À préciser : un jalon dans 6 à 8 semaines. ")
+      + "Puis la séance étalon, toutes les deux semaines, qui dit en chiffres si la forme monte.";
     return [
       ["S", "Spécifique", (r.objectif || "À préciser") + (r.evenement ? " · " + r.evenement : "") + (r.sport ? " · " + r.sport : "")],
       ["M", "Mesurable", mesurable],
-      ["A", "Atteignable", r.preuve ? "Votre preuve : " + r.preuve : "À démontrer : aucune preuve donnée pour l'instant."],
-      ["R", "Réaliste", realiste],
+      ["A", "Ambitieux", ambitieux.join(" ")],
+      ["R", "Rétroaction", retro],
       ["T", "Temporel", r.date_objectif ? dateLongue(r.date_objectif) + (s !== null && s >= 0 ? ", dans " + s + " semaine" + (s > 1 ? "s" : "") : "") + "." : "À préciser : une date."]
     ];
   }
 
+  var LEVIER_CAP = {
+    "Endurance de base": "cap_endurance", "Vitesse au seuil": "cap_seuil", "Vitesse et puissance courtes": "cap_vitesse",
+    "Force et solidité musculaire": "cap_force", "Technique": "cap_technique", "Régularité": "cap_regularite",
+    "Récupération": "cap_recuperation"
+  };
+
+  // Les leviers se choisissent d'abord parmi les faiblesses cochées à l'étape 2.
+  function ordonnerLeviers(r) {
+    var etiquettes = Array.prototype.slice.call(leviers.querySelectorAll("label"));
+    function rang(l) {
+      var n = Number(r[LEVIER_CAP[l.querySelector("input").value]]);
+      return n && n <= 2 ? 0 : n >= 4 ? 2 : 1;
+    }
+    etiquettes.forEach(function (l, i) { l.setAttribute("data-ordre", l.getAttribute("data-ordre") || String(i)); });
+    etiquettes.sort(function (a, b) { return rang(a) - rang(b) || a.getAttribute("data-ordre") - b.getAttribute("data-ordre"); });
+    etiquettes.forEach(function (l) {
+      var m = l.querySelector(".marque-faiblesse");
+      if (m) m.remove();
+      if (rang(l) === 0) l.appendChild(el("span", "votre faiblesse", "marque-faiblesse"));
+      leviers.appendChild(l);
+    });
+  }
+
   function lectureEcart() {
     var r = lire();
+    ordonnerLeviers(r);
     var boite = document.getElementById("lecture-ecart");
     var zone = document.getElementById("lecture-ecart-texte");
     zone.textContent = "";
@@ -435,33 +474,37 @@
     if (r.evenement) quand.push(r.evenement);
     if (quand.length) f.appendChild(el("p", quand.join(" · "), "fiche-date"));
 
-    var niv = el("div", null, "fiche-niveaux");
-    var niveaux = r.type_objectif === "terminer"
-      ? [["Cible", "Terminer" + (r.barriere ? " en moins de " + r.barriere : "")]]
-      : [["Seuil", r.niveau_seuil], ["Cible", r.niveau_cible], ["Rêve", r.niveau_reve]];
-    niveaux.forEach(function (n) {
-      if (!n[1]) return;
-      var d = el("div", null, n[0] === "Cible" ? "est-cible" : null);
-      d.appendChild(el("span", n[0]));
-      d.appendChild(el("strong", n[1]));
-      niv.appendChild(d);
-    });
-    if (niv.children.length) f.appendChild(niv);
-
-    var pourquoi = r.pourquoi_1;
-    if (pourquoi) {
-      f.appendChild(el("p", "Pourquoi", "fiche-etiquette"));
-      // Une fiche se lit d'un coup d'œil : le pourquoi au long reste dans la fiche détaillée.
-      if (pourquoi.length > 240) pourquoi = pourquoi.slice(0, 240).replace(/\s+\S*$/, "") + "…";
-      f.appendChild(el("p", pourquoi, "fiche-pourquoi", pourquoi.length > 150 ? "long" : null));
-    }
-
+    // v3 : d'abord ce que la personne contrôle (Burton, 1989), puis le prochain jalon,
+    // puis la cible. Le seuil et le rêve restent dans la fiche détaillée.
     var hab = [r.habitude_1, r.habitude_2, r.habitude_3].filter(Boolean);
     if (hab.length) {
       f.appendChild(el("p", "Mes actions de confiance", "fiche-etiquette"));
       var ul = el("ul", null, "fiche-habitudes");
       hab.forEach(function (h) { ul.appendChild(el("li", h)); });
       f.appendChild(ul);
+    }
+
+    if (r.jalon) {
+      f.appendChild(el("p", "Mon prochain jalon · d'ici le " + dansSemaines(8), "fiche-etiquette"));
+      f.appendChild(el("p", r.jalon, "fiche-plan"));
+    }
+
+    var cible = r.type_objectif === "terminer" ? "Terminer" + (r.barriere ? " en moins de " + r.barriere : "") : r.niveau_cible;
+    if (cible) {
+      var niv = el("div", null, "fiche-niveaux");
+      var d = el("div", null, "est-cible");
+      d.appendChild(el("span", "Cible"));
+      d.appendChild(el("strong", cible));
+      niv.appendChild(d);
+      f.appendChild(niv);
+    }
+
+    var pourquoi = r.pourquoi_1;
+    if (pourquoi) {
+      f.appendChild(el("p", "Pourquoi", "fiche-etiquette"));
+      // Une fiche se lit d'un coup d'œil : le pourquoi au long reste dans la fiche détaillée.
+      if (pourquoi.length > 160) pourquoi = pourquoi.slice(0, 160).replace(/\s+\S*$/, "") + "…";
+      f.appendChild(el("p", pourquoi, "fiche-pourquoi", pourquoi.length > 110 ? "long" : null));
     }
 
     if (r.si_1 && r.alors_1) {
@@ -471,8 +514,10 @@
     }
 
     // Beaucoup de texte : la fiche passe en mode compact pour tenir sur une page.
-    var volume = [objectif, pourquoi || "", r.si_1 || "", r.alors_1 || ""].concat(hab).join("").length;
-    if (volume > 420) f.classList.add("dense");
+    var volume = [objectif, pourquoi || "", r.jalon || "", r.si_1 || "", r.alors_1 || ""].concat(hab).join("").length;
+    // v3 : le jalon s'ajoute à la fiche, donc le mode compact arrive plus tôt (420 → 330 caractères).
+    if (volume > 330) f.classList.add("dense");
+    if (volume > 520) f.classList.add("tres-dense");
 
     var q = el("blockquote", null, "fiche-citation");
     q.appendChild(el("p", "« " + c.texte + " »"));
@@ -598,7 +643,7 @@
     detail.appendChild(ts);
     if (r.type_objectif !== "terminer" && (r.niveau_seuil || r.niveau_cible || r.niveau_reve)) {
       var niv = el("div", null, "niveaux");
-      [["Seuil", r.niveau_seuil, "le minimum"], ["Cible", r.niveau_cible, "ambitieux et réaliste"], ["Rêve", r.niveau_reve, "si tout s'aligne"]].forEach(function (n) {
+      [["Seuil", r.niveau_seuil, "le minimum"], ["Cible", r.niveau_cible, "ambitieuse, à votre portée"], ["Rêve", r.niveau_reve, "si tout s'aligne"]].forEach(function (n) {
         var d = el("div", null, "niveau");
         d.appendChild(el("p", n[0] + " · " + n[2], "etiquette"));
         d.appendChild(el("p", n[1] || "À préciser"));
@@ -642,12 +687,13 @@
     }
     var vol = lectureVolume(r); if (vol) detail.appendChild(el("p", vol));
     if (r.preuve) detail.appendChild(el("p", "Votre preuve que c'est atteignable : " + r.preuve));
+    if (r.jalon) detail.appendChild(el("p", "Votre jalon, d'ici le " + dansSemaines(8) + " : " + r.jalon, "encadre"));
 
     // 6. L'engagement
     detail.appendChild(el("h3", "5. Votre engagement"));
     var hab = [r.habitude_1, r.habitude_2, r.habitude_3].filter(Boolean);
     if (hab.length) {
-      detail.appendChild(el("p", "Vos trois actions de confiance : chaque fois que vous les faites, vous vous prouvez que vous avez la discipline d'aller au bout."));
+      detail.appendChild(el("p", "Vos trois actions de confiance, deux dans l'entraînement et une libre : chaque fois que vous les faites, vous vous prouvez que vous avez la discipline d'aller au bout."));
       var ulh = el("ol", null, "chaine");
       hab.forEach(function (h) { ulh.appendChild(el("li", h)); });
       detail.appendChild(ulh);
@@ -655,13 +701,12 @@
     var te = document.createElement("table");
     if (r.jours && r.jours.length) ligne(te, "Jours disponibles", r.jours.join(", ") + " (" + r.jours.length + " jours)");
     if (r.heures_dispo !== undefined) ligne(te, "Volume tenable", heures(r.heures_dispo) + " par semaine");
-    if (r.jour_long) ligne(te, "Séance longue", r.jour_long + (r.duree_longue_max !== undefined ? ", jusqu'à " + heures(r.duree_longue_max) : ""));
-    ligne(te, "Musculation", r.muscu_plan);
+    ligne(te, "Qui va le savoir", r.soutien);
     detail.appendChild(te);
 
     // 7. Les obstacles
     detail.appendChild(el("h3", "6. L'obstacle et votre plan"));
-    if (r.obstacle) detail.appendChild(el("p", "L'obstacle principal : " + r.obstacle));
+    if (r.obstacle) detail.appendChild(el("p", "Ce qui vous a fait décrocher la dernière fois : " + r.obstacle));
     [[r.si_1, r.alors_1]].forEach(function (p) {
       if (p[0] && p[1]) {
         var d = el("p", null, "encadre");
@@ -673,15 +718,12 @@
         detail.appendChild(d);
       }
     });
-    if (r.abandon) detail.appendChild(el("p", "Ce que vous retenez de la dernière fois : " + r.abandon));
 
     // 8. La motivation
-    detail.appendChild(el("h3", "7. Votre motivation"));
+    detail.appendChild(el("h3", "7. Votre confiance"));
     var tm = document.createElement("table");
-    if (r.importance !== undefined) ligne(tm, "Importance", r.importance + " sur 10");
     if (r.confiance !== undefined) ligne(tm, "Confiance", r.confiance + " sur 10");
     detail.appendChild(tm);
-    if (r.importance_pourquoi) detail.appendChild(el("p", "Pourquoi ce chiffre : " + r.importance_pourquoi));
     if (r.confiance_plus) detail.appendChild(el("p", "Ce qui ferait monter votre confiance : " + r.confiance_plus + " C'est votre première action."));
     if (r.confiance !== undefined && r.confiance <= 6) detail.appendChild(el("p", "Une confiance moyenne au départ est normale. Elle monte quand les habitudes se font, semaine après semaine : c'est pour ça qu'elles passent avant le résultat."));
 

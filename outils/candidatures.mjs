@@ -14,6 +14,9 @@
  * pas d'entraînement) passent en dernier. Puis note sur 100 = complétude (30)
  * + clarté de l'objectif (20) + réflexion (20) + réalisme (15) + motivation (15). Les poids sont ceux choisis
  * le 2026-11-11 ; ils se changent ici, nulle part ailleurs.
+ * Version 3 (2026-11-11) : plus d'importance sur 10 ni de « dernier abandon » ; la motivation se lit
+ * dans la confiance, l'engagement (une seule case) et le soutien ; le jalon compte dans la réflexion.
+ * Les dossiers de la version 2 se notent encore (anciens champs lus s'ils sont là).
  */
 import { execFileSync } from "node:child_process";
 
@@ -76,10 +79,13 @@ export function noter(r, completude) {
   notes.clarte = Math.round(c);
 
   // 3. Réflexion (20) : les réponses qui demandent de creuser
-  const reflexifs = ["pourquoi_1", "ecart", "preuve", "obstacle", "abandon", "importance_pourquoi", "confiance_plus"];
+  const reflexifs = Number(r.importance) >= 0 && r.importance !== undefined
+    ? ["pourquoi_1", "ecart", "preuve", "obstacle", "abandon", "importance_pourquoi", "confiance_plus"]  // version 2
+    : ["pourquoi_1", "ecart", "preuve", "obstacle", "confiance_plus", "jalon"];
   const somme = reflexifs.reduce((s, k) => s + pointsTexte(r[k], 120), 0);
   notes.reflexion = Math.round((somme / reflexifs.length) * 20);
   if (!(r.si_1 && r.alors_1)) drapeaux.push("plan si-alors manquant");
+  if (r.importance === undefined && !r.jalon) drapeaux.push("pas de jalon");
 
   // 4. Réalisme (15)
   let re = 0;
@@ -97,12 +103,17 @@ export function noter(r, completude) {
 
   // 5. Motivation et engagement (15)
   let m = 0;
-  const imp = Number(r.importance), conf = Number(r.confiance);
-  if (imp >= 8) m += 5; else if (imp >= 6) m += 2;
+  const conf = Number(r.confiance);
   if (conf >= 6) m += 5; else if (conf >= 4) m += 2;
-  const eng = (r.engagements || []).length;
+  const engs = r.engagements || [];
+  const eng = engs.includes("tous") ? 4 : engs.length;
   m += Math.round((eng / 4) * 5);
-  if (eng < 4) drapeaux.push(`${eng}/4 engagements`);
+  if (eng < 4) drapeaux.push(engs.includes("tous") || r.importance === undefined ? "engagement non coché" : `${eng}/4 engagements`);
+  if (r.importance !== undefined) {  // version 2
+    const imp = Number(r.importance);
+    if (imp >= 8) m += 5; else if (imp >= 6) m += 2;
+  } else if (longueur(r.soutien) > 0) m += 5;
+  else drapeaux.push("personne ne sait");
   notes.motivation = Math.min(15, m);
 
   const total = notes.completude + notes.clarte + notes.reflexion + notes.realisme + notes.motivation;
@@ -123,7 +134,7 @@ function afficherClassement(lignes) {
     console.log(`${String(i + 1).padStart(2)}. [id ${x.l.id}] ${x.l.prenom} ${x.l.nom} — ${x.total}/100` +
       `  (complet ${x.notes.completude}/30 · clarté ${x.notes.clarte}/20 · réflexion ${x.notes.reflexion}/20 · réalisme ${x.notes.realisme}/15 · motivation ${x.notes.motivation}/15)`);
     console.log(`    ${x.r.sport || "?"} · ${x.r.objectif || "objectif ?"}${s !== null ? ` · dans ${s} sem.` : ""} · ${x.r.region || ""}`);
-    console.log(`    importance ${x.r.importance ?? "?"}/10, confiance ${x.r.confiance ?? "?"}/10 · ${x.r.heures_actuelles ?? "?"} h → ${x.r.heures_dispo ?? "?"} h/sem · reçu ${x.l.maj}${x.l.envois > 1 ? ` (${x.l.envois} envois)` : ""}`);
+    console.log(`    ${x.r.importance !== undefined ? `importance ${x.r.importance}/10, ` : ""}confiance ${x.r.confiance ?? "?"}/10 · ${x.r.heures_actuelles ?? "?"} h → ${x.r.heures_dispo ?? "?"} h/sem · reçu ${x.l.maj}${x.l.envois > 1 ? ` (${x.l.envois} envois)` : ""}`);
     if (x.horsCriteres.length) console.log(`    HORS CRITÈRES : ${x.horsCriteres.join(" ; ")}`);
     if (x.drapeaux.length) console.log(`    À regarder : ${x.drapeaux.join(" ; ")}`);
   });
