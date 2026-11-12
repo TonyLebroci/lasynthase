@@ -110,6 +110,12 @@ structure de l'objectif, que la personne soit retenue ou non.
   actions, puis jalon (daté à l'envoi + 8 semaines), puis la cible seulement ; modes `dense` (> 330
   caractères) et `tres-dense` (> 520) pour tenir sur une page. `candidatures.mjs` note encore la v2.
   Détail : `04 Projets/olympiatoppen-open/Révision du questionnaire — 2026-11-11.md`.
+- **Garder ou envoyer (2026-11-11, demande de Tony)** : à la dernière étape (« Vos fiches »), la
+  personne choisit `mode_fin` : **garder** (aucune requête au serveur, `etat.garde` dans le
+  navigateur, seul le prénom est demandé) ou **envoyer** (coordonnées et trois cases, puis
+  `POST /api/candidature`). Le questionnaire se présente d'abord comme un outil pour bâtir son
+  objectif ; la candidature est une option. Après « garder », le bouton « Poser ma candidature »
+  ramène à la dernière étape. Ne jamais faire partir quoi que ce soit en mode garder.
 - **Les fiches sont privées** : construites dans le navigateur, jamais envoyées ; la citation
   personnelle reste dans le navigateur (`citationPerso`). Seules les réponses partent avec la
   candidature. La page le dit : ne jamais envoyer les fiches au serveur.

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>L'entraînement cartésien : candidature au projet pilote — La Synthase</title>
-  <meta name="description" content="Cinq athlètes accompagnés pendant 4 à 6 mois. Un questionnaire de 15 minutes pour bâtir votre objectif, que vous soyez retenu ou non." />
+  <title>L'entraînement cartésien : bâtir votre objectif — La Synthase</title>
+  <meta name="description" content="15 minutes pour bâtir votre objectif comme un athlète et repartir avec deux fiches. Ensuite, vous les gardez pour vous, ou vous posez votre candidature au projet pilote." />
   <meta name="robots" content="noindex" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,7 +42,7 @@
       <div class="container">
         <p class="eyebrow">L'entraînement cartésien · Projet pilote</p>
         <h1>Bâtir votre objectif comme un athlète</h1>
-        <p class="lead"><strong>Mesurer. Analyser. Optimiser.</strong> Cinq athlètes accompagnés pendant 4 à 6 mois, gratuitement. Ce questionnaire est la candidature. Il sert aussi à vous : à la fin, vous recevez la structure complète de votre objectif, que vous soyez retenu ou non.</p>
+        <p class="lead"><strong>Mesurer. Analyser. Optimiser.</strong> En 15 minutes, bâtissez votre objectif comme un athlète et repartez avec deux fiches. À la fin, vous choisissez : les garder pour vous, sans rien envoyer, ou me les envoyer pour poser votre candidature au projet pilote (cinq athlètes accompagnés pendant 4 à 6 mois, gratuitement).</p>
       </div>
     </section>
 
@@ -62,7 +62,10 @@
             <!-- ===== Accueil ===== -->
             <section class="etape" data-titre="Le projet">
               <p class="etape-numero">Avant de commencer</p>
-              <h2>Le projet pilote : l'entraînement cartésien</h2>
+              <h2>Deux façons de vous en servir</h2>
+              <p><strong>Pour vous seulement.</strong> Remplissez le questionnaire, téléchargez vos deux fiches, et c'est tout : rien ne m'est envoyé.</p>
+              <p><strong>Pour le projet pilote.</strong> Envoyez-moi vos réponses à la fin : c'est votre candidature.</p>
+              <h3>Le projet pilote : l'entraînement cartésien</h3>
               <p>J'accompagne <strong>cinq athlètes</strong> pendant <strong>4 à 6 mois</strong>, gratuitement, pour mettre à l'épreuve un système d'entraînement inspiré du modèle d'Olympiatoppen, le centre de performance olympique de la Norvège : un objectif analysé comme une épreuve, des tests réguliers plutôt que des impressions, et une échelle d'intensité à cinq zones. En échange, je vous demande de jouer le jeu et de me dire franchement ce qui marche et ce qui ne marche pas.</p>
               <h3>Si vous êtes retenu, vous recevez</h3>
               <ul>
@@ -79,10 +82,10 @@
                 <li>vos séances sont enregistrées dans <strong>intervals.icu</strong> (gratuit) ;</li>
                 <li>vous utilisez une <strong>ceinture cardiaque</strong>, ou un <strong>capteur de puissance</strong> à vélo.</li>
               </ul>
-              <p>Parmi les candidatures qui répondent à ces critères, je retiens les dossiers <strong>les plus complets et les plus réfléchis</strong>. Comptez 15 minutes. Vos réponses sont gardées dans votre navigateur à mesure ; vous pouvez fermer la page et revenir.</p>
+              <p>Parmi les candidatures qui répondent à ces critères, je retiens les dossiers <strong>les plus complets et les plus réfléchis</strong>. Comptez 15 minutes. Vos réponses sont gardées dans votre navigateur à mesure, et nulle part ailleurs tant que vous ne choisissez pas de les envoyer ; vous pouvez fermer la page et revenir.</p>
               <div class="encadre">
                 <p class="titre-encadre">À savoir</p>
-                <p>Ne donnez ici <strong>aucun renseignement de santé</strong> (blessure, maladie, médicament). Si vous êtes retenu, on en parle de vive voix, avec un questionnaire de santé et un consentement à part. Le projet est réservé aux personnes de 18 ans et plus.</p>
+                <p>Ne donnez ici <strong>aucun renseignement de santé</strong> (blessure, maladie, médicament). Si vous êtes retenu, on en parle de vive voix, avec un questionnaire de santé et un consentement à part. Le projet pilote est réservé aux personnes de 18 ans et plus.</p>
               </div>
             </section>
 
@@ -331,18 +334,23 @@
             </section>
 
             <!-- ===== Envoi ===== -->
-            <section class="etape" data-titre="Envoyer">
+            <section class="etape" data-titre="Vos fiches">
               <p class="etape-numero">Dernière étape</p>
-              <h2>Vous joindre</h2>
-              <div class="champs-deux">
-                <div class="field">
-                  <label for="prenom">Prénom</label>
-                  <input type="text" id="prenom" name="prenom" maxlength="60" autocomplete="given-name" required />
-                </div>
-                <div class="field">
-                  <label for="nom">Nom</label>
-                  <input type="text" id="nom" name="nom" maxlength="60" autocomplete="family-name" required />
-                </div>
+              <h2>Vos fiches, et la suite</h2>
+              <div class="field">
+                <label for="prenom">Votre prénom, pour vos fiches</label>
+                <input type="text" id="prenom" name="prenom" maxlength="60" autocomplete="given-name" required />
+              </div>
+              <fieldset class="choix" id="mode-fin">
+                <legend>Que voulez-vous faire de vos réponses ?</legend>
+                <label><input type="radio" name="mode_fin" value="garder" required /> Garder mes fiches pour moi. Rien n'est envoyé.</label>
+                <label><input type="radio" name="mode_fin" value="envoyer" /> Poser ma candidature au projet pilote. Mes réponses vous sont envoyées.</label>
+              </fieldset>
+              <p class="aide-champ" data-si-envoi="garder" hidden>Vos fiches sont construites dans ce navigateur. Vous pourrez les télécharger en PDF ou les imprimer. Ce questionnaire ne constitue ni un avis médical ni un plan d'entraînement.</p>
+              <div data-si-envoi="envoyer" hidden>
+              <div class="field">
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" name="nom" maxlength="60" autocomplete="family-name" required />
               </div>
               <div class="champs-deux">
                 <div class="field">
@@ -370,6 +378,7 @@
                 <input type="checkbox" name="comprend" required />
                 <span>Je comprends qu'il s'agit d'une candidature (cinq places) et que ce questionnaire ne constitue ni un avis médical ni un plan d'entraînement.</span>
               </label>
+              </div>
               <p class="message-form" id="message-envoi" role="alert"></p>
             </section>
 

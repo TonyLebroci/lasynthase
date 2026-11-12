@@ -5,7 +5,9 @@
  * - Rien n'est obligatoire pour avancer : un champ vide est signalé, pas bloqué.
  *   La complétude fait partie de la sélection. Seuls les coordonnées et les
  *   consentements sont exigés à l'envoi.
- * - À l'envoi : POST /api/candidature, puis le bilan est construit ici, dans
+ * - À la fin, la personne choisit (2026-11-11, demande de Tony) : garder ses
+ *   fiches pour elle (rien n'est envoyé, aucune requête) ou poser sa candidature
+ *   (POST /api/candidature). Dans les deux cas, le bilan est construit ici, dans
  *   la page, à partir des réponses. Tout texte de la personne passe par
  *   textContent (jamais innerHTML).
  */
@@ -143,6 +145,26 @@
     r.addEventListener("change", function () { majTypeObjectif(); majJauge(); });
   });
 
+  /* ---------- Garder ses fiches ou poser sa candidature ---------- */
+  function modeFin() {
+    var choisi = form.querySelector('input[name="mode_fin"]:checked');
+    return choisi ? choisi.value : null;
+  }
+  function majModeFin() {
+    var m = modeFin();
+    form.querySelectorAll("[data-si-envoi]").forEach(function (b) {
+      b.hidden = b.getAttribute("data-si-envoi") !== m;
+    });
+    if (courante === etapes.length - 1) suivant.textContent = texteDernierBouton();
+  }
+  function texteDernierBouton() {
+    var m = modeFin();
+    return m === "envoyer" ? "Envoyer ma candidature et voir mes fiches" : "Voir mes fiches";
+  }
+  form.querySelectorAll('input[name="mode_fin"]').forEach(function (r) {
+    r.addEventListener("change", function () { majModeFin(); majJauge(); messageEnvoi.textContent = ""; });
+  });
+
   /* ---------- Deux leviers au plus ---------- */
   var leviers = document.getElementById("leviers");
   leviers.addEventListener("change", function (e) {
@@ -157,7 +179,7 @@
     var liste = [];
     etape.querySelectorAll("input, select, textarea").forEach(function (el) {
       if (!el.name || el.name === "site_web" || vus[el.name]) return;
-      if (el.closest("[data-si-type][hidden]")) return;
+      if (el.closest("[data-si-type][hidden]") || el.closest("[data-si-envoi][hidden]")) return;
       var groupe = el.type === "radio" || (el.type === "checkbox" && !/^(majeur|consentement|comprend)$/.test(el.name));
       var requis = el.required || groupe || el.type === "range";
       if (el.name === "evenement" || el.name === "perf_recente" || el.name === "barriere") requis = false;
@@ -233,7 +255,7 @@
     });
     courante = i;
     precedent.style.visibility = i === 0 ? "hidden" : "visible";
-    suivant.textContent = i === 0 ? "Commencer" : i === etapes.length - 1 ? "Envoyer et voir mon bilan" : "Suivant";
+    suivant.textContent = i === 0 ? "Commencer" : i === etapes.length - 1 ? texteDernierBouton() : "Suivant";
     messageEnvoi.textContent = "";
     if (etapes[i].getAttribute("data-titre") === "L'écart") lectureEcart();
     if (defiler) form.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -284,7 +306,8 @@
   // Le jalon se date à partir de l'envoi (pas du jour où l'on réimprime la fiche).
   function dansSemaines(n) {
     var etat = charger();
-    var d = etat && etat.envoye ? new Date(etat.envoye) : new Date();
+    var quand = etat && (etat.envoye || etat.garde);
+    var d = quand ? new Date(quand) : new Date();
     d.setDate(d.getDate() + n * 7);
     return d.toLocaleDateString("fr-CA", { day: "numeric", month: "long" });
   }
@@ -550,10 +573,13 @@
 
     bilan.appendChild(el("p", "Votre bilan", "eyebrow", "ecran"));
     bilan.appendChild(el("h2", "Vos deux fiches", null, "ecran"));
+    var garde = statutEnvoi && statutEnvoi.garde;
     bilan.appendChild(el("p", "Tout vient de vos réponses. La fiche du matin se colle sur une vitre ou un miroir et se lit chaque matin. La fiche détaillée se relit au début de chaque mois.", null, "ecran"));
     var prive = el("div", null, "encadre", "ecran");
     prive.appendChild(el("p", "Ces fiches sont à vous seulement", "titre-encadre"));
-    prive.appendChild(el("p", "Elles sont construites dans votre navigateur. Je n'y ai pas accès et je ne les garde pas : ni les fiches, ni la citation que vous choisissez ou écrivez. Ce que je reçois, ce sont seulement vos réponses au questionnaire, pour étudier votre candidature. Imprimez vos fiches ou enregistrez-les en PDF : c'est la seule copie."));
+    prive.appendChild(el("p", garde
+      ? "Rien ne m'a été envoyé : vos réponses et vos fiches restent dans ce navigateur. Téléchargez-les en PDF (dans la fenêtre d'impression, choisissez « Enregistrer en PDF ») : c'est la seule copie. Le bouton « Effacer » les retire de ce navigateur."
+      : "Elles sont construites dans votre navigateur. Je n'y ai pas accès et je ne les garde pas : ni les fiches, ni la citation que vous choisissez ou écrivez. Ce que je reçois, ce sont seulement vos réponses au questionnaire, pour étudier votre candidature. Téléchargez vos fiches en PDF (dans la fenêtre d'impression, choisissez « Enregistrer en PDF ») : c'est la seule copie."));
     bilan.appendChild(prive);
     if (statutEnvoi) bilan.appendChild(el("p", statutEnvoi.texte, "message-form ecran" + (statutEnvoi.ok ? " ok" : "")));
 
@@ -730,14 +756,31 @@
     // Prochaine étape
     var suite = el("div", null, "ecran");
     suite.appendChild(el("h3", "La suite"));
-    suite.appendChild(el("p", "Je lis chaque dossier et je contacte par courriel les cinq personnes retenues. Retenu ou non, ces deux fiches sont à vous."));
+    if (garde) {
+      suite.appendChild(el("p", "Votre objectif est bâti. Si vous voulez être accompagné pour l'atteindre, vous pouvez encore poser votre candidature au projet pilote : vos réponses sont déjà là, il reste vos coordonnées."));
+      var candidater = el("button", "Poser ma candidature", "btn btn-ghost");
+      candidater.type = "button";
+      candidater.addEventListener("click", function () {
+        try { var etat = charger() || {}; delete etat.garde; localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* rien */ }
+        var r2 = form.querySelector('input[name="mode_fin"][value="envoyer"]');
+        r2.checked = true;
+        majModeFin();
+        bilan.hidden = true;
+        navigation.hidden = false;
+        form.classList.remove("mode-bilan");
+        allerA(etapes.length - 1, true);
+      });
+      suite.appendChild(candidater);
+    } else {
+      suite.appendChild(el("p", "Je lis chaque dossier et je contacte par courriel les cinq personnes retenues. Retenu ou non, ces deux fiches sont à vous."));
+    }
     bilan.appendChild(suite);
 
     var actions = el("div", null, "actions-bilan");
-    var imprimer = el("button", "Imprimer la fiche du matin", "btn btn-primary");
+    var imprimer = el("button", "Télécharger ou imprimer la fiche du matin", "btn btn-primary");
     imprimer.type = "button";
     imprimer.addEventListener("click", function () { imprimerSeulement("matin"); });
-    var imprimerDetail = el("button", "Imprimer la fiche détaillée", "btn btn-ghost");
+    var imprimerDetail = el("button", "Télécharger ou imprimer la fiche détaillée", "btn btn-ghost");
     imprimerDetail.type = "button";
     imprimerDetail.addEventListener("click", function () { imprimerSeulement("detail"); });
     actions.appendChild(imprimerDetail);
@@ -773,6 +816,22 @@
   function envoyer() {
     if (envoiEnCours) return;
     var r = lire();
+    var mode = modeFin();
+    if (!mode) {
+      messageEnvoi.textContent = "Choisissez d'abord : garder vos fiches pour vous, ou poser votre candidature.";
+      return;
+    }
+    if (mode === "garder") {
+      // Rien ne part : aucune requête au serveur.
+      try {
+        var etatG = charger() || {};
+        etatG.reponses = r;
+        etatG.garde = new Date().toISOString();
+        localStorage.setItem(CLE, JSON.stringify(etatG));
+      } catch (e) { /* rien */ }
+      montrerBilan(r, { ok: true, garde: true, texte: "Vos fiches sont prêtes. Rien n'a été envoyé." });
+      return;
+    }
     var manques = [];
     if (!r.prenom) manques.push("votre prénom");
     if (!r.courriel || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.courriel)) manques.push("un courriel valide");
@@ -819,8 +878,11 @@
   var etat = charger();
   if (etat && etat.reponses) ecrire(etat.reponses);
   majTypeObjectif();
+  majModeFin();
   majJauge();
-  if (etat && etat.envoye && etat.reponses) {
+  if (etat && etat.garde && !etat.envoye && etat.reponses) {
+    montrerBilan(etat.reponses, { ok: true, garde: true, texte: "Vos fiches, bâties le " + new Date(etat.garde).toLocaleDateString("fr-CA", { day: "numeric", month: "long" }) + ". Rien n'a été envoyé." });
+  } else if (etat && etat.envoye && etat.reponses) {
     montrerBilan(etat.reponses, { ok: true, texte: "Candidature déjà envoyée le " + new Date(etat.envoye).toLocaleDateString("fr-CA", { day: "numeric", month: "long" }) + ". Pour la modifier, écrivez à contact@lasynthase.ca." });
   } else {
     allerA(etat && typeof etat.etape === "number" ? Math.min(etat.etape, etapes.length - 1) : 0, false);
