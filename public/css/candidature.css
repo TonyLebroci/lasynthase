@@ -717,3 +717,356 @@
 .fiche-matin .fiche-niveaux {
   margin: 16px 0 18px;
 }
+
+/* ---------- Fiches en couleur (2026-11-16, demande de Tony) ----------
+   Les infos clés sautent aux yeux : bandeau vert en tête, chiffres clés en tuiles,
+   numéros de section, échéance du jalon en terracotta, jauge de confiance.
+   Couleurs du site seulement (sauge, or, terracotta, crème). L'ordre de la fiche du
+   matin ne change pas (révision du 2026-11-11 : actions, jalon, puis la cible). */
+
+.fiche,
+.fiche * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Fiche du matin */
+.fiche-matin {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.fiche-matin .fiche-surtitre {
+  background: var(--sage-deep);
+  color: var(--cream);
+  border-bottom: 3px solid var(--gold);
+  margin: 0 -52px 30px;
+  padding: 14px 20px;
+  font-weight: 500;
+}
+
+.fiche-matin .fiche-objectif {
+  font-weight: 600;
+  color: var(--sage-deep);
+}
+
+.fiche-matin .fiche-date {
+  display: inline-block;
+  border: 1px solid var(--gold);
+  padding: 5px 16px;
+  color: var(--charcoal-soft);
+}
+
+.fiche-matin .fiche-date {
+  align-self: center;
+}
+
+.fiche-matin .fiche-date strong {
+  color: var(--charcoal);
+  font-weight: 600;
+}
+
+.fiche-matin .fiche-etiquette {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+
+.fiche-matin .fiche-etiquette::before,
+.fiche-matin .fiche-etiquette::after {
+  content: "";
+  flex: 0 1 60px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.fiche-matin .fiche-etiquette .echeance {
+  background: var(--terracotta);
+  color: #fff;
+  padding: 3px 9px;
+  letter-spacing: 0.14em;
+}
+
+.fiche-matin .fiche-habitudes {
+  background: var(--cream);
+  border-left: 3px solid var(--sage-dark);
+  padding: 14px 24px 8px;
+}
+
+.fiche-matin .fiche-habitudes li {
+  font-weight: 500;
+}
+
+.fiche-matin .fiche-habitudes li::before {
+  border: 2px solid var(--sage-deep);
+  background: #fff;
+}
+
+.fiche-matin .fiche-jalon {
+  font-weight: 600;
+  color: var(--sage-deep);
+}
+
+.fiche-matin .fiche-niveaux .est-cible {
+  border: 0;
+  border-top: 3px solid var(--gold);
+  padding: 10px 30px 12px;
+}
+
+.fiche-matin .fiche-niveaux .est-cible strong {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.fiche-matin .fiche-pourquoi {
+  color: var(--sage-deep);
+}
+
+.fiche .mot-cle {
+  color: var(--terracotta);
+  font-weight: 600;
+}
+
+.fiche-matin .fiche-citation {
+  background: var(--cream);
+  border-top: 2px solid var(--gold);
+  padding: 18px 26px 16px;
+  max-width: 40ch;
+}
+
+/* Fiche détaillée */
+.fiche-detaillee .fiche-entete {
+  background: var(--sage-deep);
+  border-bottom: 3px solid var(--gold);
+  margin: -48px -52px 0;
+  padding: 26px 52px 22px;
+}
+
+.fiche-detaillee .fiche-entete .eyebrow {
+  color: #d9c69d;
+  margin: 0 0 6px;
+}
+
+.bilan-objectif .fiche-detaillee .fiche-entete h2 {
+  color: var(--cream);
+  margin: 0;
+}
+
+.fiche-reperes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  border: 1px solid var(--line);
+  border-top: 0;
+  margin: 0 0 8px;
+}
+
+.fiche-reperes div {
+  background: var(--cream);
+  padding: 12px 16px;
+  border-right: 1px solid var(--line);
+}
+
+.fiche-reperes div:last-child {
+  border-right: 0;
+}
+
+.fiche-reperes span {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage-dark);
+  font-weight: 600;
+}
+
+.fiche-reperes strong {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.fiche-reperes .est-cible {
+  background: var(--gold-dark);
+}
+
+.fiche-reperes .est-cible span,
+.fiche-reperes .est-cible strong {
+  color: #fff;
+}
+
+.bilan-objectif .fiche-detaillee h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--sage-deep);
+  border-top: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 0 0 8px;
+  margin: 34px 0 14px;
+}
+
+.fiche-detaillee h3 .num {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: var(--sage-deep);
+  color: var(--cream);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.bilan-objectif .fiche-detaillee .phrase-objectif {
+  border-left: 4px solid var(--gold);
+  font-weight: 500;
+  color: var(--sage-deep);
+}
+
+.bilan-objectif .fiche-detaillee .table-smart th strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--gold-dark);
+  color: #fff;
+  font-size: 1.1rem;
+  margin-right: 10px;
+}
+
+.bilan-objectif .fiche-detaillee th {
+  color: var(--sage-deep);
+  font-weight: 500;
+}
+
+.bilan-objectif .fiche-detaillee .niveau.est-cible {
+  background: var(--sage-deep);
+  border-color: var(--sage-deep);
+}
+
+.bilan-objectif .fiche-detaillee .niveau.est-cible p {
+  color: var(--cream);
+  font-weight: 600;
+}
+
+.bilan-objectif .fiche-detaillee .niveau p:not(.etiquette) {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.fiche-detaillee .encadre-pourquoi {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  color: var(--sage-deep);
+}
+
+.fiche-detaillee .encadre-jalon {
+  border-left: 3px solid var(--terracotta);
+  background: #f5ebe5;
+}
+
+.fiche-detaillee .encadre-jalon strong {
+  color: var(--terracotta);
+}
+
+.bilan-objectif .fiche-detaillee .chaine li {
+  font-weight: 500;
+}
+
+.bilan-objectif .fiche-detaillee .chaine li::before {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: 0.8rem;
+  top: 0.15em;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--sage-dark);
+  color: var(--sage-deep);
+}
+
+.jauge-confiance {
+  display: flex;
+  gap: 4px;
+  margin: 4px 0 14px;
+  max-width: 360px;
+}
+
+.jauge-confiance span {
+  flex: 1;
+  height: 10px;
+  background: var(--line);
+}
+
+.jauge-confiance .plein {
+  background: var(--sage-dark);
+}
+
+@media (max-width: 720px) {
+  .fiche-matin .fiche-surtitre { margin: 0 -22px 24px; }
+  .fiche-matin .fiche-etiquette { flex-wrap: wrap; gap: 6px 10px; }
+  .fiche-matin .fiche-etiquette::before,
+  .fiche-matin .fiche-etiquette::after { display: none; }
+  .fiche-detaillee .fiche-entete { margin: -30px -22px 0; padding: 22px; }
+}
+
+@media print {
+  /* Fiche du matin : la citation descend au bas de la page. */
+  .fiche-matin { border-top: 0; padding-top: 0; }
+  .fiche-matin .fiche-surtitre { margin: 0 0 0.3in; padding: 10pt; font-size: 9pt; }
+  .fiche-matin .fiche-citation { margin-top: auto; }
+  .fiche-matin.dense { padding-top: 0; }
+  .fiche-matin.dense .fiche-surtitre { margin-bottom: 0.18in; }
+  .fiche-matin.dense .fiche-citation { margin-top: 0.2in; }
+  .fiche-matin.tres-dense { padding-top: 0; }
+  .fiche-matin.tres-dense .fiche-surtitre { margin-bottom: 0.1in; padding: 6pt; }
+  .fiche-matin.tres-dense .fiche-habitudes { padding: 8px 18px 4px; }
+  .fiche-matin.tres-dense .fiche-citation { margin-top: 0.12in; padding: 10px 18px; }
+  .fiche-matin.tres-dense .fiche-niveaux .est-cible strong { font-size: 15pt; }
+  .fiche-matin.dense .fiche-niveaux .est-cible strong { font-size: 17pt; }
+  .fiche-matin .fiche-niveaux .est-cible strong { font-size: 22pt; }
+  .fiche-matin .fiche-citation { break-inside: avoid; }
+  .fiche-matin.dense .fiche-objectif { max-width: 32ch; }
+  .fiche-matin.tres-dense .fiche-objectif { max-width: 38ch; margin-bottom: 6px; }
+  .fiche-matin.tres-dense .fiche-niveaux .est-cible { padding: 6px 24px 8px; }
+  .fiche-matin.tres-dense .fiche-niveaux { margin: 6px 0 4px; }
+
+  /* Fiche détaillée : plus compacte, deux pages en général. */
+  .fiche-detaillee .fiche-entete { margin: 0; padding: 14pt 18pt 12pt; }
+  .bilan-objectif .fiche-detaillee .fiche-entete h2 { font-size: 21pt; }
+  .bilan-objectif .fiche-detaillee p,
+  .bilan-objectif .fiche-detaillee td,
+  .bilan-objectif .fiche-detaillee th,
+  .bilan-objectif .fiche-detaillee li { font-size: 10pt; line-height: 1.4; }
+  .bilan-objectif .fiche-detaillee p { margin: 0 0 6pt; }
+  .bilan-objectif .fiche-detaillee th,
+  .bilan-objectif .fiche-detaillee td { padding: 4pt 8pt 4pt 0; }
+  .bilan-objectif .fiche-detaillee h3 { font-size: 13.5pt; margin: 14pt 0 6pt; padding-bottom: 5pt; break-after: avoid; }
+  .fiche-detaillee h3 .num { width: 20pt; height: 20pt; font-size: 10pt; }
+  .bilan-objectif .fiche-detaillee .phrase-objectif { font-size: 14pt; margin: 8pt 0; }
+  .fiche-detaillee .encadre { padding: 8pt 14pt; margin: 10pt 0; }
+  .fiche-detaillee .encadre-pourquoi { font-size: 13pt; }
+  .fiche-reperes strong { font-size: 14pt; }
+  .fiche-reperes div { padding: 8pt 12pt; }
+  .bilan-objectif .fiche-detaillee .niveau { padding: 6pt 12pt; }
+  .bilan-objectif .fiche-detaillee .niveaux { margin-bottom: 6pt; }
+  .bilan-objectif .fiche-detaillee .niveau p:not(.etiquette) { font-size: 14pt; }
+  .bilan-objectif .fiche-detaillee .table-smart th strong { width: 20pt; height: 20pt; font-size: 12pt; }
+  .bilan-objectif .fiche-detaillee .chaine li { margin-bottom: 8pt; padding-left: 30pt; min-height: 18pt; }
+  .bilan-objectif .fiche-detaillee .chaine li::before { width: 16pt; height: 16pt; top: 0; }
+  .fiche-reperes, .jauge-confiance { break-inside: avoid; }
+}

@@ -137,6 +137,13 @@ structure de l'objectif, que la personne soit retenue ou non.
   `imprimer-detail` sur `body`). La citation est choisie selon les réponses (`choisirCitation`) et
   la personne peut en changer ; **liste `CITATIONS` : attributions vérifiées seulement**. Fiche du
   matin trop chargée → classe `dense` (plus petit) ; ne jamais couper la citation.
+- **Fiches en couleur (2026-11-16, demande de Tony)** : les infos clés sautent aux yeux, aux couleurs
+  du site seulement (sauge, or, terracotta, crème) : bandeau vert en tête des deux fiches, échéance du
+  jalon en terracotta, « Si / alors » en évidence ; fiche détaillée avec une rangée de chiffres clés
+  (jour J, cible, jalon, confiance), sections numérotées, cible pleine, jauge de confiance. Styles en
+  fin de `css/candidature.css`. `insecable()` empêche « 1 h 45 » de se couper (affichage seulement).
+  Vérifié en PDF Letter : fiche du matin sur 1 page, même avec de très longues réponses ; fiche
+  détaillée sur 2 pages pour des réponses normales. L'ordre de la fiche du matin ne change pas.
 - **Olympiatoppen** : nommé seulement comme inspiration, avec la mention « pas affilié, pas
   approuvé » (au bas de la page). Jamais dans le nom du projet, un logo ou une adresse.
 - La structure de l'objectif est le **modèle** de la future app de Tony :

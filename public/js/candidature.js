@@ -456,6 +456,24 @@
     return e;
   }
 
+  // Affichage seulement : « 1 h 45 », « 10 km » ne se coupent pas en fin de ligne.
+  function insecable(t) {
+    return String(t)
+      .replace(/(\d)\s+(h|min|km|m|s|k|%)(?=[\s,.;:)]|$)/g, "$1\u00a0$2")
+      .replace(/\b(h|min)\s+(\d)/g, "$1\u00a0$2");
+  }
+
+  // « Si … , alors … » avec les deux mots en évidence.
+  function siAlors(si, alors, classe) {
+    var p = el("p", null, classe);
+    var elision = /^ils?\b/i.test(si);
+    p.appendChild(el("strong", elision ? "S'" : "Si ", "mot-cle"));
+    p.appendChild(document.createTextNode(si + ", "));
+    p.appendChild(el("strong", "alors ", "mot-cle"));
+    p.appendChild(document.createTextNode(alors + "."));
+    return p;
+  }
+
   /* ---------- Citations (attributions vérifiées) ---------- */
   var CITATIONS = [
     { texte: "Un voyage de mille lieues commence par un premier pas.", auteur: "Lao-tseu", source: "Tao-tö-king" },
@@ -491,11 +509,14 @@
     var f = el("section", null, "fiche fiche-matin");
     f.appendChild(el("p", "Chaque matin" + (r.prenom ? " · " + r.prenom : ""), "fiche-surtitre"));
     var objectif = r.objectif || "Mon objectif";
-    f.appendChild(el("p", objectif, "fiche-objectif", objectif.length > 90 ? "long" : null));
-    var quand = [];
-    if (r.date_objectif) quand.push(dateLongue(r.date_objectif));
-    if (r.evenement) quand.push(r.evenement);
-    if (quand.length) f.appendChild(el("p", quand.join(" · "), "fiche-date"));
+    f.appendChild(el("p", insecable(objectif), "fiche-objectif", objectif.length > 90 ? "long" : null));
+    if (r.date_objectif || r.evenement) {
+      var quand = el("p", null, "fiche-date");
+      if (r.date_objectif) quand.appendChild(el("strong", dateLongue(r.date_objectif)));
+      if (r.date_objectif && r.evenement) quand.appendChild(document.createTextNode(" · "));
+      if (r.evenement) quand.appendChild(el("span", r.evenement));
+      f.appendChild(quand);
+    }
 
     // v3 : d'abord ce que la personne contrôle (Burton, 1989), puis le prochain jalon,
     // puis la cible. Le seuil et le rêve restent dans la fiche détaillée.
@@ -508,8 +529,10 @@
     }
 
     if (r.jalon) {
-      f.appendChild(el("p", "Mon prochain jalon · d'ici le " + dansSemaines(8), "fiche-etiquette"));
-      f.appendChild(el("p", r.jalon, "fiche-plan"));
+      var etJalon = el("p", "Mon prochain jalon", "fiche-etiquette");
+      etJalon.appendChild(el("span", "d'ici le " + dansSemaines(8), "echeance"));
+      f.appendChild(etJalon);
+      f.appendChild(el("p", insecable(r.jalon), "fiche-plan", "fiche-jalon"));
     }
 
     var cible = r.type_objectif === "terminer" ? "Terminer" + (r.barriere ? " en moins de " + r.barriere : "") : r.niveau_cible;
@@ -517,7 +540,7 @@
       var niv = el("div", null, "fiche-niveaux");
       var d = el("div", null, "est-cible");
       d.appendChild(el("span", "Cible"));
-      d.appendChild(el("strong", cible));
+      d.appendChild(el("strong", insecable(cible)));
       niv.appendChild(d);
       f.appendChild(niv);
     }
@@ -532,8 +555,7 @@
 
     if (r.si_1 && r.alors_1) {
       f.appendChild(el("p", "Mon plan", "fiche-etiquette"));
-      var elision = /^ils?\b/i.test(r.si_1);
-      f.appendChild(el("p", (elision ? "S'" : "Si ") + r.si_1 + ", alors " + r.alors_1 + ".", "fiche-plan"));
+      f.appendChild(siAlors(r.si_1, r.alors_1, "fiche-plan"));
     }
 
     // Beaucoup de texte : la fiche passe en mode compact pour tenir sur une page.
@@ -649,13 +671,39 @@
 
     // Fiche 2 : la fiche détaillée
     var detail = el("section", null, "fiche fiche-detaillee");
-    detail.appendChild(el("p", "Fiche détaillée" + (r.prenom ? " · " + r.prenom : ""), "eyebrow"));
-    detail.appendChild(el("h2", "La structure de votre objectif"));
+    var entete = el("header", null, "fiche-entete");
+    entete.appendChild(el("p", "Fiche détaillée" + (r.prenom ? " · " + r.prenom : ""), "eyebrow"));
+    entete.appendChild(el("h2", "La structure de votre objectif"));
+    detail.appendChild(entete);
+    // Les chiffres clés d'un coup d'œil, avant le détail.
+    var reperes = [];
+    if (r.date_objectif) reperes.push(["Jour J", dateLongue(r.date_objectif)]);
+    var cibleD = r.type_objectif === "terminer" ? "Terminer" + (r.barriere ? " en moins de " + r.barriere : "") : r.niveau_cible;
+    if (cibleD) reperes.push(["Cible", insecable(cibleD), "est-cible"]);
+    if (r.jalon) reperes.push(["Prochain jalon", dansSemaines(8)]);
+    if (r.confiance !== undefined) reperes.push(["Confiance", r.confiance + " / 10"]);
+    if (reperes.length) {
+      var rr = el("div", null, "fiche-reperes");
+      reperes.forEach(function (x) {
+        var d = el("div", null, x[2]);
+        d.appendChild(el("span", x[0]));
+        d.appendChild(el("strong", x[1]));
+        rr.appendChild(d);
+      });
+      detail.appendChild(rr);
+    }
     bilan.appendChild(detail);
 
+    function titre(n, texte) {
+      var h = el("h3");
+      h.appendChild(el("span", String(n), "num"));
+      h.appendChild(document.createTextNode(texte));
+      return h;
+    }
+
     // 1. L'objectif, formulé SMART
-    detail.appendChild(el("h3", "1. Votre objectif, formulé SMART"));
-    detail.appendChild(el("p", phraseSmart(r), "phrase-objectif"));
+    detail.appendChild(titre(1, "Votre objectif, formulé SMART"));
+    detail.appendChild(el("p", insecable(phraseSmart(r)), "phrase-objectif"));
     var ts = el("table", null, "table-smart");
     grilleSmart(r, s).forEach(function (g) {
       var tr = document.createElement("tr");
@@ -663,16 +711,16 @@
       th.appendChild(el("strong", g[0] + " "));
       th.appendChild(document.createTextNode(g[1]));
       tr.appendChild(th);
-      tr.appendChild(el("td", g[2]));
+      tr.appendChild(el("td", insecable(g[2])));
       ts.appendChild(tr);
     });
     detail.appendChild(ts);
     if (r.type_objectif !== "terminer" && (r.niveau_seuil || r.niveau_cible || r.niveau_reve)) {
       var niv = el("div", null, "niveaux");
       [["Seuil", r.niveau_seuil, "le minimum"], ["Cible", r.niveau_cible, "ambitieuse, à votre portée"], ["Rêve", r.niveau_reve, "si tout s'aligne"]].forEach(function (n) {
-        var d = el("div", null, "niveau");
+        var d = el("div", null, "niveau", n[0] === "Cible" ? "est-cible" : null);
         d.appendChild(el("p", n[0] + " · " + n[2], "etiquette"));
-        d.appendChild(el("p", n[1] || "À préciser"));
+        d.appendChild(el("p", n[1] ? insecable(n[1]) : "À préciser"));
         niv.appendChild(d);
       });
       detail.appendChild(niv);
@@ -681,13 +729,13 @@
 
     // 2. Le pourquoi
     if (r.pourquoi_1) {
-      detail.appendChild(el("h3", "2. Votre pourquoi"));
-      detail.appendChild(el("p", r.pourquoi_1, "encadre"));
+      detail.appendChild(titre(2, "Votre pourquoi"));
+      detail.appendChild(el("p", r.pourquoi_1, "encadre", "encadre-pourquoi"));
       detail.appendChild(el("p", "À relire les jours où vous n'aurez pas envie."));
     }
 
     // 3. Le point de départ
-    detail.appendChild(el("h3", "3. Le point de départ"));
+    detail.appendChild(titre(3, "Le point de départ"));
     var t = document.createElement("table");
     ligne(t, "Pratique", r.annees);
     if (r.heures_actuelles !== undefined) ligne(t, "Volume actuel", heures(r.heures_actuelles) + " par semaine");
@@ -703,7 +751,7 @@
     }
 
     // 4. L'écart
-    detail.appendChild(el("h3", "4. L'écart"));
+    detail.appendChild(titre(4, "L'écart"));
     if (r.ecart) detail.appendChild(el("p", r.ecart));
     if (r.leviers && r.leviers.length) detail.appendChild(el("p", "Vos deux leviers : " + r.leviers.join(" et ") + ". C'est là que le plan mettra l'accent."));
     if (ff && r.leviers && r.leviers.length) {
@@ -713,10 +761,15 @@
     }
     var vol = lectureVolume(r); if (vol) detail.appendChild(el("p", vol));
     if (r.preuve) detail.appendChild(el("p", "Votre preuve que c'est atteignable : " + r.preuve));
-    if (r.jalon) detail.appendChild(el("p", "Votre jalon, d'ici le " + dansSemaines(8) + " : " + r.jalon, "encadre"));
+    if (r.jalon) {
+      var pj = el("p", null, "encadre", "encadre-jalon");
+      pj.appendChild(el("strong", "Votre jalon, d'ici le " + dansSemaines(8) + " : "));
+      pj.appendChild(document.createTextNode(r.jalon));
+      detail.appendChild(pj);
+    }
 
     // 6. L'engagement
-    detail.appendChild(el("h3", "5. Votre engagement"));
+    detail.appendChild(titre(5, "Votre engagement"));
     var hab = [r.habitude_1, r.habitude_2, r.habitude_3].filter(Boolean);
     if (hab.length) {
       detail.appendChild(el("p", "Vos trois actions de confiance, deux dans l'entraînement et une libre : chaque fois que vous les faites, vous vous prouvez que vous avez la discipline d'aller au bout."));
@@ -731,25 +784,23 @@
     detail.appendChild(te);
 
     // 7. Les obstacles
-    detail.appendChild(el("h3", "6. L'obstacle et votre plan"));
+    detail.appendChild(titre(6, "L'obstacle et votre plan"));
     if (r.obstacle) detail.appendChild(el("p", "Ce qui vous a fait décrocher la dernière fois : " + r.obstacle));
     [[r.si_1, r.alors_1]].forEach(function (p) {
-      if (p[0] && p[1]) {
-        var d = el("p", null, "encadre");
-        var elision = /^ils?\b/i.test(p[0]);
-        d.appendChild(el("strong", elision ? "S'" : "Si "));
-        d.appendChild(document.createTextNode(p[0] + ", "));
-        d.appendChild(el("strong", "alors "));
-        d.appendChild(document.createTextNode(p[1] + "."));
-        detail.appendChild(d);
-      }
+      if (p[0] && p[1]) detail.appendChild(siAlors(p[0], p[1], "encadre"));
     });
 
     // 8. La motivation
-    detail.appendChild(el("h3", "7. Votre confiance"));
+    detail.appendChild(titre(7, "Votre confiance"));
     var tm = document.createElement("table");
     if (r.confiance !== undefined) ligne(tm, "Confiance", r.confiance + " sur 10");
     detail.appendChild(tm);
+    if (r.confiance !== undefined) {
+      var jc = el("div", null, "jauge-confiance");
+      jc.setAttribute("aria-hidden", "true");
+      for (var k = 1; k <= 10; k++) jc.appendChild(el("span", null, k <= r.confiance ? "plein" : null));
+      detail.appendChild(jc);
+    }
     if (r.confiance_plus) detail.appendChild(el("p", "Ce qui ferait monter votre confiance : " + r.confiance_plus + " C'est votre première action."));
     if (r.confiance !== undefined && r.confiance <= 6) detail.appendChild(el("p", "Une confiance moyenne au départ est normale. Elle monte quand les habitudes se font, semaine après semaine : c'est pour ça qu'elles passent avant le résultat."));
 
