@@ -9,6 +9,11 @@
  *   node outils/candidatures.mjs                 classement (base en ligne)
  *   node outils/candidatures.mjs --local         classement (base de wrangler dev)
  *   node outils/candidatures.mjs --detail <id>   le dossier complet d'une personne
+ *   … --nom                                       affiche aussi prénom, nom, région et courriel (pour Tony seulement)
+ *
+ * Par défaut, la sortie ne contient ni prénom, ni nom, ni région, ni courriel : seulement le numéro du
+ * dossier (2026-11-16, dossier juridique d'Olympiatoppen Open, correction 11). Quand Claude classe, ce
+ * qu'il lit part chez Anthropic : il ne doit voir que des numéros. Tony ajoute --nom pour savoir qui est qui.
  *
  * Les dossiers hors critères (pas dans intervals.icu, pas de capteur fiable,
  * pas d'entraînement) passent en dernier. Puis note sur 100 = complétude (30)
@@ -22,13 +27,19 @@ import { execFileSync } from "node:child_process";
 
 const args = process.argv.slice(2);
 const local = args.includes("--local");
+// Avec --local : un autre stockage que celui de `wrangler dev` (essais avec des données fictives).
+const iPersist = args.indexOf("--persist-to");
+const persistTo = local && iPersist !== -1 ? args[iPersist + 1] : null;
 const iDetail = args.indexOf("--detail");
 const idDetail = iDetail !== -1 ? Number(args[iDetail + 1]) : null;
+const avecNom = args.includes("--nom");
+/** Champs qui disent qui est la personne : jamais affichés sans --nom. */
+const CHAMPS_IDENTITE = new Set(["prenom", "nom", "courriel", "region"]);
 
 function requete(sql) {
   const sortie = execFileSync(
     "npx",
-    ["wrangler", "d1", "execute", "lasynthase-comptes", local ? "--local" : "--remote", "--json", "--command", sql],
+    ["wrangler", "d1", "execute", "lasynthase-comptes", local ? "--local" : "--remote", ...(persistTo ? ["--persist-to", persistTo] : []), "--json", "--command", sql],
     { encoding: "utf8", stdio: ["ignore", "pipe", "inherit"] }
   );
   const json = JSON.parse(sortie);
@@ -131,22 +142,24 @@ function afficherClassement(lignes) {
   console.log(`\n${dossiers.length} candidature(s), de la mieux notée à la moins bien notée\n`);
   dossiers.forEach((x, i) => {
     const s = x.r.date_objectif ? semainesAvant(x.r.date_objectif) : null;
-    console.log(`${String(i + 1).padStart(2)}. [id ${x.l.id}] ${x.l.prenom} ${x.l.nom} — ${x.total}/100` +
+    console.log(`${String(i + 1).padStart(2)}. [id ${x.l.id}]${avecNom ? ` ${x.l.prenom} ${x.l.nom}` : ""} — ${x.total}/100` +
       `  (complet ${x.notes.completude}/30 · clarté ${x.notes.clarte}/20 · réflexion ${x.notes.reflexion}/20 · réalisme ${x.notes.realisme}/15 · motivation ${x.notes.motivation}/15)`);
-    console.log(`    ${x.r.sport || "?"} · ${x.r.objectif || "objectif ?"}${s !== null ? ` · dans ${s} sem.` : ""} · ${x.r.region || ""}`);
+    console.log(`    ${x.r.sport || "?"} · ${x.r.objectif || "objectif ?"}${s !== null ? ` · dans ${s} sem.` : ""}${avecNom && x.r.region ? ` · ${x.r.region}` : ""}`);
     console.log(`    ${x.r.importance !== undefined ? `importance ${x.r.importance}/10, ` : ""}confiance ${x.r.confiance ?? "?"}/10 · ${x.r.heures_actuelles ?? "?"} h → ${x.r.heures_dispo ?? "?"} h/sem · reçu ${x.l.maj}${x.l.envois > 1 ? ` (${x.l.envois} envois)` : ""}`);
     if (x.horsCriteres.length) console.log(`    HORS CRITÈRES : ${x.horsCriteres.join(" ; ")}`);
     if (x.drapeaux.length) console.log(`    À regarder : ${x.drapeaux.join(" ; ")}`);
   });
-  console.log("\nDossier complet : node outils/candidatures.mjs --detail <id>\n");
+  console.log(`\nDossier complet : node outils/candidatures.mjs --detail <id>${avecNom ? "" : "   (identité masquée ; --nom pour Tony)"}\n`);
 }
 
 function afficherDetail(l) {
   const r = JSON.parse(l.reponses);
   const n = noter(r, l.completude);
-  console.log(`\n# ${l.prenom} ${l.nom} (id ${l.id}) — ${n.total}/100\n${l.courriel} · reçu ${l.maj}\n`);
+  console.log(avecNom
+    ? `\n# ${l.prenom} ${l.nom} (id ${l.id}) — ${n.total}/100\n${l.courriel} · reçu ${l.maj}\n`
+    : `\n# Dossier ${l.id} — ${n.total}/100\nreçu ${l.maj} (identité masquée : ajouter --nom)\n`);
   for (const [k, v] of Object.entries(r)) {
-    if (k === "courriel") continue;
+    if (k === "courriel" || (!avecNom && CHAMPS_IDENTITE.has(k))) continue;
     console.log(`- ${k} : ${Array.isArray(v) ? v.join(", ") : v}`);
   }
   if (n.drapeaux.length) console.log(`\nÀ regarder : ${n.drapeaux.join(" ; ")}`);

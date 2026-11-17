@@ -121,8 +121,14 @@ structure de l'objectif, que la personne soit retenue ou non.
   candidature. La page le dit : ne jamais envoyer les fiches au serveur.
 - **Lire les candidatures** : `node outils/candidatures.mjs` (hors critères en dernier, puis
   classement sur 100 : complétude 30, clarté 20, réflexion 20, réalisme 15, motivation 15),
-  `--detail <id>`, `--local`. Sortie dans le
+  `--detail <id>`, `--local` (`--persist-to <dossier>` pour une base d'essai). Sortie dans le
   terminal seulement : ne jamais écrire ces réponses dans le coffre ni dans git.
+  **Identité masquée par défaut** (2026-11-16, dossier juridique d'Olympiatoppen Open) : ni prénom, ni
+  nom, ni région, ni courriel. Claude classe toujours sans `--nom` (ce qu'il lit part chez Anthropic) ;
+  `--nom` est pour Tony seulement.
+- **Aucune question ne doit inviter à parler de santé** (2026-11-16) : `obstacle`, `ecart` et `preuve`
+  le disent dans leur libellé ; `jour_j` ne demande plus « ce que vous ressentez ». Une nouvelle
+  question suit la même règle.
 - **Effacement** : candidature non retenue effacée au plus tard 6 mois après l'envoi
   (`confidentialite.html#candidature`).
 - **Deux fiches** (2026-11-11) : la **fiche du matin** (1 page Letter, à coller sur une vitre :
