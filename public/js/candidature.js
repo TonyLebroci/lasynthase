@@ -1,7 +1,9 @@
 /* Questionnaire de candidature au projet pilote en endurance (2026-11-11).
  *
  * - Une étape à la fois (mêmes classes que les modules : .etape, .active).
- * - Les réponses sont gardées dans le navigateur (localStorage) à mesure.
+ * - Les réponses restent dans l'onglet seulement (sessionStorage) : effacées quand
+ *   l'onglet se ferme ; rien n'est gardé ailleurs (2026-11-19, demande de Tony).
+ *   Les anciennes réponses gardées en localStorage (v2, v3) sont effacées au chargement.
  * - Rien n'est obligatoire pour avancer : un champ vide est signalé, pas bloqué.
  *   La complétude fait partie de la sélection. Seuls les coordonnées et les
  *   consentements sont exigés à l'envoi.
@@ -17,9 +19,20 @@
   // v3 (2026-11-11) : révision par quatre experts (jalon, soutien, actions de
   // confiance liées à l'entraînement, plus d'importance sur 10 ni de questions de plan).
   var CLE = "ls-candidature-pilote-v3";
-  var VERSION = 3;
+  var VERSION = 4; // 4 : la candidature n'envoie que prénom, courriel et objectif SMART (2026-11-19)
   var form = document.getElementById("candidature");
   if (!form) return;
+
+  // 2026-11-19 (Tony) : rien n'est sauvegardé. Les réponses vivent dans l'onglet
+  // (sessionStorage), et tout ce qu'une ancienne version a laissé en localStorage est effacé.
+  var STOCKAGE = null;
+  try { STOCKAGE = window.sessionStorage; } catch (e) { STOCKAGE = null; }
+  try {
+    for (var i = localStorage.length - 1; i >= 0; i--) {
+      var k = localStorage.key(i);
+      if (k && k.indexOf("ls-candidature") === 0) localStorage.removeItem(k);
+    }
+  } catch (e) { /* rien */ }
 
   var etapes = Array.prototype.slice.call(form.querySelectorAll(".etape"));
   var sommaire = document.getElementById("sommaire");
@@ -98,7 +111,7 @@
   }
 
   function charger() {
-    try { return JSON.parse(localStorage.getItem(CLE) || "null"); } catch (e) { return null; }
+    try { return JSON.parse(STOCKAGE.getItem(CLE) || "null"); } catch (e) { return null; }
   }
 
   var minuterie;
@@ -109,8 +122,8 @@
         var etat = charger() || {};
         etat.reponses = lire();
         etat.etape = courante;
-        localStorage.setItem(CLE, JSON.stringify(etat));
-        sauvegarde.textContent = "Réponses gardées dans ce navigateur";
+        STOCKAGE.setItem(CLE, JSON.stringify(etat));
+        sauvegarde.textContent = "Réponses gardées dans cet onglet seulement";
       } catch (e) {
         sauvegarde.textContent = "";
       }
@@ -600,8 +613,8 @@
     var prive = el("div", null, "encadre", "ecran");
     prive.appendChild(el("p", "Ces fiches sont à vous seulement", "titre-encadre"));
     prive.appendChild(el("p", garde
-      ? "Rien ne m'a été envoyé : vos réponses et vos fiches restent dans ce navigateur. Téléchargez-les en PDF (dans la fenêtre d'impression, choisissez « Enregistrer en PDF ») : c'est la seule copie. Le bouton « Effacer » les retire de ce navigateur."
-      : "Elles sont construites dans votre navigateur. Je n'y ai pas accès et je ne les garde pas : ni les fiches, ni la citation que vous choisissez ou écrivez. Ce que je reçois, ce sont seulement vos réponses au questionnaire, pour étudier votre candidature. Téléchargez vos fiches en PDF (dans la fenêtre d'impression, choisissez « Enregistrer en PDF ») : c'est la seule copie."));
+      ? "Rien ne m'a été envoyé. Vos réponses et vos fiches restent dans cet onglet et s'effacent quand vous le fermez. Téléchargez vos fiches en PDF (dans la fenêtre d'impression, choisissez « Enregistrer en PDF ») : ce sera la seule copie."
+      : "Elles sont construites dans votre navigateur. Je n'y ai pas accès et je ne les garde pas : ni les fiches, ni la citation que vous choisissez ou écrivez. Je reçois seulement votre prénom, votre courriel et la phrase de votre objectif. Vos autres réponses ne quittent jamais votre navigateur et s'effacent quand vous fermez l'onglet. Téléchargez vos fiches en PDF (dans la fenêtre d'impression, choisissez « Enregistrer en PDF ») : c'est la seule copie."));
     bilan.appendChild(prive);
     if (statutEnvoi) bilan.appendChild(el("p", statutEnvoi.texte, "message-form ecran" + (statutEnvoi.ok ? " ok" : "")));
 
@@ -654,7 +667,7 @@
         var etat = charger() || {};
         etat.citation = sel.value === "perso" ? "perso" : Number(sel.value);
         etat.citationPerso = { texte: champTexte.value.trim(), auteur: champAuteur.value.trim() };
-        localStorage.setItem(CLE, JSON.stringify(etat));
+        STOCKAGE.setItem(CLE, JSON.stringify(etat));
       } catch (e) { /* rien */ }
     }
     sel.addEventListener("change", function () {
@@ -812,7 +825,7 @@
       var candidater = el("button", "Poser ma candidature", "btn btn-ghost");
       candidater.type = "button";
       candidater.addEventListener("click", function () {
-        try { var etat = charger() || {}; delete etat.garde; localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* rien */ }
+        try { var etat = charger() || {}; delete etat.garde; STOCKAGE.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* rien */ }
         var r2 = form.querySelector('input[name="mode_fin"][value="envoyer"]');
         r2.checked = true;
         majModeFin();
@@ -838,7 +851,7 @@
     var effacer = el("button", "Effacer mes réponses de ce navigateur", "btn btn-ghost");
     effacer.type = "button";
     effacer.addEventListener("click", function () {
-      try { localStorage.removeItem(CLE); } catch (e) { /* rien */ }
+      try { STOCKAGE.removeItem(CLE); } catch (e) { /* rien */ }
       effacer.textContent = "Réponses effacées de ce navigateur";
       effacer.disabled = true;
     });
@@ -878,7 +891,7 @@
         var etatG = charger() || {};
         etatG.reponses = r;
         etatG.garde = new Date().toISOString();
-        localStorage.setItem(CLE, JSON.stringify(etatG));
+        STOCKAGE.setItem(CLE, JSON.stringify(etatG));
       } catch (e) { /* rien */ }
       montrerBilan(r, { ok: true, garde: true, texte: "Vos fiches sont prêtes. Rien n'a été envoyé." });
       return;
@@ -903,7 +916,10 @@
     envoiEnCours = true;
     suivant.disabled = true;
     suivant.textContent = "Envoi…";
-    var corps = JSON.stringify({ version: VERSION, reponses: r, completude: majJauge(), piege: (form.querySelector('[name="site_web"]') || {}).value || "" });
+    // 2026-11-19 (Tony) : seuls le prénom, le courriel et la phrase SMART partent. Jamais les réponses.
+    var corps = JSON.stringify({ version: VERSION, prenom: r.prenom, courriel: r.courriel, objectif: phraseSmart(r),
+      majeur: r.majeur === true, consentement: r.consentement === true, comprend: r.comprend === true,
+      piege: (form.querySelector('[name="site_web"]') || {}).value || "" });
     fetch("/api/candidature", { method: "POST", headers: { "Content-Type": "application/json" }, body: corps, credentials: "same-origin" })
       .then(function (rep) { return rep.json().catch(function () { return {}; }).then(function (d) { return { ok: rep.ok, d: d }; }); })
       .then(function (x) {
@@ -912,12 +928,12 @@
           var etat = charger() || {};
           etat.reponses = r;
           etat.envoye = new Date().toISOString();
-          localStorage.setItem(CLE, JSON.stringify(etat));
+          STOCKAGE.setItem(CLE, JSON.stringify(etat));
         } catch (e) { /* rien */ }
         montrerBilan(r, { ok: true, texte: "Candidature reçue. Merci, " + r.prenom + "." });
       })
       .catch(function (err) {
-        montrerBilan(r, { ok: false, texte: (err && err.message ? err.message : "L'envoi a échoué.") + " Votre bilan est quand même là ; vos réponses restent gardées dans ce navigateur. Réessayez dans un instant." });
+        montrerBilan(r, { ok: false, texte: (err && err.message ? err.message : "L'envoi a échoué.") + " Votre bilan est quand même là ; vos réponses restent dans cet onglet. Réessayez dans un instant." });
       })
       .then(function () {
         envoiEnCours = false;

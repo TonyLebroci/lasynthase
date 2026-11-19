@@ -190,7 +190,8 @@ async function supprimerCompte(request, env) {
 
 const MAX_CANDIDATURES_PAR_IP = 5;          // par heure
 const FENETRE_CANDIDATURES_MS = 60 * 60 * 1000;
-const TAILLE_MAX_CANDIDATURE = 40000;       // octets de JSON
+const TAILLE_MAX_CANDIDATURE = 4000;        // octets de JSON (prénom, courriel, objectif)
+const OBJECTIF_MAX = 1000;                   // caractères de la phrase SMART
 
 async function recevoirCandidature(request, env) {
   const texte = await request.text();
@@ -202,14 +203,17 @@ async function recevoirCandidature(request, env) {
   // Champ piège : rempli seulement par les robots. On répond « reçu » sans rien garder.
   if (d.piege) return json({ ok: true });
 
-  const r = d.reponses;
-  if (!r || typeof r !== "object" || Array.isArray(r)) return json({ erreur: "Données invalides." }, 400);
-  const prenom = String(r.prenom || "").trim().slice(0, 60);
-  const nom = String(r.nom || "").trim().slice(0, 60);
-  const courriel = String(r.courriel || "").trim().toLowerCase();
+  // 2026-11-19 (Tony) : la candidature ne contient que le prénom, le courriel et la phrase
+  // de l'objectif SMART. Les autres réponses restent dans le navigateur ; un envoi qui en
+  // contient (ancienne version de la page) est refusé, rien n'en est gardé.
+  if (d.reponses !== undefined) return json({ erreur: "Rechargez la page : elle a changé." }, 400);
+  const prenom = String(d.prenom || "").trim().slice(0, 60);
+  const courriel = String(d.courriel || "").trim().toLowerCase();
+  const objectif = String(d.objectif || "").trim().slice(0, OBJECTIF_MAX);
   if (!prenom) return json({ erreur: "Indiquez votre prénom." }, 400);
   if (!courrielValide(courriel)) return json({ erreur: "Ce courriel ne semble pas valide." }, 400);
-  if (r.majeur !== true || r.consentement !== true || r.comprend !== true) {
+  if (!objectif) return json({ erreur: "Votre objectif est vide." }, 400);
+  if (d.majeur !== true || d.consentement !== true || d.comprend !== true) {
     return json({ erreur: "Il faut cocher les trois cases de la dernière étape." }, 400);
   }
 
@@ -226,13 +230,13 @@ async function recevoirCandidature(request, env) {
     "debut = CASE WHEN ?2 - debut > ?3 THEN ?2 ELSE debut END"
   ).bind(cle, maintenant, FENETRE_CANDIDATURES_MS).run();
 
-  const completude = Math.max(0, Math.min(100, Math.round(Number(d.completude) || 0)));
-  const version = Math.max(1, Math.min(99, Math.round(Number(d.version) || 1)));
+  const completude = 0;
+  const version = 4;
   await env.DB.prepare(
     "INSERT INTO candidatures (courriel, prenom, nom, reponses, completude, version) VALUES (?1, ?2, ?3, ?4, ?5, ?6) " +
     "ON CONFLICT(courriel) DO UPDATE SET prenom = excluded.prenom, nom = excluded.nom, reponses = excluded.reponses, " +
     "completude = excluded.completude, version = excluded.version, envois = envois + 1, maj = datetime('now')"
-  ).bind(courriel, prenom, nom, JSON.stringify(r), completude, version).run();
+  ).bind(courriel, prenom, "", JSON.stringify({ objectif }), completude, version).run();
   return json({ ok: true });
 }
 

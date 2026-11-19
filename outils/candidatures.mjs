@@ -131,8 +131,23 @@ export function noter(r, completude) {
   return { total, notes, drapeaux, horsCriteres };
 }
 
-function afficherClassement(lignes) {
-  if (!lignes.length) { console.log("Aucune candidature."); return; }
+// Version 4 (2026-11-19, Tony) : la candidature ne contient que prénom, courriel et objectif SMART.
+function afficherObjectifs(lignes) {
+  if (!lignes.length) return;
+  console.log(`\n${lignes.length} candidature(s) : l'objectif seulement\n`);
+  lignes.forEach((l, i) => {
+    const r = JSON.parse(l.reponses);
+    console.log(`${String(i + 1).padStart(2)}. [id ${l.id}]${avecNom ? ` ${l.prenom} · ${l.courriel}` : ""} · reçu ${l.maj}`);
+    console.log(`    ${r.objectif || "objectif ?"}`);
+  });
+  console.log(avecNom ? "" : "\n(identité masquée ; --nom pour Tony)\n");
+}
+
+function afficherClassement(toutes) {
+  afficherObjectifs(toutes.filter((l) => l.version >= 4));
+  const lignes = toutes.filter((l) => l.version < 4);
+  if (!toutes.length) { console.log("Aucune candidature."); return; }
+  if (!lignes.length) return;
   const dossiers = lignes.map((l) => {
     const r = JSON.parse(l.reponses);
     return { l, r, ...noter(r, l.completude) };

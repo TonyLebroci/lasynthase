@@ -116,6 +116,12 @@ structure de l'objectif, que la personne soit retenue ou non.
   `POST /api/candidature`). Le questionnaire se présente d'abord comme un outil pour bâtir son
   objectif ; la candidature est une option. Après « garder », le bouton « Poser ma candidature »
   ramène à la dernière étape. Ne jamais faire partir quoi que ce soit en mode garder.
+- **Version 4 (2026-11-19, demande de Tony : « rien n'est sauvegardé »)** : les réponses vivent
+  dans l'onglet (`sessionStorage`), effacées à sa fermeture ; les anciennes clés `ls-candidature*` du
+  `localStorage` sont effacées au chargement. La candidature n'envoie que **prénom, courriel et la
+  phrase SMART** (`phraseSmart`) ; plus de nom ni de région. Le serveur refuse un envoi qui contient
+  `reponses` et ne garde que `{ objectif }` (version 4, complétude 0). `candidatures.mjs` affiche
+  l'objectif des v4, sans note sur 100. Les puces plus bas sur l'envoi des réponses valent pour v1 à v3.
 - **Les fiches sont privées** : construites dans le navigateur, jamais envoyées ; la citation
   personnelle reste dans le navigateur (`citationPerso`). Seules les réponses partent avec la
   candidature. La page le dit : ne jamais envoyer les fiches au serveur.
