@@ -5,18 +5,28 @@
   /* --- Les cinq zones --- */
   var detail = document.getElementById("detail-zone");
   var segments = document.querySelectorAll("#outil-zones .segment");
-  segments.forEach(function (s) {
+  var bandes = document.querySelectorAll("#outil-zones .bande");
+  segments.forEach(function (s, i) {
     s.setAttribute("aria-pressed", "false");
     s.addEventListener("click", function () {
       segments.forEach(function (x) { x.setAttribute("aria-pressed", x === s ? "true" : "false"); });
       detail.innerHTML = s.dataset.detail;
+      bandes.forEach(function (b) { b.classList.toggle("actif", b.dataset.zone === String(i)); });
+    });
+  });
+
+  /* Courbe de lactate : chaque bande ouvre les repères de sa zone (2026-11-19) */
+  bandes.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var s = segments[Number(b.dataset.zone)];
+      if (s) s.click();
     });
   });
 
   var bouton = document.getElementById("montrer-zone-2");
   if (bouton) {
     bouton.addEventListener("click", function () {
-      document.querySelectorAll("#outil-zones .barre-zones").forEach(function (b) {
+      document.querySelectorAll("#outil-zones .barre-zones, #outil-zones .graphe-cadre").forEach(function (b) {
         b.classList.remove("montre");
         void b.offsetWidth; // relance l'animation
         b.classList.add("montre");

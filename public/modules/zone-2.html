@@ -63,13 +63,61 @@
             <section class="etape" data-titre="Ce qu'est la zone 2">
               <p class="etape-numero">Étape 1 sur 8</p>
               <h2>Ce qu'est la zone 2</h2>
-              <p>La zone 2 est le travail <strong>long et facile</strong>, celui qui bâtit la base de toute l'endurance. On découpe l'intensité en <strong>cinq zones</strong>, comme l'échelle I1 à I5 du centre olympique norvégien. La zone 2 s'y situe <strong>juste sous le premier seuil</strong> : le premier seuil de lactate (LT1) ou le premier seuil ventilatoire (VT1), qui en est la borne haute.</p>
-              <p>Le premier seuil, c'est le moment où, en augmentant peu à peu l'effort, le lactate dans le sang commence à monter nettement au-dessus de son niveau de repos. En dessous, l'effort se tient longtemps ; au-dessus, il coûte vite plus cher.</p>
-              <p>C'est la définition retenue en 2025 par un groupe de quatorze scientifiques et entraîneurs qui se sont mis d'accord sur ce que veut dire « zone 2 ».</p>
+              <p>La zone 2 est le travail <strong>long et facile</strong>, celui qui bâtit la base de toute l'endurance. On découpe l'intensité en <strong>cinq zones</strong>, comme l'échelle I1 à I5 du centre olympique norvégien. La zone 2 s'y situe <strong>juste sous le premier seuil</strong>, qui en est la borne haute. Ce premier seuil se repère de deux façons : par le lactate du sang (LT1) ou par la respiration (VT1).</p>
+
+              <h3>Le premier seuil de lactate (LT1)</h3>
+              <p>Pendant l'effort, les muscles relâchent du lactate dans le sang, et le corps en reprend une partie pour s'en servir comme carburant. Quand on augmente l'effort peu à peu, le lactate du sang reste d'abord bas et monte à peine. Le <strong>LT1</strong> est le moment où il commence à monter nettement au-dessus de ce niveau de départ. En dessous, l'effort se tient des heures ; au-dessus, il coûte vite plus cher. On le mesure par un test par paliers, avec une goutte de sang prélevée à la fin de chaque palier.</p>
 
               <div class="outil" id="outil-zones">
-                <p class="outil-titre">Outil · Les cinq zones</p>
-                <p class="outil-consigne">Touchez une zone pour voir ses repères. Schéma simplifié : les largeurs suivent les plages de fréquence cardiaque de l'échelle norvégienne.</p>
+                <p class="outil-titre">Outil · La courbe de lactate et les cinq zones</p>
+                <p class="outil-consigne">Touchez une zone, sur la courbe ou sur la barre, pour voir ses repères. Schéma bâti sur les repères de l'échelle norvégienne : chaque point est une borne de zone (FC et lactate). La courbe de chacun est différente ; seule une mesure situe la vôtre.</p>
+
+                <div class="graphe-cadre">
+                  <svg class="graphe-lactate" viewBox="0 0 480 300" role="img" aria-labelledby="graphe-lactate-titre graphe-lactate-desc">
+                  <title id="graphe-lactate-titre">La courbe de lactate et la zone 2</title>
+                  <desc id="graphe-lactate-desc">Le lactate du sang selon l'intensité, en pourcentage de la FC max. Il reste bas et monte lentement de 0,8 à 2,5 mmol/L entre 55 et 82 % ; c'est la zone 2 (I2, 72 à 82 %) qui finit au premier seuil, LT1. Au-dessus, il monte de plus en plus vite : 4 mmol/L à 87 %, 6 à 92 %, 10 à 97 %.</desc>
+                  <line class="grille" x1="48" x2="464" y1="205.2" y2="205.2"/>
+                  <line class="grille" x1="48" x2="464" y1="160.4" y2="160.4"/>
+                  <line class="grille" x1="48" x2="464" y1="115.6" y2="115.6"/>
+                  <line class="grille" x1="48" x2="464" y1="70.8" y2="70.8"/>
+                  <line class="grille" x1="48" x2="464" y1="26.0" y2="26.0"/>
+                  <rect class="bande" data-zone="0" x="48.0" y="26" width="167.4" height="224" fill="#a9b79c"/>
+                  <text class="nom-bande" x="131.7" y="42" text-anchor="middle">I1</text>
+                  <rect class="bande est-zone-2" data-zone="1" x="217.4" y="26" width="97.0" height="224" fill="#7c9070"/>
+                  <text class="nom-bande" x="265.9" y="42" text-anchor="middle">I2</text>
+                  <rect class="bande" data-zone="2" x="316.4" y="26" width="47.5" height="224" fill="#55654a"/>
+                  <text class="nom-bande" x="340.2" y="42" text-anchor="middle">I3</text>
+                  <rect class="bande" data-zone="3" x="366.0" y="26" width="47.5" height="224" fill="#8a6c34"/>
+                  <text class="nom-bande" x="389.7" y="42" text-anchor="middle">I4</text>
+                  <rect class="bande" data-zone="4" x="415.5" y="26" width="48.5" height="224" fill="#b06a4f"/>
+                  <text class="nom-bande" x="439.7" y="42" text-anchor="middle">I5</text>
+                  <text class="etiquette-z2" x="265.9" y="150" text-anchor="middle">Zone 2</text>
+                  <line class="ligne-lt1" x1="315.4" x2="315.4" y1="18" y2="250"/>
+                  <text class="etiquette-lt1" x="309.4" y="66" text-anchor="end">LT1</text>
+                  <line class="axe" x1="48" x2="464" y1="250" y2="250"/>
+                  <text class="graduation" x="40" y="254.0" text-anchor="end">0</text>
+                  <text class="graduation" x="40" y="209.2" text-anchor="end">2</text>
+                  <text class="graduation" x="40" y="164.4" text-anchor="end">4</text>
+                  <text class="graduation" x="40" y="119.6" text-anchor="end">6</text>
+                  <text class="graduation" x="40" y="74.8" text-anchor="end">8</text>
+                  <text class="graduation" x="40" y="30.0" text-anchor="end">10</text>
+                  <text class="graduation" x="48.0" y="268" text-anchor="middle">55</text>
+                  <text class="graduation" x="216.4" y="268" text-anchor="middle">72</text>
+                  <text class="graduation" x="315.4" y="268" text-anchor="middle">82</text>
+                  <text class="graduation" x="365.0" y="268" text-anchor="middle">87</text>
+                  <text class="graduation" x="414.5" y="268" text-anchor="middle">92</text>
+                  <text class="graduation" x="464.0" y="268" text-anchor="middle">97</text>
+                  <text class="titre-axe" x="256" y="292" text-anchor="middle">% de la FC max</text>
+                  <text class="titre-axe" x="14" y="138" text-anchor="middle" transform="rotate(-90 14 138)">Lactate (mmol/L)</text>
+                  <path class="courbe" d="M48.0,232.1 C104.1,226.9 160.3,225.4 216.4,216.4 C249.4,211.1 282.4,208.9 315.4,194.0 C331.9,186.5 348.4,173.5 365.0,160.4 C381.5,147.3 398.0,138.0 414.5,115.6 C431.0,93.2 447.5,55.9 464.0,26.0"/>
+                  <circle class="point" cx="48.0" cy="232.1" r="4.5"><title>55 % de la FC max : 0,8 mmol/L</title></circle>
+                  <circle class="point" cx="216.4" cy="216.4" r="4.5"><title>72 % de la FC max : 1,5 mmol/L</title></circle>
+                  <circle class="point" cx="315.4" cy="194.0" r="4.5"><title>82 % de la FC max : 2,5 mmol/L</title></circle>
+                  <circle class="point" cx="365.0" cy="160.4" r="4.5"><title>87 % de la FC max : 4,0 mmol/L</title></circle>
+                  <circle class="point" cx="414.5" cy="115.6" r="4.5"><title>92 % de la FC max : 6,0 mmol/L</title></circle>
+                  <circle class="point" cx="464.0" cy="26.0" r="4.5"><title>97 % de la FC max : 10,0 mmol/L</title></circle>
+                  </svg>
+                </div>
 
                 <div class="barre-zones" data-systeme="5">
                   <p class="etiquette-barre">Les cinq zones d'intensité</p>
@@ -89,9 +137,13 @@
                 <p style="margin: 18px 0 0;"><button type="button" class="btn btn-ghost" id="montrer-zone-2">Où est la zone 2 ?</button></p>
               </div>
 
+              <h3>Le premier seuil ventilatoire (VT1)</h3>
+              <p>Le même passage se voit aussi dans la respiration. Quand le lactate commence à s'accumuler, le corps le neutralise, ce qui produit du CO<sub>2</sub> en plus. On rejette alors plus de CO<sub>2</sub> par rapport à l'oxygène consommé, et la respiration s'accélère pour l'évacuer. Ce point, c'est le <strong>VT1</strong>. Il se mesure en analysant l'air expiré pendant un test à l'effort.</p>
+              <p>VT1 tombe à peu près au même endroit que LT1, sans être tout à fait la même chose : ce sont deux signaux voisins d'un même passage. L'un ou l'autre sert de plafond à la zone 2.</p>
+
               <div class="encadre">
                 <p class="titre-encadre">À retenir</p>
-                <p>La zone 2, c'est I2 : juste sous le premier seuil. Le premier seuil en est le plafond.</p>
+                <p>La zone 2, c'est I2 : la partie basse de la courbe, juste avant que le lactate se mette à monter nettement. Le premier seuil, LT1 par le sang ou VT1 par la respiration, en est le plafond.</p>
               </div>
 
               <div class="sources">
@@ -321,7 +373,7 @@
                     <button type="button" data-choix="b">Entre le premier et le second seuil</button>
                     <button type="button" data-choix="c">Juste au-dessus du seuil anaérobie</button>
                   </div>
-                  <div class="explication" hidden>Le premier seuil en est la borne haute. C'est la définition du consensus d'experts de 2025.</div>
+                  <div class="explication" hidden>Le premier seuil en est la borne haute : LT1 si on le mesure par le lactate, VT1 si on le mesure par la respiration.</div>
                 </div>
 
                 <div class="question" data-id="q3" data-bonne="a">
