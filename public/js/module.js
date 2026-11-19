@@ -141,7 +141,7 @@
     document.getElementById("score-quiz").textContent = etat.score + " / " + questions.length;
     var ratio = etat.score / questions.length;
     document.getElementById("message-quiz").textContent =
-      ratio >= 0.8 ? "Excellent. Vous maîtrisez l'essentiel de la zone 2." :
+      ratio >= 0.8 ? "Excellent. Vous maîtrisez l'essentiel " + (racine.dataset.sujet || "du module") + "." :
       ratio >= 0.5 ? "Bonne base. Relisez les étapes où vous avez hésité, puis réessayez." :
       "Prenez le temps de revoir les étapes, puis recommencez les questions.";
     bilan.hidden = false;

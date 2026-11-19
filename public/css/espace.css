@@ -1019,3 +1019,58 @@
   text-decoration-color: var(--gold);
   text-underline-offset: 3px;
 }
+
+/* Module « Le seuil » (2026-11-19) */
+.formats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.formats .btn[aria-pressed="true"] {
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  color: var(--cream);
+}
+
+.graphe-lactate .ligne-lt2 { stroke: var(--terracotta); stroke-width: 2; }
+.graphe-lactate .etiquette-lt2 { font-size: 13px; font-weight: 500; fill: var(--terracotta); letter-spacing: 0.08em; }
+.graphe-lactate .point-lt2 { fill: var(--terracotta); }
+
+.graphe-cadre.montre-seuil .ligne-lt2,
+.graphe-cadre.montre-seuil .point-lt2 {
+  animation: signale-seuil 0.7s ease-in-out 4 alternate;
+}
+
+@keyframes signale-seuil {
+  from { opacity: 1; }
+  to { opacity: 0.25; }
+}
+
+.jauge-gain {
+  height: 10px;
+  background: var(--cream-dark);
+  margin: 4px 0 14px;
+}
+
+.jauge-gain span {
+  display: block;
+  height: 100%;
+  background: var(--sage);
+  transition: width 0.5s ease;
+}
+
+@media (max-width: 720px) {
+  .graphe-lactate .etiquette-lt2 { font-size: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .graphe-cadre.montre-seuil .ligne-lt2,
+  .graphe-cadre.montre-seuil .point-lt2 { animation: none; }
+  .jauge-gain span { transition: none; }
+}
+
+@media (max-width: 480px) {
+  .formats .btn { padding: 12px 16px; letter-spacing: 0.12em; }
+}
