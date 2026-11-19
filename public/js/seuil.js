@@ -1,4 +1,4 @@
-/* Outils interactifs du module « Le seuil » (2026-11-19). */
+/* Outils interactifs du module « Le threshold » (2026-11-19). */
 (function () {
   "use strict";
 
@@ -38,10 +38,41 @@
       cadre.classList.remove("montre-seuil");
       void cadre.offsetWidth; // relance l'animation
       cadre.classList.add("montre-seuil");
-      detail.innerHTML = "<strong>Le seuil, c'est la ligne LT2.</strong> " +
+      detail.innerHTML = "<strong>Le threshold, c'est la ligne LT2.</strong> " +
         "Dans ce schéma, à la frontière de I3 et I4 : 87 % de la FC max, 4 mmol/L. Chez vous, seule une mesure le situe.";
     });
   }
+
+  /* --- Combien de temps au-dessus : Tlim = W' / (P - CP), Poole et al. 2016 --- */
+  var cp = document.getElementById("cp");
+  var wp = document.getElementById("wprime");
+  var pv = document.getElementById("pvise");
+  var resT = document.getElementById("resultat-temps");
+  function duree(s) {
+    var m = Math.floor(s / 60), r = Math.round(s - m * 60);
+    if (r === 60) { m += 1; r = 0; }
+    return m + " min " + (r < 10 ? "0" : "") + r + " s";
+  }
+  function calculerTemps() {
+    var c = nombre(cp), w = nombre(wp), p = nombre(pv);
+    if (isNaN(c) || isNaN(w) || isNaN(p)) { resT.innerHTML = "<p>Entrez les trois valeurs pour voir votre temps limite.</p>"; return; }
+    if (c < 50 || c > 600) { resT.innerHTML = "<p>Un threshold se situe d'ordinaire entre 50 et 600 W. Vérifiez la valeur.</p>"; return; }
+    if (w <= 0 || w > 60) { resT.innerHTML = "<p>Une réserve W′ se compte en kilojoules : entrez une valeur entre 1 et 60 kJ.</p>"; return; }
+    if (p <= c) {
+      resT.innerHTML = "<p class=\"grand-chiffre\">Sous le threshold</p><p>La réserve ne se vide pas : le modèle ne prédit pas de limite. En pratique, aucun effort ne dure indéfiniment.</p>";
+      return;
+    }
+    var t = w * 1000 / (p - c);
+    var html = '<p class="grand-chiffre">' + duree(t) + "</p><p>" + fr(w, 1).replace(",0", "") + " kJ ÷ (" + p + " − " + c + ") W = " + Math.round(t) + " s.</p>";
+    if (t > 30 * 60) html += "<p><strong>Ce chiffre est surestimé.</strong> Selon les chercheurs du modèle, on tient environ 30 minutes au plus au-dessus du threshold.</p>";
+    else if (t < 120) html += "<p>Sous 2 minutes, le modèle est moins fiable : il a été établi avec des efforts de 2 à 15 minutes.</p>";
+    var c2 = c * 1.05;
+    html += p <= c2
+      ? "<p><strong>Si votre threshold montait de 5 %</strong> (" + Math.round(c2) + " W) : cette puissance passerait sous votre threshold.</p>"
+      : "<p><strong>Si votre threshold montait de 5 %</strong> (" + Math.round(c2) + " W) : " + duree(w * 1000 / (p - c2)) + " à la même puissance.</p>";
+    resT.innerHTML = html;
+  }
+  if (cp) { [cp, wp, pv].forEach(function (x) { x.addEventListener("input", calculerTemps); }); }
 
   /* --- Test à charge constante --- */
   var l10 = document.getElementById("lac-10");
@@ -56,8 +87,8 @@
     var hausse = Math.round((b - a) * 10) / 10; // évite 3,2 − 2,2 = 1,0000000004
     var signe = hausse >= 0 ? "+" : "−";
     var texte = hausse <= 1.0
-      ? "<p><strong>Stable : cet effort était à votre seuil ou en dessous.</strong> Pour trouver la limite, refaites le test un peu plus fort un autre jour.</p>"
-      : "<p><strong>Au-dessus du seuil : le lactate dérive.</strong> La hausse dépasse 1,0 mmol/L. Votre seuil est sous cette intensité.</p>";
+      ? "<p><strong>Stable : cet effort était à votre threshold ou en dessous.</strong> Pour trouver la limite, refaites le test un peu plus fort un autre jour.</p>"
+      : "<p><strong>Au-dessus du threshold : le lactate dérive.</strong> La hausse dépasse 1,0 mmol/L. Votre threshold est sous cette intensité.</p>";
     resMlss.innerHTML = '<p class="grand-chiffre">' + signe + fr(Math.abs(hausse), 1) + " mmol/L</p>" +
       "<p>Hausse entre la 10<sup>e</sup> et la 30<sup>e</sup> minute (critère : 1,0 au plus).</p>" + texte;
   }
@@ -71,11 +102,11 @@
     var v = nombre(vo2), f = nombre(frac);
     if (isNaN(v) || isNaN(f)) { resLev.innerHTML = "<p>Entrez les deux valeurs pour voir le calcul.</p>"; return; }
     if (v < 20 || v > 95) { resLev.innerHTML = "<p>Un VO2max se situe d'ordinaire entre 20 et 95 ml/kg/min. Vérifiez la valeur.</p>"; return; }
-    if (f < 40 || f > 100) { resLev.innerHTML = "<p>La fraction au seuil se situe entre 40 et 100 % du VO2max. Vérifiez la valeur.</p>"; return; }
+    if (f < 40 || f > 100) { resLev.innerHTML = "<p>La fraction au threshold se situe entre 40 et 100 % du VO2max. Vérifiez la valeur.</p>"; return; }
     var seuil = v * f / 100;
     var fPlus = Math.min(100, f + 5);
     var html = '<p class="grand-chiffre">' + fr(seuil, 1) + " ml/kg/min</p>" +
-      "<p>" + fr(v, 1) + " × " + fr(f / 100, 2) + " : l'oxygène que vous utilisez au seuil.</p>";
+      "<p>" + fr(v, 1) + " × " + fr(f / 100, 2) + " : l'oxygène que vous utilisez au threshold.</p>";
     if (f >= 100) {
       html += "<p>La fraction est déjà à 100 % : seul le plafond (ou l'efficacité) peut encore monter.</p>";
     } else {

@@ -1074,3 +1074,10 @@
 @media (max-width: 480px) {
   .formats .btn { padding: 12px 16px; letter-spacing: 0.12em; }
 }
+
+/* Module threshold : la courbe qui glisse (2026-11-19) */
+.graphe-lactate .courbe-avant { stroke: var(--charcoal-soft); stroke-dasharray: 5 5; opacity: 0.6; }
+.graphe-lactate .etiquette-avant { font-size: 13px; fill: var(--charcoal-soft); letter-spacing: 0.08em; }
+@media (max-width: 720px) {
+  .graphe-lactate .etiquette-avant { font-size: 17px; }
+}
