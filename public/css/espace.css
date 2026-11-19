@@ -189,6 +189,21 @@
   color: var(--sage-dark);
 }
 
+/* Mot de passe oublié et nouveau mot de passe (2026-11-19) */
+.intro-form {
+  font-size: 0.92rem;
+  color: var(--charcoal-soft);
+  margin: 0 0 22px;
+  line-height: 1.6;
+}
+
+.titre-form {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin: 0 0 10px;
+}
+
 /* ---------- Mon espace ---------- */
 
 .modules-grille {

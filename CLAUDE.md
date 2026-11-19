@@ -51,9 +51,18 @@ avec des modules d'apprentissage, et un premier module interactif sur la zone 2.
   bannière. Décrits dans `confidentialite.html#compte` ; à garder à jour si ça change.
 - **Protection** : toute requête qui modifie (POST/PUT/DELETE) doit être en JSON et, si `Origin`
   est présent, de même origine. 8 mauvais mots de passe en 15 min par courriel + IP → 429.
-  Pas de réinitialisation de mot de passe par courriel (aucun service d'envoi) : la page renvoie
-  à contact@lasynthase.ca.
-- **Pages** : `connexion.html`, `espace.html`, `modules/<id>.html` ; feuille `css/espace.css` ;
+- **Mot de passe oublié** (2026-11-19, demandé par Tony : « il ne faut pas que ça passe par moi ») :
+  `POST /api/mot-de-passe/oubli` envoie un lien `/reinitialisation#jeton=…` (jeton dans le fragment,
+  jamais envoyé au serveur avec la page ; la page le retire de l'adresse). Valide 30 min, une seule
+  fois (`DELETE … RETURNING`), un seul lien actif par compte ; table `reinitialisations`
+  (`migrations/0003`), SHA-256 seulement. Même réponse que le compte existe ou non ; envoi après la
+  réponse (`ctx.waitUntil`). `POST /api/mot-de-passe/nouveau` change le mot de passe, ferme toutes
+  les sessions, en ouvre une neuve. Limites : 3 demandes par courriel et 10 par IP à l'heure.
+  Envoi par **Resend** (secret `RESEND_API_KEY`, domaine lasynthase.ca vérifié chez Resend ;
+  expéditeur `noreply@lasynthase.ca`, réponse à contact@, modifiable par la variable
+  `COURRIEL_EXPEDITEUR`). Sans le secret : 503 en ligne ; en local, le lien s'affiche dans la
+  console de `wrangler dev`. Resend est nommé dans `confidentialite.html`.
+- **Pages** : `connexion.html` (avec le formulaire « mot de passe oublié »), `reinitialisation.html`, `espace.html`, `modules/<id>.html` ; feuille `css/espace.css` ;
   scripts `js/compte.js` (connexion, espace), `js/module.js` (moteur générique des modules :
   étapes `<section class="etape" data-titre>`, questions `.question[data-bonne]` ou
   `[data-type="nombre"][data-min][data-max]`, sauvegarde `PUT /api/progression/<id>`),

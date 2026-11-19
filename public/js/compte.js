@@ -47,6 +47,7 @@
   /* ---------- Page de connexion ---------- */
   var formConnexion = document.getElementById("form-connexion");
   var formInscription = document.getElementById("form-inscription");
+  var formOubli = document.getElementById("form-oubli");
 
   if (formConnexion && formInscription) {
     // Déjà connecté ? On file directement à l'espace.
@@ -61,12 +62,45 @@
       document.getElementById("onglet-inscription").setAttribute("aria-selected", nom === "inscription");
       formConnexion.hidden = nom !== "connexion";
       formInscription.hidden = nom !== "inscription";
-      var premier = (nom === "connexion" ? formConnexion : formInscription).querySelector("input");
+      if (formOubli) formOubli.hidden = nom !== "oubli";
+      var actif = nom === "inscription" ? formInscription : nom === "oubli" ? formOubli : formConnexion;
+      var premier = actif.querySelector("input");
       if (premier) premier.focus({ preventScroll: true });
     }
     document.getElementById("onglet-connexion").addEventListener("click", function () { montrer("connexion"); });
     document.getElementById("onglet-inscription").addEventListener("click", function () { montrer("inscription"); });
     if (location.hash === "#inscription") montrer("inscription");
+
+    /* Mot de passe oublié (2026-11-19) : un lien arrive par courriel, valide 30 minutes. */
+    if (formOubli) {
+      document.getElementById("lien-oubli").addEventListener("click", function (e) {
+        e.preventDefault();
+        if (formConnexion.courriel.value) formOubli.courriel.value = formConnexion.courriel.value;
+        message(formOubli, "");
+        montrer("oubli");
+      });
+      document.getElementById("retour-connexion").addEventListener("click", function (e) {
+        e.preventDefault();
+        montrer("connexion");
+      });
+      if (location.hash === "#oubli") montrer("oubli");
+
+      formOubli.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var courriel = formOubli.courriel.value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(courriel)) return message(formOubli, "Ce courriel ne semble pas valide.");
+        occupe(formOubli, true, "Envoi…");
+        message(formOubli, "");
+        appel("POST", "/api/mot-de-passe/oubli", { courriel: courriel }).then(function (r) {
+          occupe(formOubli, false);
+          if (r.ok) { message(formOubli, r.corps.message, true); return; }
+          message(formOubli, r.corps.erreur || "Envoi impossible pour l'instant.");
+        }).catch(function () {
+          occupe(formOubli, false);
+          message(formOubli, "Pas de connexion au serveur. Vérifiez votre réseau.");
+        });
+      });
+    }
 
     // Jauge de solidité du mot de passe (indicative).
     var mdp = document.getElementById("inscription-mdp");
@@ -126,6 +160,37 @@
       }).catch(function () {
         occupe(f, false);
         message(f, "Pas de connexion au serveur. Vérifiez votre réseau.");
+      });
+    });
+  }
+
+  /* ---------- Page « Nouveau mot de passe » (2026-11-19) ---------- */
+  var formReinit = document.getElementById("form-reinitialisation");
+
+  if (formReinit) {
+    // Le jeton arrive dans le fragment (#jeton=…) : jamais envoyé au serveur avec la page.
+    // On le retire aussitôt de l'adresse, pour qu'il ne reste pas dans l'historique.
+    var jeton = (location.hash.match(/^#jeton=([A-Za-z0-9_-]{20,100})$/) || [])[1] || "";
+    if (location.hash) history.replaceState(null, "", location.pathname);
+    if (!jeton) {
+      message(formReinit, "Ce lien est incomplet. Ouvrez celui du courriel tel quel, ou demandez-en un nouveau.");
+      formReinit.querySelector('button[type="submit"]').disabled = true;
+    }
+
+    formReinit.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var mdp = formReinit.motDePasse.value;
+      if (mdp.length < 10) return message(formReinit, "Le mot de passe doit compter au moins 10 caractères.");
+      if (mdp !== formReinit.confirmation.value) return message(formReinit, "Les deux mots de passe ne sont pas pareils.");
+      occupe(formReinit, true, "Enregistrement…");
+      message(formReinit, "");
+      appel("POST", "/api/mot-de-passe/nouveau", { jeton: jeton, motDePasse: mdp }).then(function (r) {
+        if (r.ok) { message(formReinit, "Mot de passe changé. Bienvenue, " + r.corps.nom + ".", true); location.assign("/espace.html"); return; }
+        occupe(formReinit, false);
+        message(formReinit, r.corps.erreur || "Changement impossible pour l'instant.");
+      }).catch(function () {
+        occupe(formReinit, false);
+        message(formReinit, "Pas de connexion au serveur. Vérifiez votre réseau.");
       });
     });
   }

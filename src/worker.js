@@ -3,6 +3,7 @@
  * Le site reste statique : Cloudflare sert public/ directement. Ce Worker ne
  * reçoit que les adresses listées dans wrangler.jsonc (run_worker_first) :
  *   /api/*       comptes, connexion, progression dans les modules ;
+ *                mot de passe oublié (lien par courriel, envoyé par Resend) ;
  *                candidature au projet pilote (POST /api/candidature, sans compte)
  *   /espace*     page du compte          } réservées aux personnes connectées :
  *   /modules/*   modules d'apprentissage } sinon, renvoi vers la connexion
@@ -11,6 +12,10 @@
  * Mots de passe : PBKDF2-SHA-256, 100 000 itérations (plafond des Workers),
  * sel de 16 octets. Session : jeton aléatoire de 32 octets dans un témoin
  * HttpOnly ; la base n'en garde que le SHA-256.
+ * Mot de passe oublié (2026-11-19) : lien par courriel, valide 30 minutes et
+ * une seule fois ; la base ne garde que le SHA-256 du jeton. Envoi par Resend
+ * (secret RESEND_API_KEY). Sans ce secret, la demande répond 503, sauf en
+ * local où le lien s'affiche dans la console de wrangler dev.
  */
 
 const DUREE_SESSION_MS = 30 * 24 * 3600 * 1000;
@@ -23,10 +28,10 @@ const TEMOIN = "ls_session";
 const TEMOIN_INDICE = "ls_connecte";
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     try {
-      if (url.pathname.startsWith("/api/")) return await api(request, env, url);
+      if (url.pathname.startsWith("/api/")) return await api(request, env, url, ctx);
       if (url.pathname.startsWith("/espace") || url.pathname.startsWith("/modules/")) {
         return await pageProtegee(request, env, url);
       }
@@ -58,7 +63,7 @@ async function pageProtegee(request, env, url) {
 
 /* ---------- API ---------- */
 
-async function api(request, env, url) {
+async function api(request, env, url, ctx) {
   const methode = request.method;
   const chemin = url.pathname;
 
@@ -72,6 +77,8 @@ async function api(request, env, url) {
   if (chemin === "/api/moi" && methode === "GET") return moi(request, env);
   if (chemin === "/api/compte" && methode === "DELETE") return supprimerCompte(request, env);
   if (chemin === "/api/candidature" && methode === "POST") return recevoirCandidature(request, env);
+  if (chemin === "/api/mot-de-passe/oubli" && methode === "POST") return demanderReinitialisation(request, env, url, ctx);
+  if (chemin === "/api/mot-de-passe/nouveau" && methode === "POST") return reinitialiserMotDePasse(request, env);
 
   const m = chemin.match(/^\/api\/progression\/([a-z0-9-]{1,40})$/);
   if (m && methode === "PUT") return enregistrerProgression(request, env, m[1]);
@@ -181,6 +188,7 @@ async function supprimerCompte(request, env) {
   await env.DB.batch([
     env.DB.prepare("DELETE FROM progression WHERE utilisateur_id = ?").bind(u.id),
     env.DB.prepare("DELETE FROM sessions WHERE utilisateur_id = ?").bind(u.id),
+    env.DB.prepare("DELETE FROM reinitialisations WHERE utilisateur_id = ?").bind(u.id),
     env.DB.prepare("DELETE FROM utilisateurs WHERE id = ?").bind(u.id),
   ]);
   return json({ ok: true }, 200, temoinsEffaces());
@@ -240,6 +248,145 @@ async function recevoirCandidature(request, env) {
   return json({ ok: true });
 }
 
+/* ---------- Mot de passe oublié (2026-11-19) ---------- */
+
+const DUREE_LIEN_MS = 30 * 60 * 1000;
+const HEURE_MS = 60 * 60 * 1000;
+const MAX_DEMANDES_PAR_COURRIEL = 3;        // par heure
+const MAX_DEMANDES_PAR_IP = 10;             // par heure
+const MAX_NOUVEAUX_PAR_IP = 20;             // par heure
+const EXPEDITEUR_PAR_DEFAUT = "La Synthase <noreply@lasynthase.ca>";
+const SITE_PAR_DEFAUT = "https://tony.lasynthase.ca";
+// Même réponse que le compte existe ou non : la page ne révèle pas qui est inscrit.
+const MESSAGE_OUBLI =
+  "Si un compte existe avec ce courriel, un lien pour choisir un nouveau mot de passe vient d'y être envoyé. " +
+  "Il est valide 30 minutes. Pensez à regarder dans les courriels indésirables.";
+
+async function demanderReinitialisation(request, env, url, ctx) {
+  const d = await lireJson(request);
+  const courriel = String(d.courriel || "").trim().toLowerCase();
+  if (!courrielValide(courriel)) return json({ erreur: "Ce courriel ne semble pas valide." }, 400);
+
+  const local = estLocal(url);
+  if (!env.RESEND_API_KEY && !local) {
+    console.error("Mot de passe oublié : secret RESEND_API_KEY absent, aucun courriel ne peut partir.");
+    return json({ erreur: "Ce service est indisponible pour l'instant. Écrivez à contact@lasynthase.ca." }, 503);
+  }
+
+  const ip = request.headers.get("CF-Connecting-IP") || "local";
+  const tropIp = await compterEtLimiter(env, "oubli-ip:" + ip, MAX_DEMANDES_PAR_IP, HEURE_MS);
+  const tropCourriel = await compterEtLimiter(env, "oubli:" + courriel, MAX_DEMANDES_PAR_COURRIEL, HEURE_MS);
+  if (tropIp || tropCourriel) return json({ erreur: "Trop de demandes. Réessayez dans une heure." }, 429);
+
+  const u = await env.DB.prepare("SELECT id, nom FROM utilisateurs WHERE courriel = ?").bind(courriel).first();
+  if (u) {
+    const jeton = base64url(crypto.getRandomValues(new Uint8Array(32)));
+    // Un seul lien valide à la fois : le nouveau remplace les anciens.
+    await env.DB.batch([
+      env.DB.prepare("DELETE FROM reinitialisations WHERE utilisateur_id = ? OR expire_le < ?").bind(u.id, Date.now()),
+      env.DB.prepare("INSERT INTO reinitialisations (jeton, utilisateur_id, expire_le) VALUES (?, ?, ?)")
+        .bind(await sha256(jeton), u.id, Date.now() + DUREE_LIEN_MS),
+    ]);
+    // Le jeton va dans le fragment (#) : il n'est jamais envoyé au serveur ni à un autre site.
+    const lien = origineSite(url) + "/reinitialisation#jeton=" + jeton;
+    const envoi = env.RESEND_API_KEY
+      ? envoyerCourrielReinitialisation(env, courriel, u.nom, lien)
+      : Promise.resolve(console.log("[local] Lien de réinitialisation pour " + courriel + " : " + lien));
+    // L'envoi se fait après la réponse : le temps de réponse ne révèle pas qui a un compte.
+    const suite = envoi.catch((e) => console.error("Mot de passe oublié : envoi impossible", e));
+    if (ctx && ctx.waitUntil) ctx.waitUntil(suite); else await suite;
+  }
+  return json({ ok: true, message: MESSAGE_OUBLI });
+}
+
+async function reinitialiserMotDePasse(request, env) {
+  const d = await lireJson(request);
+  const jeton = String(d.jeton || "");
+  const mdp = String(d.motDePasse || "");
+  const invalide = "Ce lien n'est plus valide : il dure 30 minutes et ne sert qu'une fois. Demandez-en un nouveau.";
+
+  const ip = request.headers.get("CF-Connecting-IP") || "local";
+  if (await compterEtLimiter(env, "nouveau-ip:" + ip, MAX_NOUVEAUX_PAR_IP, HEURE_MS)) {
+    return json({ erreur: "Trop d'essais. Réessayez dans une heure." }, 429);
+  }
+  if (!jeton || jeton.length > 100) return json({ erreur: invalide }, 400);
+  if (mdp.length < 10) return json({ erreur: "Le mot de passe doit compter au moins 10 caractères." }, 400);
+  if (mdp.length > 200) return json({ erreur: "Ce mot de passe est trop long." }, 400);
+
+  // Le lien est retiré au moment même où on le lit : deux envois en même temps ne peuvent pas s'en servir tous les deux.
+  const ligne = await env.DB.prepare("DELETE FROM reinitialisations WHERE jeton = ? RETURNING utilisateur_id, expire_le")
+    .bind(await sha256(jeton)).first();
+  if (!ligne || ligne.expire_le < Date.now()) return json({ erreur: invalide }, 400);
+
+  const u = await env.DB.prepare("SELECT id, nom, courriel FROM utilisateurs WHERE id = ?").bind(ligne.utilisateur_id).first();
+  if (!u) return json({ erreur: invalide }, 400);
+
+  const prefixe = "connexion:" + u.courriel + ":";
+  // Nouveau mot de passe ; toutes les connexions ouvertes sont fermées (un appareil perdu ou partagé perd l'accès).
+  await env.DB.batch([
+    env.DB.prepare("UPDATE utilisateurs SET mot_de_passe = ? WHERE id = ?").bind(await hacherMotDePasse(mdp), u.id),
+    env.DB.prepare("DELETE FROM sessions WHERE utilisateur_id = ?").bind(u.id),
+    env.DB.prepare("DELETE FROM reinitialisations WHERE utilisateur_id = ?").bind(u.id),
+    env.DB.prepare("DELETE FROM tentatives WHERE substr(cle, 1, length(?1)) = ?1").bind(prefixe),
+  ]);
+  return ouvrirSession(env, u.id, { nom: u.nom, courriel: u.courriel });
+}
+
+async function envoyerCourrielReinitialisation(env, courriel, nom, lien) {
+  const prenom = String(nom || "").trim().split(/\s+/)[0] || "";
+  const salut = prenom ? "Bonjour " + prenom + "," : "Bonjour,";
+  const texte = [
+    salut,
+    "",
+    "Vous avez demandé à choisir un nouveau mot de passe pour votre compte La Synthase.",
+    "Ouvrez ce lien (valide 30 minutes, une seule fois) :",
+    lien,
+    "",
+    "Si vous n'avez rien demandé, ignorez ce courriel : votre mot de passe ne change pas.",
+    "",
+    "La Synthase – Antoine Corbeil",
+  ].join("\n");
+  const html =
+    '<div style="font-family:Arial,sans-serif;font-size:16px;line-height:1.5;color:#2b2b2b;max-width:520px">' +
+    "<p>" + echapperHtml(salut) + "</p>" +
+    "<p>Vous avez demandé à choisir un nouveau mot de passe pour votre compte La Synthase.</p>" +
+    '<p><a href="' + echapperHtml(lien) + '" style="display:inline-block;background:#5f7a61;color:#fff;' +
+    'padding:12px 22px;border-radius:6px;text-decoration:none">Choisir un nouveau mot de passe</a></p>' +
+    "<p style=\"font-size:14px;color:#666\">Le lien est valide 30 minutes et ne sert qu'une fois. " +
+    "Si vous n'avez rien demandé, ignorez ce courriel : votre mot de passe ne change pas.</p>" +
+    "<p>La Synthase – Antoine Corbeil</p></div>";
+
+  const r = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: env.COURRIEL_EXPEDITEUR || EXPEDITEUR_PAR_DEFAUT,
+      to: [courriel],
+      reply_to: "contact@lasynthase.ca",
+      subject: "Choisir un nouveau mot de passe — La Synthase",
+      text: texte,
+      html,
+    }),
+  });
+  if (!r.ok) throw new Error("Resend a répondu " + r.status + " : " + (await r.text()).slice(0, 300));
+}
+
+// Adresse du site pour le lien : celle de la demande si c'est un domaine de La Synthase
+// (ou l'essai local), sinon l'adresse principale. Un en-tête trafiqué ne choisit jamais le lien.
+function origineSite(url) {
+  const h = url.hostname;
+  if (h === "lasynthase.ca" || h.endsWith(".lasynthase.ca") || estLocal(url)) return url.origin;
+  return SITE_PAR_DEFAUT;
+}
+
+function estLocal(url) {
+  return url.hostname === "localhost" || url.hostname === "127.0.0.1";
+}
+
+function echapperHtml(t) {
+  return String(t).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
 /* ---------- Sessions ---------- */
 
 async function ouvrirSession(env, utilisateurId, profil) {
@@ -297,6 +444,17 @@ async function noterTentative(env, cle) {
     "nombre = CASE WHEN ?2 - debut > ?3 THEN 1 ELSE nombre + 1 END, " +
     "debut = CASE WHEN ?2 - debut > ?3 THEN ?2 ELSE debut END"
   ).bind(cle, maintenant, FENETRE_TENTATIVES_MS).run();
+}
+
+// Compte une demande et dit si la limite est dépassée (fenêtre glissante simple).
+async function compterEtLimiter(env, cle, max, fenetre) {
+  const maintenant = Date.now();
+  const t = await env.DB.prepare(
+    "INSERT INTO tentatives (cle, nombre, debut) VALUES (?1, 1, ?2) ON CONFLICT(cle) DO UPDATE SET " +
+    "nombre = CASE WHEN ?2 - debut > ?3 THEN 1 ELSE nombre + 1 END, " +
+    "debut = CASE WHEN ?2 - debut > ?3 THEN ?2 ELSE debut END RETURNING nombre"
+  ).bind(cle, maintenant, fenetre).first();
+  return !!t && t.nombre > max;
 }
 
 /* ---------- Mots de passe ---------- */

@@ -71,7 +71,18 @@
             </div>
             <button type="submit" class="btn btn-primary">Se connecter</button>
             <p class="message-form" role="alert"></p>
-            <p class="note-compte">Mot de passe oublié ? Écrivez-moi à <a href="mailto:contact@lasynthase.ca">contact@lasynthase.ca</a>.</p>
+            <p class="note-compte"><a href="#oubli" id="lien-oubli">Mot de passe oublié ?</a></p>
+          </form>
+
+          <form class="form-compte" id="form-oubli" hidden novalidate>
+            <p class="intro-form">Entrez le courriel de votre compte. Vous recevrez un lien pour choisir un nouveau mot de passe.</p>
+            <div class="field">
+              <label for="oubli-courriel">Courriel</label>
+              <input type="email" id="oubli-courriel" name="courriel" autocomplete="email" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Recevoir le lien</button>
+            <p class="message-form" role="alert"></p>
+            <p class="note-compte"><a href="#connexion" id="retour-connexion">Retour à la connexion</a></p>
           </form>
 
           <form class="form-compte" id="form-inscription" role="tabpanel" aria-labelledby="onglet-inscription" hidden novalidate>
