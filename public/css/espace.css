@@ -688,6 +688,7 @@
 .graphe-lactate .nom-bande { font-size: 13px; fill: var(--charcoal); letter-spacing: 0.08em; pointer-events: none; }
 .graphe-lactate .etiquette-z2 { font-size: 15px; font-weight: 500; fill: var(--sage-deep); pointer-events: none; }
 .graphe-lactate .etiquette-lt1 { font-size: 13px; font-weight: 500; fill: var(--charcoal); letter-spacing: 0.08em; }
+.graphe-lactate .etiquette-valeur { font-size: 13px; fill: var(--charcoal); }
 .graphe-lactate .ligne-lt1 { stroke: var(--charcoal); stroke-width: 1.5; stroke-dasharray: 4 4; }
 .graphe-lactate .courbe { fill: none; stroke: var(--charcoal); stroke-width: 2; stroke-linecap: round; pointer-events: none; }
 .graphe-lactate .point { fill: var(--charcoal); stroke: var(--cream); stroke-width: 2; }
@@ -724,7 +725,8 @@
   .graphe-lactate .graduation,
   .graphe-lactate .titre-axe,
   .graphe-lactate .nom-bande,
-  .graphe-lactate .etiquette-lt1 { font-size: 17px; }
+  .graphe-lactate .etiquette-lt1,
+  .graphe-lactate .etiquette-valeur { font-size: 17px; }
   .graphe-lactate .etiquette-z2 { font-size: 19px; }
 }
 

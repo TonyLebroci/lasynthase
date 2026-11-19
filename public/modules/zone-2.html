@@ -63,73 +63,59 @@
             <section class="etape" data-titre="Ce qu'est la zone 2">
               <p class="etape-numero">Étape 1 sur 8</p>
               <h2>Ce qu'est la zone 2</h2>
-              <p>La zone 2 est le travail <strong>long et facile</strong>, celui qui bâtit la base de toute l'endurance. On découpe l'intensité en <strong>cinq zones</strong>, comme l'échelle I1 à I5 du centre olympique norvégien. La zone 2 s'y situe <strong>juste sous le premier seuil</strong>, qui en est la borne haute. Ce premier seuil se repère de deux façons : par le lactate du sang (LT1) ou par la respiration (VT1).</p>
+              <p>La zone 2 est le travail <strong>long et facile</strong>, celui qui bâtit la base de toute l'endurance. On découpe souvent l'intensité en <strong>cinq zones</strong>, comme les zones I1 à I5 de l'échelle du centre olympique norvégien. La zone 2 s'y situe <strong>juste sous le premier seuil</strong>, qui en est la borne haute. Ce premier seuil se repère de deux façons : par le lactate du sang (LT1) ou par la respiration (VT1).</p>
 
               <h3>Le premier seuil de lactate (LT1)</h3>
-              <p>Pendant l'effort, les muscles relâchent du lactate dans le sang, et le corps en reprend une partie pour s'en servir comme carburant. Quand on augmente l'effort peu à peu, le lactate du sang reste d'abord bas et monte à peine. Le <strong>LT1</strong> est le moment où il commence à monter nettement au-dessus de ce niveau de départ. En dessous, l'effort se tient des heures ; au-dessus, il coûte vite plus cher. On le mesure par un test par paliers, avec une goutte de sang prélevée à la fin de chaque palier.</p>
+              <p>Pendant l'effort, les muscles relâchent du lactate dans le sang, et le corps en reprend une partie pour s'en servir comme carburant. Quand on augmente l'effort peu à peu, le lactate du sang reste d'abord bas et monte à peine. Le <strong>LT1</strong> est le moment où il commence à monter nettement au-dessus de ce niveau de départ, en général vers 2 mmol/L. En dessous, l'effort se tient des heures ; au-dessus, il coûte vite plus cher. On le mesure par un test par paliers, avec une goutte de sang prélevée à la fin de chaque palier.</p>
 
               <div class="outil" id="outil-zones">
                 <p class="outil-titre">Outil · La courbe de lactate et les cinq zones</p>
-                <p class="outil-consigne">Touchez une zone, sur la courbe ou sur la barre, pour voir ses repères. Schéma bâti sur les repères de l'échelle norvégienne : chaque point est une borne de zone (FC et lactate). La courbe de chacun est différente ; seule une mesure situe la vôtre.</p>
+                <p class="outil-consigne">Touchez une zone, sur la courbe ou sur la barre, pour voir ses repères. Schéma : les bandes suivent les plages de FC de l'échelle norvégienne ; la courbe montre la forme type du lactate, pas des valeurs exactes. La courbe de chacun est différente ; seule une mesure situe la vôtre.</p>
 
                 <div class="graphe-cadre">
                   <svg class="graphe-lactate" viewBox="0 0 480 300" role="img" aria-labelledby="graphe-lactate-titre graphe-lactate-desc">
                   <title id="graphe-lactate-titre">La courbe de lactate et la zone 2</title>
-                  <desc id="graphe-lactate-desc">Le lactate du sang selon l'intensité, en pourcentage de la FC max. Il reste bas et monte lentement de 0,8 à 2,5 mmol/L entre 55 et 82 % ; c'est la zone 2 (I2, 72 à 82 %) qui finit au premier seuil, LT1. Au-dessus, il monte de plus en plus vite : 4 mmol/L à 87 %, 6 à 92 %, 10 à 97 %.</desc>
-                  <line class="grille" x1="48" x2="464" y1="205.2" y2="205.2"/>
-                  <line class="grille" x1="48" x2="464" y1="160.4" y2="160.4"/>
-                  <line class="grille" x1="48" x2="464" y1="115.6" y2="115.6"/>
-                  <line class="grille" x1="48" x2="464" y1="70.8" y2="70.8"/>
-                  <line class="grille" x1="48" x2="464" y1="26.0" y2="26.0"/>
-                  <rect class="bande" data-zone="0" x="48.0" y="26" width="167.4" height="224" fill="#a9b79c"/>
-                  <text class="nom-bande" x="131.7" y="42" text-anchor="middle">I1</text>
-                  <rect class="bande est-zone-2" data-zone="1" x="217.4" y="26" width="97.0" height="224" fill="#7c9070"/>
-                  <text class="nom-bande" x="265.9" y="42" text-anchor="middle">I2</text>
-                  <rect class="bande" data-zone="2" x="316.4" y="26" width="47.5" height="224" fill="#55654a"/>
-                  <text class="nom-bande" x="340.2" y="42" text-anchor="middle">I3</text>
-                  <rect class="bande" data-zone="3" x="366.0" y="26" width="47.5" height="224" fill="#8a6c34"/>
-                  <text class="nom-bande" x="389.7" y="42" text-anchor="middle">I4</text>
-                  <rect class="bande" data-zone="4" x="415.5" y="26" width="48.5" height="224" fill="#b06a4f"/>
-                  <text class="nom-bande" x="439.7" y="42" text-anchor="middle">I5</text>
-                  <text class="etiquette-z2" x="265.9" y="150" text-anchor="middle">Zone 2</text>
-                  <line class="ligne-lt1" x1="315.4" x2="315.4" y1="18" y2="250"/>
-                  <text class="etiquette-lt1" x="309.4" y="66" text-anchor="end">LT1</text>
-                  <line class="axe" x1="48" x2="464" y1="250" y2="250"/>
-                  <text class="graduation" x="40" y="254.0" text-anchor="end">0</text>
-                  <text class="graduation" x="40" y="209.2" text-anchor="end">2</text>
-                  <text class="graduation" x="40" y="164.4" text-anchor="end">4</text>
-                  <text class="graduation" x="40" y="119.6" text-anchor="end">6</text>
-                  <text class="graduation" x="40" y="74.8" text-anchor="end">8</text>
-                  <text class="graduation" x="40" y="30.0" text-anchor="end">10</text>
-                  <text class="graduation" x="48.0" y="268" text-anchor="middle">55</text>
-                  <text class="graduation" x="216.4" y="268" text-anchor="middle">72</text>
-                  <text class="graduation" x="315.4" y="268" text-anchor="middle">82</text>
-                  <text class="graduation" x="365.0" y="268" text-anchor="middle">87</text>
-                  <text class="graduation" x="414.5" y="268" text-anchor="middle">92</text>
-                  <text class="graduation" x="464.0" y="268" text-anchor="middle">97</text>
-                  <text class="titre-axe" x="256" y="292" text-anchor="middle">% de la FC max</text>
-                  <text class="titre-axe" x="14" y="138" text-anchor="middle" transform="rotate(-90 14 138)">Lactate (mmol/L)</text>
-                  <path class="courbe" d="M48.0,232.1 C104.1,226.9 160.3,225.4 216.4,216.4 C249.4,211.1 282.4,208.9 315.4,194.0 C331.9,186.5 348.4,173.5 365.0,160.4 C381.5,147.3 398.0,138.0 414.5,115.6 C431.0,93.2 447.5,55.9 464.0,26.0"/>
-                  <circle class="point" cx="48.0" cy="232.1" r="4.5"><title>55 % de la FC max : 0,8 mmol/L</title></circle>
-                  <circle class="point" cx="216.4" cy="216.4" r="4.5"><title>72 % de la FC max : 1,5 mmol/L</title></circle>
-                  <circle class="point" cx="315.4" cy="194.0" r="4.5"><title>82 % de la FC max : 2,5 mmol/L</title></circle>
-                  <circle class="point" cx="365.0" cy="160.4" r="4.5"><title>87 % de la FC max : 4,0 mmol/L</title></circle>
-                  <circle class="point" cx="414.5" cy="115.6" r="4.5"><title>92 % de la FC max : 6,0 mmol/L</title></circle>
-                  <circle class="point" cx="464.0" cy="26.0" r="4.5"><title>97 % de la FC max : 10,0 mmol/L</title></circle>
+                  <desc id="graphe-lactate-desc">Schéma de la forme type du lactate du sang selon l'intensité, en pourcentage de la FC max. Le lactate reste bas et monte à peine dans I1 et I2 ; la zone 2 (I2, environ 72 à 82 %) finit au premier seuil, LT1, en général vers 2 mmol/L. Au-dessus, il monte de plus en plus vite.</desc>
+                  <rect class="bande" data-zone="0" x="40.0" y="26" width="159.2" height="224" fill="#a9b79c"/>
+                  <text class="nom-bande" x="119.6" y="42" text-anchor="middle">I1</text>
+                  <rect class="bande est-zone-2" data-zone="1" x="201.2" y="26" width="92.2" height="224" fill="#7c9070"/>
+                  <text class="nom-bande" x="247.3" y="42" text-anchor="middle">I2</text>
+                  <rect class="bande" data-zone="2" x="295.4" y="26" width="45.1" height="224" fill="#55654a"/>
+                  <text class="nom-bande" x="318.0" y="42" text-anchor="middle">I3</text>
+                  <rect class="bande" data-zone="3" x="342.5" y="26" width="45.1" height="224" fill="#8a6c34"/>
+                  <text class="nom-bande" x="365.1" y="42" text-anchor="middle">I4</text>
+                  <rect class="bande" data-zone="4" x="389.6" y="26" width="74.4" height="224" fill="#b06a4f"/>
+                  <text class="nom-bande" x="426.8" y="42" text-anchor="middle">I5</text>
+                  <text class="etiquette-z2" x="247.3" y="150" text-anchor="middle">Zone 2</text>
+                  <line class="ligne-lt1" x1="294.4" x2="294.4" y1="18" y2="250"/>
+                  <text class="etiquette-lt1" x="288.4" y="66" text-anchor="end">LT1</text>
+                  <line class="axe" x1="40" x2="464" y1="250" y2="250"/>
+                  <line class="axe" x1="40" x2="40" y1="26" y2="250"/>
+                  <text class="graduation" x="40.0" y="268" text-anchor="middle">55</text>
+                  <text class="graduation" x="200.2" y="268" text-anchor="middle">72</text>
+                  <text class="graduation" x="294.4" y="268" text-anchor="middle">82</text>
+                  <text class="graduation" x="341.5" y="268" text-anchor="middle">87</text>
+                  <text class="graduation" x="388.6" y="268" text-anchor="middle">92</text>
+                  <text class="graduation" x="464.0" y="268" text-anchor="middle">100</text>
+                  <text class="titre-axe" x="252" y="292" text-anchor="middle">% de la FC max</text>
+                  <text class="titre-axe" x="22" y="138" text-anchor="middle" transform="rotate(-90 22 138)">Lactate du sang &#8594;</text>
+                  <path class="courbe" d="M40.0,237.3 C93.4,235.0 146.8,237.0 200.2,229.9 C231.6,225.8 263.0,219.9 294.4,207.7 C310.1,201.7 325.8,194.4 341.5,182.4 C357.2,170.4 372.9,153.8 388.6,135.9 C413.7,107.3 438.9,71.1 464.0,38.7"/>
+                  <circle class="point" cx="294.4" cy="207.7" r="5"><title>LT1 : en général vers 2 mmol/L</title></circle>
+                  <text class="etiquette-valeur" x="302.4" y="225.7">&#8776; 2 mmol/L</text>
                   </svg>
                 </div>
 
                 <div class="barre-zones" data-systeme="5">
                   <p class="etiquette-barre">Les cinq zones d'intensité</p>
                   <div class="segments">
-                    <button type="button" class="segment" style="flex: 17; background: #a9b79c;" data-detail="<strong>I1, récupération et endurance très facile.</strong> 55 à 72 % de la FC max, lactate 0,8 à 1,5 mmol/L.">I1</button>
-                    <button type="button" class="segment est-zone-2" style="flex: 10; background: var(--sage);" data-detail="<strong>I2, la zone 2 du système à cinq zones.</strong> 72 à 82 % de la FC max, lactate 1,5 à 2,5 mmol/L. Elle s'arrête au premier seuil.">I2</button>
-                    <button type="button" class="segment" style="flex: 5; background: var(--sage-dark);" data-detail="<strong>I3.</strong> 82 à 87 % de la FC max, lactate 2,5 à 4,0 mmol/L.">I3</button>
-                    <button type="button" class="segment" style="flex: 5; background: var(--gold-dark);" data-detail="<strong>I4, autour du seuil.</strong> 87 à 92 % de la FC max, lactate 4,0 à 6,0 mmol/L.">I4</button>
-                    <button type="button" class="segment" style="flex: 5; background: var(--terracotta);" data-detail="<strong>I5, près du maximum.</strong> 92 à 97 % de la FC max, lactate 6,0 à 10,0 mmol/L.">I5</button>
+                    <button type="button" class="segment" style="flex: 17; background: #a9b79c;" data-detail="<strong>I1, très léger.</strong> Environ 55 à 72 % de la FC max, lactate sous 1,5 mmol/L. On parle sans effort.">I1</button>
+                    <button type="button" class="segment est-zone-2" style="flex: 10; background: var(--sage);" data-detail="<strong>I2, assez léger : c'est ici que se situe la zone 2.</strong> Environ 72 à 82 % de la FC max, lactate d'environ 1,0 à 2,0 mmol/L. On parle en phrases assez longues sans trop d'effort. La zone 2 s'arrête au premier seuil, en général vers 2 mmol/L.">I2</button>
+                    <button type="button" class="segment" style="flex: 5; background: var(--sage-dark);" data-detail="<strong>I3, un peu dur.</strong> Environ 82 à 87 % de la FC max, lactate d'environ 1,5 à 3,5 mmol/L. On parle en phrases courtes.">I3</button>
+                    <button type="button" class="segment" style="flex: 5; background: var(--gold-dark);" data-detail="<strong>I4, dur.</strong> Environ 87 à 92 % de la FC max ; l'échelle ne donne pas de valeur de lactate. On dit quelques mots.">I4</button>
+                    <button type="button" class="segment" style="flex: 8; background: var(--terracotta);" data-detail="<strong>I5, très dur.</strong> Environ 92 à 100 % de la FC max ; l'échelle ne donne pas de valeur de lactate. Un ou deux mots à la fois.">I5</button>
                   </div>
                   <div class="repere-seuils" aria-hidden="true">
-                    <span style="left: 64.3%;">LT1</span>
+                    <span style="left: 60%;">LT1</span>
                   </div>
                 </div>
 
@@ -147,7 +133,7 @@
               </div>
 
               <div class="sources">
-                <p>Sources : Sitko S. et al., « What is "zone 2 training"? Experts' viewpoint on definition, training methods, and expected adaptations », <em>International Journal of Sports Physiology and Performance</em>, 2025 (DOI 10.1123/ijspp.2024-0303) ; échelle d'intensité I1 à I5 d'Olympiatoppen.</p>
+                <p>Sources : Sitko S. et al., « What is "zone 2 training"? Experts' viewpoint on definition, training methods, and expected adaptations », <em>International Journal of Sports Physiology and Performance</em>, 2025 (DOI 10.1123/ijspp.2024-0303) ; Olympiatoppen, <a href="https://olt-skala.nif.no/olt_2024_en.pdf" rel="noopener" target="_blank">échelle d'intensité, version 2 (2024)</a> ; Stöggl T. L., Sperlich B., « The training intensity distribution among well-trained and elite endurance athletes », <em>Frontiers in Physiology</em>, 2015 (DOI 10.3389/fphys.2015.00295).</p>
               </div>
             </section>
 
@@ -159,19 +145,19 @@
               <ul>
                 <li><strong>Fréquence cardiaque :</strong> en moyenne 67 à 82 % de la FC maximale.</li>
                 <li><strong>Effort perçu :</strong> 2 à 3 sur 10. Facile, et ça doit le rester.</li>
-                <li><strong>Lactate :</strong> environ 1,5 à 2,5 mmol/L sur l'échelle norvégienne (I2).</li>
+                <li><strong>Lactate :</strong> environ 1,0 à 2,0 mmol/L sur l'échelle norvégienne (I2).</li>
               </ul>
-              <p>La zone 1 couvre 55 à 72 % de la FC max : les deux zones se chevauchent un peu. Le test de la parole (pouvoir encore tenir une conversation) aide, mais ne donne qu'une approximation grossière du premier seuil.</p>
+              <p>La zone 1 couvre 55 à 72 % de la FC max : les deux zones se chevauchent un peu. Le test de la parole aide aussi : en I2, on parle encore en phrases assez longues sans trop d'effort. C'est une bonne approximation du premier seuil, moins précise qu'un test de lactate.</p>
 
               <div class="encadre">
                 <p class="titre-encadre">Astuce · Respirer par le nez</p>
                 <p>Essayez de respirer seulement par le nez. Si vous devez ouvrir la bouche, c'est un signe que l'effort monte : ralentissez.</p>
-                <p>Mais ça donne <strong>une idée, pas un repère absolu</strong>. Le moment où l'on doit ouvrir la bouche varie beaucoup d'une personne à l'autre. Et dans une étude, des athlètes d'endurance qui respiraient seulement par le nez n'ont pas passé moins de temps au-dessus de l'intensité facile voulue qu'en respirant librement. Gardez la FC et l'effort perçu comme repères principaux.</p>
+                <p>Mais ça donne <strong>une idée, pas un repère absolu</strong>. Le moment où l'on doit ouvrir la bouche varie beaucoup d'une personne à l'autre. Et dans une étude (une seule séance d'une heure), des athlètes d'endurance qui respiraient seulement par le nez n'ont pas passé moins de temps au-dessus de l'intensité facile voulue qu'en respirant librement. Gardez la FC et l'effort perçu comme repères principaux.</p>
               </div>
 
               <div class="encadre">
                 <p class="titre-encadre">Attention</p>
-                <p>La plage de 67 à 82 % décrit où se retrouvent <strong>en moyenne</strong> les athlètes entraînés par ces experts. Elle ne définit la zone 2 de personne en particulier. Selon le niveau d'entraînement, le premier seuil peut se situer vers 68 % comme vers 80 % de la FC max, et parfois plus haut chez un athlète très entraîné. Quand le seuil a été mesuré, c'est la mesure qui compte.</p>
+                <p>La plage de 67 à 82 % décrit où se retrouvent <strong>en moyenne</strong> les athlètes entraînés par ces experts. Elle ne définit la zone 2 de personne en particulier. Selon le niveau d'entraînement, le premier seuil peut se situer bien sous cette plage comme bien au-dessus, surtout chez un athlète très entraîné. Quand le seuil a été mesuré, c'est la mesure qui compte.</p>
               </div>
 
               <div class="outil" id="outil-fc">
@@ -193,7 +179,7 @@
               </div>
 
               <div class="sources">
-                <p>Sources : Sitko S. et al., 2025 (voir étape 1) ; <a href="https://www.wattkg.com/zone-2-training/" rel="noopener" target="_blank">« Zone 2 Training For Cyclists: What Coaches &amp; Scientists Do »</a>, W/KG, 2025 ; échelle I1 à I5 d'Olympiatoppen ; Rappelt L. et al., « Restricted nasal-only breathing during self-selected low intensity training does not affect training intensity distribution », <em>Frontiers in Physiology</em>, 2023 (DOI 10.3389/fphys.2023.1134778).</p>
+                <p>Sources : Sitko S. et al., 2025 (voir étape 1) ; <a href="https://www.wattkg.com/zone-2-training/" rel="noopener" target="_blank">« Zone 2 Training For Cyclists: What Coaches &amp; Scientists Do »</a>, W/KG, 2025 ; Olympiatoppen, <a href="https://olt-skala.nif.no/olt_2024_en.pdf" rel="noopener" target="_blank">échelle d'intensité, version 2 (2024)</a> ; Reed J. L., Pipe A. L., « The talk test », <em>Current Opinion in Cardiology</em>, 2014 (DOI 10.1097/HCO.0000000000000097) ; Meixner B. et al., « Zone 2 intensity », <em>Translational Sports Medicine</em>, 2025 (DOI 10.1155/tsm2/2008291) ; Rappelt L. et al., « Restricted nasal-only breathing during self-selected low intensity training does not affect training intensity distribution », <em>Frontiers in Physiology</em>, 2023 (DOI 10.3389/fphys.2023.1134778).</p>
               </div>
             </section>
 
@@ -219,7 +205,7 @@
                 <p class="outil-consigne">Du sang jusqu'à l'énergie de la contraction, en cinq étapes. Touchez-les dans l'ordre.</p>
                 <div class="choix-cartes" style="margin: 0;">
                   <button type="button" class="carte-choix" aria-expanded="false">1. Il entre dans la fibre<span class="reponse-carte">L'acide gras arrive par le sang, ou sort d'une gouttelette de gras de la fibre. Dans la cellule, il est d'abord activé pour pouvoir être brûlé.</span></button>
-                  <button type="button" class="carte-choix" aria-expanded="false">2. Il passe la porte de la mitochondrie<span class="reponse-carte">Il ne peut pas entrer seul. Il est accroché à la <strong>carnitine</strong>, et une enzyme, la <strong>CPT1</strong>, lui fait passer la membrane. C'est la porte d'entrée des graisses ; c'est elle qui ralentit quand l'effort devient intense (étape suivante).</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">2. Il passe la porte de la mitochondrie<span class="reponse-carte">Il ne peut pas entrer seul. Une enzyme, la <strong>CPT1</strong>, l'accroche à la <strong>carnitine</strong> : c'est sous cette forme qu'il traverse la membrane. C'est la porte d'entrée des graisses ; c'est elle qui ralentit quand l'effort devient intense (étape suivante).</span></button>
                   <button type="button" class="carte-choix" aria-expanded="false">3. Il est découpé<span class="reponse-carte">Dans la mitochondrie, la <strong>bêta-oxydation</strong> coupe l'acide gras, deux carbones à la fois, en morceaux d'acétyl-CoA.</span></button>
                   <button type="button" class="carte-choix" aria-expanded="false">4. Le cycle de Krebs<span class="reponse-carte">L'acétyl-CoA entre dans le <strong>cycle de Krebs</strong>, qui en retire des électrons, portés par le NADH et le FADH2.</span></button>
                   <button type="button" class="carte-choix" aria-expanded="false">5. L'oxygène et l'ATP<span class="reponse-carte">Les électrons passent dans la <strong>chaîne respiratoire</strong>. Au bout, l'oxygène les reçoit, et la mitochondrie fabrique l'<strong>ATP</strong>, l'énergie de la contraction. Les graisses ne se brûlent qu'avec de l'oxygène, dans la mitochondrie.</span></button>
@@ -244,23 +230,23 @@
               <ul>
                 <li><strong>On accélère :</strong> on brûle plus de gras, jusqu'à Fatmax.</li>
                 <li><strong>Au-dessus de Fatmax :</strong> le gras brûlé baisse, le muscle passe au sucre.</li>
-                <li><strong>Où il se situe :</strong> vers 74 % de la FC max chez des cyclistes entraînés, vers 62 % chez des adultes en santé.</li>
+                <li><strong>Où il se situe :</strong> vers 74 % de la FC max chez des cyclistes modérément entraînés, vers 62 % chez des adultes en santé.</li>
                 <li><strong>Chez vous :</strong> ça varie beaucoup. Seul un test en laboratoire (analyse de l'air expiré) le situe.</li>
               </ul>
 
               <h3>Pourquoi le gras baisse quand on accélère</h3>
-              <p>Le gras entre dans la mitochondrie par une porte, la <strong>CPT1</strong>, accroché à la carnitine. Quand on brûle beaucoup de sucre, sa dégradation produit beaucoup d'<strong>acétyls</strong>. Ils s'accrochent à la carnitine : la porte ralentit, moins de gras entre.</p>
+              <p>Le gras entre dans la mitochondrie par une porte, la <strong>CPT1</strong>, accroché à la carnitine. Quand on brûle beaucoup de sucre, sa dégradation produit beaucoup d'<strong>acétyls</strong>. Ils s'accrochent à la carnitine : la porte ralentit, moins de gras entre. D'autres freins s'ajoutent : le muscle devient plus acide, et le sang livre moins de gras.</p>
 
               <h3>Fatmax et zone 2</h3>
               <ul>
-                <li><strong>Pas la même chose :</strong> la zone 2 se définit par le lactate, Fatmax par le gras brûlé.</li>
-                <li><strong>Parfois voisins :</strong> chez des cyclistes entraînés, Fatmax tombait dans la zone 2.</li>
-                <li><strong>Sens inverse :</strong> plus le lactate monte, moins on brûle de gras.</li>
+                <li><strong>Pas la même chose :</strong> la zone 2 se définit par le premier seuil (lactate ou respiration), Fatmax par le gras brûlé.</li>
+                <li><strong>Parfois voisins :</strong> chez des cyclistes modérément entraînés, Fatmax tombait dans la zone 2.</li>
+                <li><strong>Sens inverse :</strong> au-delà de Fatmax, le lactate monte pendant que le gras brûlé baisse.</li>
               </ul>
 
               <div class="encadre">
                 <p class="titre-encadre">À retenir</p>
-                <p>La zone 2 entraîne la machinerie qui brûle le gras : plus de mitochondries, plus de capillaires. Et c'est surtout la <strong>quantité</strong> d'entraînement qui fait les mitochondries.</p>
+                <p>La zone 2 entraîne la machinerie qui brûle le gras : plus de mitochondries, plus de capillaires. Et la <strong>quantité</strong> d'entraînement semble être ce qui fait le plus augmenter les mitochondries.</p>
               </div>
 
               <p class="lien-article"><a href="../articles/oxydation-graisses.html" target="_blank" rel="noopener">Pour aller plus loin : lire l'article « Pourquoi l'oxydation des graisses diminue-t-elle avec l'intensité? » &#8250;</a></p>
@@ -281,7 +267,7 @@
                 <button type="button" class="carte-choix" aria-expanded="false">Plus d'enzymes mitochondriales<span class="reponse-carte">Surtout dans les fibres de type I, les fibres lentes et endurantes : le muscle produit mieux son énergie avec l'oxygène.</span></button>
                 <button type="button" class="carte-choix" aria-expanded="false">Une meilleure efficacité métabolique<span class="reponse-carte">Le même effort coûte moins cher à l'organisme.</span></button>
                 <button type="button" class="carte-choix" aria-expanded="false">Des gains modestes au sommet<span class="reponse-carte">Hausses modestes de la puissance critique et du VO2max. La zone 2 n'est pas l'outil principal pour ces deux qualités.</span></button>
-                <button type="button" class="carte-choix" aria-expanded="false">Une zone 2 plus « rapide »<span class="reponse-carte">La puissance (ou la vitesse) que vous tenez en zone 2 se rapproche de celle que vous tenez au seuil.</span></button>
+                <button type="button" class="carte-choix" aria-expanded="false">Une zone 2 plus « rapide »<span class="reponse-carte">La puissance (ou la vitesse) que vous tenez en zone 2 se rapproche de votre puissance au seuil (la FTP).</span></button>
               </div>
 
               <div class="encadre">
@@ -300,7 +286,7 @@
               <h2>La pratiquer</h2>
               <h3>Les formats de séance</h3>
               <ul>
-                <li><strong>Continu</strong> : de 1 à 3 heures, de préférence plus de 2 heures pour les experts du consensus, avec une fréquence cardiaque stable.</li>
+                <li><strong>Continu</strong> : de préférence plus de 2 heures pour les experts du consensus, avec une fréquence cardiaque stable.</li>
                 <li><strong>Continu varié</strong> : même intensité, mais en changeant de terrain ou de parcours pour éviter l'ennui.</li>
                 <li><strong>Autour des intervalles</strong> : de la zone 2 avant ou après une séance d'intervalles.</li>
               </ul>
@@ -311,8 +297,8 @@
                 <p class="outil-titre">Outil · Pourquoi ma FC monte-t-elle ?</p>
                 <p class="outil-consigne">Vos jambes tournent à la même vitesse, mais votre FC grimpe d'une zone. Est-ce encore de la zone 2 ? Ça dépend de la cause. Touchez chacune.</p>
                 <div class="choix-cartes" style="margin: 0;">
-                  <button type="button" class="carte-choix" aria-expanded="false">Je pousse plus fort avec les bras<span class="reponse-carte"><strong>Encore de la zone 2 pour les jambes.</strong> La FC est un signal global : les bras s'ajoutent par-dessus le travail des jambes, qui reste au même niveau. La séance coûte toutefois plus de fatigue générale. (Cas typique en ski-alpinisme, avec les bâtons.)</span></button>
-                  <button type="button" class="carte-choix" aria-expanded="false">Il fait chaud<span class="reponse-carte"><strong>Ralentissez.</strong> La chaleur fait monter la FC sans que ce soit un travail de plus pour les jambes ; gardez la FC comme plafond lors d'une journée facile.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Je pousse plus fort avec les bras<span class="reponse-carte"><strong>Zone 2 pour les jambes, plus pour le corps entier.</strong> Les jambes travaillent au même niveau ; les bras s'ajoutent par-dessus, et la FC, le lactate et la respiration montent. La séance coûte plus de fatigue générale : pour une vraie journée facile, relâchez les bras. (Cas typique en ski-alpinisme, avec les bâtons.)</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Il fait chaud<span class="reponse-carte"><strong>Ralentissez.</strong> La chaleur fait monter la FC et rend l'effort plus coûteux ; gardez la FC comme plafond lors d'une journée facile.</span></button>
                   <button type="button" class="carte-choix" aria-expanded="false">Je n'ai pas assez bu<span class="reponse-carte"><strong>Ralentissez et buvez.</strong> La déshydratation fait monter la FC ; ce n'est plus la séance facile prévue.</span></button>
                   <button type="button" class="carte-choix" aria-expanded="false">Je roule depuis deux heures<span class="reponse-carte"><strong>C'est la dérive cardiaque.</strong> La fatigue s'installe : baissez l'allure pour rester en zone 2, comme le veut la règle de fin de sortie.</span></button>
                 </div>
@@ -439,15 +425,15 @@
                     <button type="button" data-choix="b">la fréquence cardiaque la plus haute qu'on tient une heure</button>
                     <button type="button" data-choix="c">la quantité de gras qu'on a en réserve</button>
                   </div>
-                  <div class="explication">Il se mesure dans l'air expiré pendant un test par paliers. Il varie beaucoup d'une personne à l'autre : vers 74 % de la FC max chez des cyclistes entraînés, vers 62 % chez des adultes en santé.</div>
+                  <div class="explication">Il se mesure dans l'air expiré pendant un test par paliers. Il varie beaucoup d'une personne à l'autre : vers 74 % de la FC max chez des cyclistes modérément entraînés, vers 62 % chez des adultes en santé.</div>
                 </div>
 
                 <div class="question" data-id="q14" data-bonne="c">
                   <p class="enonce"><span class="num-question">Question 8</span>Au-dessus de Fatmax, pourquoi brûle-t-on moins de gras ?</p>
                   <div class="options">
                     <button type="button" data-choix="a">Le corps n'a plus de gras en réserve</button>
-                    <button type="button" data-choix="b">Le cœur n'envoie plus assez de sang</button>
-                    <button type="button" data-choix="c">Le sucre occupe la carnitine : la porte CPT1 des mitochondries ralentit</button>
+                    <button type="button" data-choix="b">Les muscles n'ont plus besoin d'énergie</button>
+                    <button type="button" data-choix="c">Les acétyls issus du sucre occupent la carnitine : la porte CPT1 ralentit</button>
                   </div>
                   <div class="explication">Plus on brûle de sucre, plus les acétyls s'accrochent à la carnitine. Il en reste moins de libre pour faire entrer les graisses dans la mitochondrie.</div>
                 </div>
@@ -489,7 +475,7 @@
                     <button type="button" data-choix="a">encore essentiellement de la zone 2</button>
                     <button type="button" data-choix="b">sorti de la zone 2</button>
                   </div>
-                  <div class="explication">La FC est un signal global : le travail des bras s'ajoute, celui des jambes ne change pas. La séance coûte toutefois plus de fatigue générale.</div>
+                  <div class="explication">Les jambes travaillent au même niveau : pour elles, c'est encore essentiellement de la zone 2. Mais le corps entier en sort : les bras ajoutent du travail, et la FC, le lactate et la respiration montent. La séance coûte plus de fatigue générale.</div>
                 </div>
 
                 <div class="question" data-id="q10" data-bonne="b">

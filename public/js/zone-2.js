@@ -32,7 +32,7 @@
         b.classList.add("montre");
       });
       detail.innerHTML = "<strong>La zone 2, c'est I2.</strong> " +
-        "Elle s'arrête au premier seuil (LT1) : 72 à 82 % de la FC max sur l'échelle norvégienne, lactate 1,5 à 2,5 mmol/L.";
+        "Elle s'arrête au premier seuil (LT1), en général vers 2 mmol/L : environ 72 à 82 % de la FC max sur l'échelle norvégienne, lactate d'environ 1,0 à 2,0 mmol/L.";
     });
   }
 
