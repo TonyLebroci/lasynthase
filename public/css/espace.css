@@ -986,3 +986,19 @@
   .carte-choix[aria-expanded="true"] .reponse-carte { animation: none; }
   .barre-zones.montre .segment.est-zone-2 { animation: none; }
 }
+
+/* Lien vers un article du site, dans un module (2026-11-19) */
+.lien-article {
+  margin: 28px 0 0;
+  padding: 16px 20px;
+  border-left: 3px solid var(--gold);
+  background: var(--cream-dark);
+  font-size: 0.95rem;
+}
+
+.lien-article a {
+  color: var(--charcoal);
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 3px;
+}
