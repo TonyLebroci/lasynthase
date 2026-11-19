@@ -19,7 +19,18 @@
   // v3 (2026-11-11) : révision par quatre experts (jalon, soutien, actions de
   // confiance liées à l'entraînement, plus d'importance sur 10 ni de questions de plan).
   var CLE = "ls-candidature-pilote-v3";
-  var VERSION = 4; // 4 : la candidature n'envoie que prénom, courriel et objectif SMART (2026-11-19)
+  var VERSION = 5; // 4 : prénom, courriel et objectif SMART seulement ; 5 : tirage au sort (2026-11-19)
+
+  // Tirage au sort (Tony, 2026-11-19) : candidatures du 21 novembre 2026, 0 h, au 28 novembre,
+  // 23 h 59, heure de l'Est (UTC-5 en novembre). Le serveur applique la même fenêtre.
+  var OUVERTURE = Date.UTC(2026, 10, 21, 5, 0, 0);
+  var FERMETURE = Date.UTC(2026, 10, 29, 5, 0, 0);
+  function fenetreOuverte() { var t = Date.now(); return t >= OUVERTURE && t < FERMETURE; }
+  function texteFenetre() {
+    return Date.now() < OUVERTURE
+      ? "Les candidatures au tirage ouvrent le 21 novembre 2026, à 0 h. D'ici là, bâtissez votre objectif et gardez vos fiches : vous pourrez revenir poser votre candidature avec votre objectif."
+      : "Les candidatures au tirage sont fermées depuis le 28 novembre 2026, à 23 h 59. Gardez vos fiches : elles sont à vous.";
+  }
   var form = document.getElementById("candidature");
   if (!form) return;
 
@@ -74,7 +85,7 @@
     form.querySelectorAll("input, select, textarea").forEach(function (el) {
       if (!el.name || el.name === "site_web") return;
       if (el.type === "checkbox") {
-        if (el.name === "majeur" || el.name === "consentement" || el.name === "comprend") {
+        if (el.name === "majeur" || el.name === "consentement" || el.name === "comprend" || el.name === "criteres" || el.name === "liste_attente") {
           r[el.name] = el.checked;
         } else {
           if (!r[el.name]) r[el.name] = [];
@@ -164,7 +175,21 @@
     return choisi ? choisi.value : null;
   }
   function majModeFin() {
+    var radioEnvoi = form.querySelector('input[name="mode_fin"][value="envoyer"]');
+    var avis = document.getElementById("fenetre-candidature");
+    if (!fenetreOuverte()) {
+      if (radioEnvoi.checked) { radioEnvoi.checked = false; }
+      radioEnvoi.disabled = true;
+      if (avis) { avis.textContent = texteFenetre(); avis.hidden = false; }
+    } else {
+      radioEnvoi.disabled = false;
+      if (avis) avis.hidden = true;
+    }
     var m = modeFin();
+    var champObjectif = document.getElementById("objectif_smart");
+    if (m === "envoyer" && champObjectif && !champObjectif.value.trim()) {
+      champObjectif.value = phraseSmart(lire());
+    }
     form.querySelectorAll("[data-si-envoi]").forEach(function (b) {
       b.hidden = b.getAttribute("data-si-envoi") !== m;
     });
@@ -193,7 +218,7 @@
     etape.querySelectorAll("input, select, textarea").forEach(function (el) {
       if (!el.name || el.name === "site_web" || vus[el.name]) return;
       if (el.closest("[data-si-type][hidden]") || el.closest("[data-si-envoi][hidden]")) return;
-      var groupe = el.type === "radio" || (el.type === "checkbox" && !/^(majeur|consentement|comprend)$/.test(el.name));
+      var groupe = el.type === "radio" || (el.type === "checkbox" && !/^(majeur|consentement|comprend|criteres|liste_attente)$/.test(el.name));
       var requis = el.required || groupe || el.type === "range";
       if (el.name === "evenement" || el.name === "perf_recente" || el.name === "barriere") requis = false;
       if (!requis) return;
@@ -289,8 +314,8 @@
     if (manque > 0 && note.getAttribute("data-vu") !== String(manque)) {
       // Premier clic : on signale. Deuxième clic : on laisse passer.
       note.textContent = manque === 1
-        ? "Une réponse manque (en orangé). Vous pouvez continuer, mais un dossier complet a plus de chances d'être retenu."
-        : manque + " réponses manquent (en orangé). Vous pouvez continuer, mais un dossier complet a plus de chances d'être retenu.";
+        ? "Une réponse manque (en orangé). Vous pouvez continuer, mais des réponses complètes donnent de meilleures fiches."
+        : manque + " réponses manquent (en orangé). Vous pouvez continuer, mais des réponses complètes donnent de meilleures fiches.";
       note.setAttribute("data-vu", String(manque));
       return;
     }
@@ -821,7 +846,9 @@
     var suite = el("div", null, "ecran");
     suite.appendChild(el("h3", "La suite"));
     if (garde) {
-      suite.appendChild(el("p", "Votre objectif est bâti. Si vous voulez être accompagné pour l'atteindre, vous pouvez encore poser votre candidature au projet pilote : vos réponses sont déjà là, il reste vos coordonnées."));
+      suite.appendChild(el("p", fenetreOuverte()
+        ? "Votre objectif est bâti. Si vous voulez être accompagné pour l'atteindre, vous pouvez encore poser votre candidature au tirage du projet pilote : il reste votre objectif SMART et vos coordonnées."
+        : "Votre objectif est bâti. " + texteFenetre()));
       var candidater = el("button", "Poser ma candidature", "btn btn-ghost");
       candidater.type = "button";
       candidater.addEventListener("click", function () {
@@ -834,9 +861,9 @@
         form.classList.remove("mode-bilan");
         allerA(etapes.length - 1, true);
       });
-      suite.appendChild(candidater);
+      if (fenetreOuverte()) suite.appendChild(candidater);
     } else {
-      suite.appendChild(el("p", "Je lis chaque dossier et je contacte par courriel les cinq personnes retenues. Retenu ou non, ces deux fiches sont à vous."));
+      suite.appendChild(el("p", "Le tirage a lieu le 29 novembre 2026. J'écris aux trois personnes tirées, et aussi aux autres. Tirée ou non, ces deux fiches sont à vous."));
     }
     bilan.appendChild(suite);
 
@@ -901,7 +928,10 @@
     if (!r.courriel || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.courriel)) manques.push("un courriel valide");
     if (!r.majeur) manques.push("la case 18 ans ou plus");
     if (!r.consentement) manques.push("le consentement");
-    if (!r.comprend) manques.push("la case sur la candidature");
+    if (!r.comprend) manques.push("la case sur le tirage");
+    if (!r.criteres) manques.push("la case sur intervals.icu et la ceinture cardiaque");
+    if (!r.objectif_smart || !String(r.objectif_smart).trim()) manques.push("votre objectif SMART");
+    if (!fenetreOuverte()) manques.push("la période du tirage (" + texteFenetre() + ")");
     if (manques.length) {
       if (!bilan.hidden) {
         bilan.hidden = true;
@@ -917,8 +947,9 @@
     suivant.disabled = true;
     suivant.textContent = "Envoi…";
     // 2026-11-19 (Tony) : seuls le prénom, le courriel et la phrase SMART partent. Jamais les réponses.
-    var corps = JSON.stringify({ version: VERSION, prenom: r.prenom, courriel: r.courriel, objectif: phraseSmart(r),
+    var corps = JSON.stringify({ version: VERSION, prenom: r.prenom, courriel: r.courriel, objectif: String(r.objectif_smart).trim(),
       majeur: r.majeur === true, consentement: r.consentement === true, comprend: r.comprend === true,
+      criteres: r.criteres === true, liste_attente: r.liste_attente === true,
       piege: (form.querySelector('[name="site_web"]') || {}).value || "" });
     fetch("/api/candidature", { method: "POST", headers: { "Content-Type": "application/json" }, body: corps, credentials: "same-origin" })
       .then(function (rep) { return rep.json().catch(function () { return {}; }).then(function (d) { return { ok: rep.ok, d: d }; }); })

@@ -200,6 +200,8 @@ const MAX_CANDIDATURES_PAR_IP = 5;          // par heure
 const FENETRE_CANDIDATURES_MS = 60 * 60 * 1000;
 const TAILLE_MAX_CANDIDATURE = 4000;        // octets de JSON (prénom, courriel, objectif)
 const OBJECTIF_MAX = 1000;                   // caractères de la phrase SMART
+const OUVERTURE_TIRAGE = Date.UTC(2026, 10, 21, 5, 0, 0); // 21 nov. 2026, 0 h, heure de l'Est
+const FERMETURE_TIRAGE = Date.UTC(2026, 10, 29, 5, 0, 0); // après le 28 nov. 2026, 23 h 59
 
 async function recevoirCandidature(request, env) {
   const texte = await request.text();
@@ -221,9 +223,15 @@ async function recevoirCandidature(request, env) {
   if (!prenom) return json({ erreur: "Indiquez votre prénom." }, 400);
   if (!courrielValide(courriel)) return json({ erreur: "Ce courriel ne semble pas valide." }, 400);
   if (!objectif) return json({ erreur: "Votre objectif est vide." }, 400);
-  if (d.majeur !== true || d.consentement !== true || d.comprend !== true) {
-    return json({ erreur: "Il faut cocher les trois cases de la dernière étape." }, 400);
+  if (d.majeur !== true || d.consentement !== true || d.comprend !== true || d.criteres !== true) {
+    return json({ erreur: "Il faut cocher les quatre cases obligatoires de la dernière étape." }, 400);
   }
+  // Tirage au sort (Tony, 2026-11-19) : du 21 novembre 2026, 0 h, au 28 novembre, 23 h 59, heure de l'Est.
+  // TIRAGE_DATE_ESSAI : variable d'essai local seulement (wrangler dev --var), jamais posée en ligne.
+  const t0 = env.TIRAGE_DATE_ESSAI ? Date.parse(env.TIRAGE_DATE_ESSAI) : Date.now();
+  if (t0 < OUVERTURE_TIRAGE) return json({ erreur: "Les candidatures au tirage ouvrent le 21 novembre 2026, à 0 h." }, 403);
+  if (t0 >= FERMETURE_TIRAGE) return json({ erreur: "Les candidatures au tirage sont fermées depuis le 28 novembre 2026, à 23 h 59." }, 403);
+  const listeAttente = d.liste_attente === true;
 
   const ip = request.headers.get("CF-Connecting-IP") || "local";
   const cle = "candidature:" + ip;
@@ -239,12 +247,12 @@ async function recevoirCandidature(request, env) {
   ).bind(cle, maintenant, FENETRE_CANDIDATURES_MS).run();
 
   const completude = 0;
-  const version = 4;
+  const version = 5;
   await env.DB.prepare(
     "INSERT INTO candidatures (courriel, prenom, nom, reponses, completude, version) VALUES (?1, ?2, ?3, ?4, ?5, ?6) " +
     "ON CONFLICT(courriel) DO UPDATE SET prenom = excluded.prenom, nom = excluded.nom, reponses = excluded.reponses, " +
     "completude = excluded.completude, version = excluded.version, envois = envois + 1, maj = datetime('now')"
-  ).bind(courriel, prenom, "", JSON.stringify({ objectif }), completude, version).run();
+  ).bind(courriel, prenom, "", JSON.stringify({ objectif, liste_attente: listeAttente }), completude, version).run();
   return json({ ok: true });
 }
 

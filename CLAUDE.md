@@ -133,6 +133,14 @@ structure de l'objectif, que la personne soit retenue ou non.
   phrase SMART** (`phraseSmart`) ; plus de nom ni de région. Le serveur refuse un envoi qui contient
   `reponses` et ne garde que `{ objectif }` (version 4, complétude 0). `candidatures.mjs` affiche
   l'objectif des v4, sans note sur 100. Les puces plus bas sur l'envoi des réponses valent pour v1 à v3.
+- **Version 5 : tirage au sort (2026-11-19, Tony)** : 3 places, candidatures du 21 nov. 2026, 0 h, au
+  28 nov., 23 h 59, heure de l'Est (`OUVERTURE_TIRAGE`/`FERMETURE_TIRAGE` dans `src/worker.js`, mêmes
+  dates dans `js/candidature.js`) ; hors fenêtre, l'option d'envoi est fermée et le serveur répond 403.
+  L'athlète inscrit lui-même son objectif (`objectif_smart`, prérempli par `phraseSmart`). Cases :
+  majeur et au Québec, consentement (objectif transmis), critères, tirage ; facultative `liste_attente`
+  (prévenu à l'ouverture payante). Règlement : `public/concours.html`. Tirage :
+  `node outils/candidatures.mjs --tirage --nom` ; `--liste-attente`. Essai local d'une date :
+  `wrangler dev --var TIRAGE_DATE_ESSAI:<ISO>` (jamais en ligne).
 - **Les fiches sont privées** : construites dans le navigateur, jamais envoyées ; la citation
   personnelle reste dans le navigateur (`citationPerso`). Seules les réponses partent avec la
   candidature. La page le dit : ne jamais envoyer les fiches au serveur.
