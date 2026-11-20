@@ -388,45 +388,61 @@
                 </div>
               </div>
 
-              <h3>En laboratoire : 30 minutes à effort constant</h3>
-              <p>La référence des chercheurs, plus coûteuse : on mesure le lactate à la 10<sup>e</sup> et à la 30<sup>e</sup> minute. Une hausse de <strong>1,0&nbsp;mmol/L au plus</strong> : l'effort était au threshold ou dessous. On refait le test plus fort un autre jour, jusqu'à trouver la limite.</p>
+              <h3>En laboratoire : le vrai MLSS</h3>
+              <p>Le test par paliers donne toute la courbe en une séance, mais il <strong>estime</strong> le threshold. Pour connaître la vraie valeur, les chercheurs font des efforts de 30 minutes :</p>
+              <ul>
+                <li><strong>Un effort par jour,</strong> à intensité constante, un peu plus fort que la veille.</li>
+                <li><strong>Le critère :</strong> le lactate ne monte pas de plus de <strong>1,0&nbsp;mmol/L</strong> entre la 10<sup>e</sup> et la 30<sup>e</sup> minute.</li>
+                <li><strong>Le MLSS,</strong> c'est l'effort le plus fort qui passe encore. Il en faut un qui passe et un juste au-dessus qui dérive, pour encadrer la limite : de 3 à 6 séances.</li>
+                <li><strong>Pour vérifier un threshold déjà estimé,</strong> une seule séance suffit : à la FC du test par paliers, le lactate passe-t-il le critère ?</li>
+              </ul>
 
               <div class="outil">
-                <p class="outil-titre">Graphique · Stable ou en dérive</p>
-                <p class="outil-consigne">Exemple d'un effort à 3,1&nbsp;mmol/L à la 10<sup>e</sup> minute.</p>
+                <p class="outil-titre">Graphique · Trouver le MLSS</p>
+                <p class="outil-consigne">Exemple : le même test, trois jours de suite, un peu plus fort chaque fois.</p>
                 <div class="graphe-cadre">
-                  <svg class="graphe-lactate" viewBox="0 0 480 290" role="img" aria-labelledby="gB-t gB-d">
-                  <title id="gB-t">Le test de 30 minutes : stable ou en dérive</title>
-                  <desc id="gB-d">Exemple. Lactate à 3,1&nbsp;mmol/L à la 10e minute. S'il finit à 3,8 à la 30e minute, la hausse est de 0,7 : sous la limite de 1,0, l'effort est au threshold ou dessous. S'il finit à 4,5, la hausse dépasse 1,0 : l'effort est au-dessus.</desc>
-                  <line class="grille" x1="60" x2="440" y1="240.0" y2="240.0"/>
-                  <text class="graduation" x="52" y="244.0" text-anchor="end">2</text>
-                  <line class="grille" x1="60" x2="440" y1="170.0" y2="170.0"/>
-                  <text class="graduation" x="52" y="174.0" text-anchor="end">3</text>
-                  <line class="grille" x1="60" x2="440" y1="100.0" y2="100.0"/>
-                  <text class="graduation" x="52" y="104.0" text-anchor="end">4</text>
-                  <line class="grille" x1="60" x2="440" y1="30.0" y2="30.0"/>
-                  <text class="graduation" x="52" y="34.0" text-anchor="end">5</text>
-                  <text class="graduation" x="60.0" y="258" text-anchor="middle">0</text>
-                  <text class="graduation" x="186.7" y="258" text-anchor="middle">10</text>
-                  <text class="graduation" x="313.3" y="258" text-anchor="middle">20</text>
+                  <svg class="graphe-lactate" viewBox="0 0 480 290" role="img" aria-labelledby="gL-t gL-d">
+                  <title id="gL-t">Trouver le MLSS : trois efforts de 30 minutes</title>
+                  <desc id="gL-d">Exemple. Jour 1, effort le plus faible : le lactate passe de 2,4 à 2,8 mmol/L entre la 10e et la 30e minute (+0,4), il passe le critère. Jour 2, un peu plus fort : de 3,1 à 3,9 (+0,8), il passe encore : c'est le MLSS. Jour 3, un peu plus fort : de 3,8 à 5,6 (+1,8), il dérive.</desc>
+                  <line class="grille" x1="70" x2="440" y1="240.0" y2="240.0"/>
+                  <text class="graduation" x="62" y="244.0" text-anchor="end">1</text>
+                  <line class="grille" x1="70" x2="440" y1="200.0" y2="200.0"/>
+                  <text class="graduation" x="62" y="204.0" text-anchor="end">2</text>
+                  <line class="grille" x1="70" x2="440" y1="160.0" y2="160.0"/>
+                  <text class="graduation" x="62" y="164.0" text-anchor="end">3</text>
+                  <line class="grille" x1="70" x2="440" y1="120.0" y2="120.0"/>
+                  <text class="graduation" x="62" y="124.0" text-anchor="end">4</text>
+                  <line class="grille" x1="70" x2="440" y1="80.0" y2="80.0"/>
+                  <text class="graduation" x="62" y="84.0" text-anchor="end">5</text>
+                  <line class="grille" x1="70" x2="440" y1="40.0" y2="40.0"/>
+                  <text class="graduation" x="62" y="44.0" text-anchor="end">6</text>
+                  <text class="graduation" x="70.0" y="258" text-anchor="middle">0</text>
+                  <text class="graduation" x="193.3" y="258" text-anchor="middle">10</text>
+                  <text class="graduation" x="316.7" y="258" text-anchor="middle">20</text>
                   <text class="graduation" x="440.0" y="258" text-anchor="middle">30</text>
-                  <rect class="bande-fiable" x="186.7" y="93.0" width="253.3" height="70.0"/>
-                  <text class="etiquette" x="186.7" y="85.0">hausse permise : 1,0 au plus</text>
-                  <line class="axe" x1="60" x2="440" y1="240" y2="240"/>
-                  <line class="courbe courbe-avant" x1="186.7" y1="163.0" x2="440.0" y2="65.0"/>
-                  <line class="courbe" x1="186.7" y1="163.0" x2="440.0" y2="114.0"/>
-                  <circle class="point" cx="186.7" cy="163.0" r="5"><title>10 min : 3,1&nbsp;mmol/L</title></circle>
-                  <circle class="point" cx="440.0" cy="114.0" r="5"><title>30 min : 3,8&nbsp;mmol/L</title></circle>
-                  <circle class="point point-lt2" cx="440.0" cy="65.0" r="5"><title>30 min : 4,5&nbsp;mmol/L</title></circle>
-                  <text class="etiquette" x="432.0" y="148.0" text-anchor="end">stable (+0,7)</text>
-                  <text class="etiquette etiquette-plafond" x="432.0" y="57.0" text-anchor="end">dérive (+1,4)</text>
-                  <text class="titre-axe" x="250" y="282" text-anchor="middle">Minutes d'effort constant</text>
-                  <text class="titre-axe" x="16" y="133" text-anchor="middle" transform="rotate(-90 16 133)">Lactate (mmol/L)</text>
+                  <line class="axe" x1="70" x2="440" y1="240" y2="240"/>
+                  <line class="courbe" x1="193.3" y1="184.0" x2="440.0" y2="168.0"/>
+                  <circle class="point" cx="193.3" cy="184.0" r="5"/>
+                  <circle class="point" cx="440.0" cy="168.0" r="5"/>
+                  <text class="etiquette" x="183.3" y="189.0" text-anchor="end">Jour 1</text>
+                  <line class="courbe" x1="193.3" y1="156.0" x2="440.0" y2="124.0"/>
+                  <circle class="point point-forte" cx="193.3" cy="156.0" r="5"/>
+                  <circle class="point point-forte" cx="440.0" cy="124.0" r="5"/>
+                  <text class="etiquette etiquette-forte" x="183.3" y="161.0" text-anchor="end">Jour 2 : MLSS</text>
+                  <line class="courbe courbe-avant" x1="193.3" y1="128.0" x2="440.0" y2="56.0"/>
+                  <circle class="point point-lt2" cx="193.3" cy="128.0" r="5"/>
+                  <circle class="point point-lt2" cx="440.0" cy="56.0" r="5"/>
+                  <text class="etiquette etiquette-plafond" x="183.3" y="133.0" text-anchor="end">Jour 3</text>
+                  <text class="etiquette" x="434.0" y="190.0" text-anchor="end">+0,4 : passe</text>
+                  <text class="etiquette etiquette-forte" x="434.0" y="152.0" text-anchor="end">+0,8 : passe</text>
+                  <text class="etiquette etiquette-plafond" x="434.0" y="46.0" text-anchor="end">+1,8 : dérive</text>
+                  <text class="titre-axe" x="255" y="282" text-anchor="middle">Minutes d'effort constant</text>
+                  <text class="titre-axe" x="70" y="18">Lactate (mmol/L)</text>
                   </svg>
                 </div>
               </div>
 
-<div class="outil" id="outil-mlss">
+              <div class="outil" id="outil-mlss">
                 <p class="outil-titre">Outil · Cet effort était-il sous votre threshold ?</p>
                 <p class="outil-consigne">Entrez le lactate mesuré à la 10<sup>e</sup> et à la 30<sup>e</sup> minute d'un effort constant de 30 minutes.</p>
                 <div class="outil-champs">
