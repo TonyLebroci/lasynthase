@@ -94,40 +94,6 @@
   }
   if (l10) { l10.addEventListener("input", calculerMlss); l30.addEventListener("input", calculerMlss); }
 
-  /* --- Le plafond et la fraction --- */
-  var vo2 = document.getElementById("vo2max");
-  var frac = document.getElementById("fraction");
-  var resLev = document.getElementById("resultat-leviers");
-  function calculerLeviers() {
-    var v = nombre(vo2), f = nombre(frac);
-    if (isNaN(v) || isNaN(f)) { resLev.innerHTML = "<p>Entrez les deux valeurs pour voir le calcul.</p>"; return; }
-    if (v < 20 || v > 95) { resLev.innerHTML = "<p>Un VO2max se situe d'ordinaire entre 20 et 95 ml/kg/min. Vérifiez la valeur.</p>"; return; }
-    if (f < 40 || f > 100) { resLev.innerHTML = "<p>La fraction au threshold se situe entre 40 et 100 % du VO2max. Vérifiez la valeur.</p>"; return; }
-    var seuil = v * f / 100;
-    var fPlus = Math.min(100, f + 5);
-    var html = '<p class="grand-chiffre">' + fr(seuil, 1) + " ml/kg/min</p>" +
-      "<p>" + fr(v, 1) + " × " + fr(f / 100, 2) + " : l'oxygène que vous utilisez au threshold.</p>";
-    if (f >= 100) {
-      html += "<p>La fraction est déjà à 100 % : seul le plafond (ou l'efficacité) peut encore monter.</p>";
-    } else {
-      html += "<p><strong>Fraction à " + fr(fPlus, 0) + " %</strong> (+" + fr(fPlus - f, 0) + " points) : " + fr(v * fPlus / 100, 1) + " ml/kg/min.</p>";
-    }
-    html += "<p><strong>VO2max +5 %</strong> (" + fr(v * 1.05, 1) + ") : " + fr(v * 1.05 * f / 100, 1) + " ml/kg/min.</p>";
-    resLev.innerHTML = html;
-  }
-  if (vo2) { vo2.addEventListener("input", calculerLeviers); frac.addEventListener("input", calculerLeviers); }
-
-  /* --- Les quatre groupes de l'étude --- */
-  var resSeiler = document.getElementById("resultat-seiler");
-  var boutonsSeiler = Array.prototype.slice.call(document.querySelectorAll("#outil-seiler .formats button"));
-  var gainMax = 11.4;
-  groupe(boutonsSeiler, function (b) {
-    var g = Number(b.dataset.gain);
-    resSeiler.innerHTML = '<p class="grand-chiffre">+' + fr(g, 1) + " %</p>" +
-      '<div class="jauge-gain" aria-hidden="true"><span style="width:' + (g / gainMax * 100) + '%"></span></div>' +
-      "<p>" + b.dataset.detail + "</p>";
-  });
-
   /* --- Leur proportion, à votre volume --- */
   var heures = document.getElementById("heures-semaine");
   var resSem = document.getElementById("resultat-semaine");

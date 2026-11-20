@@ -1081,3 +1081,21 @@
 @media (max-width: 720px) {
   .graphe-lactate .etiquette-avant { font-size: 17px; }
 }
+
+/* Module threshold, graphiques (2026-11-19) */
+.graphe-lactate .bande-fiable { fill: var(--sage); fill-opacity: 0.16; }
+.graphe-lactate .ligne-plafond { stroke: var(--terracotta); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.graphe-lactate .etiquette { font-size: 13px; fill: var(--charcoal-soft); }
+.graphe-lactate .etiquette-forte { fill: var(--charcoal); font-weight: 500; }
+.graphe-lactate .etiquette-plafond { fill: var(--terracotta); font-weight: 500; }
+.graphe-lactate .valeur { font-size: 14px; font-weight: 500; fill: var(--charcoal); }
+.graphe-lactate .valeur-claire { fill: var(--cream); }
+.graphe-lactate .barre { fill: var(--sage); }
+.graphe-lactate .barre-forte { fill: var(--sage-dark); }
+.graphe-lactate .barre-baisse { fill: var(--terracotta); }
+.graphe-lactate .point-forte { fill: var(--sage-dark); }
+.graphe-lactate line.courbe { stroke-width: 2.5; }
+@media (max-width: 720px) {
+  .graphe-lactate .etiquette { font-size: 15px; }
+  .graphe-lactate .valeur { font-size: 16px; }
+}
