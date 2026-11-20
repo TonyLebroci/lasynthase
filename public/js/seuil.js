@@ -98,6 +98,26 @@
   }
   if (pc) { [pc, tc, pl, tl].forEach(function (x) { x.addEventListener("input", calculerW); }); }
 
+  /* --- Test à charge constante --- */
+  var l10 = document.getElementById("lac-10");
+  var l30 = document.getElementById("lac-30");
+  var resMlss = document.getElementById("resultat-mlss");
+  function calculerMlss() {
+    var a = nombre(l10), b = nombre(l30);
+    if (isNaN(a) || isNaN(b) || l10.value === "" || l30.value === "") {
+      resMlss.innerHTML = "<p>Entrez les deux valeurs pour voir le verdict.</p>"; return;
+    }
+    if (a < 0 || b < 0 || a > 25 || b > 25) { resMlss.innerHTML = "<p>Un lactate se situe d'ordinaire entre 0 et 25 mmol/L. Vérifiez les valeurs.</p>"; return; }
+    var hausse = Math.round((b - a) * 10) / 10; // évite 3,2 − 2,2 = 1,0000000004
+    var signe = hausse >= 0 ? "+" : "−";
+    var texte = hausse <= 1.0
+      ? "<p><strong>Stable : cet effort était à votre threshold ou en dessous.</strong> Pour trouver la limite, refaites le test un peu plus fort un autre jour.</p>"
+      : "<p><strong>Au-dessus du threshold : le lactate dérive.</strong> La hausse dépasse 1,0 mmol/L. Votre threshold est sous cette intensité.</p>";
+    resMlss.innerHTML = '<p class="grand-chiffre">' + signe + fr(Math.abs(hausse), 1) + " mmol/L</p>" +
+      "<p>Hausse entre la 10<sup>e</sup> et la 30<sup>e</sup> minute (critère : 1,0 au plus).</p>" + texte;
+  }
+  if (l10) { l10.addEventListener("input", calculerMlss); l30.addEventListener("input", calculerMlss); }
+
   /* --- Leur proportion, à votre volume --- */
   var heures = document.getElementById("heures-semaine");
   var resSem = document.getElementById("resultat-semaine");
