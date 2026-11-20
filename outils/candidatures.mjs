@@ -10,13 +10,12 @@
  *   node outils/candidatures.mjs --local         classement (base de wrangler dev)
  *   node outils/candidatures.mjs --detail <id>   le dossier complet d'une personne
  *   … --nom                                       affiche aussi prénom, nom, région et courriel (pour Tony seulement)
- *   node outils/candidatures.mjs --tirage --nom   tirage au sort des 3 places (version 5, reçues du 21 au 28 nov. 2026)
- *   node outils/candidatures.mjs --liste-attente --nom   qui veut être prévenu à l'ouverture (payante)
+ *   node outils/candidatures.mjs --selection --nom   les candidatures de la version 5 reçues du 21 au 28 nov. 2026, pour choisir les 3
+ *   node outils/candidatures.mjs --liste-attente --nom   la liste d'attente (place libérée, ouverture à tous)
  *
- * Tirage (Tony, 2026-11-19) : trois candidatures au hasard (crypto.randomInt, mélange de Fisher-Yates)
- * parmi celles de la version 5 reçues dans la fenêtre. L'ordre sorti sert aussi de liste de rechange :
- * si une personne tirée ne répond pas dans 7 jours ou échoue la question d'habileté, on prend la 4e, etc.
- * Rien n'est écrit sur le disque : Tony note les numéros tirés.
+ * Sélection (Tony, 2026-11-19, tirage abandonné le même jour) : Tony choisit les 3 dossiers à partir de
+ * l'objectif ; les autres qui ont coché la liste d'attente sont prévenus si une place se libère.
+ * Rien n'est écrit sur le disque.
  *
  * Par défaut, la sortie ne contient ni prénom, ni nom, ni région, ni courriel : seulement le numéro du
  * dossier (2026-11-16, dossier juridique d'Olympiatoppen Open, correction 11). Quand Claude classe, ce
@@ -31,7 +30,6 @@
  * Les dossiers de la version 2 se notent encore (anciens champs lus s'ils sont là).
  */
 import { execFileSync } from "node:child_process";
-import { randomInt } from "node:crypto";
 
 const args = process.argv.slice(2);
 const local = args.includes("--local");
@@ -41,7 +39,7 @@ const persistTo = local && iPersist !== -1 ? args[iPersist + 1] : null;
 const iDetail = args.indexOf("--detail");
 const idDetail = iDetail !== -1 ? Number(args[iDetail + 1]) : null;
 const avecNom = args.includes("--nom");
-const tirage = args.includes("--tirage");
+const selection = args.includes("--selection");
 const listeAttente = args.includes("--liste-attente");
 /** Champs qui disent qui est la personne : jamais affichés sans --nom. */
 const CHAMPS_IDENTITE = new Set(["prenom", "nom", "courriel", "region"]);
@@ -190,28 +188,26 @@ function afficherDetail(l) {
   if (n.drapeaux.length) console.log(`\nÀ regarder : ${n.drapeaux.join(" ; ")}`);
 }
 
-function faireTirage(lignes) {
+function afficherSelection(lignes) {
   const ouverture = "2026-11-21 05:00:00", fermeture = "2026-11-29 05:00:00"; // UTC, comme le serveur
   const admissibles = lignes.filter((l) => l.version >= 5 && l.maj >= ouverture && l.maj < fermeture);
-  console.log(`\nTirage du ${new Date().toLocaleString("fr-CA")} : ${admissibles.length} candidature(s) admissible(s).\n`);
-  const ordre = admissibles.slice();
-  for (let i = ordre.length - 1; i > 0; i--) { const j = randomInt(i + 1); [ordre[i], ordre[j]] = [ordre[j], ordre[i]]; }
-  ordre.forEach((l, i) => {
+  console.log(`\n${admissibles.length} candidature(s) reçue(s) du 21 au 28 novembre 2026 :\n`);
+  admissibles.forEach((l, i) => {
     const r = JSON.parse(l.reponses);
-    console.log(`${i < 3 ? "TIRÉ " : "rechange"} ${String(i + 1).padStart(2)}. [id ${l.id}]${avecNom ? ` ${l.prenom} · ${l.courriel}` : ""}${i < 3 ? `\n           ${r.objectif}` : ""}`);
+    console.log(`${String(i + 1).padStart(2)}. [id ${l.id}]${avecNom ? ` ${l.prenom} · ${l.courriel}` : ""}${r.liste_attente ? " (liste d'attente : oui)" : ""}\n    ${r.objectif}`);
   });
   console.log(avecNom ? "" : "\n(identité masquée ; --nom pour Tony)\n");
 }
 
 function afficherListeAttente(lignes) {
   const liste = lignes.filter((l) => { try { return JSON.parse(l.reponses).liste_attente === true; } catch (e) { return false; } });
-  console.log(`\n${liste.length} personne(s) à prévenir à l'ouverture :`);
+  console.log(`\n${liste.length} personne(s) sur la liste d'attente :`);
   liste.forEach((l) => console.log(`  [id ${l.id}]${avecNom ? ` ${l.prenom} · ${l.courriel}` : ""}`));
   console.log("");
 }
 
 if (process.argv[1] && import.meta.url.endsWith(process.argv[1].split("/").pop())) {
-  if (tirage) faireTirage(requete("SELECT * FROM candidatures"));
+  if (selection) afficherSelection(requete("SELECT * FROM candidatures"));
   else if (listeAttente) afficherListeAttente(requete("SELECT * FROM candidatures"));
   else if (idDetail) {
     const l = requete(`SELECT * FROM candidatures WHERE id = ${Math.trunc(idDetail)}`)[0];
