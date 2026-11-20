@@ -118,21 +118,4 @@
   }
   if (l10) { l10.addEventListener("input", calculerMlss); l30.addEventListener("input", calculerMlss); }
 
-  /* --- Leur proportion, à votre volume --- */
-  var heures = document.getElementById("heures-semaine");
-  var resSem = document.getElementById("resultat-semaine");
-  // Walther, Kocbach et Sandbakk, 2025 : 781,8 h d'endurance, 33,7 h entre les seuils, 32,5 h au-dessus.
-  var ENDURANCE = 781.8, ENTRE = 33.7, DESSUS = 32.5;
-  function calculerSemaine() {
-    var h = nombre(heures);
-    if (isNaN(h) || heures.value === "") { resSem.innerHTML = "<p>Entrez vos heures pour voir le calcul.</p>"; return; }
-    if (h <= 0 || h > 40) { resSem.innerHTML = "<p>Entrez un nombre d'heures entre 1 et 40.</p>"; return; }
-    var entre = Math.round(h * 60 * ENTRE / ENDURANCE);
-    var dessus = Math.round(h * 60 * DESSUS / ENDURANCE);
-    resSem.innerHTML = '<p class="grand-chiffre">' + entre + " min</p>" +
-      "<p>entre les seuils, et " + dessus + " min au-dessus, sur vos " + fr(h, 1).replace(",0", "") + " h : " +
-      "la même part que les 17 fondeurs (4,3 % et 4,2 % de leur endurance).</p>" +
-      "<p>Une comparaison, pas une prescription : leur proportion vient de plus de 800 heures par année.</p>";
-  }
-  if (heures) heures.addEventListener("input", calculerSemaine);
 })();
