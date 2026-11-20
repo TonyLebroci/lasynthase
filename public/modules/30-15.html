@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les intervalles courts 30/15 — La Synthase</title>
+  <meta name="description" content="Module d'apprentissage : les intervalles courts 30/15, ce qui se passe dans le corps et ce que disent les études." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/espace.css" />
+</head>
+<body class="page-membre">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="logo">La <span>Synthase</span></a>
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="../index.html">Accueil</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="../a-propos.html">À propos</a></li>
+          <li><a href="../articles.html">Articles</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+        <a href="../immersion.html" class="btn btn-gold">Immersion Signature</a>
+        <a href="../contact.html" class="btn btn-primary">Entretien privé</a>
+      </nav>
+      <a href="../connexion.html" class="btn-compte" data-compte><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg><span>Connexion</span></a>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero module-hero" style="padding-bottom: 50px;">
+      <div class="hero-blob"></div>
+      <div class="container">
+        <p class="eyebrow">Module 3 · Entraînement</p>
+        <h1>Les intervalles courts 30/15</h1>
+        <p class="lead">Trente secondes fort, quinze secondes plus facile, et on recommence. Ce que disent les études, ce qui se passe dans le corps pendant les 30 s et pendant les 15 s, ce que ça développe, et ce qui reste à prouver. Huit étapes, six graphiques, deux outils, dix questions.</p>
+      </div>
+    </section>
+
+    <section style="padding-top: 30px;">
+      <div class="container">
+        <div class="module-mise-en-page" id="module" data-module="30-15" data-sujet="des intervalles 30/15">
+
+          <aside class="module-sommaire" aria-label="Étapes du module">
+            <div class="jauge" aria-hidden="true"><span id="jauge-module"></span></div>
+            <p class="pourcentage" id="pourcentage-module">0 % complété</p>
+            <ol id="sommaire"></ol>
+            <p class="sauvegarde" id="sauvegarde" role="status" aria-live="polite"></p>
+            <p class="note-compte" style="text-align:left;"><a href="../espace.html">&#8249; Retour à mon espace</a></p>
+          </aside>
+
+          <div class="module-contenu">
+
+            <!-- ===== Étape 1 ===== -->
+            <section class="etape" data-titre="Ce qu'est le 30/15">
+              <p class="etape-numero">Étape 1 sur 8</p>
+              <h2>Ce qu'est le 30/15</h2>
+              <p>Le 30/15 vient des études de Bent Rønnestad, un chercheur norvégien. Le protocole est toujours le même :</p>
+              <ul>
+                <li><strong>30 secondes</strong> d'effort, à l'intensité la plus haute qu'on peut tenir jusqu'au bout de la série.</li>
+                <li><strong>15 secondes</strong> de récupération active, à environ la moitié de la puissance de l'effort.</li>
+                <li><strong>13 répétitions</strong> par série, <strong>3 séries</strong>, 3 minutes entre les séries.</li>
+                <li>Au total : <strong>39 efforts de 30 s</strong>, 19,5 minutes d'effort.</li>
+              </ul>
+
+              <div class="outil">
+                <p class="outil-titre">Graphique · La séance des études</p>
+                <p class="outil-consigne">Puissance au fil de la séance. En haut, la séance entière ; en bas, les trois premières répétitions.</p>
+                <div class="graphe-cadre">
+                  <svg class="graphe-lactate" viewBox="0 0 480 280" role="img" aria-labelledby="g1-t g1-d">
+                  <title id="g1-t">La séance 30/15 des études de Rønnestad</title>
+                  <desc id="g1-d">En haut : trois séries de 13 répétitions de 30 s d'effort et 15 s de récupération, 3 minutes entre les séries, environ 35 minutes en tout. En bas, zoom sur trois répétitions : 30 s à la puissance de l'effort, puis 15 s à environ la moitié de cette puissance.</desc>
+                  <line class="axe" x1="40" x2="460" y1="110" y2="110"/>
+                  <text class="etiquette" x="174" y="102" text-anchor="middle">3 min</text>
+                  <text class="etiquette" x="326" y="102" text-anchor="middle">3 min</text>
+                  <path class="courbe" d="M40,110 L40,40 L46,40 L46,75 L48.9,75 L48.9,40 L54.9,40 L54.9,75 L57.9,75 L57.9,40 L63.8,40 L63.8,75 L66.8,75 L66.8,40 L72.8,40 L72.8,75 L75.7,75 L75.7,40 L81.7,40 L81.7,75 L84.7,75 L84.7,40 L90.6,40 L90.6,75 L93.6,75 L93.6,40 L99.6,40 L99.6,75 L102.6,75 L102.6,40 L108.5,40 L108.5,75 L111.5,75 L111.5,40 L117.4,40 L117.4,75 L120.4,75 L120.4,40 L126.4,40 L126.4,75 L129.4,75 L129.4,40 L135.3,40 L135.3,75 L138.3,75 L138.3,40 L144.3,40 L144.3,75 L147.2,75 L147.2,40 L153.2,40 L153.2,75 L156.2,75 L156.2,110 L191.9,110 L191.9,40 L197.9,40 L197.9,75 L200.9,75 L200.9,40 L206.8,40 L206.8,75 L209.8,75 L209.8,40 L215.7,40 L215.7,75 L218.7,75 L218.7,40 L224.7,40 L224.7,75 L227.7,75 L227.7,40 L233.6,40 L233.6,75 L236.6,75 L236.6,40 L242.6,40 L242.6,75 L245.5,75 L245.5,40 L251.5,40 L251.5,75 L254.5,75 L254.5,40 L260.4,40 L260.4,75 L263.4,75 L263.4,40 L269.4,40 L269.4,75 L272.3,75 L272.3,40 L278.3,40 L278.3,75 L281.3,75 L281.3,40 L287.2,40 L287.2,75 L290.2,75 L290.2,40 L296.2,40 L296.2,75 L299.1,75 L299.1,40 L305.1,40 L305.1,75 L308.1,75 L308.1,110 L343.8,110 L343.8,40 L349.8,40 L349.8,75 L352.8,75 L352.8,40 L358.7,40 L358.7,75 L361.7,75 L361.7,40 L367.7,40 L367.7,75 L370.6,75 L370.6,40 L376.6,40 L376.6,75 L379.6,75 L379.6,40 L385.5,40 L385.5,75 L388.5,75 L388.5,40 L394.5,40 L394.5,75 L397.4,75 L397.4,40 L403.4,40 L403.4,75 L406.4,75 L406.4,40 L412.3,40 L412.3,75 L415.3,75 L415.3,40 L421.3,40 L421.3,75 L424.3,75 L424.3,40 L430.2,40 L430.2,75 L433.2,75 L433.2,40 L439.1,40 L439.1,75 L442.1,75 L442.1,40 L448.1,40 L448.1,75 L451.1,75 L451.1,40 L457,40 L457,75 L460,75 L460,110"/>
+                  <text class="etiquette etiquette-forte" x="98.1" y="30" text-anchor="middle">Série 1 · 13 × 30/15</text>
+                  <text class="etiquette etiquette-forte" x="250" y="30" text-anchor="middle">Série 2 · 13 × 30/15</text>
+                  <text class="etiquette etiquette-forte" x="401.9" y="30" text-anchor="middle">Série 3 · 13 × 30/15</text>
+                  <text class="graduation" x="40" y="128" text-anchor="start">0</text>
+                  <text class="graduation" x="460" y="128" text-anchor="end">≈ 35 min</text>
+                  <line class="grille" x1="70" x2="460" y1="170" y2="170"/>
+                  <line class="grille" x1="70" x2="460" y1="210" y2="210"/>
+                  <text class="graduation" x="62" y="174" text-anchor="end">100 %</text>
+                  <text class="graduation" x="62" y="214" text-anchor="end">50 %</text>
+                  <rect class="barre" x="70" y="170" width="86.7" height="80"/>
+                  <rect class="barre-baisse" x="156.7" y="210" width="43.3" height="40" fill-opacity="0.55"/>
+                  <text class="valeur valeur-claire" x="113.3" y="215.0" text-anchor="middle">30 s</text>
+                  <text class="valeur" x="178.3" y="202" text-anchor="middle">15 s</text>
+                  <rect class="barre" x="200" y="170" width="86.7" height="80"/>
+                  <rect class="barre-baisse" x="286.7" y="210" width="43.3" height="40" fill-opacity="0.55"/>
+                  <text class="valeur valeur-claire" x="243.3" y="215.0" text-anchor="middle">30 s</text>
+                  <text class="valeur" x="308.3" y="202" text-anchor="middle">15 s</text>
+                  <rect class="barre" x="330" y="170" width="86.7" height="80"/>
+                  <rect class="barre-baisse" x="416.7" y="210" width="43.3" height="40" fill-opacity="0.55"/>
+                  <text class="valeur valeur-claire" x="373.3" y="215.0" text-anchor="middle">30 s</text>
+                  <text class="valeur" x="438.3" y="202" text-anchor="middle">15 s</text>
+                  <line class="axe" x1="70" x2="460" y1="250" y2="250"/>
+                  <text class="titre-axe" x="265.0" y="272" text-anchor="middle">Zoom : les trois premières répétitions (puissance de l'effort = 100 %)</text>
+                  </svg>
+                </div>
+              </div>
+
+              <p>On le compare toujours au même rival : <strong>4 × 5 minutes</strong>, 2 min 30 de récupération, 20 minutes d'effort. Même effort perçu, même temps de travail, même rapport effort/récupération de 2 pour 1.</p>
+
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>Le 30/15 découpe le même travail en petits morceaux. La question du module : qu'est-ce que ça change dans le corps ?</p>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Rønnestad B. R. et al., <em>Scandinavian Journal of Medicine &amp; Science in Sports</em>, 2015 (DOI 10.1111/sms.12165) et 2020 (DOI 10.1111/sms.13627) ; Rønnestad B. R., Hansen J., <em>Journal of Strength and Conditioning Research</em>, 2016 (DOI 10.1519/JSC.0b013e3182a73e8a).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 2 ===== -->
+            <section class="etape" data-titre="Dans le corps : les 30 s">
+              <p class="etape-numero">Étape 2 sur 8</p>
+              <h2>Dans le corps, pendant les 30 secondes</h2>
+              <p>Un effort court se tient plus fort qu'un effort de 5 minutes. Chez 8 cyclistes élites, au même effort perçu :</p>
+
+              <div class="outil">
+                <p class="outil-titre">Graphique · La puissance des efforts</p>
+                <p class="outil-consigne">Puissance moyenne des efforts, 30/15 contre 4 × 5 min, chez les mêmes cyclistes.</p>
+                <div class="graphe-cadre">
+                  <svg class="graphe-lactate" viewBox="0 0 480 100" role="img" aria-labelledby="g2-t g2-d">
+                  <title id="g2-t">Puissance moyenne des efforts, 30/15 contre 4 × 5 min</title>
+                  <desc id="g2-d">Chez 8 cyclistes élites, au même effort perçu : 421 W en 30/15, 371 W en 4 × 5 min, soit 14 % de plus.</desc>
+                  <text class="etiquette" x="102" y="28.0" text-anchor="end">30/15</text>
+                  <rect class="barre barre-forte" x="110" y="10" width="271.3" height="26"/>
+                  <text class="valeur" x="389.3" y="28.0">421 W</text>
+                  <text class="etiquette" x="102" y="68.0" text-anchor="end">4 × 5 min</text>
+                  <rect class="barre" x="110" y="50" width="239.1" height="26"/>
+                  <text class="valeur" x="357.1" y="68.0">371 W</text>
+                  <line class="axe" x1="110" x2="110" y1="4" y2="90"/>
+                  </svg>
+                </div>
+              </div>
+
+              <h3>Ce qui se passe</h3>
+              <ul>
+                <li><strong>L'énergie rapide démarre l'effort.</strong> La phosphocréatine, la petite réserve d'énergie immédiate du muscle, fournit sa part pendant que l'oxygène se met en route.</li>
+                <li><strong>La consommation d'oxygène (VO2) monte.</strong> Elle est lente : chez des cyclistes entraînés, il lui faut 23 à 29 secondes pour faire environ les deux tiers du chemin. Au premier effort, 30 s ne suffisent pas pour atteindre le sommet.</li>
+                <li><strong>Le lactate du sang</strong> était semblable à celui du 4 × 5 min, malgré la puissance plus haute.</li>
+                <li><strong>L'activation des muscles</strong>, mesurée à l'électromyographie (EMG), était semblable aussi.</li>
+              </ul>
+
+              <div class="encadre">
+                <p class="titre-encadre">Une idée qui circule, sans preuve</p>
+                <p>On lit souvent que le 30/15 « recrute plus de fibres rapides ». L'EMG ne l'a pas montré, et chez 19 cyclistes, le type de fibres n'expliquait pas la VO2 atteinte. Pour l'instant, c'est une hypothèse.</p>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Almquist N. W. et al., <em>Scandinavian Journal of Medicine &amp; Science in Sports</em>, 2020 (DOI 10.1111/sms.13672) ; Prinz B. et al., <em>Journal of Sports Science and Medicine</em>, 2021 (DOI 10.52082/jssm.2021.398) ; Urianstad T. et al., <em>European Journal of Sport Science</em>, 2024 (DOI 10.1002/ejsc.12214).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 3 ===== -->
+            <section class="etape" data-titre="Dans le corps : les 15 s">
+              <p class="etape-numero">Étape 3 sur 8</p>
+              <h2>Dans le corps, pendant les 15 secondes</h2>
+              <p>C'est le cœur du 30/15 : <strong>15 secondes, c'est trop court pour que la VO2 retombe.</strong></p>
+              <ul>
+                <li><strong>La VO2 est lente à descendre</strong>, comme à monter. En effort intense, elle descend même plus lentement qu'elle ne monte. En 15 s, elle fait moins de la moitié du chemin vers le bas.</li>
+                <li><strong>La phosphocréatine se refait, mais en partie.</strong> Sa part rapide se refait à moitié en 21 à 22 secondes. Et seulement avec l'oxygène : quand on bloque la circulation, elle ne se refait pas du tout.</li>
+                <li><strong>Le cœur reste à haut régime.</strong> Chez les élites, le temps au-dessus de 90 % de la FC max était 2,5 fois plus long qu'en 4 × 5 min.</li>
+              </ul>
+
+              <div class="outil" id="outil-recup">
+                <p class="outil-titre">Outil · Que se passe-t-il pendant la pause ?</p>
+                <p class="outil-consigne">Changez la durée de la récupération. Calcul simple à partir des constantes mesurées chez des cyclistes entraînés : un ordre de grandeur, pas une mesure de votre corps.</p>
+                <div class="field">
+                  <label for="duree-recup">Durée de la récupération : <strong id="duree-recup-texte">15 s</strong></label>
+                  <input type="range" id="duree-recup" min="5" max="150" step="5" value="15" />
+                </div>
+                <div class="resultat" id="resultat-recup" aria-live="polite">
+                  <p>Bougez le curseur.</p>
+                </div>
+              </div>
+
+              <h3>Le résultat : plus de temps tout près du VO2max</h3>
+              <p>Les chercheurs mesurent le temps passé au-dessus de 90 % du VO2max. Le 30/15 en donne plus… quand la puissance est fixée d'avance.</p>
+
+              <div class="outil">
+                <p class="outil-titre">Graphique · Minutes au-dessus de 90 % du VO2max</p>
+                <p class="outil-consigne">Deux études, cyclistes bien entraînés. Chez les 8 élites d'Almquist, l'écart était de +54 %.</p>
+                <div class="graphe-cadre">
+                  <svg class="graphe-lactate" viewBox="0 0 480 290" role="img" aria-labelledby="g3-t g3-d">
+                  <title id="g3-t">Minutes au-dessus de 90 % du VO2max selon le format</title>
+                  <desc id="g3-d">Urianstad 2024, 6 × 8 min à même puissance moyenne : 30/15 18,7 min, allure constante 14,7 min. Appelhans 2025 à intensité fixée : 30/15 7,0 min, 6 × 5 min 3,0 min. Appelhans 2025 à fond au ressenti : 30/15 18,8 min, 6 × 5 min 16,9 min, différence non significative.</desc>
+                  <text class="etiquette etiquette-forte" x="10" y="30">Urianstad 2024 · même puissance moyenne</text>
+                  <text class="etiquette" x="142" y="55.0" text-anchor="end">30/15</text>
+                  <rect class="barre barre-forte" x="150" y="40" width="205.9" height="20"/>
+                  <text class="valeur" x="363.9" y="55.0">18,7 min</text>
+                  <text class="etiquette" x="142" y="85.0" text-anchor="end">allure constante</text>
+                  <rect class="barre" x="150" y="70" width="161.2" height="20"/>
+                  <text class="valeur" x="319.1" y="85.0">14,7 min</text>
+                  <text class="etiquette etiquette-forte" x="10" y="120">Appelhans 2025 · puissance fixée</text>
+                  <text class="etiquette" x="142" y="145.0" text-anchor="end">30/15</text>
+                  <rect class="barre barre-forte" x="150" y="130" width="77" height="20"/>
+                  <text class="valeur" x="235" y="145.0">7,0 min</text>
+                  <text class="etiquette" x="142" y="175.0" text-anchor="end">6 × 5 min</text>
+                  <rect class="barre" x="150" y="160" width="32.6" height="20"/>
+                  <text class="valeur" x="190.6" y="175.0">3,0 min</text>
+                  <text class="etiquette etiquette-forte" x="10" y="210">Appelhans 2025 · à fond, au ressenti</text>
+                  <text class="etiquette" x="142" y="235.0" text-anchor="end">30/15</text>
+                  <rect class="barre barre-forte" x="150" y="220" width="207.2" height="20"/>
+                  <text class="valeur" x="365.2" y="235.0">18,8 min</text>
+                  <text class="etiquette" x="142" y="265.0" text-anchor="end">6 × 5 min</text>
+                  <rect class="barre" x="150" y="250" width="186.3" height="20"/>
+                  <text class="valeur" x="344.3" y="265.0">16,9 min (n. s.)</text>
+                  <line class="axe" x1="150" x2="150" y1="4" y2="280"/>
+                  </svg>
+                </div>
+              </div>
+
+              <ul>
+                <li><strong>À puissance fixée,</strong> le 30/15 gagne nettement.</li>
+                <li><strong>À fond, au ressenti,</strong> les deux formats se rejoignent : chacun pousse plus fort, et l'écart n'est plus significatif.</li>
+              </ul>
+
+              <div class="encadre">
+                <p class="titre-encadre">Établi ou hypothèse ?</p>
+                <p><strong>Établi :</strong> la VO2 et la FC restent hautes ; la phosphocréatine se refait en partie, avec de l'oxygène. <strong>Hypothèse :</strong> c'est ce « remboursement » de la phosphocréatine qui garde la VO2 haute, et la myoglobine, la réserve d'oxygène du muscle, se recharge pendant la pause. Plausible, pas démontré pour le 30/15.</p>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Prinz B. et al., 2021 (voir étape 2) ; Cleuziou C. et al., <em>Canadian Journal of Applied Physiology</em>, 2004 (DOI 10.1139/h04-003) ; Turner A. P. et al., <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 2006 (DOI 10.1249/01.mss.0000188450.82733.f0) ; Harris R. C. et al., <em>Pflügers Archiv</em>, 1976 (DOI 10.1007/BF00585149) ; Bogdanis G. C. et al., <em>Journal of Physiology</em>, 1995 (DOI 10.1113/jphysiol.1995.sp020533) ; Conley K. E. et al., <em>Acta Physiologica Scandinavica</em>, 2000 (DOI 10.1046/j.1365-201x.2000.00714.x) ; Almquist N. W. et al., 2020 (voir étape 2) ; Urianstad T. et al., 2024 (voir étape 2) ; Appelhans D. et al., <em>International Journal of Sports Physiology and Performance</em>, 2025 (DOI 10.1123/ijspp.2024-0115).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 4 ===== -->
+            <section class="etape" data-titre="Ce que ça développe">
+              <p class="etape-numero">Étape 4 sur 8</p>
+              <h2>Ce que ça développe</h2>
+              <p>Deux familles d'adaptations : <strong>centrales</strong> (le cœur, qui envoie l'oxygène) et <strong>périphériques</strong> (le muscle, qui l'utilise). La plupart des preuves viennent des intervalles en général, pas du 30/15 en particulier.</p>
+
+              <div class="outil">
+                <p class="outil-titre">Graphique · Deux adaptations mesurées</p>
+                <p class="outil-consigne">En haut : 40 hommes modérément entraînés, 8 semaines, même travail total. En bas : 16 femmes, 5 semaines, même volume.</p>
+                <div class="graphe-cadre">
+                  <svg class="graphe-lactate" viewBox="0 0 480 200" role="img" aria-labelledby="g4-t g4-d">
+                  <title id="g4-t">Deux adaptations mesurées après des intervalles</title>
+                  <desc id="g4-d">Helgerud 2007 : VO2max +5,5 % avec le 15/15 et +7,2 % avec le 4 × 4 min ; le volume d'éjection a monté d'environ 10 % après les intervalles. Edge 2006 : pouvoir tampon du muscle +25 % avec des intervalles au-dessus du seuil, +2 % en continu sous le seuil.</desc>
+                  <text class="etiquette etiquette-forte" x="10" y="30">Le VO2max (Helgerud 2007)</text>
+                  <text class="etiquette" x="162" y="55.0" text-anchor="end">15/15</text>
+                  <rect class="barre barre-forte" x="170" y="40" width="44" height="20"/>
+                  <text class="valeur" x="222" y="55.0">+5,5 %</text>
+                  <text class="etiquette" x="162" y="85.0" text-anchor="end">4 × 4 min</text>
+                  <rect class="barre barre-forte" x="170" y="70" width="57.6" height="20"/>
+                  <text class="valeur" x="235.6" y="85.0">+7,2 %</text>
+                  <text class="etiquette etiquette-forte" x="10" y="120">Le pouvoir tampon (Edge 2006)</text>
+                  <text class="etiquette" x="162" y="145.0" text-anchor="end">au-dessus du seuil</text>
+                  <rect class="barre barre-forte" x="170" y="130" width="200" height="20"/>
+                  <text class="valeur" x="378" y="145.0">+25 %</text>
+                  <text class="etiquette" x="162" y="175.0" text-anchor="end">continu, sous le seuil</text>
+                  <rect class="barre" x="170" y="160" width="16" height="20"/>
+                  <text class="valeur" x="194" y="175.0">+2 %</text>
+                  <line class="axe" x1="170" x2="170" y1="4" y2="190"/>
+                  </svg>
+                </div>
+              </div>
+
+              <ul>
+                <li><strong>Le cœur :</strong> après des intervalles (15/15 ou 4 × 4 min), le volume d'éjection, le sang envoyé à chaque battement, a monté d'environ 10 %. C'est lui qui suit le VO2max.</li>
+                <li><strong>Les mitochondries :</strong> à travail égal, une jambe entraînée en intervalles en a gagné plus que l'autre, entraînée en continu.</li>
+                <li><strong>Le pouvoir tampon,</strong> la capacité du muscle à encaisser l'acidité de l'effort intense : +25 % avec des intervalles au-dessus du seuil, +2 % en continu sous le seuil.</li>
+                <li><strong>Les capillaires :</strong> peu de preuves que l'intensité y change quelque chose.</li>
+              </ul>
+
+              <div class="outil" id="outil-preuves">
+                <p class="outil-titre">Outil · Établi ou hypothèse ?</p>
+                <p class="outil-consigne">Six affirmations qu'on lit sur le 30/15. Devinez, puis touchez la carte.</p>
+                <div class="choix-cartes" style="margin: 0;">
+                  <button type="button" class="carte-choix" aria-expanded="false">Plus de temps près du VO2max<span class="reponse-carte"><strong>Établi, à puissance fixée.</strong> À fond au ressenti, l'écart avec les intervalles longs disparaît.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Un cœur qui envoie plus de sang par battement<span class="reponse-carte"><strong>Établi pour les intervalles</strong> (15/15 et 4 × 4 min). Pas mesuré pour le 30/15 lui-même.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Plus de mitochondries<span class="reponse-carte"><strong>Établi pour les intervalles en général,</strong> comparés au continu à travail égal. Pas mesuré pour le 30/15.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Un meilleur pouvoir tampon<span class="reponse-carte"><strong>Établi pour les intervalles au-dessus du seuil.</strong> Pour le 30/15, c'est l'hypothèse des auteurs.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Plus de fibres rapides recrutées<span class="reponse-carte"><strong>Non appuyé.</strong> L'EMG était semblable au 4 × 5 min.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Le cœur pompe à son maximum pendant les 15 s<span class="reponse-carte"><strong>Hypothèse.</strong> La FC reste haute ; aucune étude vérifiée ne mesure le volume d'éjection pendant les 15 s du 30/15.</span></button>
+                </div>
+              </div>
+
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>Le 30/15 vise surtout le haut de la machine : le VO2max et la puissance maximale aérobie. Le « pourquoi » exact reste en partie une hypothèse.</p>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Helgerud J. et al., <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 2007 (DOI 10.1249/mss.0b013e3180304570) ; MacInnis M. J. et al., <em>Journal of Physiology</em>, 2017 (DOI 10.1113/JP272570) ; MacInnis M. J., Gibala M. J., <em>Journal of Physiology</em>, 2017 (DOI 10.1113/JP273196) ; Edge J., Bishop D., Goodman C., <em>European Journal of Applied Physiology</em>, 2006 (DOI 10.1007/s00421-005-0068-6) ; Weston A. R. et al., <em>European Journal of Applied Physiology</em>, 1997 (DOI 10.1007/s004210050119) ; Almquist N. W. et al., 2020 (voir étape 2).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 5 ===== -->
+            <section class="etape" data-titre="Les études de Rønnestad">
+              <p class="etape-numero">Étape 5 sur 8</p>
+              <h2>Les études de Rønnestad, et leurs limites</h2>
+              <ul>
+                <li><strong>2015 :</strong> 16 cyclistes amateurs bien entraînés, 10 semaines, 2 séances d'intervalles par semaine.</li>
+                <li><strong>2020 :</strong> 18 cyclistes élites (VO2max de 73), 3 semaines, 3 séances par semaine.</li>
+                <li>Chaque fois, 30/15 contre 4 × 5 min, au même effort perçu.</li>
+              </ul>
+
+              <div class="outil">
+                <p class="outil-titre">Graphique · Les gains mesurés</p>
+                <p class="outil-consigne">Variation moyenne, en %. Vert : 30/15. Gris : 4 × 5 min.</p>
+                <div class="graphe-cadre">
+                  <svg class="graphe-lactate" viewBox="0 0 480 338" role="img" aria-labelledby="g5-t g5-d">
+                  <title id="g5-t">Gains mesurés dans les études de Rønnestad, 30/15 contre 4 × 5 min</title>
+                  <desc id="g5-d">2015, amateurs : VO2max +8,7 % en 30/15 contre +2,6 % en 4 × 5 min. 2020, élites : puissance sur 20 min +4,7 % contre −1,4 % ; puissance maximale aérobie +3,7 % contre −0,3 % ; puissance à 4 mmol/L +2,0 % contre −2,8 % ; VO2max sans changement significatif.</desc>
+                  <line class="axe" x1="250" x2="250" y1="4" y2="316"/>
+                  <text class="etiquette etiquette-forte" x="10" y="28">2015 · amateurs</text>
+                  <text class="etiquette" x="10" y="64">VO2max</text>
+                  <rect class="barre barre-forte" x="250" y="38" width="156.6" height="18"/>
+                  <text class="valeur" x="412.6" y="52">+8,7 %</text>
+                  <rect class="barre barre-neutre" x="250" y="58" width="46.8" height="18"/>
+                  <text class="valeur" x="302.8" y="72">+2,6 %</text>
+                  <text class="etiquette etiquette-forte" x="10" y="106">2020 · élites</text>
+                  <text class="etiquette" x="10" y="142">20 min à fond</text>
+                  <rect class="barre barre-forte" x="250" y="116" width="84.6" height="18"/>
+                  <text class="valeur" x="340.6" y="130">+4,7 %</text>
+                  <rect class="barre barre-neutre" x="224.8" y="136" width="25.2" height="18"/>
+                  <text class="valeur" x="256" y="150">−1,4 %</text>
+                  <text class="etiquette" x="10" y="192">Puissance max aérobie</text>
+                  <rect class="barre barre-forte" x="250" y="166" width="66.6" height="18"/>
+                  <text class="valeur" x="322.6" y="180">+3,7 %</text>
+                  <rect class="barre barre-neutre" x="244.6" y="186" width="5.4" height="18"/>
+                  <text class="valeur" x="256" y="200">−0,3 %</text>
+                  <text class="etiquette" x="10" y="242">Puissance à 4 mmol/L</text>
+                  <rect class="barre barre-forte" x="250" y="216" width="36" height="18"/>
+                  <text class="valeur" x="292" y="230">+2,0 %</text>
+                  <rect class="barre barre-neutre" x="199.6" y="236" width="50.4" height="18"/>
+                  <text class="valeur" x="256" y="250">−2,8 %</text>
+                  <text class="etiquette" x="10" y="292">VO2max</text>
+                  <text class="valeur" x="258" y="292">pas de changement significatif</text>
+                  <text class="graduation" x="250" y="330" text-anchor="middle">0</text>
+                  </svg>
+                </div>
+              </div>
+
+              <ul>
+                <li><strong>Chez les élites, le VO2max n'a pas bougé.</strong> Ce sont la puissance et la part du VO2max tenue au seuil qui ont monté.</li>
+              </ul>
+
+              <h3>Les limites</h3>
+              <ul>
+                <li><strong>Petits groupes :</strong> 7 à 9 cyclistes par groupe.</li>
+                <li><strong>Des hommes cyclistes,</strong> sur vélo seulement.</li>
+                <li><strong>2020 dure 3 semaines,</strong> après un gros bloc de volume : ça ressemble à un affûtage.</li>
+                <li><strong>L'habitude :</strong> on ignore si le 4 × 5 était plus familier aux cyclistes, donc un stimulus moins nouveau.</li>
+                <li><strong>Un seul laboratoire</strong> (Lillehammer, en Norvège) signe la plupart des études trouvées sur le 30/15.</li>
+              </ul>
+
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>Des résultats nets, mais sur peu de cyclistes et sur peu de semaines. Prometteur, pas réglé.</p>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Rønnestad B. R. et al., 2015 et 2020 (voir étape 1) ; Rønnestad B. R. et al., <em>International Journal of Sports Physiology and Performance</em>, 2021 (DOI 10.1123/ijspp.2020-0647) ; Solli G. S. et al., <em>European Journal of Sport Science</em>, 2025 (DOI 10.1002/ejsc.12223).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 6 ===== -->
+            <section class="etape" data-titre="Avec la zone 2 et le threshold">
+              <p class="etape-numero">Étape 6 sur 8</p>
+              <h2>Avec la zone 2 et le threshold</h2>
+              <p>Chaque séance tire sur une qualité différente :</p>
+              <ul>
+                <li><strong>La zone 2</strong> équipe les fibres lentes : la base.</li>
+                <li><strong>Le threshold</strong> pousse le plafond du soutenable.</li>
+                <li><strong>Le 30/15</strong> pousse le haut : le VO2max et la puissance maximale aérobie.</li>
+              </ul>
+
+              <div class="outil">
+                <p class="outil-titre">Graphique · Deux blocs d'une semaine</p>
+                <p class="outil-consigne">22 cyclistes bien entraînés ont fait les deux blocs, à 2 mois d'écart : intervalles modérés longs (10 à 14 min), ou intervalles courts répétés.</p>
+                <div class="graphe-cadre">
+                  <svg class="graphe-lactate" viewBox="0 0 480 200" role="img" aria-labelledby="g6-t g6-d">
+                  <title id="g6-t">Deux blocs d'une semaine : intervalles modérés longs contre intervalles courts</title>
+                  <desc id="g6-d">22 cyclistes bien entraînés. Puissance à 4 mmol/L : +4,5 % (modérés longs) contre +2,1 % (courts), différence significative. Puissance sur 15 min : +4,9 % contre +2,8 %, pas de différence significative.</desc>
+                  <text class="etiquette etiquette-forte" x="10" y="30">Puissance au threshold (4 mmol/L)</text>
+                  <text class="etiquette" x="142" y="55.0" text-anchor="end">modérés longs</text>
+                  <rect class="barre barre-forte" x="150" y="40" width="157.5" height="20"/>
+                  <text class="valeur" x="315.5" y="55.0">+4,5 %</text>
+                  <text class="etiquette" x="142" y="85.0" text-anchor="end">courts répétés</text>
+                  <rect class="barre" x="150" y="70" width="73.5" height="20"/>
+                  <text class="valeur" x="231.5" y="85.0">+2,1 %</text>
+                  <text class="etiquette etiquette-forte" x="10" y="120">Puissance sur 15 min</text>
+                  <text class="etiquette" x="142" y="145.0" text-anchor="end">modérés longs</text>
+                  <rect class="barre barre-forte" x="150" y="130" width="171.5" height="20"/>
+                  <text class="valeur" x="329.5" y="145.0">+4,9 %</text>
+                  <text class="etiquette" x="142" y="175.0" text-anchor="end">courts répétés</text>
+                  <rect class="barre" x="150" y="160" width="98" height="20"/>
+                  <text class="valeur" x="256" y="175.0">+2,8 % (n. s.)</text>
+                  <line class="axe" x1="150" x2="150" y1="4" y2="190"/>
+                  </svg>
+                </div>
+              </div>
+
+              <ul>
+                <li><strong>Pour la puissance au threshold (4&nbsp;mmol/L),</strong> les intervalles modérés longs ont fait mieux.</li>
+                <li><strong>Pour l'effort de 15 minutes,</strong> pas de différence.</li>
+                <li><strong>Chez des skieurs juniors,</strong> des intervalles longs (5 à 10 min) ont mieux fait progresser la performance que des intervalles de 2 à 4 min (ce n'était pas du 30/15).</li>
+              </ul>
+
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>Le 30/15 ajoute ce que l'endurance de base ne donne pas : du temps tout près du VO2max. Il ne remplace ni la zone 2 ni le travail au threshold.</p>
+              </div>
+
+              <p class="lien-article"><a href="zone-2.html">Revoir le module zone 2 &#8250;</a> · <a href="seuil.html">Revoir le module threshold &#8250;</a></p>
+
+              <div class="sources">
+                <p>Sources : Rønnestad B. R. et al., <em>European Journal of Sport Science</em>, 2025 (DOI 10.1002/ejsc.70067) ; Sandbakk Ø. et al., <em>Journal of Strength and Conditioning Research</em>, 2013 (DOI 10.1519/JSC.0b013e3182752f08) ; Helgerud J. et al., 2007 (voir étape 4).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 7 ===== -->
+            <section class="etape" data-titre="Le doser">
+              <p class="etape-numero">Étape 7 sur 8</p>
+              <h2>Le doser : ce que les études ont fait</h2>
+              <p>Ce sont des protocoles de recherche, pas un plan pour vous.</p>
+
+              <h3>Combien d'efforts</h3>
+              <ul>
+                <li><strong>3 séries de 13 :</strong> le protocole de 2015 et 2020, 2 ou 3 fois par semaine.</li>
+                <li><strong>5 séries de 12,</strong> 5 séances en une semaine : un bloc de choc chez des cyclistes bien entraînés.</li>
+                <li><strong>Des débutants ?</strong> Aucune étude trouvée. Tous les participants étaient bien entraînés ou élites.</li>
+              </ul>
+
+              <h3>Vélo, course, ski</h3>
+              <ul>
+                <li><strong>Vélo :</strong> presque toutes les études. La récupération à la moitié de la puissance se dose facilement.</li>
+                <li><strong>Patin :</strong> chez des hockeyeurs adolescents, le 30/15 a fait plus progresser un test de patinage (+13,9 % contre +3,7 %).</li>
+                <li><strong>Course :</strong> chez des coureurs de demi-fond, des 30/30 ont donné <strong>moins</strong> de temps près du VO2max que 4 × 3 min. En pente à 10 %, des efforts de 30 s ont mieux fait monter la vitesse au seuil que des efforts d'environ 3 min.</li>
+                <li><strong>Ski de fond, ski-alpinisme :</strong> aucune étude du 30/15 trouvée. À adapter, pas à copier.</li>
+              </ul>
+
+              <div class="encadre">
+                <p class="titre-encadre">Le bon réflexe</p>
+                <p>Dans les études, la consigne était l'intensité la plus haute qu'on peut tenir sur toute la séance. Ce n'est pas un sprint.</p>
+              </div>
+
+              <div class="encadre encadre-systeme">
+                <p class="titre-encadre">Une étude ne connaît pas votre corps</p>
+                <p>C'est pourquoi, dans mon système d'entraînement, on ne copie pas une séance à la mode : on part de vos chiffres, et le plan s'ajuste à ce qu'ils disent.</p>
+                <p><a href="../candidature.html">Découvrir le projet pilote en endurance &#8250;</a></p>
+              </div>
+
+              <div class="sources">
+                <p>Sources : Rønnestad B. R. et al., 2015, 2020 et 2021 (voir étapes 1 et 5) ; Rønnestad B. R., Haugen O. C., Dæhlin T. E., <em>Journal of Strength and Conditioning Research</em>, 2021 (DOI 10.1519/JSC.0000000000004113) ; Fleckenstein D., Braunstein H., Walter N., <em>Frontiers in Sports and Active Living</em>, 2025 (DOI 10.3389/fspor.2024.1507957) ; Ferley D. D., Hopper D. T., Vukovich M. D., <em>International Journal of Sports Medicine</em>, 2016 (DOI 10.1055/s-0042-109539).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 8 : questions ===== -->
+            <section class="etape" data-titre="Questions">
+              <p class="etape-numero">Étape 8 sur 8</p>
+              <h2>Vérifiez ce que vous avez retenu</h2>
+              <p>Dix questions. Votre première réponse compte ; l'explication s'affiche tout de suite.</p>
+
+              <div id="quiz">
+                <div class="question" data-id="t1" data-type="nombre" data-min="39" data-max="39">
+                  <p class="enonce"><span class="num-question">Question 1</span>Le protocole des études : 3 séries de 13 répétitions. Combien d'efforts de 30 s en tout ?</p>
+                  <div class="reponse-nombre">
+                    <input type="number" inputmode="numeric" aria-label="Votre réponse : nombre d'efforts" placeholder="efforts" />
+                    <button type="button" class="btn btn-primary">Vérifier</button>
+                  </div>
+                  <div class="explication">3 × 13 = 39 efforts de 30 s, soit 19,5 minutes d'effort.</div>
+                </div>
+
+                <div class="question" data-id="t2" data-bonne="b">
+                  <p class="enonce"><span class="num-question">Question 2</span>Pendant les 15 s de récupération, que fait la consommation d'oxygène (VO2) ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Elle retombe presque au repos</button>
+                    <button type="button" data-choix="b">Elle redescend un peu, mais reste haute</button>
+                    <button type="button" data-choix="c">Elle atteint son maximum</button>
+                  </div>
+                  <div class="explication">Elle est lente à changer : en 15 s, elle fait moins de la moitié du chemin vers le bas.</div>
+                </div>
+
+                <div class="question" data-id="t3" data-bonne="b">
+                  <p class="enonce"><span class="num-question">Question 3</span>Pendant les 15 s, la phosphocréatine…</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">se refait entièrement</button>
+                    <button type="button" data-choix="b">se refait en partie, grâce à l'oxygène</button>
+                    <button type="button" data-choix="c">ne se refait qu'après la séance</button>
+                  </div>
+                  <div class="explication">Sa part rapide se refait à moitié en 21 à 22 s, et seulement avec l'oxygène apporté par le sang.</div>
+                </div>
+
+                <div class="question" data-id="t4" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 4</span>Chez 8 cyclistes élites, au même effort perçu, le temps au-dessus de 90 % du VO2max en 30/15 comparé au 4 × 5 min était…</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">plus long</button>
+                    <button type="button" data-choix="b">pareil</button>
+                    <button type="button" data-choix="c">plus court</button>
+                  </div>
+                  <div class="explication">+54 %, avec une puissance moyenne 14 % plus haute.</div>
+                </div>
+
+                <div class="question" data-id="t5" data-bonne="b">
+                  <p class="enonce"><span class="num-question">Question 5</span>Vrai ou faux : l'EMG a montré que le 30/15 active plus les muscles que le 4 × 5 min.</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Vrai</button>
+                    <button type="button" data-choix="b">Faux</button>
+                  </div>
+                  <div class="explication">L'activation était semblable. Le « plus de fibres rapides » reste une hypothèse.</div>
+                </div>
+
+                <div class="question" data-id="t6" data-bonne="c">
+                  <p class="enonce"><span class="num-question">Question 6</span>Quand les cyclistes font le 30/15 et les intervalles de 5 min à fond, au ressenti, le temps au-dessus de 90 % du VO2max…</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">double en 30/15</button>
+                    <button type="button" data-choix="b">s'effondre en 30/15</button>
+                    <button type="button" data-choix="c">n'est plus différent de façon significative</button>
+                  </div>
+                  <div class="explication">L'avantage du 30/15 est net à puissance fixée ; à fond, les deux formats se rejoignent.</div>
+                </div>
+
+                <div class="question" data-id="t7" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 7</span>Après 8 semaines d'intervalles (15/15 ou 4 × 4 min), qu'est-ce qui a monté d'environ 10 % ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Le volume d'éjection du cœur</button>
+                    <button type="button" data-choix="b">La FC maximale</button>
+                    <button type="button" data-choix="c">La part de fibres rapides</button>
+                  </div>
+                  <div class="explication">Le sang envoyé à chaque battement. Le VO2max a suivi.</div>
+                </div>
+
+                <div class="question" data-id="t8" data-bonne="b">
+                  <p class="enonce"><span class="num-question">Question 8</span>À volume égal, quel entraînement a le plus augmenté le pouvoir tampon du muscle ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Le continu, juste sous le seuil</button>
+                    <button type="button" data-choix="b">Les intervalles au-dessus du seuil</button>
+                    <button type="button" data-choix="c">Les deux pareil</button>
+                  </div>
+                  <div class="explication">+25 % contre +2 %. Pour le 30/15 lui-même, c'est encore une hypothèse.</div>
+                </div>
+
+                <div class="question" data-id="t9" data-bonne="c">
+                  <p class="enonce"><span class="num-question">Question 9</span>Chez les cyclistes élites (Rønnestad 2020), qu'est-ce qui n'a pas changé de façon significative avec le 30/15 ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">La puissance sur 20 minutes</button>
+                    <button type="button" data-choix="b">La puissance maximale aérobie</button>
+                    <button type="button" data-choix="c">Le VO2max</button>
+                  </div>
+                  <div class="explication">Le VO2max n'a pas bougé ; la puissance sur 20 min a monté de 4,7 % (contre −1,4 % en 4 × 5 min).</div>
+                </div>
+
+                <div class="question" data-id="t10" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 10</span>Dans les deux blocs d'une semaine, lequel a le plus fait monter la puissance au threshold (4&nbsp;mmol/L) ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Les intervalles modérés longs</button>
+                    <button type="button" data-choix="b">Les intervalles courts répétés</button>
+                    <button type="button" data-choix="c">Aucune différence</button>
+                  </div>
+                  <div class="explication">+4,5 % contre +2,1 %. Le 30/15 ne remplace pas le travail au threshold.</div>
+                </div>
+              </div>
+
+              <div class="bilan-quiz" id="bilan-quiz" hidden>
+                <p class="score" id="score-quiz">0 / 10</p>
+                <p id="message-quiz"></p>
+                <button type="button" class="btn" id="recommencer-quiz">Recommencer les questions</button>
+                <a href="../espace.html" class="btn">Retour à mon espace</a>
+              </div>
+            </section>
+
+            <div class="navigation-etapes">
+              <button type="button" class="btn btn-ghost" id="etape-precedente">Précédent</button>
+              <button type="button" class="btn btn-primary" id="etape-suivante">Suivant</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo">La Synthase</a>
+          <p>Maison privée de mieux-être — la table, le mouvement et le soin, réunis chez vous.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="../menu.html">Menu dégustation</a></li>
+            <li><a href="../a-propos.html">À propos</a></li>
+            <li><a href="../articles.html">Articles</a></li>
+            <li><a href="../immersion.html">Immersion Signature</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Coordonnées</h5>
+          <ul>
+            <li><a href="mailto:contact@lasynthase.ca">contact@lasynthase.ca</a></li>
+            <li><a href="tel:+18195523047">819 552-3047</a></li>
+            <li>Ville de Québec et environs, ainsi que Victoriaville</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 La Synthase – Antoine Corbeil. Tous droits réservés.</span>
+        <span><a href="../confidentialite.html">Politique de confidentialité</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/module.js"></script>
+  <script src="../js/30-15.js"></script>
+</body>
+</html>

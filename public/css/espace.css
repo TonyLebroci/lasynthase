@@ -1099,3 +1099,9 @@
   .graphe-lactate .etiquette { font-size: 15px; }
   .graphe-lactate .valeur { font-size: 16px; }
 }
+
+/* Module 30/15 (2026-11-20) */
+.graphe-lactate .barre-neutre { fill: var(--charcoal-soft); fill-opacity: 0.45; }
+#outil-recup input[type="range"] { width: 100%; accent-color: var(--sage-dark); margin: 8px 0 4px; }
+.jauge-outil { margin: 0 0 14px; }
+.jauge-outil p { margin: 0 0 6px; }
