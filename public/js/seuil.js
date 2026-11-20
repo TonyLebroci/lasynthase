@@ -74,6 +74,30 @@
   }
   if (cp) { [cp, wp, pv].forEach(function (x) { x.addEventListener("input", calculerTemps); }); }
 
+  /* --- Calculer CP et W' avec deux efforts à fond (modèle travail-durée, Poole et al. 2016) --- */
+  var pc = document.getElementById("p-court"), tc = document.getElementById("t-court");
+  var pl = document.getElementById("p-long"), tl = document.getElementById("t-long");
+  var resW = document.getElementById("resultat-wprime");
+  function calculerW() {
+    var p1 = nombre(pc), t1 = nombre(tc) * 60, p2 = nombre(pl), t2 = nombre(tl) * 60;
+    if ([p1, t1, p2, t2].some(isNaN)) { resW.innerHTML = "<p>Entrez vos deux efforts pour voir le calcul.</p>"; return; }
+    if (t2 <= t1) { resW.innerHTML = "<p>L'effort long doit durer plus longtemps que l'effort court.</p>"; return; }
+    if (p1 <= p2) { resW.innerHTML = "<p>L'effort court, fait à fond, doit avoir une puissance plus haute que l'effort long.</p>"; return; }
+    var c = (p2 * t2 - p1 * t1) / (t2 - t1);
+    var w = (p1 - c) * t1 / 1000;
+    if (c <= 0 || w <= 0) { resW.innerHTML = "<p>Ces valeurs ne donnent pas de résultat possible. Vérifiez-les.</p>"; return; }
+    var html = '<p class="grand-chiffre">' + Math.round(c) + " W · " + fr(w, 1) + " kJ</p>" +
+      "<p>Threshold (CP) : " + Math.round(c) + " W. Réserve (W′) : " + fr(w, 1) + " kJ.</p>";
+    if (t1 < 120 || t2 > 900) html += "<p>Pour un calcul fiable, gardez les deux efforts entre 2 et 15 minutes.</p>";
+    resW.innerHTML = html;
+    if (cp && wp) {
+      cp.value = Math.round(c); wp.value = fr(w, 1).replace(",", ".");
+      if (!pv.value) pv.value = Math.round(c * 1.1);
+      calculerTemps();
+    }
+  }
+  if (pc) { [pc, tc, pl, tl].forEach(function (x) { x.addEventListener("input", calculerW); }); }
+
   /* --- Test à charge constante --- */
   var l10 = document.getElementById("lac-10");
   var l30 = document.getElementById("lac-30");

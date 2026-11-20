@@ -41,7 +41,7 @@
       <div class="container">
         <p class="eyebrow">Module 2 · Entraînement</p>
         <h1>Le threshold, la limite du soutenable</h1>
-        <p class="lead">Le threshold, c'est le seuil : la limite entre l'effort qu'on tient et celui qui finit par vous arrêter. Ce qu'il est, combien de temps on tient au-dessus, comment le mesurer, ce qui le fait monter et comment s'entraîner. Six étapes, huit graphiques, neuf questions.</p>
+        <p class="lead">Le threshold, c'est le seuil : la limite entre l'effort qu'on tient et celui qui finit par vous arrêter. Ce qu'il est, combien de temps on tient au-dessus, comment le mesurer, ce qui le fait monter et comment s'entraîner. Six étapes, dix graphiques, dix questions.</p>
       </div>
     </section>
 
@@ -192,9 +192,43 @@
                 <li><strong>Plus haut :</strong> quelques minutes.</li>
               </ul>
 
-<div class="outil" id="outil-temps">
+<h3>Calculer votre W′</h3>
+              <p>Deux efforts <strong>à fond</strong>, bien reposé, des jours différents : un court (2 à 5 min) et un long (10 à 15 min), sur le même vélo ou la même pente. Notez la puissance moyenne de chacun.</p>
+              <ul>
+                <li><strong>Le threshold (CP)</strong> = (puissance longue × durée longue − puissance courte × durée courte) ÷ (durée longue − durée courte).</li>
+                <li><strong>La réserve (W′)</strong> = (puissance courte − threshold) × durée courte.</li>
+                <li><strong>Sans capteur de puissance :</strong> même calcul avec la vitesse (course, montée). On obtient une vitesse critique et une réserve en mètres.</li>
+              </ul>
+
+              <div class="outil" id="outil-wprime">
+                <p class="outil-titre">Outil · Votre threshold et votre W′</p>
+                <p class="outil-consigne">Entrez vos deux efforts à fond. Le résultat remplit l'outil suivant.</p>
+                <div class="outil-champs">
+                  <div class="field">
+                    <label for="p-court">Effort court : puissance (W)</label>
+                    <input type="number" id="p-court" inputmode="decimal" min="50" max="1500" placeholder="ex. 340" />
+                  </div>
+                  <div class="field">
+                    <label for="t-court">Effort court : durée (min)</label>
+                    <input type="number" id="t-court" inputmode="decimal" min="1" max="20" step="0.5" placeholder="ex. 3" />
+                  </div>
+                  <div class="field">
+                    <label for="p-long">Effort long : puissance (W)</label>
+                    <input type="number" id="p-long" inputmode="decimal" min="50" max="1500" placeholder="ex. 275" />
+                  </div>
+                  <div class="field">
+                    <label for="t-long">Effort long : durée (min)</label>
+                    <input type="number" id="t-long" inputmode="decimal" min="1" max="30" step="0.5" placeholder="ex. 12" />
+                  </div>
+                </div>
+                <div class="resultat" id="resultat-wprime" aria-live="polite">
+                  <p>Entrez vos deux efforts pour voir le calcul.</p>
+                </div>
+              </div>
+
+              <div class="outil" id="outil-temps">
                 <p class="outil-titre">Outil · Combien de temps au-dessus ?</p>
-                <p class="outil-consigne">Entrez votre threshold et votre réserve (certaines plateformes d'entraînement les estiment à partir de vos meilleurs efforts), puis la puissance visée.</p>
+                <p class="outil-consigne">Entrez votre threshold et votre réserve (calculés ci-dessus, ou estimés par votre plateforme d'entraînement), puis la puissance visée.</p>
                 <div class="outil-champs">
                   <div class="field">
                     <label for="cp">Threshold (W)</label>
@@ -228,7 +262,57 @@
             <section class="etape" data-titre="Le mesurer">
               <p class="etape-numero">Étape 3 sur 6</p>
               <h2>Le mesurer</h2>
-              <h3>Le repère de 4&nbsp;mmol/L : approximatif</h3>
+              <p>Deux outils qui se complètent : un test pour situer le threshold, une montée chaque semaine pour le suivre.</p>
+
+              <h3>1. Le test par paliers</h3>
+              <ul>
+                <li><strong>Le principe :</strong> des paliers de 4 à 6 minutes, un peu plus vite à chaque fois.</li>
+                <li><strong>La mesure :</strong> une goutte de sang à la fin de chaque palier, avec la FC et la vitesse.</li>
+                <li><strong>La lecture :</strong> on trace la courbe et on lit la vitesse et la FC là où elle franchit la frontière choisie (4&nbsp;mmol/L sur l'échelle norvégienne).</li>
+              </ul>
+
+              <div class="outil">
+                <p class="outil-titre">Graphique · Lire le threshold sur la courbe</p>
+                <p class="outil-consigne">Exemple de test. Sur un vrai test, on note aussi la FC au threshold : elle sert ensuite chaque semaine.</p>
+                <div class="graphe-cadre">
+                  <svg class="graphe-lactate" viewBox="0 0 480 290" role="img" aria-labelledby="gP-t gP-d">
+                  <title id="gP-t">Lire le threshold sur un test par paliers</title>
+                  <desc id="gP-d">Exemple : sept paliers de 8,0 à 10,4 km/h ; le lactate passe de 1,0 à 7,0 mmol/L. La courbe franchit 4 mmol/L vers 9,85 km/h : c'est le threshold de cet exemple. On note aussi la FC à ce point.</desc>
+                  <line class="grille" x1="60" x2="460" y1="240.0" y2="240.0"/>
+                  <text class="graduation" x="52" y="244.0" text-anchor="end">0</text>
+                  <line class="grille" x1="60" x2="460" y1="188.0" y2="188.0"/>
+                  <text class="graduation" x="52" y="192.0" text-anchor="end">2</text>
+                  <line class="grille" x1="60" x2="460" y1="136.0" y2="136.0"/>
+                  <text class="graduation" x="52" y="140.0" text-anchor="end">4</text>
+                  <line class="grille" x1="60" x2="460" y1="84.0" y2="84.0"/>
+                  <text class="graduation" x="52" y="88.0" text-anchor="end">6</text>
+                  <line class="grille" x1="60" x2="460" y1="32.0" y2="32.0"/>
+                  <text class="graduation" x="52" y="36.0" text-anchor="end">8</text>
+                  <text class="graduation" x="60.0" y="258" text-anchor="middle">8,0</text>
+                  <text class="graduation" x="193.3" y="258" text-anchor="middle">8,8</text>
+                  <text class="graduation" x="326.7" y="258" text-anchor="middle">9,6</text>
+                  <text class="graduation" x="460.0" y="258" text-anchor="middle">10,4</text>
+                  <line class="axe" x1="60" x2="460" y1="240" y2="240"/>
+                  <line class="ligne-plafond" x1="60" x2="368.3" y1="136.0" y2="136.0"/>
+                  <line class="ligne-lt2" x1="368.3" x2="368.3" y1="136.0" y2="240"/>
+                  <text class="etiquette etiquette-plafond" x="66" y="128.0">frontière : 4 mmol/L</text>
+                  <text class="etiquette etiquette-plafond" x="360.3" y="232" text-anchor="end">threshold : 9,85 km/h</text>
+                  <path class="courbe" d="M60.0,214.0 L126.7,208.8 L193.3,198.4 L260.0,182.8 L326.7,162.0 L393.3,120.4 L460.0,58.0"/>
+                  <circle class="point" cx="60.0" cy="214.0" r="4.5"><title>Palier à 8,0 km/h : 1,0 mmol/L</title></circle>
+                  <circle class="point" cx="126.7" cy="208.8" r="4.5"><title>Palier à 8,4 km/h : 1,2 mmol/L</title></circle>
+                  <circle class="point" cx="193.3" cy="198.4" r="4.5"><title>Palier à 8,8 km/h : 1,6 mmol/L</title></circle>
+                  <circle class="point" cx="260.0" cy="182.8" r="4.5"><title>Palier à 9,2 km/h : 2,2 mmol/L</title></circle>
+                  <circle class="point" cx="326.7" cy="162.0" r="4.5"><title>Palier à 9,6 km/h : 3,0 mmol/L</title></circle>
+                  <circle class="point" cx="393.3" cy="120.4" r="4.5"><title>Palier à 10,0 km/h : 4,6 mmol/L</title></circle>
+                  <circle class="point" cx="460.0" cy="58.0" r="4.5"><title>Palier à 10,4 km/h : 7,0 mmol/L</title></circle>
+                  <circle class="point point-lt2" cx="368.3" cy="136.0" r="6"/>
+                  <text class="titre-axe" x="260" y="282" text-anchor="middle">Vitesse du palier (km/h)</text>
+                  <text class="titre-axe" x="16" y="133" text-anchor="middle" transform="rotate(-90 16 133)">Lactate (mmol/L)</text>
+                  </svg>
+                </div>
+              </div>
+
+              <p>Le repère de 4&nbsp;mmol/L est pratique, mais il ne tombe pas au même endroit pour tous :</p>
 
               <div class="outil">
                 <p class="outil-titre">Graphique · Le même chiffre pour tous ?</p>
@@ -255,8 +339,57 @@
                 </div>
               </div>
 
-              <h3>L'étalon : 30 minutes à effort constant</h3>
-              <p>On mesure le lactate à la 10<sup>e</sup> et à la 30<sup>e</sup> minute. Une hausse de <strong>1,0&nbsp;mmol/L au plus</strong> : l'effort était au threshold ou dessous. On refait le test plus fort un autre jour, jusqu'à trouver la limite.</p>
+
+              <h3>2. Chaque semaine : la montée-étalon</h3>
+              <ul>
+                <li><strong>Toujours la même montée,</strong> de 10 à 20 minutes, à pente régulière.</li>
+                <li><strong>À FC fixe :</strong> celle du threshold, lue au test par paliers.</li>
+                <li><strong>Le résultat, c'est la vitesse :</strong> les mètres de dénivelé gagnés par heure.</li>
+                <li><strong>Pourquoi la FC fixe :</strong> elle retire la motivation de l'équation. Le chiffre montre la machine, pas la volonté.</li>
+              </ul>
+
+              <div class="outil">
+                <p class="outil-titre">Graphique · Suivre le threshold semaine après semaine</p>
+                <p class="outil-consigne">Exemple. Plus vite à la même FC : le threshold (ou l'efficacité) progresse. Garde-fou : si l'effort ressenti monte aussi et que vous êtes fatigué, ce n'est pas un progrès.</p>
+                <div class="graphe-cadre">
+                  <svg class="graphe-lactate" viewBox="0 0 480 290" role="img" aria-labelledby="gM-t gM-d">
+                  <title id="gM-t">La montée-étalon, semaine après semaine</title>
+                  <desc id="gM-d">Exemple : même montée, même FC. La vitesse varie un peu d'une semaine à l'autre (bande du bruit normal, autour de 1 000 m/h), puis sort de la bande vers le haut à partir de la 6e semaine : le threshold progresse.</desc>
+                  <rect class="bande-fiable" x="60" y="90.0" width="400" height="75.0"/>
+                  <text class="etiquette" x="456" y="159.0" text-anchor="end">bruit normal</text>
+                  <line class="grille" x1="60" x2="460" y1="240.0" y2="240.0"/>
+                  <text class="graduation" x="52" y="244.0" text-anchor="end">960</text>
+                  <line class="grille" x1="60" x2="460" y1="140.0" y2="140.0"/>
+                  <text class="graduation" x="52" y="144.0" text-anchor="end">1 000</text>
+                  <line class="grille" x1="60" x2="460" y1="40.0" y2="40.0"/>
+                  <text class="graduation" x="52" y="44.0" text-anchor="end">1 040</text>
+                  <text class="graduation" x="60.0" y="258" text-anchor="middle">1</text>
+                  <text class="graduation" x="117.1" y="258" text-anchor="middle">2</text>
+                  <text class="graduation" x="174.3" y="258" text-anchor="middle">3</text>
+                  <text class="graduation" x="231.4" y="258" text-anchor="middle">4</text>
+                  <text class="graduation" x="288.6" y="258" text-anchor="middle">5</text>
+                  <text class="graduation" x="345.7" y="258" text-anchor="middle">6</text>
+                  <text class="graduation" x="402.9" y="258" text-anchor="middle">7</text>
+                  <text class="graduation" x="460.0" y="258" text-anchor="middle">8</text>
+                  <line class="axe" x1="60" x2="460" y1="240" y2="240"/>
+                  <path class="courbe" d="M60.0,140.0 L117.1,115.0 L174.3,152.5 L231.4,102.5 L288.6,90.0 L345.7,65.0 L402.9,40.0 L460.0,27.5"/>
+                  <circle class="point" cx="60.0" cy="140.0" r="5"><title>Semaine 1 : 1000 m/h</title></circle>
+                  <circle class="point" cx="117.1" cy="115.0" r="5"><title>Semaine 2 : 1010 m/h</title></circle>
+                  <circle class="point" cx="174.3" cy="152.5" r="5"><title>Semaine 3 : 995 m/h</title></circle>
+                  <circle class="point" cx="231.4" cy="102.5" r="5"><title>Semaine 4 : 1015 m/h</title></circle>
+                  <circle class="point" cx="288.6" cy="90.0" r="5"><title>Semaine 5 : 1020 m/h</title></circle>
+                  <circle class="point point-lt2" cx="345.7" cy="65.0" r="5"><title>Semaine 6 : 1030 m/h</title></circle>
+                  <circle class="point point-lt2" cx="402.9" cy="40.0" r="5"><title>Semaine 7 : 1040 m/h</title></circle>
+                  <circle class="point point-lt2" cx="460.0" cy="27.5" r="5"><title>Semaine 8 : 1045 m/h</title></circle>
+                  <text class="etiquette etiquette-plafond" x="456" y="226" text-anchor="end">semaines 6 à 8 : plus vite, même FC</text>
+                  <text class="titre-axe" x="260" y="282" text-anchor="middle">Semaine</text>
+                  <text class="titre-axe" x="60" y="20">Vitesse de montée (m/h)</text>
+                  </svg>
+                </div>
+              </div>
+
+              <h3>En laboratoire : 30 minutes à effort constant</h3>
+              <p>La référence des chercheurs, plus coûteuse : on mesure le lactate à la 10<sup>e</sup> et à la 30<sup>e</sup> minute. Une hausse de <strong>1,0&nbsp;mmol/L au plus</strong> : l'effort était au threshold ou dessous. On refait le test plus fort un autre jour, jusqu'à trouver la limite.</p>
 
               <div class="outil">
                 <p class="outil-titre">Graphique · Stable ou en dérive</p>
@@ -312,14 +445,14 @@
               </div>
 
               <div class="sources">
-                <p>Sources : Beneke R., 2000 (voir étape 1) ; Beneke R., <em>European Journal of Applied Physiology</em>, 2003 (DOI 10.1007/s00421-002-0783-1).</p>
+                <p>Sources : échelle d'intensité I1 à I5 d'Olympiatoppen ; Beneke R., 2000 (voir étape 1) ; Beneke R., <em>European Journal of Applied Physiology</em>, 2003 (DOI 10.1007/s00421-002-0783-1).</p>
               </div>
             </section>
 
             <!-- ===== Étape 4 ===== -->
-            <section class="etape" data-titre="Ce qui le fait monter">
+            <section class="etape" data-titre="Ce qui fait monter le threshold">
               <p class="etape-numero">Étape 4 sur 6</p>
-              <h2>Ce qui le fait monter : les fibres lentes</h2>
+              <h2>Ce qui fait monter le threshold (le seuil) : les fibres lentes</h2>
               <ul>
                 <li><strong>Les fibres rapides</strong> fabriquent surtout le lactate.</li>
                 <li><strong>Les fibres lentes le mangent :</strong> elles le captent et le brûlent avec de l'oxygène dans leurs mitochondries. Plus elles ont de mitochondries, plus elles en mangent.</li>
@@ -375,7 +508,8 @@
                 </div>
               </div>
 
-              <p><strong>Le lien avec la zone 2 :</strong> c'est là que les fibres lentes travaillent en premier. L'entraînement d'endurance, dont la zone 2 fait partie, les équipe ; le threshold monte.</p>
+              <p><strong>Le lien avec la zone 2 :</strong> c'est là que les fibres lentes travaillent en premier. L'entraînement d'endurance, dont la zone 2 fait partie, entraîne ces fibres à recycler le lactate ; le threshold monte.</p>
+              <p><strong>Ainsi, le travail de faible intensité nous rend indirectement meilleur à plus haute intensité.</strong></p>
               <p>En résumé, la vitesse au threshold = <strong>VO2max × fraction tenue × efficacité</strong>. Les fibres lentes font monter la fraction.</p>
 
               <div class="encadre">
@@ -434,6 +568,12 @@
                 <li><strong>Le gagnant :</strong> 4 × 8 min, un peu <strong>au-dessus</strong> du threshold (9,6&nbsp;mmol/L).</li>
                 <li><strong>La limite :</strong> des amateurs, 7 semaines. Pas forcément vrai chez un athlète très entraîné.</li>
               </ul>
+
+              <div class="encadre encadre-systeme">
+                <p class="titre-encadre">Une étude ne connaît pas votre corps</p>
+                <p>C'est pourquoi, dans mon système d'entraînement, on ne copie pas une séance à la mode : on situe votre threshold par un test par paliers, on le suit chaque semaine sur votre montée-étalon, et le plan s'ajuste à ce que vos chiffres disent.</p>
+                <p><a href="../candidature.html">Découvrir le projet pilote en endurance &#8250;</a></p>
+              </div>
 
               <h3>Combien ?</h3>
 
@@ -509,7 +649,7 @@
             <section class="etape" data-titre="Questions">
               <p class="etape-numero">Étape 6 sur 6</p>
               <h2>Vérifiez ce que vous avez retenu</h2>
-              <p>Neuf questions. Votre première réponse compte ; l'explication s'affiche tout de suite.</p>
+              <p>Dix questions. Votre première réponse compte ; l'explication s'affiche tout de suite.</p>
 
               <div id="quiz">
                 <div class="question" data-id="s1" data-bonne="a">
@@ -569,8 +709,18 @@
                   <div class="explication">Le critère accepte une hausse de 1,0&nbsp;mmol/L au plus : l'effort était au threshold ou dessous.</div>
                 </div>
 
+                <div class="question" data-id="s15" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 7</span>À votre montée-étalon, à la même FC, vous montez plus vite qu'il y a un mois, sans fatigue particulière. Qu'est-ce que ça veut dire ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Votre threshold (ou votre efficacité) progresse</button>
+                    <button type="button" data-choix="b">Votre montre se trompe</button>
+                    <button type="button" data-choix="c">Rien : la vitesse ne compte pas</button>
+                  </div>
+                  <div class="explication">La FC est fixe : la vitesse montre la machine. Plus vite à la même FC, c'est un progrès, sauf si l'effort ressenti monte aussi avec de la fatigue.</div>
+                </div>
+
                 <div class="question" data-id="s14" data-bonne="c">
-                  <p class="enonce"><span class="num-question">Question 7</span>Pourquoi l'entraînement d'endurance, dont la zone 2, fait-il monter le threshold ?</p>
+                  <p class="enonce"><span class="num-question">Question 8</span>Pourquoi l'entraînement d'endurance, dont la zone 2, fait-il monter le threshold ?</p>
                   <div class="options">
                     <button type="button" data-choix="a">Il habitue à l'inconfort</button>
                     <button type="button" data-choix="b">Il fait monter la FC maximale</button>
@@ -580,7 +730,7 @@
                 </div>
 
                 <div class="question" data-id="s8" data-bonne="b">
-                  <p class="enonce"><span class="num-question">Question 8</span>Chez les 35 cyclistes amateurs, quelle séance a donné le plus gros gain ?</p>
+                  <p class="enonce"><span class="num-question">Question 9</span>Chez les 35 cyclistes amateurs, quelle séance a donné le plus gros gain ?</p>
                   <div class="options">
                     <button type="button" data-choix="a">4 × 4 min, la plus intense</button>
                     <button type="button" data-choix="b">4 × 8 min</button>
@@ -590,7 +740,7 @@
                 </div>
 
                 <div class="question" data-id="s10" data-bonne="b">
-                  <p class="enonce"><span class="num-question">Question 9</span>Chez les 17 fondeurs de classe mondiale, quelle part de l'endurance se fait entre les seuils ?</p>
+                  <p class="enonce"><span class="num-question">Question 10</span>Chez les 17 fondeurs de classe mondiale, quelle part de l'endurance se fait entre les seuils ?</p>
                   <div class="options">
                     <button type="button" data-choix="a">Environ 1 %</button>
                     <button type="button" data-choix="b">Environ 4 %</button>
@@ -601,7 +751,7 @@
               </div>
 
               <div class="bilan-quiz" id="bilan-quiz" hidden>
-                <p class="score" id="score-quiz">0 / 9</p>
+                <p class="score" id="score-quiz">0 / 10</p>
                 <p id="message-quiz"></p>
                 <button type="button" class="btn" id="recommencer-quiz">Recommencer les questions</button>
                 <a href="../espace.html" class="btn">Retour à mon espace</a>
