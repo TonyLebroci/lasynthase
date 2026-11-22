@@ -72,7 +72,7 @@ avec des modules d'apprentissage, et un premier module interactif sur la zone 2.
   et les questions (contenu tiré du coffre, sources citées, rien d'inventé), ajouter sa carte
   dans `espace.html` avec `data-module` et `data-total` = nombre d'étapes + nombre de questions.
   Mettre aussi `data-sujet` sur `#module` (« de la zone 2 », « du seuil ») : il termine le message
-  du bilan des questions. Modules en ligne : `zone-2` (module 1), `seuil` (module 2, 2026-11-19).
+  du bilan des questions. Modules en ligne : `zone-2` (module 1), `seuil` (module 2, 2026-11-19), `30-15` (module 3, 2026-11-20), `vo2max` (module 4, 2026-11-22).
 - **Le bouton de l'en-tête** (`a.btn-compte[data-compte]`, juste avant `.nav-toggle`) est dans
   **toutes** les pages : toute nouvelle page doit le reprendre (chemin `../` dans `articles/`
   et `modules/`, `/` dans `404.html`).

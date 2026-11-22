@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le VO2max, le plafond aérobie — La Synthase</title>
+  <meta name="description" content="Module d'apprentissage : le VO2max, ce qui le limite, ce qui le fait monter, ce qu'il dit de la performance et de la santé." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/espace.css" />
+</head>
+<body class="page-membre">
+
+  <header class="site-header">
+    <div class="container">
+      <a href="../index.html" class="logo">La <span>Synthase</span></a>
+      <nav class="nav">
+        <ul class="nav-links">
+          <li><a href="../index.html">Accueil</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="../a-propos.html">À propos</a></li>
+          <li><a href="../articles.html">Articles</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+        <a href="../immersion.html" class="btn btn-gold">Immersion Signature</a>
+        <a href="../contact.html" class="btn btn-primary">Entretien privé</a>
+      </nav>
+      <a href="../connexion.html" class="btn-compte" data-compte><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></svg><span>Connexion</span></a>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+    <main>
+    <section class="hero module-hero" style="padding-bottom: 50px;">
+      <div class="hero-blob"></div>
+      <div class="container">
+        <p class="eyebrow">Module 4 · Entraînement</p>
+        <h1>Le VO2max, le plafond aérobie</h1>
+        <p class="lead">La plus grande quantité d'oxygène que le corps peut consommer. Ce qui le limite, ce qui le fait monter, ce qu'il dit de la performance, et pourquoi il compte pour la santé. Huit étapes, treize graphiques, quatre outils, dix questions.</p>
+      </div>
+    </section>
+
+    <section style="padding-top: 30px;">
+      <div class="container">
+        <div class="module-mise-en-page" id="module" data-module="vo2max" data-sujet="du VO2max">
+
+          <aside class="module-sommaire" aria-label="Étapes du module">
+            <div class="jauge" aria-hidden="true"><span id="jauge-module"></span></div>
+            <p class="pourcentage" id="pourcentage-module">0 % complété</p>
+            <ol id="sommaire"></ol>
+            <p class="sauvegarde" id="sauvegarde" role="status" aria-live="polite"></p>
+            <p class="note-compte" style="text-align:left;"><a href="../espace.html">&#8249; Retour à mon espace</a></p>
+          </aside>
+
+          <div class="module-contenu">
+
+            <!-- ===== Étape 1 ===== -->
+            <section class="etape" data-titre="Ce qu&#39;est le VO2max">
+              <p class="etape-numero">Étape 1 sur 8</p>
+              <h2>Ce qu'est le VO2max</h2>
+              <p>Le VO2max, c'est <strong>la plus grande quantité d'oxygène que le corps peut consommer en une minute</strong>, pendant un effort de tout le corps. C'est la taille du moteur aérobie : il fixe le plafond de l'énergie qu'on produit avec de l'oxygène.</p>
+              <h3>Comment on le mesure</h3>
+              <ul>
+                <li><strong>En laboratoire :</strong> un test par paliers, avec un masque qui analyse l'air expiré. La puissance monte à chaque palier, jusqu'à ce qu'on ne puisse plus suivre.</li>
+                <li><strong>Le plafond :</strong> près de la fin, la puissance monte encore, mais la consommation d'oxygène ne suit plus. Ce plateau n'apparaît pas chez tout le monde ; on parle alors de VO2 de pointe (VO2peak).</li>
+                <li><strong>Les montres</strong> l'estiment par calcul, sans analyser l'air : une estimation, pas une mesure.</li>
+              </ul>
+              <div class="outil">
+                <p class="outil-titre">Graphique · Le plafond</p>
+                <p class="outil-consigne">Schéma d'un test par paliers. La ligne pointillée marque le VO2max.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 280" role="img" aria-labelledby="g1-t g1-d">
+<title id="g1-t">Le VO2max dans un test par paliers (schéma)</title>
+<desc id="g1-d">Schéma : à chaque palier, la puissance monte et la consommation d'oxygène (VO2) aussi, en ligne droite. Près de la fin, la puissance monte encore mais la VO2 ne suit plus : elle plafonne. Ce plafond, c'est le VO2max.</desc>
+<line class="axe" x1="60" x2="460" y1="230" y2="230"/>
+<line class="axe" x1="60" x2="60" y1="20" y2="230"/>
+<line class="ligne-plafond" x1="60" x2="460" y1="59.0" y2="59.0"/>
+<text class="etiquette etiquette-plafond" x="66" y="51.0">VO2max : le plafond</text>
+<path class="courbe" d="M60.0,182.5 L66.5,180.1 L73.0,177.8 L79.5,175.4 L86.0,173.0 L92.5,170.6 L99.0,168.2 L105.5,165.9 L112.0,163.5 L118.5,161.1 L125.0,158.8 L131.5,156.4 L138.0,154.0 L144.5,151.6 L151.0,149.2 L157.5,146.9 L164.0,144.5 L170.5,142.1 L177.0,139.8 L183.5,137.4 L190.0,135.0 L196.5,132.6 L203.0,130.2 L209.5,127.9 L216.0,125.5 L222.5,123.1 L229.0,120.8 L235.5,118.4 L242.0,116.0 L248.5,113.6 L255.0,111.2 L261.5,108.9 L268.0,106.5 L274.5,104.1 L281.0,101.8 L287.5,99.4 L294.0,97.0 L300.5,94.6 L307.0,92.2 L313.5,89.9 L320.0,87.5 L326.5,85.1 L333.0,82.8 L339.5,80.4 L346.0,78.0 L352.5,75.6 L359.0,73.2 L365.5,70.8 L372.0,68.5 L378.5,66.6 L385.0,65.1 L391.5,63.8 L398.0,62.8 L404.5,61.9 L411.0,61.2 L417.5,60.6 L424.0,60.2 L430.5,59.8 L437.0,59.5 L443.5,59.2 L450.0,59.0"/>
+<text class="etiquette" x="250" y="150" text-anchor="middle">la VO2 suit la puissance</text>
+<text class="etiquette etiquette-forte" x="440" y="103.0" text-anchor="end">elle ne suit plus</text>
+<text class="titre-axe" x="260" y="256" text-anchor="middle">Puissance, palier après palier</text>
+<text class="titre-axe" x="20" y="125" text-anchor="middle" transform="rotate(-90 20 125)">VO2</text>
+<text class="graduation" x="460" y="18" text-anchor="end">Schéma, pas une mesure</text>
+</svg>
+                </div>
+              </div>
+              <h3>Deux façons de l'écrire</h3>
+              <ul>
+                <li><strong>En litres par minute (L/min) :</strong> la taille brute du moteur.</li>
+                <li><strong>En millilitres par kilo et par minute (mL/kg/min) :</strong> le moteur divisé par le poids. Logiquement, c'est la plus parlante quand on porte son poids, en montée ou à la course. Exemple : 4,2 L/min ÷ 70 kg = 60 mL/kg/min.</li>
+              </ul>
+              <div class="outil">
+                <p class="outil-titre">Graphique · Des valeurs repères</p>
+                <p class="outil-consigne">En mL/kg/min. En haut, la valeur du milieu (50e percentile) de 7783 tests du registre américain FRIEND ; en bas, trois coureurs du top 5 du Tour d'Italie. La ligne pointillée : 7,9 MET, repère de santé vu à l'étape 7.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 268" role="img" aria-labelledby="g2-t g2-d">
+<title id="g2-t">Valeurs repères du VO2max</title>
+<desc id="g2-d">50e percentile du registre américain FRIEND (tests de laboratoire) : hommes de 20 à 29 ans 48,0, femmes de 20 à 29 ans 37,6, hommes de 70 à 79 ans 24,4, femmes de 70 à 79 ans 18,3 mL/kg/min. Trois coureurs du top 5 du Giro : 80 à 82. Ligne : 7,9 MET, soit 27,7 mL/kg/min, le repère de la méta-analyse de Kodama.</desc>
+<text class="etiquette etiquette-forte" x="10" y="30">Registre FRIEND, valeur du milieu</text>
+<line class="axe" x1="150" x2="150" y1="44" y2="162"/>
+<text class="etiquette" x="142" y="63" text-anchor="end">hommes 20-29 ans</text>
+<rect class="barre " x="150" y="48" width="121.3" height="20"/>
+<text class="valeur" x="279.3" y="63">48,0</text>
+<text class="etiquette" x="142" y="93" text-anchor="end">femmes 20-29 ans</text>
+<rect class="barre " x="150" y="78" width="95.0" height="20"/>
+<text class="valeur" x="253.0" y="93">37,6</text>
+<text class="etiquette" x="142" y="123" text-anchor="end">hommes 70-79 ans</text>
+<rect class="barre " x="150" y="108" width="61.6" height="20"/>
+<text class="valeur" x="219.6" y="123">24,4</text>
+<text class="etiquette" x="142" y="153" text-anchor="end">femmes 70-79 ans</text>
+<rect class="barre " x="150" y="138" width="46.2" height="20"/>
+<text class="valeur" x="204.2" y="153">18,3</text>
+<text class="etiquette etiquette-forte" x="10" y="188">Cyclistes élites</text>
+<line class="axe" x1="150" x2="150" y1="202" y2="230"/>
+<text class="etiquette" x="142" y="221" text-anchor="end">top 5 du Giro</text>
+<rect class="barre barre-forte" x="150" y="206" width="204.6" height="20"/>
+<text class="valeur" x="362.6" y="221">80 à 82</text>
+<line class="ligne-plafond" x1="220.0" x2="220.0" y1="40" y2="240"/>
+<text class="etiquette etiquette-plafond" x="225.0" y="256">7,9 MET (27,7)</text>
+</svg>
+                </div>
+              </div>
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>Le VO2max, c'est le plafond de la consommation d'oxygène. Il se lit par kilo quand le poids compte.</p>
+              </div>
+              <div class="sources">
+                <p>Sources : Kaminsky L. A., Arena R., Myers J., <em>Mayo Clinic Proceedings</em>, 2015 (DOI 10.1016/j.mayocp.2015.07.026) ; Gallo G. et al., <em>Scandinavian Journal of Medicine &amp; Science in Sports</em>, 2022 (DOI 10.1111/sms.14201) ; Bassett D. R., Howley E. T., <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 2000 (DOI 10.1097/00005768-200001000-00012).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 2 ===== -->
+            <section class="etape" data-titre="La chaîne de l&#39;oxygène">
+              <p class="etape-numero">Étape 2 sur 8</p>
+              <h2>La chaîne de l'oxygène</h2>
+              <p>Pour être consommé, l'oxygène passe par quatre maillons : les poumons, le sang, le cœur, puis le muscle.</p>
+              <div class="outil">
+                <p class="outil-titre">Graphique · Quatre maillons</p>
+                <p class="outil-consigne">Schéma. Les trois premiers livrent l'oxygène, le muscle l'utilise.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 308" role="img" aria-labelledby="g3-t g3-d">
+<title id="g3-t">La chaîne de l'oxygène (schéma)</title>
+<desc id="g3-d">Schéma en quatre maillons : les poumons font passer l'oxygène dans le sang, l'hémoglobine le transporte, le cœur l'envoie, le muscle l'utilise. Les trois premiers livrent l'oxygène, le dernier l'utilise. VO2 = débit du cœur multiplié par l'oxygène retiré du sang.</desc>
+<rect class="barre barre" x="20" y="40" width="200" height="84" rx="10"/>
+<text class="valeur valeur-claire" x="120" y="76" text-anchor="middle">Poumons</text>
+<text class="etiquette valeur-claire" x="120" y="102" text-anchor="middle">l'oxygène entre</text>
+<rect class="barre barre" x="260" y="40" width="200" height="84" rx="10"/>
+<text class="valeur valeur-claire" x="360" y="76" text-anchor="middle">Sang</text>
+<text class="etiquette valeur-claire" x="360" y="102" text-anchor="middle">l'hémoglobine le porte</text>
+<rect class="barre barre-forte" x="260" y="160" width="200" height="84" rx="10"/>
+<text class="valeur valeur-claire" x="360" y="196" text-anchor="middle">Cœur</text>
+<text class="etiquette valeur-claire" x="360" y="222" text-anchor="middle">il l'envoie</text>
+<rect class="barre barre-baisse" x="20" y="160" width="200" height="84" rx="10"/>
+<text class="valeur valeur-claire" x="120" y="196" text-anchor="middle">Muscle</text>
+<text class="etiquette valeur-claire" x="120" y="222" text-anchor="middle">il l'utilise</text>
+<path class="courbe" d="M224,82 L254,82 M246,75 L254,82 L246,89"/>
+<path class="courbe" d="M360,128 L360,154 M353,146 L360,154 L367,146"/>
+<path class="courbe" d="M254,202 L224,202 M232,195 L224,202 L232,209"/>
+<text class="etiquette etiquette-forte" x="240" y="24" text-anchor="middle">Livrer l'oxygène (vert), puis l'utiliser</text>
+<text class="etiquette etiquette-forte" x="240" y="272" text-anchor="middle">VO2 = débit du cœur × oxygène retiré du sang</text>
+<text class="etiquette" x="240" y="296" text-anchor="middle">Surtout la livraison fixe le plafond.</text>
+</svg>
+                </div>
+              </div>
+              <h3>Ce qui fixe le plafond</h3>
+              <ul>
+                <li><strong>Le calcul :</strong> VO2 = débit du cœur × oxygène retiré du sang. Le débit du cœur = fréquence cardiaque × volume d'éjection (le sang envoyé à chaque battement).</li>
+                <li><strong>Le maillon limitant :</strong> selon la revue de Bassett et Howley, chez l'humain qui fait un effort, c'est surtout <strong>la livraison de l'oxygène</strong> (le cœur et le sang) qui limite le VO2max, pas la capacité du muscle à le retirer du sang.</li>
+                <li><strong>Le muscle compte quand même :</strong> ses adaptations (mitochondries, capillaires) font surtout la différence sous le maximum, sur l'endurance.</li>
+              </ul>
+              <div class="outil" id="outil-fick">
+                <p class="outil-titre">Outil · Construire un VO2max</p>
+                <p class="outil-consigne">Changez les maillons. Les valeurs de départ sont un exemple, pas une mesure. Calcul : FC × volume d'éjection × oxygène retiré du sang.</p>
+                <div class="field">
+                  <label for="fick-fc">Fréquence cardiaque maximale : <strong id="fick-fc-texte">190</strong> battements/min</label>
+                  <input type="range" id="fick-fc" min="150" max="210" step="1" value="190" />
+                </div>
+                <div class="field">
+                  <label for="fick-ve">Volume d'éjection : <strong id="fick-ve-texte">110</strong> mL par battement</label>
+                  <input type="range" id="fick-ve" min="60" max="200" step="5" value="110" />
+                </div>
+                <div class="field">
+                  <label for="fick-ox">Oxygène retiré du sang : <strong id="fick-ox-texte">15</strong> mL par 100 mL de sang</label>
+                  <input type="range" id="fick-ox" min="10" max="18" step="0.5" value="15" />
+                </div>
+                <div class="field">
+                  <label for="fick-kg">Poids : <strong id="fick-kg-texte">70</strong> kg</label>
+                  <input type="range" id="fick-kg" min="40" max="110" step="1" value="70" />
+                </div>
+                <div class="resultat" id="resultat-fick" aria-live="polite"><p>Bougez un curseur.</p></div>
+              </div>
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>Chez l'humain qui fait un effort, c'est surtout la livraison (le cœur et le sang) qui fixe le plafond du VO2max.</p>
+              </div>
+              <div class="sources">
+                <p>Sources : Bassett D. R., Howley E. T., <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 2000 (DOI 10.1097/00005768-200001000-00012).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 3 ===== -->
+            <section class="etape" data-titre="Ce que l&#39;entraînement change">
+              <p class="etape-numero">Étape 3 sur 8</p>
+              <h2>Ce que l'entraînement change</h2>
+              <p>Deux maillons de la livraison se renforcent avec l'entraînement :</p>
+              <ul>
+                <li><strong>Le cœur :</strong> chez Helgerud (40 hommes modérément entraînés, répartis en quatre groupes), le volume d'éjection a monté d'environ 10 % dans les deux groupes d'intervalles, en même temps que le VO2max. Les auteurs y voient un lien étroit entre les deux.</li>
+                <li><strong>Le sang :</strong> dans l'étude de Montero et Lundby, la masse totale d'hémoglobine, la protéine qui transporte l'oxygène, était le facteur le plus lié à la hausse du VO2max.</li>
+              </ul>
+              <h3>Les « non-répondants » répondent à une plus grosse dose</h3>
+              <p>On lit souvent qu'une personne sur cinq ne progresse pas avec l'entraînement. Montero et Lundby ont testé la dose : 78 adultes en santé, 6 semaines, de 1 à 5 séances de 60 minutes par semaine.</p>
+              <div class="outil">
+                <p class="outil-titre">Graphique · La dose fait la réponse</p>
+                <p class="outil-consigne">Part des personnes dont la puissance maximale n'a pas progressé plus que l'erreur de mesure.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 278" role="img" aria-labelledby="g5-t g5-d">
+<title id="g5-t">Part de « non-répondants » selon le nombre de séances</title>
+<desc id="g5-d">Montero et Lundby 2017, 78 adultes en santé, 6 semaines, séances de 60 minutes. Non-répondants : 69 % avec 1 séance par semaine, 40 % avec 2, 29 % avec 3, 0 % avec 4 et avec 5. Les non-répondants ont fait 6 semaines de plus avec 2 séances de plus par semaine : il n'en restait aucun.</desc>
+<text class="etiquette etiquette-forte" x="10" y="30">Séances de 60 min par semaine</text>
+<line class="axe" x1="170" x2="170" y1="44" y2="192"/>
+<text class="etiquette" x="162" y="63" text-anchor="end">1</text>
+<rect class="barre barre-baisse" x="170" y="48" width="189.8" height="20"/>
+<text class="valeur" x="367.8" y="63">69 %</text>
+<text class="etiquette" x="162" y="93" text-anchor="end">2</text>
+<rect class="barre barre-baisse" x="170" y="78" width="110.0" height="20"/>
+<text class="valeur" x="288.0" y="93">40 %</text>
+<text class="etiquette" x="162" y="123" text-anchor="end">3</text>
+<rect class="barre barre-baisse" x="170" y="108" width="79.8" height="20"/>
+<text class="valeur" x="257.8" y="123">29 %</text>
+<text class="etiquette" x="162" y="153" text-anchor="end">4</text>
+<rect class="barre barre-baisse" x="170" y="138" width="2.0" height="20"/>
+<text class="valeur" x="180.0" y="153">0 %</text>
+<text class="etiquette" x="162" y="183" text-anchor="end">5</text>
+<rect class="barre barre-baisse" x="170" y="168" width="2.0" height="20"/>
+<text class="valeur" x="180.0" y="183">0 %</text>
+<text class="etiquette etiquette-forte" x="10" y="218">Non-répondants : 6 semaines de plus, 2 séances de plus</text>
+<line class="axe" x1="170" x2="170" y1="232" y2="260"/>
+<text class="etiquette" x="162" y="251" text-anchor="end">après</text>
+<rect class="barre barre-baisse" x="170" y="236" width="2.0" height="20"/>
+<text class="valeur" x="180.0" y="251">0 % : tous progressent</text>
+</svg>
+                </div>
+              </div>
+              <p>Les non-répondants ont fait 6 semaines de plus, avec 2 séances de plus par semaine : <strong>il n'en restait aucun</strong>. Ici, « répondre » veut dire améliorer sa puissance maximale au test ; la hausse du VO2max était le facteur le plus lié à cette progression.</p>
+              <h3>Mais pas tous au même rythme</h3>
+              <div class="outil">
+                <p class="outil-titre">Graphique · 481 personnes, un seul programme</p>
+                <p class="outil-consigne">Étude HERITAGE : 20 semaines du même programme chez des adultes sédentaires de 98 familles. La barre montre l'étendue des hausses.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 196" role="img" aria-labelledby="g6-t g6-d">
+<title id="g6-t">Hausse du VO2max après 20 semaines chez 481 personnes sédentaires</title>
+<desc id="g6-d">Étude HERITAGE, 481 adultes sédentaires de 98 familles, 20 semaines du même programme. Hausse moyenne d'environ 0,4 L/min ; certains n'ont presque rien gagné, d'autres plus de 1,0 L/min. Jusqu'à 47 % de cet écart serait héréditaire.</desc>
+<line class="axe" x1="40" x2="440" y1="110" y2="110"/>
+<rect class="barre" x="40" y="70" width="400" height="26" fill-opacity="0.55"/>
+<rect class="barre barre-forte" x="171" y="62" width="4" height="42"/>
+<text class="etiquette etiquette-forte" x="173" y="52" text-anchor="middle">moyenne ≈ 0,4</text>
+<text class="graduation" x="40" y="130" text-anchor="middle">0</text>
+<text class="graduation" x="373" y="130" text-anchor="middle">1,0</text>
+<text class="etiquette" x="40" y="156">presque rien</text>
+<text class="etiquette" x="440" y="156" text-anchor="end">plus de 1,0 L/min</text>
+<line class="grille" x1="373" x2="373" y1="62" y2="110"/>
+<text class="titre-axe" x="240" y="186" text-anchor="middle">Hausse du VO2max (L/min), même programme pour tous</text>
+</svg>
+                </div>
+              </div>
+              <ul>
+                <li>Hausse moyenne : environ <strong>0,4 L/min</strong>. Certains n'ont presque rien gagné, d'autres plus de 1,0 L/min.</li>
+                <li>Les écarts se ressemblaient dans une même famille : jusqu'à <strong>47 %</strong> de la réponse serait héréditaire.</li>
+              </ul>
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>Dans l'étude de Montero et Lundby, tous ont fini par progresser avec une plus grosse dose. Avec un même programme, certains gagnent beaucoup moins que d'autres, et l'hérédité y joue en partie.</p>
+              </div>
+              <div class="sources">
+                <p>Sources : Helgerud J. et al., <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 2007 (DOI 10.1249/mss.0b013e3180304570) ; Montero D., Lundby C., <em>Journal of Physiology</em>, 2017 (DOI 10.1113/JP273480) ; Bouchard C. et al., <em>Journal of Applied Physiology</em>, 1999 (DOI 10.1152/jappl.1999.87.3.1003).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 4 ===== -->
+            <section class="etape" data-titre="Quel entraînement le fait monter">
+              <p class="etape-numero">Étape 4 sur 8</p>
+              <h2>Quel entraînement le fait monter</h2>
+              <p>Deux études qui comparent des façons de s'entraîner. Chez Helgerud, seule l'intensité change ; chez Stöggl, la répartition change, et le volume aussi.</p>
+              <h3>À travail égal, l'intensité gagne</h3>
+              <p>Helgerud (2007) : 40 hommes modérément entraînés, 3 séances par semaine pendant 8 semaines. Les quatre groupes dépensaient <strong>à peu près la même quantité d'oxygène</strong> ; seule l'intensité changeait.</p>
+              <div class="outil">
+                <p class="outil-titre">Graphique · Hausse du VO2max en 8 semaines</p>
+                <p class="outil-consigne">Le 4 × 4 min : 4 minutes à 90-95 % de la FC max, 3 minutes de récupération active à 70 %. Le 15/15 : 15 s aux mêmes intensités, 15 s de récupération.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 142" role="img" aria-labelledby="g4-t g4-d">
+<title id="g4-t">Hausse du VO2max après 8 semaines, à travail égal</title>
+<desc id="g4-d">Helgerud 2007, 40 hommes modérément entraînés, 3 séances par semaine pendant 8 semaines, même dépense d'oxygène dans les quatre groupes. 4 × 4 min : +7,2 %. 15/15 : +5,5 %. Course lente à 70 % de la FC max et course au seuil à 85 % : pas de hausse significative.</desc>
+<line class="axe" x1="170" x2="170" y1="6" y2="124"/>
+<text class="etiquette" x="162" y="25" text-anchor="end">4 × 4 min</text>
+<rect class="barre barre-forte" x="170" y="10" width="144.0" height="20"/>
+<text class="valeur" x="322.0" y="25">+7,2 %</text>
+<text class="etiquette" x="162" y="55" text-anchor="end">15/15</text>
+<rect class="barre barre-forte" x="170" y="40" width="110.0" height="20"/>
+<text class="valeur" x="288.0" y="55">+5,5 %</text>
+<text class="etiquette" x="162" y="85" text-anchor="end">au seuil (85 % FC max)</text>
+<text class="valeur" x="178.0" y="85">pas de hausse significative</text>
+<text class="etiquette" x="162" y="115" text-anchor="end">lent (70 % FC max)</text>
+<text class="valeur" x="178.0" y="115">pas de hausse significative</text>
+</svg>
+                </div>
+              </div>
+              <h3>La répartition de la semaine compte aussi</h3>
+              <p>Stöggl et Sperlich (2014) : 48 coureurs, cyclistes, triathlètes et fondeurs bien entraînés (41 analysés), 9 semaines, quatre répartitions de l'intensité.</p>
+              <div class="outil">
+                <p class="outil-titre">Graphique · Quatre répartitions</p>
+                <p class="outil-consigne">Polarisé : surtout du facile, un peu de très intense, presque rien entre les deux.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 142" role="img" aria-labelledby="g7-t g7-d">
+<title id="g7-t">Hausse du VO2max en 9 semaines selon la répartition de l'entraînement</title>
+<desc id="g7-d">Stöggl et Sperlich 2014, 48 athlètes d'endurance bien entraînés, 9 semaines. Polarisé (beaucoup de facile, un peu de très intense) : +11,7 %. Intervalles intenses : +4,8 %. Au seuil et gros volume facile : pas d'effet de plus sur la performance mesurée.</desc>
+<line class="axe" x1="170" x2="170" y1="6" y2="124"/>
+<text class="etiquette" x="162" y="25" text-anchor="end">polarisé</text>
+<rect class="barre barre-forte" x="170" y="10" width="146.2" height="20"/>
+<text class="valeur" x="324.2" y="25">+11,7 %</text>
+<text class="etiquette" x="162" y="55" text-anchor="end">intervalles intenses</text>
+<rect class="barre barre-forte" x="170" y="40" width="60.0" height="20"/>
+<text class="valeur" x="238.0" y="55">+4,8 %</text>
+<text class="etiquette" x="162" y="85" text-anchor="end">au seuil</text>
+<text class="valeur" x="178.0" y="85">pas de gain de plus</text>
+<text class="etiquette" x="162" y="115" text-anchor="end">gros volume facile</text>
+<text class="valeur" x="178.0" y="115">pas de gain de plus</text>
+</svg>
+                </div>
+              </div>
+              <ul>
+                <li><strong>Le polarisé</strong> a fait monter le VO2max de 11,7 %, avec moins de séances intenses que le groupe « intervalles » (14 contre 27), mais plus d'heures au total (104 contre 66). Les autres groupes n'avaient pas le même volume non plus.</li>
+                <li><strong>La durée des intervalles compte aussi :</strong> chez des cyclistes amateurs, 4 × 8 min a fait mieux que 4 × 4 min et 4 × 16 min (voir le module threshold).</li>
+              </ul>
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>L'intensité près du VO2max le fait monter plus que le même travail à plus basse intensité, surtout posée sur une grosse base facile.</p>
+              </div>
+              <p class="lien-article"><a href="zone-2.html">Revoir le module zone 2 &#8250;</a> · <a href="seuil.html">Revoir le module threshold &#8250;</a></p>
+              <div class="sources">
+                <p>Sources : Helgerud J. et al., <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 2007 (DOI 10.1249/mss.0b013e3180304570) ; Stöggl T., Sperlich B., <em>Frontiers in Physiology</em>, 2014 (DOI 10.3389/fphys.2014.00033) ; Seiler S. et al., <em>Scandinavian Journal of Medicine &amp; Science in Sports</em>, 2013 (DOI 10.1111/j.1600-0838.2011.01351.x).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 5 ===== -->
+            <section class="etape" data-titre="Le temps près du VO2max">
+              <p class="etape-numero">Étape 5 sur 8</p>
+              <h2>Le temps près du VO2max</h2>
+              <p>Les chercheurs jugent souvent une séance au <strong>temps passé au-dessus de 90 % du VO2max</strong>. Le problème : la consommation d'oxygène est lente à monter. Chez des cyclistes entraînés, il lui faut 23 à 29 secondes pour faire environ 63 % du chemin (voir le module 30/15).</p>
+              <div class="outil">
+                <p class="outil-titre">Graphique · Un intervalle de 4 minutes</p>
+                <p class="outil-consigne">Schéma. La zone verte est le temps au-dessus de 90 % : seule la seconde partie de l'intervalle compte.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 280" role="img" aria-labelledby="g8-t g8-d">
+<title id="g8-t">La VO2 pendant un intervalle de 4 minutes (schéma)</title>
+<desc id="g8-d">Schéma : au début de l'intervalle, la VO2 monte lentement ; elle ne dépasse 90 % du VO2max qu'au bout d'un moment. Seule la seconde partie de l'intervalle compte dans le temps au-dessus de 90 %. Pendant la récupération, elle redescend.</desc>
+<rect class="barre" x="60.0" y="226" width="266.7" height="10"/>
+<text class="etiquette" x="193.3" y="252" text-anchor="middle">effort : 4 min</text>
+<text class="etiquette" x="393.3" y="252" text-anchor="middle">récupération</text>
+<line class="axe" x1="60" x2="460" y1="220" y2="220"/>
+<line class="axe" x1="60" x2="60" y1="30" y2="220"/>
+<line class="grille" x1="60" x2="460" y1="40.0" y2="40.0"/>
+<line class="ligne-plafond" x1="60" x2="460" y1="58.0" y2="58.0"/>
+<path class="bande-fiable" d="M168.0,58.0 L168.0,57.9 L168.7,57.7 L169.3,57.5 L170.0,57.3 L170.7,57.1 L171.3,56.9 L172.0,56.7 L172.7,56.5 L173.3,56.3 L174.0,56.2 L174.7,56.0 L175.3,55.8 L176.0,55.6 L176.7,55.5 L177.3,55.3 L178.0,55.1 L178.7,54.9 L179.3,54.8 L180.0,54.6 L180.7,54.5 L181.3,54.3 L182.0,54.1 L182.7,54.0 L183.3,53.8 L184.0,53.7 L184.7,53.5 L185.3,53.4 L186.0,53.2 L186.7,53.1 L187.3,52.9 L188.0,52.8 L188.7,52.7 L189.3,52.5 L190.0,52.4 L190.7,52.2 L191.3,52.1 L192.0,52.0 L192.7,51.8 L193.3,51.7 L194.0,51.6 L194.7,51.4 L195.3,51.3 L196.0,51.2 L196.7,51.1 L197.3,50.9 L198.0,50.8 L198.7,50.7 L199.3,50.6 L200.0,50.5 L200.7,50.4 L201.3,50.2 L202.0,50.1 L202.7,50.0 L203.3,49.9 L204.0,49.8 L204.7,49.7 L205.3,49.6 L206.0,49.5 L206.7,49.4 L207.3,49.3 L208.0,49.2 L208.7,49.1 L209.3,49.0 L210.0,48.9 L210.7,48.8 L211.3,48.7 L212.0,48.6 L212.7,48.5 L213.3,48.4 L214.0,48.3 L214.7,48.2 L215.3,48.1 L216.0,48.0 L216.7,47.9 L217.3,47.8 L218.0,47.8 L218.7,47.7 L219.3,47.6 L220.0,47.5 L220.7,47.4 L221.3,47.3 L222.0,47.3 L222.7,47.2 L223.3,47.1 L224.0,47.0 L224.7,46.9 L225.3,46.9 L226.0,46.8 L226.7,46.7 L227.3,46.6 L228.0,46.6 L228.7,46.5 L229.3,46.4 L230.0,46.4 L230.7,46.3 L231.3,46.2 L232.0,46.1 L232.7,46.1 L233.3,46.0 L234.0,45.9 L234.7,45.9 L235.3,45.8 L236.0,45.7 L236.7,45.7 L237.3,45.6 L238.0,45.6 L238.7,45.5 L239.3,45.4 L240.0,45.4 L240.7,45.3 L241.3,45.3 L242.0,45.2 L242.7,45.1 L243.3,45.1 L244.0,45.0 L244.7,45.0 L245.3,44.9 L246.0,44.9 L246.7,44.8 L247.3,44.8 L248.0,44.7 L248.7,44.7 L249.3,44.6 L250.0,44.6 L250.7,44.5 L251.3,44.5 L252.0,44.4 L252.7,44.4 L253.3,44.3 L254.0,44.3 L254.7,44.2 L255.3,44.2 L256.0,44.1 L256.7,44.1 L257.3,44.0 L258.0,44.0 L258.7,43.9 L259.3,43.9 L260.0,43.9 L260.7,43.8 L261.3,43.8 L262.0,43.7 L262.7,43.7 L263.3,43.6 L264.0,43.6 L264.7,43.6 L265.3,43.5 L266.0,43.5 L266.7,43.4 L267.3,43.4 L268.0,43.4 L268.7,43.3 L269.3,43.3 L270.0,43.3 L270.7,43.2 L271.3,43.2 L272.0,43.2 L272.7,43.1 L273.3,43.1 L274.0,43.1 L274.7,43.0 L275.3,43.0 L276.0,43.0 L276.7,42.9 L277.3,42.9 L278.0,42.9 L278.7,42.8 L279.3,42.8 L280.0,42.8 L280.7,42.7 L281.3,42.7 L282.0,42.7 L282.7,42.6 L283.3,42.6 L284.0,42.6 L284.7,42.6 L285.3,42.5 L286.0,42.5 L286.7,42.5 L287.3,42.4 L288.0,42.4 L288.7,42.4 L289.3,42.4 L290.0,42.3 L290.7,42.3 L291.3,42.3 L292.0,42.3 L292.7,42.2 L293.3,42.2 L294.0,42.2 L294.7,42.2 L295.3,42.1 L296.0,42.1 L296.7,42.1 L297.3,42.1 L298.0,42.0 L298.7,42.0 L299.3,42.0 L300.0,42.0 L300.7,42.0 L301.3,41.9 L302.0,41.9 L302.7,41.9 L303.3,41.9 L304.0,41.9 L304.7,41.8 L305.3,41.8 L306.0,41.8 L306.7,41.8 L307.3,41.8 L308.0,41.7 L308.7,41.7 L309.3,41.7 L310.0,41.7 L310.7,41.7 L311.3,41.6 L312.0,41.6 L312.7,41.6 L313.3,41.6 L314.0,41.6 L314.7,41.5 L315.3,41.5 L316.0,41.5 L316.7,41.5 L317.3,41.5 L318.0,41.5 L318.7,41.4 L319.3,41.4 L320.0,41.4 L320.7,41.4 L321.3,41.4 L322.0,41.4 L322.7,41.4 L323.3,41.3 L324.0,41.3 L324.7,41.3 L325.3,41.3 L326.0,41.3 L326.7,41.3 L327.3,42.3 L328.0,43.4 L328.7,44.4 L329.3,45.5 L330.0,46.5 L330.7,47.5 L331.3,48.5 L332.0,49.5 L332.7,50.5 L333.3,51.4 L334.0,52.4 L334.7,53.3 L335.3,54.3 L336.0,55.2 L336.7,56.1 L337.3,57.0 L338.0,58.0 L338.0,58.0 Z" style="fill-opacity:0.5"/>
+<path class="courbe" d="M60.0,148.0 L63.3,142.2 L66.7,136.6 L70.0,131.4 L73.3,126.5 L76.7,121.8 L80.0,117.4 L83.3,113.2 L86.7,109.2 L90.0,105.5 L93.3,102.0 L96.7,98.6 L100.0,95.4 L103.3,92.5 L106.7,89.6 L110.0,86.9 L113.3,84.4 L116.7,82.0 L120.0,79.7 L123.3,77.6 L126.7,75.6 L130.0,73.6 L133.3,71.8 L136.7,70.1 L140.0,68.5 L143.3,66.9 L146.7,65.5 L150.0,64.1 L153.3,62.8 L156.7,61.6 L160.0,60.4 L163.3,59.3 L166.7,58.3 L170.0,57.3 L173.3,56.3 L176.7,55.5 L180.0,54.6 L183.3,53.8 L186.7,53.1 L190.0,52.4 L193.3,51.7 L196.7,51.1 L200.0,50.5 L203.3,49.9 L206.7,49.4 L210.0,48.9 L213.3,48.4 L216.7,47.9 L220.0,47.5 L223.3,47.1 L226.7,46.7 L230.0,46.4 L233.3,46.0 L236.7,45.7 L240.0,45.4 L243.3,45.1 L246.7,44.8 L250.0,44.6 L253.3,44.3 L256.7,44.1 L260.0,43.9 L263.3,43.6 L266.7,43.4 L270.0,43.3 L273.3,43.1 L276.7,42.9 L280.0,42.8 L283.3,42.6 L286.7,42.5 L290.0,42.3 L293.3,42.2 L296.7,42.1 L300.0,42.0 L303.3,41.9 L306.7,41.8 L310.0,41.7 L313.3,41.6 L316.7,41.5 L320.0,41.4 L323.3,41.3 L326.7,41.3 L330.0,46.5 L333.3,51.4 L336.7,56.1 L340.0,60.6 L343.3,64.9 L346.7,68.9 L350.0,72.8 L353.3,76.5 L356.7,79.9 L360.0,83.3 L363.3,86.4 L366.7,89.4 L370.0,92.3 L373.3,95.0 L376.7,97.6 L380.0,100.0 L383.3,102.4 L386.7,104.6 L390.0,106.7 L393.3,108.7 L396.7,110.7 L400.0,112.5 L403.3,114.2 L406.7,115.9 L410.0,117.4 L413.3,118.9 L416.7,120.3 L420.0,121.7 L423.3,123.0 L426.7,124.2 L430.0,125.3 L433.3,126.5 L436.7,127.5 L440.0,128.5 L443.3,129.5 L446.7,130.4 L450.0,131.2 L453.3,132.0 L456.7,132.8 L460.0,133.6"/>
+<text class="graduation" x="54" y="62.0" text-anchor="end">90 %</text>
+<text class="graduation" x="54" y="152.0" text-anchor="end">40 %</text>
+<text class="etiquette etiquette-forte" x="246.7" y="80.0" text-anchor="middle">temps au-dessus de 90 %</text>
+<text class="etiquette" x="106.7" y="126.4">montée lente</text>
+<text class="graduation" x="460" y="18" text-anchor="end">Schéma, pas une mesure · % du VO2max</text>
+</svg>
+                </div>
+              </div>
+              <h3>Changer la forme de l'intervalle</h3>
+              <ul>
+                <li><strong>Commencer par l'effort le plus long.</strong> À la même puissance, un premier effort long fait monter la VO2 ; des efforts de plus en plus courts la gardent en haut (Vaccari).</li>
+                <li><strong>Varier la puissance</strong> à l'intérieur de l'intervalle, à puissance moyenne égale.</li>
+              </ul>
+              <div class="outil">
+                <p class="outil-titre">Graphique · Secondes au-dessus de 90 %</p>
+                <p class="outil-consigne">Deux études chez des cyclistes, une seule séance chacune.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 248" role="img" aria-labelledby="g9-t g9-d">
+<title id="g9-t">Secondes au-dessus de 90 % du VO2max selon la forme de l'intervalle</title>
+<desc id="g9-d">Vaccari 2020, 12 cyclistes, même puissance jusqu'à l'épuisement : intervalles décroissants 312 s, courts (30 s / 20 s) 182 s, longs (3 min / 2 min) 179 s. Bossi 2020, 14 cyclistes bien entraînés, même durée et même puissance moyenne : intensité variée 410 s, constante 286 s.</desc>
+<text class="etiquette etiquette-forte" x="10" y="30">Vaccari 2020 · 12 cyclistes</text>
+<line class="axe" x1="150" x2="150" y1="44" y2="132"/>
+<text class="etiquette" x="142" y="63" text-anchor="end">décroissants</text>
+<rect class="barre barre-forte" x="150" y="48" width="170.2" height="20"/>
+<text class="valeur" x="328.2" y="63">312 s</text>
+<text class="etiquette" x="142" y="93" text-anchor="end">courts 30/20</text>
+<rect class="barre " x="150" y="78" width="99.3" height="20"/>
+<text class="valeur" x="257.3" y="93">182 s</text>
+<text class="etiquette" x="142" y="123" text-anchor="end">longs 3 min</text>
+<rect class="barre " x="150" y="108" width="97.6" height="20"/>
+<text class="valeur" x="255.6" y="123">179 s</text>
+<text class="etiquette etiquette-forte" x="10" y="158">Bossi 2020 · 14 cyclistes</text>
+<line class="axe" x1="150" x2="150" y1="172" y2="230"/>
+<text class="etiquette" x="142" y="191" text-anchor="end">intensité variée</text>
+<rect class="barre barre-forte" x="150" y="176" width="223.6" height="20"/>
+<text class="valeur" x="381.6" y="191">410 s</text>
+<text class="etiquette" x="142" y="221" text-anchor="end">constante</text>
+<rect class="barre " x="150" y="206" width="156.0" height="20"/>
+<text class="valeur" x="314.0" y="221">286 s</text>
+</svg>
+                </div>
+              </div>
+              <ul>
+                <li>Chez Vaccari, lactate et effort perçu ne différaient pas à la fin. Chez Bossi, pas de différence d'effort perçu ni de charge mesurée à la FC.</li>
+                <li>Chez 10 skieurs de fond bien entraînés, un départ rapide ou une vitesse variée a aussi donné plus de temps au-dessus de 90 %, sans effort perçu plus haut (Rønnestad).</li>
+              </ul>
+              <div class="outil" id="outil-preuves">
+                <p class="outil-titre">Outil · Établi ou hypothèse ?</p>
+                <p class="outil-consigne">Cinq affirmations qu'on lit sur le VO2max. Devinez, puis touchez la carte.</p>
+                <div class="choix-cartes" style="margin: 0;">
+                  <button type="button" class="carte-choix" aria-expanded="false">Les intervalles décroissants gardent plus longtemps près du VO2max<span class="reponse-carte"><strong>Mesuré sur une séance</strong> (12 cyclistes). Pas encore sur des semaines d'entraînement.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Plus de temps au-dessus de 90 % fait plus progresser<span class="reponse-carte"><strong>Hypothèse.</strong> Ces études mesurent une séance, pas le gain après des semaines.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Le VO2max est surtout limité par la livraison de l'oxygène<span class="reponse-carte"><strong>Bien appuyé</strong> par la revue de Bassett et Howley, qui réunit plusieurs séries de preuves : le cœur et le sang plus que le muscle.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Certaines personnes ne progressent jamais<span class="reponse-carte"><strong>Pas appuyé</strong> par l'essai de Montero et Lundby (78 adultes en santé) : avec 2 séances de plus par semaine, tous ont progressé.</span></button>
+                  <button type="button" class="carte-choix" aria-expanded="false">Le plus gros VO2max gagne la course<span class="reponse-carte"><strong>Pas forcément.</strong> La fraction tenue et l'efficacité comptent aussi : c'est l'étape suivante.</span></button>
+                </div>
+              </div>
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>La forme de l'intervalle change le temps passé près du VO2max. Que ce temps fasse plus progresser reste à prouver.</p>
+              </div>
+              <p class="lien-article"><a href="30-15.html">Revoir le module 30/15 &#8250;</a></p>
+              <div class="sources">
+                <p>Sources : Prinz B. et al., <em>Journal of Sports Science and Medicine</em>, 2021 (DOI 10.52082/jssm.2021.398) ; Vaccari F., Giovanelli N., Lazzer S., <em>European Journal of Applied Physiology</em>, 2020 (DOI 10.1007/s00421-020-04463-w) ; Bossi A. H. et al., <em>International Journal of Sports Physiology and Performance</em>, 2020 (DOI 10.1123/ijspp.2019-0260) ; Rønnestad B. R. et al., <em>International Journal of Sports Physiology and Performance</em>, 2022 (DOI 10.1123/ijspp.2021-0226) ; Bassett D. R., Howley E. T., <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 2000 (DOI 10.1097/00005768-200001000-00012) ; Montero D., Lundby C., 2017 (voir étape 3).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 6 ===== -->
+            <section class="etape" data-titre="Le VO2max ne fait pas tout">
+              <p class="etape-numero">Étape 6 sur 8</p>
+              <h2>Le VO2max ne fait pas tout</h2>
+              <p>Le VO2max fixe un plafond : on ne tient pas longtemps à 100 %. La performance en endurance dépend de trois leviers.</p>
+              <div class="outil">
+                <p class="outil-titre">Graphique · Les trois leviers</p>
+                <p class="outil-consigne">Schéma tiré des revues de Joyner et Coyle, et de Bassett et Howley.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 324" role="img" aria-labelledby="g10-t g10-d">
+<title id="g10-t">Les trois leviers de la performance en endurance (schéma)</title>
+<desc id="g10-d">Schéma : la vitesse ou la puissance tenue en course dépend du VO2max (le plafond), multiplié par la fraction de ce plafond qu'on peut tenir longtemps (le threshold), multiplié par l'efficacité (l'économie du geste).</desc>
+<rect class="barre barre-forte" x="40" y="8" width="400" height="60" rx="10"/>
+<text class="valeur valeur-claire" x="240" y="34" text-anchor="middle">VO2max</text>
+<text class="etiquette valeur-claire" x="240" y="56" text-anchor="middle">le plafond</text>
+<text class="valeur" x="240" y="88" text-anchor="middle">×</text>
+<rect class="barre barre" x="40" y="92" width="400" height="60" rx="10"/>
+<text class="valeur valeur-claire" x="240" y="118" text-anchor="middle">Fraction tenue</text>
+<text class="etiquette valeur-claire" x="240" y="140" text-anchor="middle">la part du plafond qu'on tient longtemps</text>
+<text class="valeur" x="240" y="172" text-anchor="middle">×</text>
+<rect class="barre barre" x="40" y="176" width="400" height="60" rx="10"/>
+<text class="valeur valeur-claire" x="240" y="202" text-anchor="middle">Efficacité</text>
+<text class="etiquette valeur-claire" x="240" y="224" text-anchor="middle">les watts tirés de chaque litre d'oxygène</text>
+<text class="valeur" x="240" y="256" text-anchor="middle">=</text>
+<rect class="barre barre-baisse" x="40" y="260" width="400" height="60" rx="10"/>
+<text class="valeur valeur-claire" x="240" y="286" text-anchor="middle">Vitesse tenue</text>
+<text class="etiquette valeur-claire" x="240" y="308" text-anchor="middle">le résultat en course</text>
+</svg>
+                </div>
+              </div>
+              <ul>
+                <li><strong>Le VO2max :</strong> le plafond.</li>
+                <li><strong>La fraction tenue :</strong> la part du plafond qu'on peut tenir longtemps. C'est le threshold, le seuil (voir le module 2).</li>
+                <li><strong>L'efficacité :</strong> la part de l'énergie tirée de l'oxygène qui devient des watts. Chez 19 cyclistes très entraînés, une mesure de cette efficacité (dite « delta ») allait de 18 à 26 %, et elle était plus haute chez ceux qui avaient plus de fibres lentes.</li>
+              </ul>
+              <div class="outil">
+                <p class="outil-titre">Graphique · Deux athlètes</p>
+                <p class="outil-consigne">Calcul sur deux athlètes inventés pour l'exemple, 70 kg chacun, même efficacité.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 316" role="img" aria-labelledby="g11-t g11-d">
+<title id="g11-t">Deux athlètes fictifs : le VO2max ne fait pas tout</title>
+<desc id="g11-d">Calcul, athlètes fictifs de 70 kg, même efficacité de 22 %. Athlète A : VO2max 72, tient 75 % de son VO2max au threshold, environ 291 W. Athlète B : VO2max 65, tient 88 %, environ 308 W.</desc>
+<text class="etiquette etiquette-forte" x="10" y="30">VO2max (mL/kg/min)</text>
+<line class="axe" x1="150" x2="150" y1="44" y2="102"/>
+<text class="etiquette" x="142" y="63" text-anchor="end">athlète A</text>
+<rect class="barre barre-forte" x="150" y="48" width="165.6" height="20"/>
+<text class="valeur" x="323.6" y="63">72</text>
+<text class="etiquette" x="142" y="93" text-anchor="end">athlète B</text>
+<rect class="barre " x="150" y="78" width="149.5" height="20"/>
+<text class="valeur" x="307.5" y="93">65</text>
+<text class="etiquette etiquette-forte" x="10" y="128">Fraction tenue au threshold</text>
+<line class="axe" x1="150" x2="150" y1="142" y2="200"/>
+<text class="etiquette" x="142" y="161" text-anchor="end">athlète A</text>
+<rect class="barre barre-forte" x="150" y="146" width="172.5" height="20"/>
+<text class="valeur" x="330.5" y="161">75 %</text>
+<text class="etiquette" x="142" y="191" text-anchor="end">athlète B</text>
+<rect class="barre " x="150" y="176" width="202.4" height="20"/>
+<text class="valeur" x="360.4" y="191">88 %</text>
+<text class="etiquette etiquette-forte" x="10" y="226">Puissance au threshold (calcul)</text>
+<line class="axe" x1="150" x2="150" y1="240" y2="298"/>
+<text class="etiquette" x="142" y="259" text-anchor="end">athlète A</text>
+<rect class="barre barre-forte" x="150" y="244" width="167.4" height="20"/>
+<text class="valeur" x="325.4" y="259">≈ 291 W</text>
+<text class="etiquette" x="142" y="289" text-anchor="end">athlète B</text>
+<rect class="barre barre-baisse" x="150" y="274" width="177.3" height="20"/>
+<text class="valeur" x="335.3" y="289">≈ 308 W</text>
+</svg>
+                </div>
+              </div>
+              <p>L'athlète B a un plus petit VO2max, mais il en tient une plus grande part : il va plus vite au threshold. Selon Bassett et Howley, la vitesse au seuil réunit les trois leviers : c'est le meilleur prédicteur physiologique de la performance en course à pied de fond.</p>
+              <div class="outil" id="outil-leviers">
+                <p class="outil-titre">Outil · Les trois leviers</p>
+                <p class="outil-consigne">Calcul simple : 1 litre d'oxygène libère environ 21 kJ (un peu moins quand on brûle surtout des graisses) ; l'efficacité dit quelle part devient des watts. L'efficacité de départ, 22 %, est une valeur d'exemple. Un ordre de grandeur, pas une mesure de votre corps.</p>
+                <div class="outil-champs">
+                  <div class="field">
+                    <label for="lev-vo2">VO2max (mL/kg/min)</label>
+                    <input type="number" id="lev-vo2" inputmode="decimal" min="20" max="95" value="60" />
+                  </div>
+                  <div class="field">
+                    <label for="lev-kg">Poids (kg)</label>
+                    <input type="number" id="lev-kg" inputmode="decimal" min="35" max="130" value="70" />
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="lev-frac">Fraction tenue au threshold : <strong id="lev-frac-texte">80 %</strong></label>
+                  <input type="range" id="lev-frac" min="60" max="95" step="1" value="80" />
+                </div>
+                <div class="field">
+                  <label for="lev-eff">Efficacité : <strong id="lev-eff-texte">22 %</strong></label>
+                  <input type="range" id="lev-eff" min="18" max="26" step="0.5" value="22" />
+                </div>
+                <div class="resultat" id="resultat-leviers" aria-live="polite"><p>Entrez vos valeurs.</p></div>
+              </div>
+              <div class="encadre">
+                <p class="titre-encadre">À retenir</p>
+                <p>Le VO2max fixe le plafond. La part qu'on en tient et l'économie du geste comptent aussi ; la vitesse au seuil réunit les trois leviers.</p>
+              </div>
+              <div class="sources">
+                <p>Sources : Joyner M. J., Coyle E. F., <em>Journal of Physiology</em>, 2008 (DOI 10.1113/jphysiol.2007.143834) ; Bassett D. R., Howley E. T., <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 2000 (DOI 10.1097/00005768-200001000-00012) ; Coyle E. F. et al., <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 1992 (PMID 1501563).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 7 ===== -->
+            <section class="etape" data-titre="L&#39;âge et la santé">
+              <p class="etape-numero">Étape 7 sur 8</p>
+              <h2>Le VO2max, l'âge et la santé</h2>
+              <h3>Il baisse avec l'âge</h3>
+              <div class="outil">
+                <p class="outil-titre">Graphique · De 20 à 79 ans</p>
+                <p class="outil-consigne">Valeur du milieu (50e percentile), registre FRIEND : 7783 tests dans 8 laboratoires américains, adultes sans maladie cardiovasculaire.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 282" role="img" aria-labelledby="g12-t g12-d">
+<title id="g12-t">Le VO2max du milieu du registre FRIEND, de 20 à 79 ans</title>
+<desc id="g12-d">Registre américain FRIEND, 7783 tests dans 8 laboratoires, adultes sans maladie cardiovasculaire, 50e percentile : hommes de 48,0 à 24,4 mL/kg/min et femmes de 37,6 à 18,3, entre 20-29 ans et 70-79 ans, soit environ 10 % de moins par décennie. Les deux points seulement sont tirés de l'étude ; la ligne droite entre eux simplifie.</desc>
+<line class="axe" x1="60" x2="450" y1="220" y2="220"/>
+<line class="axe" x1="60" x2="60" y1="20" y2="220"/>
+<line class="grille" x1="60" x2="450" y1="185.5" y2="185.5"/>
+<text class="graduation" x="54" y="189.5" text-anchor="end">10</text>
+<line class="grille" x1="60" x2="450" y1="150.9" y2="150.9"/>
+<text class="graduation" x="54" y="154.9" text-anchor="end">20</text>
+<line class="grille" x1="60" x2="450" y1="116.4" y2="116.4"/>
+<text class="graduation" x="54" y="120.4" text-anchor="end">30</text>
+<line class="grille" x1="60" x2="450" y1="81.8" y2="81.8"/>
+<text class="graduation" x="54" y="85.8" text-anchor="end">40</text>
+<line class="grille" x1="60" x2="450" y1="47.3" y2="47.3"/>
+<text class="graduation" x="54" y="51.3" text-anchor="end">50</text>
+<line class="courbe" x1="70.0" y1="54.2" x2="430.0" y2="135.7"/>
+<circle class="point-forte" cx="70.0" cy="54.2" r="6"/>
+<circle class="point-forte" cx="430.0" cy="135.7" r="6"/>
+<text class="valeur" x="82.0" y="46.2">48,0</text>
+<text class="valeur" x="418.0" y="125.7" text-anchor="end">24,4</text>
+<text class="etiquette etiquette-forte" x="250.0" y="84.9" text-anchor="middle">hommes</text>
+<line class="courbe" x1="70.0" y1="90.1" x2="430.0" y2="156.8"/>
+<circle class="point" cx="70.0" cy="90.1" r="6"/>
+<circle class="point" cx="430.0" cy="156.8" r="6"/>
+<text class="valeur" x="82.0" y="114.1">37,6</text>
+<text class="valeur" x="418.0" y="180.8" text-anchor="end">18,3</text>
+<text class="etiquette etiquette-forte" x="250.0" y="147.4" text-anchor="middle">femmes</text>
+<text class="graduation" x="70.0" y="240" text-anchor="middle">20-29 ans</text>
+<text class="graduation" x="430.0" y="240" text-anchor="middle">70-79 ans</text>
+<text class="titre-axe" x="255" y="270" text-anchor="middle">Environ 10 % de moins par décennie, en moyenne</text>
+</svg>
+                </div>
+              </div>
+              <ul>
+                <li><strong>Environ 10 % par décennie</strong> en moyenne dans ce registre.</li>
+                <li><strong>La baisse accélère :</strong> chez 810 adultes suivis pendant près de 8 ans, de 3 à 6 % par décennie dans la vingtaine et la trentaine, à plus de 20 % par décennie à partir de 70 ans. Plus forte chez les hommes dès la quarantaine.</li>
+                <li><strong>Le rythme de la baisse</strong> était semblable quel que soit le niveau d'activité de loisir déclaré. Une déduction, pas un résultat de l'étude : à rythme égal, qui part plus haut reste plus longtemps au-dessus d'un seuil donné.</li>
+              </ul>
+              <h3>Un indicateur fort de longévité</h3>
+              <p>Chez 122 007 patients envoyés passer un test d'effort sur tapis dans un hôpital, suivis 8,4 ans (médiane), le risque de décès baissait à mesure que la condition montait, <strong>sans plafond observé</strong> : les « élites » faisaient mieux que les « hautes ». La condition y était estimée d'après la vitesse et la pente atteintes, pas un VO2max mesuré.</p>
+              <div class="outil">
+                <p class="outil-titre">Graphique · Le risque de décès comparé</p>
+                <p class="outil-consigne">Risque ajusté (âge, sexe, IMC, maladies, tabac, médicaments). Condition classée selon l'âge et le sexe ; « élite » = les 2,3 % du haut.</p>
+                <div class="graphe-cadre">
+<svg class="graphe-lactate" viewBox="0 0 480 268" role="img" aria-labelledby="g13-t g13-d">
+<title id="g13-t">Risque de décès comparé, selon la condition cardiorespiratoire et d'autres facteurs</title>
+<desc id="g13-d">Mandsager 2018, 122 007 personnes qui ont fait un test sur tapis, suivi médian de 8,4 ans, risque ajusté. Condition faible contre élite : 5,04 fois. Sous la moyenne contre au-dessus : 1,41. Tabac : 1,41. Diabète : 1,40. Maladie coronarienne : 1,29.</desc>
+<text class="etiquette etiquette-forte" x="10" y="30">La condition (test sur tapis)</text>
+<line class="axe" x1="200" x2="200" y1="44" y2="102"/>
+<text class="etiquette" x="192" y="63" text-anchor="end">faible contre élite</text>
+<rect class="barre barre-baisse" x="200" y="48" width="180.0" height="20"/>
+<text class="valeur" x="388.0" y="63">× 5,04</text>
+<text class="etiquette" x="192" y="93" text-anchor="end">sous la moyenne</text>
+<rect class="barre barre-baisse" x="200" y="78" width="50.4" height="20"/>
+<text class="valeur" x="258.4" y="93">× 1,41 (contre au-dessus)</text>
+<text class="etiquette etiquette-forte" x="10" y="128">Facteurs de risque connus</text>
+<line class="axe" x1="200" x2="200" y1="142" y2="230"/>
+<text class="etiquette" x="192" y="161" text-anchor="end">tabac</text>
+<rect class="barre barre-neutre" x="200" y="146" width="50.4" height="20"/>
+<text class="valeur" x="258.4" y="161">× 1,41</text>
+<text class="etiquette" x="192" y="191" text-anchor="end">diabète</text>
+<rect class="barre barre-neutre" x="200" y="176" width="50.0" height="20"/>
+<text class="valeur" x="258.0" y="191">× 1,40</text>
+<text class="etiquette" x="192" y="221" text-anchor="end">maladie coronarienne</text>
+<rect class="barre barre-neutre" x="200" y="206" width="46.1" height="20"/>
+<text class="valeur" x="254.1" y="221">× 1,29</text>
+<line class="ligne-plafond" x1="235.7" x2="235.7" y1="40" y2="240"/>
+<text class="etiquette etiquette-plafond" x="240.7" y="256">× 1 : risque égal</text>
+</svg>
+                </div>
+              </div>
+              <ul>
+                <li>Une condition <strong>sous la moyenne</strong> pesait autant que <strong>le tabac</strong> ou <strong>le diabète</strong>.</li>
+                <li>Une méta-analyse de 33 études (Kodama, 2009) : chaque MET de plus (3,5 mL/kg/min) allait avec un risque de décès <strong>13 % plus bas</strong> et un risque d'événements cardiovasculaires <strong>15 % plus bas</strong>. Sous 7,9 MET (27,7 mL/kg/min), le risque de décès était 1,4 fois celui des 7,9 à 10,8 MET, et 1,7 fois celui des 10,9 MET et plus.</li>
+              </ul>
+              <div class="outil" id="outil-met">
+                <p class="outil-titre">Outil · Votre VO2max en MET</p>
+                <p class="outil-consigne">1 MET = 3,5 mL/kg/min, la consommation d'oxygène au repos par convention. Entrez votre VO2max (mesuré ou estimé par votre montre).</p>
+                <div class="outil-champs">
+                  <div class="field">
+                    <label for="met-vo2">VO2max (mL/kg/min)</label>
+                    <input type="number" id="met-vo2" inputmode="decimal" min="10" max="95" placeholder="ex. 45" />
+                  </div>
+                </div>
+                <div class="resultat" id="resultat-met" aria-live="polite"><p>Entrez une valeur.</p></div>
+              </div>
+              <div class="encadre">
+                <p class="titre-encadre">Ce que ces études ne disent pas</p>
+                <p>Ce sont des études d'observation : elles montrent un lien, pas une cause. La condition a été mesurée une seule fois. Elles ne disent pas combien de vie gagne une personne qui fait monter son VO2max.</p>
+              </div>
+              <div class="encadre encadre-systeme">
+                <p class="titre-encadre">Une étude ne connaît pas votre corps</p>
+                <p>C'est pourquoi, dans mon système d'entraînement, on part de vos chiffres, et le plan s'ajuste à ce qu'ils disent.</p>
+                <p><a href="../candidature.html">Découvrir le projet pilote en endurance &#8250;</a></p>
+              </div>
+              <div class="sources">
+                <p>Sources : Kaminsky L. A. et al., 2015 (voir étape 1) ; Fleg J. L. et al., <em>Circulation</em>, 2005 (DOI 10.1161/CIRCULATIONAHA.105.545459) ; Mandsager K. et al., <em>JAMA Network Open</em>, 2018 (DOI 10.1001/jamanetworkopen.2018.3605) ; Kodama S. et al., <em>JAMA</em>, 2009 (DOI 10.1001/jama.2009.681).</p>
+              </div>
+            </section>
+
+            <!-- ===== Étape 8 : questions ===== -->
+            <section class="etape" data-titre="Questions">
+              <p class="etape-numero">Étape 8 sur 8</p>
+              <h2>Vérifiez ce que vous avez retenu</h2>
+              <p>Dix questions. Votre première réponse compte ; l'explication s'affiche tout de suite.</p>
+
+              <div id="quiz">
+                <div class="question" data-id="v1" data-type="nombre" data-min="59.5" data-max="60.5">
+                  <p class="enonce"><span class="num-question">Question 1</span>Un cycliste consomme au plus 4,2 L d'oxygène par minute et pèse 70 kg. Quel est son VO2max en mL/kg/min ?</p>
+                  <div class="reponse-nombre">
+                    <input type="number" inputmode="decimal" step="any" aria-label="Votre réponse : VO2max en mL/kg/min" placeholder="mL/kg/min" />
+                    <button type="button" class="btn btn-primary">Vérifier</button>
+                  </div>
+                  <div class="explication">4,2 L/min = 4200 mL/min ; 4200 ÷ 70 = 60 mL/kg/min.</div>
+                </div>
+
+                <div class="question" data-id="v2" data-bonne="b">
+                  <p class="enonce"><span class="num-question">Question 2</span>Selon la revue de Bassett et Howley, qu'est-ce qui limite surtout le VO2max ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">La capacité du muscle à retirer l'oxygène du sang</button>
+                    <button type="button" data-choix="b">La livraison de l'oxygène : le cœur et le sang</button>
+                    <button type="button" data-choix="c">La taille des poumons</button>
+                  </div>
+                  <div class="explication">Le cœur et le sang limitent le plafond. Le muscle, lui, fait surtout la différence sous le maximum.</div>
+                </div>
+
+                <div class="question" data-id="v3" data-bonne="c">
+                  <p class="enonce"><span class="num-question">Question 3</span>Helgerud (2007), à travail égal pendant 8 semaines : quel groupe a le plus fait monter son VO2max ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">La course lente, à 70 % de la FC max</button>
+                    <button type="button" data-choix="b">La course au seuil, à 85 %</button>
+                    <button type="button" data-choix="c">Le 4 × 4 min, à 90-95 %</button>
+                  </div>
+                  <div class="explication">+7,2 % pour le 4 × 4 min et +5,5 % pour le 15/15. Pas de hausse significative en course lente ni au seuil.</div>
+                </div>
+
+                <div class="question" data-id="v4" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 4</span>Après 8 semaines d'intervalles chez Helgerud, quelle mesure du cœur a monté d'environ 10 % ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Le volume d'éjection</button>
+                    <button type="button" data-choix="b">La fréquence cardiaque maximale</button>
+                    <button type="button" data-choix="c">La fréquence cardiaque au repos</button>
+                  </div>
+                  <div class="explication">Le sang envoyé à chaque battement. Le VO2max a monté avec lui.</div>
+                </div>
+
+                <div class="question" data-id="v5" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 5</span>Montero et Lundby : à 1 séance par semaine, 69 % de « non-répondants ». Après 6 semaines de plus avec 2 séances de plus par semaine ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Tous progressent</button>
+                    <button type="button" data-choix="b">Encore la moitié ne progresse pas</button>
+                    <button type="button" data-choix="c">Rien ne change</button>
+                  </div>
+                  <div class="explication">Il ne restait aucun non-répondant. La masse d'hémoglobine était le facteur le plus lié à la hausse du VO2max.</div>
+                </div>
+
+                <div class="question" data-id="v6" data-bonne="c">
+                  <p class="enonce"><span class="num-question">Question 6</span>Vaccari (2020), même puissance : quel format a donné le plus de temps au-dessus de 90 % du VO2max ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Les longs (3 min / 2 min)</button>
+                    <button type="button" data-choix="b">Les courts (30 s / 20 s)</button>
+                    <button type="button" data-choix="c">Les décroissants (de 3 min à 30 s)</button>
+                  </div>
+                  <div class="explication">312 s contre 182 s et 179 s, pour un effort perçu et un lactate semblables à la fin.</div>
+                </div>
+
+                <div class="question" data-id="v7" data-bonne="b">
+                  <p class="enonce"><span class="num-question">Question 7</span>Vrai ou faux : ces études ont montré que plus de temps au-dessus de 90 % fait plus progresser après des semaines.</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Vrai</button>
+                    <button type="button" data-choix="b">Faux</button>
+                  </div>
+                  <div class="explication">Elles mesurent une seule séance. Le lien avec les progrès à long terme reste une hypothèse.</div>
+                </div>
+
+                <div class="question" data-id="v8" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 8</span>Deux athlètes, même VO2max, même poids, même efficacité. Lequel va le plus vite au threshold ?</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">Celui qui tient la plus grande part de son VO2max</button>
+                    <button type="button" data-choix="b">Le plus jeune</button>
+                    <button type="button" data-choix="c">Les deux vont aussi vite</button>
+                  </div>
+                  <div class="explication">La fraction tenue est le deuxième levier : c'est le threshold, le seuil.</div>
+                </div>
+
+                <div class="question" data-id="v9" data-type="nombre" data-min="9.9" data-max="10.1">
+                  <p class="enonce"><span class="num-question">Question 9</span>Un VO2max de 35 mL/kg/min, ça fait combien de MET ?</p>
+                  <div class="reponse-nombre">
+                    <input type="number" inputmode="decimal" step="any" aria-label="Votre réponse : nombre de MET" placeholder="MET" />
+                    <button type="button" class="btn btn-primary">Vérifier</button>
+                  </div>
+                  <div class="explication">35 ÷ 3,5 = 10 MET. C'est au-dessus du repère de 7,9 MET de la méta-analyse de Kodama.</div>
+                </div>
+
+                <div class="question" data-id="v10" data-bonne="a">
+                  <p class="enonce"><span class="num-question">Question 10</span>Mandsager (2018) : comparé à une condition « élite », le risque de décès ajusté d'une condition « faible » était…</p>
+                  <div class="options">
+                    <button type="button" data-choix="a">environ 5 fois plus haut</button>
+                    <button type="button" data-choix="b">environ 1,4 fois plus haut</button>
+                    <button type="button" data-choix="c">pareil</button>
+                  </div>
+                  <div class="explication">5,04 fois. Et une condition sous la moyenne pesait autant que le tabac (1,41). C'est un lien, pas une preuve de cause.</div>
+                </div>
+              </div>
+
+              <div class="bilan-quiz" id="bilan-quiz" hidden>
+                <p class="score" id="score-quiz">0 / 10</p>
+                <p id="message-quiz"></p>
+                <button type="button" class="btn" id="recommencer-quiz">Recommencer les questions</button>
+                <a href="../espace.html" class="btn">Retour à mon espace</a>
+              </div>
+            </section>
+
+            <div class="navigation-etapes">
+              <button type="button" class="btn btn-ghost" id="etape-precedente">Précédent</button>
+              <button type="button" class="btn btn-primary" id="etape-suivante">Suivant</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="logo">La Synthase</a>
+          <p>Maison privée de mieux-être — la table, le mouvement et le soin, réunis chez vous.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="../services.html">Services</a></li>
+            <li><a href="../menu.html">Menu dégustation</a></li>
+            <li><a href="../a-propos.html">À propos</a></li>
+            <li><a href="../articles.html">Articles</a></li>
+            <li><a href="../immersion.html">Immersion Signature</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Coordonnées</h5>
+          <ul>
+            <li><a href="mailto:contact@lasynthase.ca">contact@lasynthase.ca</a></li>
+            <li><a href="tel:+18195523047">819 552-3047</a></li>
+            <li>Ville de Québec et environs, ainsi que Victoriaville</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 La Synthase – Antoine Corbeil. Tous droits réservés.</span>
+        <span><a href="../confidentialite.html">Politique de confidentialité</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/module.js"></script>
+  <script src="../js/vo2max.js"></script>
+</body>
+</html>
