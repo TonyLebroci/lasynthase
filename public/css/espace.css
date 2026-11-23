@@ -1105,3 +1105,19 @@
 #outil-recup input[type="range"] { width: 100%; accent-color: var(--sage-dark); margin: 8px 0 4px; }
 .jauge-outil { margin: 0 0 14px; }
 .jauge-outil p { margin: 0 0 6px; }
+
+/* Fiche à garder, en fin de module (2026-11-23) : noir et or, comme la fiche PDF */
+.encadre.encadre-fiche {
+  background: var(--charcoal);
+  border-left-color: var(--gold);
+  border-top: 3px solid var(--gold);
+  margin-top: 32px;
+}
+.encadre.encadre-fiche .titre-encadre { color: var(--gold); }
+.encadre.encadre-fiche p { color: var(--cream); }
+.encadre.encadre-fiche .btn {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--charcoal);
+}
+.encadre.encadre-fiche .btn:hover { background: var(--cream); border-color: var(--cream); color: var(--charcoal); }

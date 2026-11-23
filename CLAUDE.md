@@ -73,6 +73,18 @@ avec des modules d'apprentissage, et un premier module interactif sur la zone 2.
   dans `espace.html` avec `data-module` et `data-total` = nombre d'étapes + nombre de questions.
   Mettre aussi `data-sujet` sur `#module` (« de la zone 2 », « du seuil ») : il termine le message
   du bilan des questions. Modules en ligne : `zone-2` (module 1), `seuil` (module 2, 2026-11-19), `30-15` (module 3, 2026-11-20), `vo2max` (module 4, 2026-11-22).
+- **Modules courts (règle de Tony, 2026-11-23)** : « j'ai horreur des cours trop longs pour rien et de la
+  dilution de valeur ». Simples, concis, pertinents : 5 étapes de contenu au plus, une idée par étape,
+  les graphiques qui portent le message seulement, 1 outil au plus, 6 questions environ. Couper les
+  nuances secondaires, garder la rigueur (sources, établi contre hypothèse). Les modules 3 et 4 ont été
+  raccourcis ainsi le 2026-11-23 (générateurs gardés hors du dépôt : la page HTML fait foi).
+- **Fiche à garder (2026-11-23)** : chaque module finit par une fiche PDF d'une page, noir et or, que
+  le membre télécharge (bloc `.encadre-fiche` à la fin de la dernière étape, lien `fiches/<id>.pdf`).
+  Contenu dans `outils/fiches/fiches.py` (dictionnaire `FICHES` : l'essentiel en 5 points, 4 chiffres
+  clés, un graphique repris de la page du module, « À retenir », sources courtes) ; générer avec
+  `python3 outils/fiches/fiches.py [<id>]` (Chrome sans interface) → `public/modules/fiches/<id>.pdf`,
+  servi derrière la connexion comme les modules. Le script refuse une fiche de plus d'une page. La fiche
+  ne dit rien que le module ne dit pas : changer un module = régénérer sa fiche.
 - **Le bouton de l'en-tête** (`a.btn-compte[data-compte]`, juste avant `.nav-toggle`) est dans
   **toutes** les pages : toute nouvelle page doit le reprendre (chemin `../` dans `articles/`
   et `modules/`, `/` dans `404.html`).
