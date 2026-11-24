@@ -64,6 +64,18 @@ FICHES = {
     "retenir": "La taille du moteur, fixée surtout par ce que le cœur et le sang livrent.",
     "sources": "Bassett D. R., Howley E. T., MSSE, 2000 ; Joyner M. J., Coyle E. F., J Physiol, 2008.",
   },
+  "sprint": {
+    "numero": "Module 5", "titre": "Le sprint et la créatine phosphate", "sous_titre": "L'énergie immédiate du muscle.",
+    "essentiel": [
+      "Le muscle refait son ATP de <b>trois façons</b> qui travaillent ensemble : la créatine phosphate (immédiate), la glycolyse (rapide), l'aérobie (une réserve énorme).",
+      "La <b>créatine phosphate</b> fournit le coup de fouet du début d'un sprint, puis elle se vide vite.",
+      "<b>L'aérobie la recharge</b>, avec l'oxygène : après un sprint de 30 s à fond, il faut environ une minute pour en refaire la moitié.",
+    ],
+    "chiffres": [("≈ 10 s", "au 2e sprint, elle est presque toute utilisée"), ("≈ 1 min", "pour en refaire la moitié après 30 s à fond"), ("Circulation", "bloquée : pas de recharge")],
+    "graphe": ("h2-t", "La navette de la créatine phosphate (schéma)"), "taille": "width:5.8in; max-height:2.9in;",
+    "retenir": "La créatine phosphate fournit le coup de fouet ; c'est l'aérobie qui la recharge.",
+    "sources": "Gastin P. B., Sports Med, 2001 ; Wallimann T. et al., Biochem J, 1992 ; Harris R. C. et al., Pflügers Arch, 1976 ; Bogdanis G. C. et al., J Physiol, 1995, et J Appl Physiol, 1996.",
+  },
 }
 
 # Vert du site -> or et noir, pour les graphiques repris des modules
