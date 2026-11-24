@@ -125,45 +125,53 @@
             </section>
 
             <!-- ===== Étape 2 ===== -->
-            <section class="etape" data-titre="Ce qui le limite">
+            <section class="etape" data-titre="Les quatre maillons">
               <p class="etape-numero">Étape 2 sur 6</p>
-              <h2>Ce qui le limite</h2>
+              <h2>Les quatre maillons</h2>
+              <p>L'oxygène fait une boucle, de l'air jusqu'au muscle. Le VO2max dépend des quatre maillons :</p>
               <div class="outil">
-                <p class="outil-titre">Graphique · La chaîne de l'oxygène</p>
-                <p class="outil-consigne">Schéma. Le poumon, le sang et le cœur livrent l'oxygène ; le muscle l'utilise.</p>
+                <p class="outil-titre">Graphique · Le cycle de l'oxygène</p>
+                <p class="outil-consigne">Schéma. Le sang fait le tour : poumons, cœur et sang, capillaires, muscle, puis retour aux poumons.</p>
                 <div class="graphe-cadre">
-<svg class="graphe-lactate" viewBox="0 0 480 308" role="img" aria-labelledby="g3-t g3-d">
-<title id="g3-t">La chaîne de l'oxygène (schéma)</title>
-<desc id="g3-d">Schéma en quatre maillons : les poumons font passer l'oxygène dans le sang, l'hémoglobine le transporte, le cœur l'envoie, le muscle l'utilise. Les trois premiers livrent l'oxygène, le dernier l'utilise. VO2 = débit du cœur multiplié par l'oxygène retiré du sang.</desc>
-<rect class="barre barre" x="20" y="40" width="200" height="84" rx="10"/>
-<text class="valeur valeur-claire" x="120" y="76" text-anchor="middle">Poumons</text>
-<text class="etiquette valeur-claire" x="120" y="102" text-anchor="middle">l'oxygène entre</text>
-<rect class="barre barre" x="260" y="40" width="200" height="84" rx="10"/>
-<text class="valeur valeur-claire" x="360" y="76" text-anchor="middle">Sang</text>
-<text class="etiquette valeur-claire" x="360" y="102" text-anchor="middle">l'hémoglobine le porte</text>
-<rect class="barre barre-forte" x="260" y="160" width="200" height="84" rx="10"/>
-<text class="valeur valeur-claire" x="360" y="196" text-anchor="middle">Cœur</text>
-<text class="etiquette valeur-claire" x="360" y="222" text-anchor="middle">il l'envoie</text>
-<rect class="barre barre-baisse" x="20" y="160" width="200" height="84" rx="10"/>
-<text class="valeur valeur-claire" x="120" y="196" text-anchor="middle">Muscle</text>
-<text class="etiquette valeur-claire" x="120" y="222" text-anchor="middle">il l'utilise</text>
-<path class="courbe" d="M224,82 L254,82 M246,75 L254,82 L246,89"/>
-<path class="courbe" d="M360,128 L360,154 M353,146 L360,154 L367,146"/>
-<path class="courbe" d="M254,202 L224,202 M232,195 L224,202 L232,209"/>
-<text class="etiquette etiquette-forte" x="240" y="24" text-anchor="middle">Livrer l'oxygène (vert), puis l'utiliser</text>
-<text class="etiquette etiquette-forte" x="240" y="272" text-anchor="middle">VO2 = débit du cœur × oxygène retiré du sang</text>
-<text class="etiquette" x="240" y="296" text-anchor="middle">Surtout la livraison fixe le plafond.</text>
+<svg class="graphe-lactate" viewBox="0 0 480 384" role="img" aria-labelledby="g3-t g3-d">
+<title id="g3-t">Les quatre maillons du VO2max (schéma)</title>
+<desc id="g3-d">Schéma en boucle : 1, les poumons, où l'oxygène de l'air entre dans le sang ; 2, le cœur et le sang, où l'hémoglobine le porte et le cœur l'envoie ; 3, la vascularisation, où les capillaires le livrent au muscle ; 4, les mitochondries, où le muscle s'en sert pour produire l'énergie. Puis le sang revient aux poumons. Au centre : le VO2max.</desc>
+<rect class="noeud" x="20" y="30" width="200" height="98" rx="14"/>
+<text class="noeud-nom" x="120" y="62" text-anchor="middle"><tspan class="noeud-num">1</tspan>  Poumons</text>
+<text class="noeud-texte" x="120" y="88" text-anchor="middle">l'oxygène de l'air</text>
+<text class="noeud-texte" x="120" y="111" text-anchor="middle">entre dans le sang</text>
+<rect class="noeud" x="260" y="30" width="200" height="98" rx="14"/>
+<text class="noeud-nom" x="360" y="62" text-anchor="middle"><tspan class="noeud-num">2</tspan>  Cœur et sang</text>
+<text class="noeud-texte" x="360" y="88" text-anchor="middle">l'hémoglobine le porte,</text>
+<text class="noeud-texte" x="360" y="111" text-anchor="middle">le cœur l'envoie</text>
+<rect class="noeud" x="260" y="250" width="200" height="98" rx="14"/>
+<text class="noeud-nom" x="360" y="282" text-anchor="middle"><tspan class="noeud-num">3</tspan>  Vascularisation</text>
+<text class="noeud-texte" x="360" y="308" text-anchor="middle">les capillaires le livrent</text>
+<text class="noeud-texte" x="360" y="331" text-anchor="middle">au muscle</text>
+<rect class="noeud" x="20" y="250" width="200" height="98" rx="14"/>
+<text class="noeud-nom" x="120" y="282" text-anchor="middle"><tspan class="noeud-num">4</tspan>  Mitochondries</text>
+<text class="noeud-texte" x="120" y="308" text-anchor="middle">le muscle s'en sert</text>
+<text class="noeud-texte" x="120" y="331" text-anchor="middle">pour produire l'énergie</text>
+<path class="fleche" d="M224,76 L250,76"/><path class="fleche-pointe" d="M246,69 L256,76 L246,83 Z"/>
+<path class="fleche" d="M380,132 L380,238"/><path class="fleche-pointe" d="M373,234 L380,246 L387,234 Z"/>
+<path class="fleche" d="M256,296 L230,296"/><path class="fleche-pointe" d="M234,289 L224,296 L234,303 Z"/>
+<path class="fleche" d="M100,246 L100,140"/><path class="fleche-pointe" d="M93,144 L100,132 L107,144 Z"/>
+<text class="etiquette" x="110" y="182">le sang</text><text class="etiquette" x="110" y="204">revient</text>
+<circle class="centre" cx="240" cy="188" r="46"/>
+<text class="centre-texte" x="240" y="195" text-anchor="middle">VO2max</text>
+<text class="etiquette etiquette-forte" x="240" y="372" text-anchor="middle">1 et 2 livrent l'oxygène ; 3 et 4 l'utilisent.</text>
 </svg>
                 </div>
               </div>
               <ul>
-                <li><strong>Selon la revue de Bassett et Howley, le plafond vient surtout de la livraison :</strong> le cœur et le sang, plus que la capacité du muscle à prendre l'oxygène.</li>
-                <li><strong>Le cœur :</strong> débit = fréquence cardiaque × volume d'éjection (le sang envoyé à chaque battement).</li>
-                <li><strong>Le muscle</strong> fait surtout la différence sous le maximum, sur l'endurance.</li>
+                <li><strong>1. Les poumons :</strong> l'oxygène de l'air passe dans le sang.</li>
+                <li><strong>2. Le cœur et le sang :</strong> l'hémoglobine transporte l'oxygène ; le cœur l'envoie (débit = fréquence cardiaque × volume d'éjection).</li>
+                <li><strong>3. La vascularisation :</strong> les capillaires livrent l'oxygène au muscle.</li>
+                <li><strong>4. Les mitochondries :</strong> le muscle s'en sert pour produire l'énergie.</li>
               </ul>
               <div class="encadre">
                 <p class="titre-encadre">À retenir</p>
-                <p>Faire monter le VO2max, c'est surtout faire monter ce que le cœur et le sang livrent.</p>
+                <p>Selon la revue de Bassett et Howley, c'est surtout la livraison (maillons 1 et 2) qui fixe le plafond. Le muscle (3 et 4) fait surtout la différence sous le maximum, sur l'endurance.</p>
               </div>
               <div class="sources">
                 <p>Sources : Bassett D. R., Howley E. T., <em>Medicine &amp; Science in Sports &amp; Exercise</em>, 2000 (DOI 10.1097/00005768-200001000-00012).</p>
@@ -421,7 +429,7 @@
                 </div>
 
                 <div class="question" data-id="v2" data-bonne="b">
-                  <p class="enonce"><span class="num-question">Question 2</span>Qu'est-ce qui limite surtout le VO2max ?</p>
+                  <p class="enonce"><span class="num-question">Question 2</span>Selon Bassett et Howley, qu'est-ce qui limite surtout le VO2max ?</p>
                   <div class="options">
                     <button type="button" data-choix="a">La capacité du muscle à prendre l'oxygène</button>
                     <button type="button" data-choix="b">La livraison de l'oxygène : le cœur et le sang</button>

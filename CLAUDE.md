@@ -80,8 +80,9 @@ avec des modules d'apprentissage, et un premier module interactif sur la zone 2.
   raccourcis ainsi le 2026-11-23 (générateurs gardés hors du dépôt : la page HTML fait foi).
 - **Fiche à garder (2026-11-23)** : chaque module finit par une fiche PDF d'une page, noir et or, que
   le membre télécharge (bloc `.encadre-fiche` à la fin de la dernière étape, lien `fiches/<id>.pdf`).
-  Contenu dans `outils/fiches/fiches.py` (dictionnaire `FICHES` : l'essentiel en 5 points, 4 chiffres
-  clés, un graphique repris de la page du module, « À retenir », sources courtes) ; générer avec
+  Contenu dans `outils/fiches/fiches.py` (dictionnaire `FICHES` : l'essentiel en 3 points, 3 repères
+  qui expliquent le concept — pas de résultats d'études en %, demande de Tony —, une figure reprise de la
+  page du module, « À retenir » en une phrase, sources courtes ; fiche légère, beaucoup d'air) ; générer avec
   `python3 outils/fiches/fiches.py [<id>]` (Chrome sans interface) → `public/modules/fiches/<id>.pdf`,
   servi derrière la connexion comme les modules. Le script refuse une fiche de plus d'une page. La fiche
   ne dit rien que le module ne dit pas : changer un module = régénérer sa fiche.

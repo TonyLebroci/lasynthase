@@ -1121,3 +1121,17 @@
   color: var(--charcoal);
 }
 .encadre.encadre-fiche .btn:hover { background: var(--cream); border-color: var(--cream); color: var(--charcoal); }
+
+/* Schéma en boucle des quatre maillons du VO2max (2026-11-23) : noir et or */
+.graphe-lactate .noeud { fill: var(--charcoal); }
+.graphe-lactate .noeud-nom { font-size: 16px; font-weight: 500; fill: var(--cream); }
+.graphe-lactate .noeud-num { fill: var(--gold); font-family: var(--font-serif); font-size: 20px; }
+.graphe-lactate .noeud-texte { font-size: 13px; fill: var(--cream); fill-opacity: 0.85; }
+.graphe-lactate .fleche { stroke: var(--gold); stroke-width: 3; fill: none; }
+.graphe-lactate .fleche-pointe { fill: var(--gold); }
+.graphe-lactate .centre { fill: none; stroke: var(--gold); stroke-width: 2; }
+.graphe-lactate .centre-texte { font-family: var(--font-serif); font-size: 22px; font-style: italic; fill: var(--charcoal); }
+@media (max-width: 720px) {
+  .graphe-lactate .noeud-nom { font-size: 18px; }
+  .graphe-lactate .noeud-texte { font-size: 15px; }
+}
