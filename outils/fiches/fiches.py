@@ -72,7 +72,7 @@ FICHES = {
       "<b>L'aérobie la recharge</b>, avec l'oxygène : après un sprint de 30 s à fond, il faut environ une minute pour en refaire la moitié.",
     ],
     "chiffres": [("≈ 10 s", "au 2e sprint, elle est presque toute utilisée"), ("≈ 1 min", "pour en refaire la moitié après 30 s à fond"), ("Circulation", "bloquée : pas de recharge")],
-    "graphe": ("h2-t", "La navette de la créatine phosphate (schéma)"), "taille": "width:5.8in; max-height:2.9in;",
+    "graphe": ("h2-t", "La créatine phosphate en action (schéma)"), "taille": "width:5.8in; max-height:2.9in;",
     "retenir": "La créatine phosphate fournit le coup de fouet ; c'est l'aérobie qui la recharge.",
     "sources": "Gastin P. B., Sports Med, 2001 ; Wallimann T. et al., Biochem J, 1992 ; Harris R. C. et al., Pflügers Arch, 1976 ; Bogdanis G. C. et al., J Physiol, 1995, et J Appl Physiol, 1996.",
   },
@@ -142,6 +142,14 @@ ol.essentiel b { font-weight:500; color:var(--noir); }
 .graphe-lactate .fleche-pointe { fill:var(--or); }
 .graphe-lactate .centre { fill:none; stroke:var(--or); stroke-width:2; }
 .graphe-lactate .centre-texte { font-family:var(--font-serif); font-size:22px; font-style:italic; fill:var(--noir); }
+.graphe-lactate .muscle { fill:var(--or); fill-opacity:0.35; stroke:var(--or-fonce); stroke-width:2; }
+.graphe-lactate .muscle-strie { stroke:var(--or-fonce); stroke-width:1.2; stroke-opacity:0.45; }
+.graphe-lactate .tendon { stroke:var(--gris); stroke-width:4; stroke-linecap:round; }
+.graphe-lactate .muscle-texte { font-family:var(--font-serif); font-size:22px; font-style:italic; fill:var(--noir); }
+.graphe-lactate .muscle-sous { font-size:13px; fill:var(--gris); }
+.graphe-lactate .noeud-gros { font-size:20px; }
+.graphe-lactate .noeud-or { fill:var(--or-fonce); }
+.graphe-lactate .fleche-forte { stroke-width:3.5; }
 .graphe-lactate .barre { fill:#d8c89f; }
 .graphe-lactate .barre-forte { fill:var(--or); }
 .graphe-lactate .barre-baisse { fill:var(--charcoal); }

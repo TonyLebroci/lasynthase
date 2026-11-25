@@ -1135,3 +1135,17 @@
   .graphe-lactate .noeud-nom { font-size: 18px; }
   .graphe-lactate .noeud-texte { font-size: 15px; }
 }
+
+/* Schéma « la créatine phosphate en action », module 5 (2026-11-25) : un muscle dessiné */
+.graphe-lactate .muscle { fill: var(--gold); fill-opacity: 0.35; stroke: var(--gold-dark); stroke-width: 2; }
+.graphe-lactate .muscle-strie { stroke: var(--gold-dark); stroke-width: 1.2; stroke-opacity: 0.45; }
+.graphe-lactate .tendon { stroke: var(--charcoal-soft); stroke-width: 4; stroke-linecap: round; }
+.graphe-lactate .muscle-texte { font-family: var(--font-serif); font-size: 22px; font-style: italic; fill: var(--charcoal); }
+.graphe-lactate .muscle-sous { font-size: 13px; fill: var(--charcoal-soft); }
+.graphe-lactate .noeud-gros { font-size: 20px; }
+.graphe-lactate .noeud-or { fill: var(--gold-dark); }
+.graphe-lactate .fleche-forte { stroke-width: 3.5; }
+@media (max-width: 720px) {
+  .graphe-lactate .muscle-sous { font-size: 15px; }
+  .graphe-lactate .noeud-gros { font-size: 22px; }
+}
