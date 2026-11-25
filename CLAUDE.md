@@ -72,7 +72,7 @@ avec des modules d'apprentissage, et un premier module interactif sur la zone 2.
   et les questions (contenu tiré du coffre, sources citées, rien d'inventé), ajouter sa carte
   dans `espace.html` avec `data-module` et `data-total` = nombre d'étapes + nombre de questions.
   Mettre aussi `data-sujet` sur `#module` (« de la zone 2 », « du seuil ») : il termine le message
-  du bilan des questions. Modules en ligne : `zone-2` (module 1), `seuil` (module 2, 2026-11-19), `30-15` (module 3, 2026-11-20), `vo2max` (module 4, 2026-11-22), `sprint` (module 5, écrit le 2026-11-23, pas encore en ligne).
+  du bilan des questions. Modules en ligne : `zone-2` (module 1), `seuil` (module 2, 2026-11-19), `30-15` (module 3, 2026-11-20), `vo2max` (module 4, 2026-11-22), `sprint` (module 5, 2026-11-25).
 - **Modules courts (règle de Tony, 2026-11-23)** : « j'ai horreur des cours trop longs pour rien et de la
   dilution de valeur ». Simples, concis, pertinents : 5 étapes de contenu au plus, une idée par étape,
   les graphiques qui portent le message seulement, 1 outil au plus, 6 questions environ. Couper les
