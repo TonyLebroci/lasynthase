@@ -39,6 +39,24 @@ works for quick checks, but prefer a local server to match production behavior.
 Demande de Tony : un bouton qui mène à une page de connexion / création de compte, un espace
 avec des modules d'apprentissage, et un premier module interactif sur la zone 2.
 
+- **PORTE UNIQUE (2026-11-25, demande de Tony) — prime sur les puces plus bas.** « Les seuls comptes qui
+  peuvent être créés sont ceux de mes athlètes, qui me paient. » L'espace s'ouvre par **Cloudflare Access**
+  (courriel + code, aucun mot de passe), la même application Access que l'app d'entraînement
+  (`olympiatoppen-app`, équipe `ancient-mouse-d974`, règle « Tony et Max ») : une seule connexion pour les
+  modules et le tableau de bord (`app.lasynthase.ca`). Ajouter un athlète = ajouter son courriel à la règle
+  d'Access (Claude, dans le tableau de bord Cloudflare) ; forfait Zero Trust Free, 50 places.
+  `src/worker.js` vérifie le jeton signé (`Cf-Access-Jwt-Assertion`, secrets `ACCESS_EQUIPE` et `ACCESS_AUD`,
+  même code que `olympiatoppen-app/tableau/acces.ts`) ; sans identité : 403 « Espace réservé » (pages) ou
+  401 (API), jamais ouvert par défaut. Le compte D1 est créé à la première visite (nom vide, `mot_de_passe`
+  = « acces »). `/api/inscription`, `/api/connexion`, `/api/mot-de-passe/*` → 410 ; mots de passe, Resend et
+  « mot de passe oublié » retirés du code (historique git). Effacer son compte : écrire SUPPRIMER (efface la
+  progression ; l'accès se retire dans Access). « Mon espace » a une section « Mon entraînement » (liens
+  `a[data-app]`, réécrits par le Worker vers `URL_APP`, par défaut `https://app.lasynthase.ca`). Destinations
+  Access à couvrir : `tony.lasynthase.ca/espace*`, `/modules`, `/api/moi`, `/api/progression`, `/api/compte`.
+  Essai local : `npx wrangler dev --port 8813 --var ACCES_DEV_COURRIEL:<courriel> --var URL_APP:http://127.0.0.1:8812`
+  (localhost seulement). Conséquence : une vérification en ligne d'un module demande une vraie connexion
+  (code reçu par courriel) ; Claude vérifie en local, Tony confirme en ligne.
+
 - **Serveur** : `src/worker.js`. `wrangler.jsonc` → `run_worker_first: ["/api/*", "/espace*", "/modules/*"]` :
   seules ces adresses passent par le Worker, tout le reste est servi en statique comme avant.
   `/espace*` et `/modules/*` exigent une session ; sinon 302 vers `/connexion.html?retour=…`.

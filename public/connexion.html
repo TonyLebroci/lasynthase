@@ -40,76 +40,21 @@
       <div class="hero-blob"></div>
       <div class="container compte-grille">
         <div class="compte-intro">
-          <p class="eyebrow">Espace membre</p>
-          <h1>Apprendre à votre rythme</h1>
-          <p class="lead">Votre compte donne accès aux modules d'apprentissage de La Synthase : de la théorie claire, des outils à essayer et des questions pour vérifier ce que vous avez retenu. Votre progression est sauvegardée.</p>
+          <p class="eyebrow">Espace des athlètes</p>
+          <h1>Réservé aux athlètes que j'accompagne</h1>
+          <p class="lead">Mon espace en ligne s'ouvre quand on s'entraîne avec moi. On y trouve son tableau de bord d'entraînement et les modules d'apprentissage : comprendre la zone 2, le seuil, le VO2max, et pourquoi chaque séance est là.</p>
           <ul class="compte-atouts">
-            <li>Premier module : la zone 2, l'endurance de base</li>
-            <li>Outils interactifs et questions corrigées sur-le-champ</li>
-            <li>Reprenez là où vous étiez, sur n'importe quel appareil</li>
+            <li>Son tableau de bord : objectif, phases, semaine en cours, ce qui s'en vient</li>
+            <li>Les modules d'apprentissage, avec outils et questions</li>
+            <li>Une seule connexion, par courriel, sans mot de passe</li>
           </ul>
         </div>
 
         <div class="carte-compte">
-          <div class="onglets" role="tablist" data-actif="connexion">
-            <button type="button" role="tab" id="onglet-connexion" aria-controls="form-connexion" aria-selected="true">Se connecter</button>
-            <button type="button" role="tab" id="onglet-inscription" aria-controls="form-inscription" aria-selected="false">Créer un compte</button>
-            <span class="curseur" aria-hidden="true"></span>
-          </div>
-
-          <form class="form-compte" id="form-connexion" role="tabpanel" aria-labelledby="onglet-connexion" novalidate>
-            <div class="field">
-              <label for="connexion-courriel">Courriel</label>
-              <input type="email" id="connexion-courriel" name="courriel" autocomplete="email" required />
-            </div>
-            <div class="field">
-              <label for="connexion-mdp">Mot de passe</label>
-              <div class="champ-mdp">
-                <input type="password" id="connexion-mdp" name="motDePasse" autocomplete="current-password" required />
-                <button type="button" class="voir-mdp" aria-controls="connexion-mdp">Afficher</button>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Se connecter</button>
-            <p class="message-form" role="alert"></p>
-            <p class="note-compte"><a href="#oubli" id="lien-oubli">Mot de passe oublié ?</a></p>
-          </form>
-
-          <form class="form-compte" id="form-oubli" hidden novalidate>
-            <p class="intro-form">Entrez le courriel de votre compte. Vous recevrez un lien pour choisir un nouveau mot de passe.</p>
-            <div class="field">
-              <label for="oubli-courriel">Courriel</label>
-              <input type="email" id="oubli-courriel" name="courriel" autocomplete="email" required />
-            </div>
-            <button type="submit" class="btn btn-primary">Recevoir le lien</button>
-            <p class="message-form" role="alert"></p>
-            <p class="note-compte"><a href="#connexion" id="retour-connexion">Retour à la connexion</a></p>
-          </form>
-
-          <form class="form-compte" id="form-inscription" role="tabpanel" aria-labelledby="onglet-inscription" hidden novalidate>
-            <div class="field">
-              <label for="inscription-nom">Prénom et nom</label>
-              <input type="text" id="inscription-nom" name="nom" autocomplete="name" maxlength="80" required />
-            </div>
-            <div class="field">
-              <label for="inscription-courriel">Courriel</label>
-              <input type="email" id="inscription-courriel" name="courriel" autocomplete="email" required />
-            </div>
-            <div class="field">
-              <label for="inscription-mdp">Mot de passe</label>
-              <div class="champ-mdp">
-                <input type="password" id="inscription-mdp" name="motDePasse" autocomplete="new-password" minlength="10" required />
-                <button type="button" class="voir-mdp" aria-controls="inscription-mdp">Afficher</button>
-              </div>
-              <div class="force-mdp" aria-hidden="true"><span></span></div>
-              <p class="aide-champ" id="aide-mdp">Au moins 10 caractères.</p>
-            </div>
-            <label class="case-consentement">
-              <input type="checkbox" name="consentement" required />
-              <span>J'ai lu la <a href="confidentialite.html#compte" target="_blank" rel="noopener">politique de confidentialité</a> et j'accepte que mon nom, mon courriel et ma progression soient conservés pour faire fonctionner mon compte.</span>
-            </label>
-            <button type="submit" class="btn btn-primary">Créer mon compte</button>
-            <p class="message-form" role="alert"></p>
-          </form>
+          <h2 style="margin-top: 0;">Vous êtes un de mes athlètes ?</h2>
+          <p>Entrez avec le courriel que vous m'avez donné. Un code vous est envoyé par courriel ; il suffit de le recopier. Aucun mot de passe.</p>
+          <a href="/espace" class="btn btn-primary">Entrer dans mon espace</a>
+          <p class="note-compte" style="margin-top: 1.5rem;">Pas encore athlète ? Les comptes s'ouvrent seulement pour les athlètes que j'entraîne. <a href="candidature.html">Voir le projet pilote</a> ou <a href="contact.html">m'écrire</a>.</p>
         </div>
       </div>
     </section>
@@ -151,6 +96,6 @@
   </footer>
 
   <script src="js/main.js"></script>
-  <script src="js/compte.js"></script>
+  
 </body>
 </html>

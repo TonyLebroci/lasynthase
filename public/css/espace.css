@@ -1149,3 +1149,17 @@
   .graphe-lactate .muscle-sous { font-size: 15px; }
   .graphe-lactate .noeud-gros { font-size: 22px; }
 }
+
+/* ---------- Mon entraînement (porte unique, 2026-11-25) : liens vers l'app d'entraînement ---------- */
+.titre-section-espace { font-family: var(--font-serif); font-weight: 500; font-size: clamp(1.6rem, 3vw, 2.1rem); margin: 0 0 1.25rem; }
+.entrainement-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.entrainement-carte {
+  display: flex; flex-direction: column; gap: .4rem; padding: 1.6rem 1.6rem 1.5rem; border-radius: 14px;
+  background: var(--charcoal); color: var(--cream); text-decoration: none; border-top: 4px solid var(--gold, #ab8a4b);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.entrainement-carte:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(0,0,0,.18); }
+.entrainement-carte .numero { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; opacity: .75; }
+.entrainement-carte strong { font-family: var(--font-serif); font-weight: 500; font-size: 1.5rem; line-height: 1.2; }
+.entrainement-carte span:last-child { opacity: .85; line-height: 1.5; }
+.entrainement-carte span:last-child::after { content: " →"; }

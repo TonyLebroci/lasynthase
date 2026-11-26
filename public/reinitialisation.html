@@ -37,37 +37,12 @@
   </header>
 
   <main>
-    <section class="hero compte-hero">
-      <div class="hero-blob"></div>
-      <div class="container compte-grille">
-        <div class="compte-intro">
-          <p class="eyebrow">Espace membre</p>
-          <h1>Nouveau mot de passe</h1>
-          <p class="lead">Choisissez un nouveau mot de passe. Vous serez connecté aussitôt, et vos connexions ouvertes sur d'autres appareils seront fermées.</p>
-        </div>
-
-        <div class="carte-compte">
-          <form class="form-compte" id="form-reinitialisation" novalidate>
-            <div class="field">
-              <label for="nouveau-mdp">Nouveau mot de passe</label>
-              <div class="champ-mdp">
-                <input type="password" id="nouveau-mdp" name="motDePasse" autocomplete="new-password" minlength="10" required />
-                <button type="button" class="voir-mdp" aria-controls="nouveau-mdp">Afficher</button>
-              </div>
-              <p class="aide-champ">Au moins 10 caractères.</p>
-            </div>
-            <div class="field">
-              <label for="confirmation-mdp">Le même, encore une fois</label>
-              <div class="champ-mdp">
-                <input type="password" id="confirmation-mdp" name="confirmation" autocomplete="new-password" minlength="10" required />
-                <button type="button" class="voir-mdp" aria-controls="confirmation-mdp">Afficher</button>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Enregistrer et me connecter</button>
-            <p class="message-form" role="alert"></p>
-            <p class="note-compte"><a href="connexion.html#oubli">Demander un nouveau lien</a></p>
-          </form>
-        </div>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Espace des athlètes</p>
+        <h1>Plus de mot de passe</h1>
+        <p class="lead">Depuis novembre 2026, on entre dans l'espace avec son courriel et un code reçu par courriel. Il n'y a plus de mot de passe à choisir.</p>
+        <a href="connexion.html" class="btn btn-primary">Comment entrer</a>
       </div>
     </section>
   </main>
@@ -108,6 +83,6 @@
   </footer>
 
   <script src="js/main.js"></script>
-  <script src="js/compte.js"></script>
+  
 </body>
 </html>

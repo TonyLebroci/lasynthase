@@ -40,13 +40,32 @@
       <div class="hero-blob"></div>
       <div class="container">
         <p class="eyebrow">Mon espace</p>
-        <h1>Vos modules d'apprentissage</h1>
-        <p class="lead">Bonjour <span id="nom-membre">et bienvenue</span>. Reprenez là où vous étiez, ou commencez un nouveau module.</p>
+        <h1>Votre espace d'athlète</h1>
+        <p class="lead">Bonjour <span id="nom-membre">et bienvenue</span>. Votre entraînement d'abord, puis les modules pour comprendre pourquoi chaque séance est là.</p>
+      </div>
+    </section>
+
+    <section style="padding-top: 30px; padding-bottom: 10px;">
+      <div class="container">
+        <h2 class="titre-section-espace">Mon entraînement</h2>
+        <div class="entrainement-grille">
+          <a class="entrainement-carte" data-app="/tableau/parcours" href="https://app.lasynthase.ca/tableau/parcours">
+            <span class="numero">Tableau de bord</span>
+            <strong>Mon parcours de la saison</strong>
+            <span>Mon objectif, les phases, où j'en suis, ce qui s'en vient, ma montée-étalon.</span>
+          </a>
+          <a class="entrainement-carte" data-app="/tableau/matin" href="https://app.lasynthase.ca/tableau/matin">
+            <span class="numero">Chaque matin</span>
+            <strong>Ma page du matin</strong>
+            <span>Mon feu du jour, ma séance et mes questions à mon coach.</span>
+          </a>
+        </div>
       </div>
     </section>
 
     <section style="padding-top: 30px;">
       <div class="container">
+        <h2 class="titre-section-espace">Mes modules d'apprentissage</h2>
         <div class="modules-grille">
           <article class="module-carte" data-module="zone-2" data-total="21">
             <div class="module-visuel" aria-hidden="true">
@@ -198,13 +217,13 @@
           </div>
           <div>
             <h3>Mes données</h3>
-            <p>Votre compte ne garde que votre nom, votre courriel et votre progression. Vous pouvez le supprimer vous-même, en tout temps : tout est effacé aussitôt.</p>
+            <p>Sur ce site, votre compte ne garde que votre courriel et votre progression dans les modules. Vous pouvez effacer cette progression vous-même, en tout temps. Pour fermer votre accès à l'espace, écrivez-moi.</p>
             <details class="zone-danger">
-              <summary>Supprimer mon compte</summary>
+              <summary>Effacer mon compte et ma progression</summary>
               <form id="form-suppression" class="form-compte" style="padding: 0;" novalidate>
                 <div class="field">
-                  <label for="suppression-mdp">Confirmez avec votre mot de passe</label>
-                  <input type="password" id="suppression-mdp" autocomplete="current-password" required />
+                  <label for="suppression-confirmation">Écrivez SUPPRIMER pour confirmer</label>
+                  <input type="text" id="suppression-confirmation" autocomplete="off" required />
                 </div>
                 <button type="submit" class="btn btn-danger">Supprimer définitivement</button>
                 <p class="message-form" role="alert"></p>
