@@ -112,6 +112,17 @@ avec des modules d'apprentissage, et un premier module interactif sur la zone 2.
   `python3 outils/fiches/fiches.py [<id>]` (Chrome sans interface) → `public/modules/fiches/<id>.pdf`,
   servi derrière la connexion comme les modules. Le script refuse une fiche de plus d'une page. La fiche
   ne dit rien que le module ne dit pas : changer un module = régénérer sa fiche.
+- **Modules en note (2026-11-26, demande de Tony : peaufiner un module déjà en ligne)** : chaque module a sa
+  copie de travail dans `Modules en note/Module N — <titre>.md` (hors `public/`, jamais servie), produite
+  par `python3 outils/module-en-note.py <id>` à partir de la page. **La page HTML reste la seule source
+  publiée** ; la note en est le miroir lisible, où Tony écrit (nouvelle section, mot changé, idée en vrac
+  marquée « À FAIRE : »). Outils et graphiques n'y figurent que par leur titre, leur consigne et leurs cartes.
+  Quand Tony dit **« publie le module <nom> »** : (1) voir ses changements avec `git diff` sur la note (ou
+  comparer à `python3 outils/module-en-note.py <id> --stdout`) ; (2) les reporter dans la page, aux règles des
+  modules (concis, sources, rien d'inventé ; un « À FAIRE » se rédige et se source, ou se signale) ; mettre à
+  jour « Étape N sur M », `data-total` de la carte dans `espace.html`, et la fiche PDF si l'essentiel change ;
+  (3) vérifier en local ; (4) régénérer la note (elle redevient le miroir exact), commit page + note ; (5) push
+  seulement avec l'accord de Tony. Un nouveau module = générer sa note dès sa mise en ligne.
 - **Le bouton de l'en-tête** (`a.btn-compte[data-compte]`, juste avant `.nav-toggle`) est dans
   **toutes** les pages : toute nouvelle page doit le reprendre (chemin `../` dans `articles/`
   et `modules/`, `/` dans `404.html`).
