@@ -70,7 +70,8 @@
     var b = formSuppression.querySelector('button[type="submit"]');
     b.disabled = true;
     appel("DELETE", "/api/compte", { confirmation: confirmation }).then(function (r) {
-      if (r.ok) { location.assign("/index.html"); return; }
+      // Compte effacé : on ferme aussi la connexion Cloudflare, sinon la visite suivante le recréerait aussitôt.
+      if (r.ok) { location.assign("/cdn-cgi/access/logout"); return; }
       b.disabled = false;
       message(formSuppression, r.corps.erreur || "Suppression impossible pour l'instant.");
     });

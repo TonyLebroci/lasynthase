@@ -7,6 +7,10 @@
   "name": "lasynthase",
   "compatibility_date": "2026-08-24",
   "main": "src/worker.js",
+  // Pas d'adresse d'aperçu par version (2026-11-25) : l'espace ne s'ouvre que sur tony.lasynthase.ca.
+  "preview_urls": false,
+  // Pas d'adresse workers.dev non plus : une seule porte, tony.lasynthase.ca, derrière Cloudflare Access.
+  "workers_dev": false,
   "assets": {
     "directory": "./public/",
     "binding": "ASSETS",

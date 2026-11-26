@@ -57,12 +57,16 @@ async function pageProtegee(request, env, url) {
   // En ligne, Cloudflare Access arrête la personne avant le Worker. Arriver ici sans identité veut dire
   // qu'Access ne protège pas cette adresse : on refuse, on n'ouvre jamais par défaut.
   if (!utilisateur) return reserve();
-  const reponse = await env.ASSETS.fetch(request);
+  const brute = await env.ASSETS.fetch(request);
   // Les liens vers l'app d'entraînement (a[data-app]) suivent son adresse (variable URL_APP).
   const urlApp = /^https:\/\/[a-z0-9.-]+$|^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(env.URL_APP || "") ? env.URL_APP : URL_APP_PAR_DEFAUT;
-  const reecrite = new HTMLRewriter().on("a[data-app]", {
-    element(e) { e.setAttribute("href", urlApp + (e.getAttribute("data-app") || "/tableau/parcours")); },
-  }).transform(reponse);
+  // Seulement sur les pages HTML : une fiche PDF passe telle quelle (relecture de Gemini, 2026-11-25).
+  const estHtml = (brute.headers.get("Content-Type") || "").includes("text/html");
+  const reecrite = estHtml
+    ? new HTMLRewriter().on("a[data-app]", {
+        element(e) { e.setAttribute("href", urlApp + (e.getAttribute("data-app") || "/tableau/parcours")); },
+      }).transform(brute)
+    : brute;
   const r = new Response(reecrite.body, reecrite);
   r.headers.set("Cache-Control", "private, no-store");
   r.headers.set("X-Robots-Tag", "noindex");
@@ -260,8 +264,8 @@ function octetsB64url(s) {
   return Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
 }
 
-async function clesPubliques(equipe) {
-  if (cacheCles && cacheCles.equipe === equipe && cacheCles.expire > Date.now()) return cacheCles.cles;
+async function clesPubliques(equipe, forcer) {
+  if (!forcer && cacheCles && cacheCles.equipe === equipe && cacheCles.expire > Date.now()) return cacheCles.cles;
   const r = await fetch(`https://${equipe}/cdn-cgi/access/certs`);
   if (!r.ok) return [];
   const { keys } = await r.json();
@@ -286,12 +290,14 @@ async function identiteAcces(request, env) {
   try {
     const entete = JSON.parse(new TextDecoder().decode(octetsB64url(entete64)));
     const charge = JSON.parse(new TextDecoder().decode(octetsB64url(charge64)));
-    if (entete.alg !== "RS256") return null;
+    if (entete.alg !== "RS256" || typeof entete.kid !== "string") return null;
     const aud = Array.isArray(charge.aud) ? charge.aud : [charge.aud];
     if (!aud.includes(env.ACCESS_AUD)) return null;
     if (charge.iss !== `https://${env.ACCESS_EQUIPE}`) return null;
     if (typeof charge.exp !== "number" || charge.exp * 1000 <= Date.now()) return null;
-    const jwk = (await clesPubliques(env.ACCESS_EQUIPE)).find((k) => k.kid === entete.kid);
+    // Clé inconnue : Cloudflare a peut-être changé ses clés ; on relit la liste une fois avant de refuser.
+    const jwk = (await clesPubliques(env.ACCESS_EQUIPE)).find((k) => k.kid === entete.kid)
+      || (await clesPubliques(env.ACCESS_EQUIPE, true)).find((k) => k.kid === entete.kid);
     if (!jwk) return null;
     const cle = await crypto.subtle.importKey("jwk", jwk, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["verify"]);
     const signe = await crypto.subtle.verify("RSASSA-PKCS1-v1_5", cle, octetsB64url(sig64), new TextEncoder().encode(`${entete64}.${charge64}`));
