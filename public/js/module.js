@@ -166,9 +166,11 @@
   /* ---------- Sauvegarde dans le compte ---------- */
   var minuterie = null;
   var pret = false;
+  // Module ouvert à tous (/gratuit/…, 2026-11-26) : aucun compte, rien n'est envoyé ni gardé.
+  var visiteur = document.body.dataset.visiteur === "1";
 
   function sauvegarder() {
-    if (!pret) return;
+    if (!pret || visiteur) return;
     clearTimeout(minuterie);
     minuterie = setTimeout(envoyer, 500);
   }
@@ -207,6 +209,13 @@
     majScore(false);
     pret = true;
     allerA(etat.etape, false);
+  }
+
+  if (visiteur) {
+    document.body.classList.add("visiteur");
+    reprendre(null);
+    etatSauvegarde.textContent = "Module ouvert à tous : votre progression n'est pas gardée.";
+    return;
   }
 
   fetch("/api/moi", { credentials: "same-origin" }).then(function (r) {

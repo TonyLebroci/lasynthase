@@ -24,7 +24,7 @@
 
     // Seules ces adresses passent par le Worker ; tout le reste est servi
     // directement, comme avant.
-    "run_worker_first": ["/api/*", "/espace*", "/modules/*"]
+    "run_worker_first": ["/api/*", "/espace*", "/modules/*", "/gratuit/*"]
   },
   "d1_databases": [
     {

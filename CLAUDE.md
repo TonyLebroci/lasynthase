@@ -56,6 +56,14 @@ avec des modules d'apprentissage, et un premier module interactif sur la zone 2.
   Essai local : `npx wrangler dev --port 8813 --var ACCES_DEV_COURRIEL:<courriel> --var URL_APP:http://127.0.0.1:8812`
   (localhost seulement). Conséquence : une vérification en ligne d'un module demande une vraie connexion
   (code reçu par courriel) ; Claude vérifie en local, Tony confirme en ligne.
+- **Module ouvert à tous (2026-11-26, décision de Tony, option C)** : un seul module sert d'échantillon pour
+  attirer des athlètes, la zone 2, servi à **`/gratuit/zone-2`** (et sa fiche à `/gratuit/fiches/zone-2.pdf`)
+  par le Worker à partir du même fichier que `/modules/zone-2` (aucune copie). Liste fermée `MODULES_GRATUITS`
+  dans `src/worker.js` ; hors liste → 404. La page reçoit `data-visiteur="1"` sur `body`, sans `noindex`, avec une
+  canonique ; `js/module.js` n'appelle alors aucune API et ne sauvegarde rien ; `.encadre-visiteur` (invitation à
+  écrire) s'affiche, `.membre-seulement` se cache. `/modules/` reste entièrement réservé : aucune exception dans
+  Access. Dans le plan du site. Ouvrir un autre module = l'ajouter à `MODULES_GRATUITS` (décision de Tony).
+  Note : `06 Décisions/Décisions/2026-11-26 — Plateforme d'apprentissage ouverte ou réservée.md`.
 
 - **Serveur** : `src/worker.js`. `wrangler.jsonc` → `run_worker_first: ["/api/*", "/espace*", "/modules/*"]` :
   seules ces adresses passent par le Worker, tout le reste est servi en statique comme avant.

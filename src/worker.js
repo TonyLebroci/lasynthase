@@ -39,6 +39,7 @@ export default {
     const url = new URL(request.url);
     try {
       if (url.pathname.startsWith("/api/")) return await api(request, env, url, ctx);
+      if (url.pathname.startsWith("/gratuit/")) return await moduleGratuit(request, env, url);
       if (url.pathname.startsWith("/espace") || url.pathname.startsWith("/modules/")) {
         return await pageProtegee(request, env, url);
       }
@@ -76,6 +77,38 @@ async function pageProtegee(request, env, url) {
 }
 
 const URL_APP_PAR_DEFAUT = "https://app.lasynthase.ca";
+
+/* ---------- Module ouvert à tous (décision de Tony, 2026-11-26) ----------
+ * Un seul module sert d'échantillon pour attirer des athlètes : la zone 2. Il est servi à /gratuit/zone-2
+ * à partir du même fichier que /modules/zone-2 (aucune copie), sans compte et sans sauvegarde. /modules/
+ * reste entièrement réservé (Cloudflare Access et le Worker). Liste fermée : une adresse hors liste → 404.
+ * Note de décision : 06 Décisions/Décisions/2026-11-26 — Plateforme d'apprentissage ouverte ou réservée. */
+const MODULES_GRATUITS = {
+  "/gratuit/zone-2": "/modules/zone-2",
+  "/gratuit/fiches/zone-2.pdf": "/modules/fiches/zone-2.pdf",
+};
+
+async function moduleGratuit(request, env, url) {
+  const chemin = url.pathname.replace(/\/$/, "");
+  const source = Object.prototype.hasOwnProperty.call(MODULES_GRATUITS, chemin) ? MODULES_GRATUITS[chemin] : null;
+  if (!source || request.method !== "GET") {
+    const page404 = await env.ASSETS.fetch(new Request(new URL("/404", url), { method: "GET" }));
+    return new Response(page404.body, { status: 404, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
+  }
+  const brute = await env.ASSETS.fetch(new Request(new URL(source, url), { method: "GET" }));
+  const estHtml = (brute.headers.get("Content-Type") || "").includes("text/html");
+  const reponse = estHtml
+    ? new HTMLRewriter()
+        .on('meta[name="robots"]', { element(e) { e.remove(); } })
+        .on("head", { element(e) { e.append(`<link rel="canonical" href="https://tony.lasynthase.ca${chemin}" />`, { html: true }); } })
+        .on("body", { element(e) { e.setAttribute("data-visiteur", "1"); } })
+        .transform(brute)
+    : brute;
+  const r = new Response(reponse.body, reponse);
+  r.headers.set("Cache-Control", "public, max-age=300");
+  r.headers.delete("X-Robots-Tag");
+  return r;
+}
 
 function reserve() {
   const html =
