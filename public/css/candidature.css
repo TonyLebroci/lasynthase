@@ -1070,3 +1070,43 @@
   .bilan-objectif .fiche-detaillee .chaine li::before { width: 16pt; height: 16pt; top: 0; }
   .fiche-reperes, .jauge-confiance { break-inside: avoid; }
 }
+
+/* ---------- Le système en bref (2026-11-27) ---------- */
+.systeme { padding: 20px 0 60px; }
+.systeme h2, .systeme-point h3 { font-family: var(--font-serif); font-weight: 400; color: var(--charcoal); }
+.systeme h2 { font-size: 2.6rem; margin: 0 0 36px; }
+.systeme-grille {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 48px;
+}
+.systeme-point { border-top: 1px solid var(--line); padding-top: 20px; }
+.systeme-num {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin: 0 0 8px;
+}
+.systeme-point h3 { font-size: 2rem; margin: 0 0 14px; }
+.systeme-point ul { list-style: none; padding: 0; margin: 0; }
+.systeme-point li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--charcoal-soft);
+}
+.systeme-point li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 7px;
+  height: 1px;
+  background: var(--gold);
+}
+.systeme-depart { margin-top: 44px; }
+@media (max-width: 900px) { .systeme-grille { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .systeme-grille { grid-template-columns: 1fr; gap: 28px; } }

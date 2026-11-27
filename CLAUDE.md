@@ -195,9 +195,12 @@ structure de l'objectif, que la personne soit retenue ou non.
   `node outils/candidatures.mjs --selection --nom` ; `--liste-attente`. Essai local d'une date :
   `wrangler dev --var CANDIDATURE_DATE_ESSAI:<ISO>` (jamais en ligne).
 - **Page épurée (2026-11-27, Tony)** : en haut, seulement « Mesurer. Analyser. Optimiser. » et la phrase
-  des 15 minutes et des 2 fiches motivationnelles. Retirés : l'étape d'accueil « Le projet » (pilote,
-  critères, ce que reçoit l'athlète) et le paragraphe des sources ; reste la mention « non affilié ».
-  L'option de candidature de la dernière étape reste (elle se ferme seule après le 28 nov.).
+  des 15 minutes et des 2 fiches motivationnelles. Puis, avant la première question, « Le système en
+  bref » (section `.systeme`, hors du formulaire) : six gros points (philosophie, structure, analyse,
+  suivi, accès, avantages), tirés du Plan directeur d'Olympiatoppen Open ; ni prix, ni places, ni dates.
+  Retirés : l'étape d'accueil « Le projet » (le questionnaire commence à l'étape 1) et le paragraphe
+  des sources ; reste la mention « non affilié ». L'option de candidature de la dernière étape reste
+  (elle se ferme seule après le 28 nov.).
 - **Les fiches sont privées** : construites dans le navigateur, jamais envoyées ; la citation
   personnelle reste dans le navigateur (`citationPerso`). Seules les réponses partent avec la
   candidature. La page le dit : ne jamais envoyer les fiches au serveur.
