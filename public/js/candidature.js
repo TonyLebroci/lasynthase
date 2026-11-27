@@ -273,7 +273,7 @@
     b.type = "button";
     var puce = document.createElement("span");
     puce.className = "puce";
-    puce.textContent = i === 0 ? "·" : i === etapes.length - 1 ? "✉" : String(i);
+    puce.textContent = i === etapes.length - 1 ? "✉" : String(i + 1);
     var titre = document.createElement("span");
     titre.textContent = etape.getAttribute("data-titre");
     b.appendChild(puce);
@@ -293,7 +293,7 @@
     });
     courante = i;
     precedent.style.visibility = i === 0 ? "hidden" : "visible";
-    suivant.textContent = i === 0 ? "Commencer" : i === etapes.length - 1 ? texteDernierBouton() : "Suivant";
+    suivant.textContent = i === etapes.length - 1 ? texteDernierBouton() : "Suivant";
     messageEnvoi.textContent = "";
     if (etapes[i].getAttribute("data-titre") === "L'écart") lectureEcart();
     if (defiler) form.scrollIntoView({ behavior: "smooth", block: "start" });
