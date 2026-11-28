@@ -205,6 +205,15 @@ structure de l'objectif, que la personne soit retenue ou non.
   (`jour_j`, phrases entières jusqu'à 230 caractères, `court()`). Ordre : objectif, date, jour J, jalon, cible,
   pourquoi, plan, citation. Mesuré : réponses normales et longues sur 1 page ; réponses extrêmes 10,6 po
   (2 pages, contre 11,9 po avant).
+  **Fiche du matin = un PDF à lui seul (même jour, Tony)** : bouton « Télécharger ma fiche du matin (PDF) »
+  (au-dessus de la fiche, dans `.a-imprimer` avec la consigne frigo / miroir de salle de bain, et en bas).
+  `telechargerFicheMatin()` : copie de la fiche dans `.fiche-pdf` (8,5 × 11 po hors écran) avec les règles
+  `@media print` reprises par `stylePdf()`, dessin par `js/html2canvas.min.js` (1.4.1, MIT, hébergé ici, chargé
+  au clic), puis PDF d'une page écrit par `pdfDepuisJpeg()` ; toujours 1 page Letter (réduite si besoin).
+  Rien ne quitte le navigateur. Piège : la règle `img { display: block }` de `style.css` fausse la ligne de base
+  de html2canvas (texte trop bas) ; `stylePdf()` la corrige pour son image GIF de mesure. Échec → fenêtre
+  d'impression. La fiche détaillée reste par la fenêtre d'impression ; `.systeme` et `.a-imprimer` masqués à
+  l'impression.
 - **Page épurée (2026-11-27, Tony)** : en haut, seulement « Mesurer. Analyser. Optimiser. » et la phrase
   des 15 minutes et des 2 fiches motivationnelles. Puis, avant la première question, « Le système en
   bref » (section `.systeme`, hors du formulaire) : six gros points (philosophie, structure, analyse,

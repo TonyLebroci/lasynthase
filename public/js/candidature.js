@@ -610,6 +610,127 @@
     window.print();
   }
 
+  /* ---------- Fiche du matin en PDF (2026-11-27, Tony : « un fichier PDF à lui seul ») ----------
+   * Une seule page Letter, toujours. La fiche est dessinée dans le navigateur avec les règles
+   * d'impression (html2canvas, hébergé sur le site, chargé au clic seulement), puis placée dans
+   * un PDF écrit ici. Rien ne quitte le navigateur. */
+  var h2cPromesse = null;
+  function chargerH2c() {
+    if (window.html2canvas) return Promise.resolve(window.html2canvas);
+    if (!h2cPromesse) {
+      h2cPromesse = new Promise(function (ok, ko) {
+        var sc = document.createElement("script");
+        sc.src = "js/html2canvas.min.js";
+        sc.onload = function () { ok(window.html2canvas); };
+        sc.onerror = function () { h2cPromesse = null; ko(new Error("html2canvas")); };
+        document.head.appendChild(sc);
+      });
+    }
+    return h2cPromesse;
+  }
+
+  // Les règles d'impression de la fiche, reprises pour l'écran sous .fiche-pdf : le PDF
+  // ressemble toujours à la fiche imprimée, sans copier ces règles à la main.
+  function stylePdf() {
+    var css = "";
+    Array.prototype.forEach.call(document.styleSheets, function (feuille) {
+      var regles;
+      try { regles = feuille.cssRules; } catch (e) { return; }
+      Array.prototype.forEach.call(regles, function (m) {
+        if (!(m instanceof CSSMediaRule) || !/print/.test(m.media.mediaText)) return;
+        Array.prototype.forEach.call(m.cssRules, function (x) {
+          if (!x.selectorText || !/fiche/.test(x.selectorText)) return;
+          var sel = x.selectorText.split(",").map(function (t) { return t.trim(); })
+            .filter(function (t) { return t && !/^body/.test(t); })
+            .map(function (t) { return ".fiche-pdf " + t; }).join(", ");
+          if (sel) css += sel + " { " + x.style.cssText + " }\n";
+        });
+      });
+    });
+    // html2canvas mesure la ligne de base du texte avec une petite image GIF ; la règle
+    // « img { display: block } » du site la fausse, et tout le texte sort trop bas.
+    css += 'img[src^="data:image/gif"] { display: inline !important; }\n';
+    return css;
+  }
+
+  // Un PDF d'une page qui contient une seule image JPEG, à la taille Letter.
+  function pdfDepuisJpeg(jpeg, largeurPx, hauteurPx) {
+    var W = 612, H = 792;
+    var k = Math.min(W / largeurPx, H / hauteurPx);
+    var w = largeurPx * k, h = hauteurPx * k, x = (W - w) / 2, y = H - h;
+    var contenu = "q " + w.toFixed(2) + " 0 0 " + h.toFixed(2) + " " + x.toFixed(2) + " " + y.toFixed(2) + " cm /Im0 Do Q";
+    var enc = new TextEncoder(), morceaux = [], taille = 0, positions = [];
+    function ajoute(v) { var b = typeof v === "string" ? enc.encode(v) : v; morceaux.push(b); taille += b.length; }
+    function objet(n, texte, flux) {
+      positions[n] = taille;
+      ajoute(n + " 0 obj\n" + texte);
+      if (flux) { ajoute("\nstream\n"); ajoute(flux); ajoute("\nendstream"); }
+      ajoute("\nendobj\n");
+    }
+    ajoute("%PDF-1.4\n");
+    objet(1, "<< /Type /Catalog /Pages 2 0 R >>");
+    objet(2, "<< /Type /Pages /Kids [3 0 R] /Count 1 >>");
+    objet(3, "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>");
+    objet(4, "<< /Type /XObject /Subtype /Image /Width " + largeurPx + " /Height " + hauteurPx +
+      " /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " + jpeg.length + " >>", jpeg);
+    objet(5, "<< /Length " + contenu.length + " >>", contenu);
+    objet(6, "<< /Title (Fiche du matin) /Producer (La Synthase) >>");
+    var debutXref = taille, xref = "xref\n0 7\n0000000000 65535 f \n";
+    for (var n = 1; n <= 6; n++) xref += ("0000000000" + positions[n]).slice(-10) + " 00000 n \n";
+    ajoute(xref + "trailer\n<< /Size 7 /Root 1 0 R /Info 6 0 R >>\nstartxref\n" + debutXref + "\n%%EOF\n");
+    return new Blob(morceaux, { type: "application/pdf" });
+  }
+
+  function telechargerFicheMatin(bouton, prenom) {
+    var fiche = bilan.querySelector(".fiche-matin");
+    if (!fiche) return;
+    var texte = bouton.textContent;
+    bouton.disabled = true;
+    bouton.textContent = "Préparation du PDF…";
+    var style = document.createElement("style");
+    style.textContent = stylePdf();
+    document.head.appendChild(style);
+    var page = el("div", null, "fiche-pdf");
+    page.setAttribute("aria-hidden", "true");
+    page.appendChild(fiche.cloneNode(true));
+    document.body.appendChild(page);
+    chargerH2c()
+      .then(function (h2c) {
+        return (document.fonts ? document.fonts.ready : Promise.resolve()).then(function () {
+          return h2c(page, { scale: 3, backgroundColor: "#ffffff", logging: false, windowWidth: 1280 });
+        });
+      })
+      .then(function (canvas) {
+        return new Promise(function (ok, ko) {
+          canvas.toBlob(function (b) {
+            if (!b) return ko(new Error("toBlob"));
+            b.arrayBuffer().then(function (buf) { ok({ jpeg: new Uint8Array(buf), w: canvas.width, h: canvas.height }); }, ko);
+          }, "image/jpeg", 0.92);
+        });
+      })
+      .then(function (img) {
+        var url = URL.createObjectURL(pdfDepuisJpeg(img.jpeg, img.w, img.h));
+        var a = el("a");
+        a.href = url;
+        a.download = "Fiche du matin" + (prenom ? " - " + prenom : "") + ".pdf";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+        bouton.textContent = texte;
+      })
+      .catch(function () {
+        // Dernier recours : la fenêtre d'impression, qui n'imprime que la fiche du matin.
+        bouton.textContent = texte;
+        imprimerSeulement("matin");
+      })
+      .then(function () {
+        page.remove();
+        style.remove();
+        bouton.disabled = false;
+      });
+  }
+
   function ligne(table, titre, valeur) {
     if (valeur === undefined || valeur === null || valeur === "") return;
     var tr = document.createElement("tr");
@@ -625,18 +746,28 @@
     bilan.appendChild(el("p", "Votre bilan", "eyebrow", "ecran"));
     bilan.appendChild(el("h2", "Vos deux fiches", null, "ecran"));
     var garde = statutEnvoi && statutEnvoi.garde;
-    bilan.appendChild(el("p", "Tout vient de vos réponses. La fiche du matin se colle sur une vitre ou un miroir et se lit chaque matin. La fiche détaillée se relit au début de chaque mois.", null, "ecran"));
+    bilan.appendChild(el("p", "Tout vient de vos réponses. La fiche du matin se relit chaque jour ; la fiche détaillée, au début de chaque mois.", null, "ecran"));
     var prive = el("div", null, "encadre", "ecran");
     prive.appendChild(el("p", "Ces fiches sont à vous seulement", "titre-encadre"));
     prive.appendChild(el("p", garde
-      ? "Rien ne m'a été envoyé. Vos réponses et vos fiches restent dans cet onglet et s'effacent quand vous le fermez. Téléchargez vos fiches en PDF (dans la fenêtre d'impression, choisissez « Enregistrer en PDF ») : ce sera la seule copie."
-      : "Elles sont construites dans votre navigateur. Je n'y ai pas accès et je ne les garde pas : ni les fiches, ni la citation que vous choisissez ou écrivez. Je reçois seulement votre prénom, votre courriel et la phrase de votre objectif. Vos autres réponses ne quittent jamais votre navigateur et s'effacent quand vous fermez l'onglet. Téléchargez vos fiches en PDF (dans la fenêtre d'impression, choisissez « Enregistrer en PDF ») : c'est la seule copie."));
+      ? "Rien ne m'a été envoyé. Vos réponses et vos fiches restent dans cet onglet et s'effacent quand vous le fermez. Téléchargez vos fiches en PDF : ce sera la seule copie."
+      : "Elles sont construites dans votre navigateur. Je n'y ai pas accès et je ne les garde pas : ni les fiches, ni la citation que vous choisissez ou écrivez. Je reçois seulement votre prénom, votre courriel et la phrase de votre objectif. Vos autres réponses ne quittent jamais votre navigateur et s'effacent quand vous fermez l'onglet. Téléchargez vos fiches en PDF : c'est la seule copie."));
     bilan.appendChild(prive);
     if (statutEnvoi) bilan.appendChild(el("p", statutEnvoi.texte, "message-form ecran" + (statutEnvoi.ok ? " ok" : "")));
 
     // Fiche 1 : la fiche du matin
     var citation = choisirCitation(r, s);
     var matin = construireFicheMatin(r, citation);
+    var aImprimer = el("div", null, "a-imprimer", "ecran");
+    var consigne = el("p");
+    consigne.appendChild(el("strong", "À imprimer."));
+    consigne.appendChild(document.createTextNode(" Collez cette fiche sur votre frigo ou sur le miroir de votre salle de bain, et relisez-la chaque jour."));
+    aImprimer.appendChild(consigne);
+    var boutonPdf = el("button", "Télécharger ma fiche du matin (PDF)", "btn btn-primary");
+    boutonPdf.type = "button";
+    boutonPdf.addEventListener("click", function () { telechargerFicheMatin(boutonPdf, r.prenom); });
+    aImprimer.appendChild(boutonPdf);
+    bilan.appendChild(aImprimer);
     bilan.appendChild(matin);
 
     var choixCitation = el("div", null, "choix-citation ecran");
@@ -857,9 +988,9 @@
     bilan.appendChild(suite);
 
     var actions = el("div", null, "actions-bilan");
-    var imprimer = el("button", "Télécharger ou imprimer la fiche du matin", "btn btn-primary");
+    var imprimer = el("button", "Télécharger ma fiche du matin (PDF)", "btn btn-primary");
     imprimer.type = "button";
-    imprimer.addEventListener("click", function () { imprimerSeulement("matin"); });
+    imprimer.addEventListener("click", function () { telechargerFicheMatin(imprimer, r.prenom); });
     var imprimerDetail = el("button", "Télécharger ou imprimer la fiche détaillée", "btn btn-ghost");
     imprimerDetail.type = "button";
     imprimerDetail.addEventListener("click", function () { imprimerSeulement("detail"); });

@@ -615,6 +615,48 @@
   }
 }
 
+/* Fiche du matin à imprimer (2026-11-27) : la consigne et le bouton du PDF, juste au-dessus. */
+.a-imprimer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 24px;
+  background: var(--cream);
+  border-left: 3px solid var(--gold);
+  padding: 16px 22px;
+  margin: 28px 0 18px;
+  color: var(--charcoal);
+}
+
+.a-imprimer p {
+  margin: 0;
+  flex: 1 1 22em;
+}
+
+.a-imprimer strong {
+  color: var(--sage-deep);
+}
+
+/* Copie de la fiche dessinée pour le PDF : hors de l'écran, à la taille d'une page Letter. */
+.fiche-pdf {
+  position: absolute;
+  left: -10000px;
+  top: 0;
+  width: 8.5in;
+  min-height: 11in;
+  padding: 0.55in;
+  box-sizing: border-box;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.fiche-pdf .fiche-matin {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 @page {
   size: letter;
   margin: 0.55in;
@@ -630,6 +672,8 @@
   .navigation-etapes,
   .actions-bilan,
   .sources,
+  .systeme,
+  .a-imprimer,
   .etape {
     display: none !important;
   }
