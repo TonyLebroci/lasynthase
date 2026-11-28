@@ -524,6 +524,16 @@
     return CITATIONS[6];
   }
 
+  // Texte trop long pour la fiche : on garde les phrases entières qui tiennent, sinon on coupe au mot.
+  function court(texte, max) {
+    texte = String(texte || "").trim().replace(/\s+/g, " ");
+    if (texte.length <= max) return texte;
+    var debut = texte.slice(0, max);
+    var fin = Math.max(debut.lastIndexOf(". "), debut.lastIndexOf("! "), debut.lastIndexOf("? "));
+    if (fin > max * 0.4) return debut.slice(0, fin + 1);
+    return debut.replace(/\s+\S*$/, "") + "…";
+  }
+
   /* ---------- Fiche du matin : une page, l'essentiel ---------- */
   function construireFicheMatin(r, c) {
     var f = el("section", null, "fiche fiche-matin");
@@ -538,14 +548,13 @@
       f.appendChild(quand);
     }
 
-    // v3 : d'abord ce que la personne contrôle (Burton, 1989), puis le prochain jalon,
-    // puis la cible. Le seuil et le rêve restent dans la fiche détaillée.
-    var hab = [r.habitude_1, r.habitude_2, r.habitude_3].filter(Boolean);
-    if (hab.length) {
-      f.appendChild(el("p", "Ce que fait l'athlète que je deviens", "fiche-etiquette"));
-      var ul = el("ul", null, "fiche-habitudes");
-      hab.forEach(function (h) { ul.appendChild(el("li", h)); });
-      f.appendChild(ul);
+    // 2026-11-27 (Tony) : les actions de confiance quittent la fiche du matin (elles restent
+    // dans la fiche détaillée). À leur place, ce qui motive : la scène du jour J, dans les mots
+    // de la personne. Puis le prochain jalon, puis la cible.
+    var jourJ = court(r.jour_j, 230);
+    if (jourJ) {
+      f.appendChild(el("p", "Le jour J", "fiche-etiquette"));
+      f.appendChild(el("p", jourJ, "fiche-jourj"));
     }
 
     if (r.jalon) {
@@ -579,7 +588,7 @@
     }
 
     // Beaucoup de texte : la fiche passe en mode compact pour tenir sur une page.
-    var volume = [objectif, pourquoi || "", r.jalon || "", r.si_1 || "", r.alors_1 || ""].concat(hab).join("").length;
+    var volume = [objectif, pourquoi || "", r.jalon || "", r.si_1 || "", r.alors_1 || "", jourJ || ""].join("").length;
     // v3 : le jalon s'ajoute à la fiche, donc le mode compact arrive plus tôt (420 → 330 caractères).
     if (volume > 330) f.classList.add("dense");
     if (volume > 520) f.classList.add("tres-dense");

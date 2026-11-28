@@ -200,6 +200,11 @@ structure de l'objectif, que la personne soit retenue ou non.
   Cases : majeur et au Québec ; confidentialité (« pour qu'il me contacte ») ; prêt à créer un compte
   intervals.icu (plus d'exigence de ceinture ni de capteur) ; rien de payé ni signé avant un appel. Conservation :
   12 mois après le dernier échange sans suite (`confidentialite.html`). Colonne `version` = 6.
+  **Fiche du matin (même jour, Tony : « random, pas motivant »)** : les actions de confiance en sont retirées
+  (elles restent dans la fiche détaillée) ; à leur place, « Le jour J », la scène décrite par la personne
+  (`jour_j`, phrases entières jusqu'à 230 caractères, `court()`). Ordre : objectif, date, jour J, jalon, cible,
+  pourquoi, plan, citation. Mesuré : réponses normales et longues sur 1 page ; réponses extrêmes 10,6 po
+  (2 pages, contre 11,9 po avant).
 - **Page épurée (2026-11-27, Tony)** : en haut, seulement « Mesurer. Analyser. Optimiser. » et la phrase
   des 15 minutes et des 2 fiches motivationnelles. Puis, avant la première question, « Le système en
   bref » (section `.systeme`, hors du formulaire) : six gros points (philosophie, structure, analyse,
