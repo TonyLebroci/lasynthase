@@ -542,7 +542,7 @@
     // puis la cible. Le seuil et le rêve restent dans la fiche détaillée.
     var hab = [r.habitude_1, r.habitude_2, r.habitude_3].filter(Boolean);
     if (hab.length) {
-      f.appendChild(el("p", "Mes actions de confiance", "fiche-etiquette"));
+      f.appendChild(el("p", "Ce que fait l'athlète que je deviens", "fiche-etiquette"));
       var ul = el("ul", null, "fiche-habitudes");
       hab.forEach(function (h) { ul.appendChild(el("li", h)); });
       f.appendChild(ul);
