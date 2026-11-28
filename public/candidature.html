@@ -328,7 +328,7 @@
               </div>
 
               <fieldset class="choix" id="engagements">
-                <legend>Si vous êtes retenu</legend>
+                <legend>Si nous travaillons ensemble</legend>
                 <label><input type="checkbox" name="engagements" value="tous" /> Je m'engage à répondre à trois questions chaque matin (une minute), à faire la séance étalon toutes les deux semaines dans les mêmes conditions, à lire l'explication de chaque bloc avant de le commencer et à donner un retour honnête à chaque bilan.</label>
               </fieldset>
             </section>
@@ -371,9 +371,8 @@
               <fieldset class="choix" id="mode-fin">
                 <legend>Que voulez-vous faire de vos réponses ?</legend>
                 <label><input type="radio" name="mode_fin" value="garder" required /> Garder mes fiches pour moi. Rien n'est envoyé.</label>
-                <label id="option-envoyer"><input type="radio" name="mode_fin" value="envoyer" /> Poser ma candidature au projet pilote (du 21 au 28 novembre 2026). Seuls mon prénom, mon courriel et mon objectif vous sont envoyés.</label>
+                <label id="option-envoyer"><input type="radio" name="mode_fin" value="envoyer" /> Envoyer mes informations à Antoine Corbeil pour qu'il me contacte. Seuls mon prénom, mon courriel et mon objectif lui sont envoyés.</label>
               </fieldset>
-              <p class="aide-champ" id="fenetre-candidature" hidden></p>
               <p class="aide-champ" data-si-envoi="garder" hidden>Vos fiches sont construites dans ce navigateur. Vous pourrez les télécharger en PDF ou les imprimer. Ce questionnaire ne constitue ni un avis médical ni un plan d'entraînement.</p>
               <div data-si-envoi="envoyer" hidden>
               <div class="field">
@@ -395,19 +394,15 @@
               </label>
               <label class="case-consentement">
                 <input type="checkbox" name="consentement" required />
-                <span>J'ai lu la <a href="confidentialite.html#candidature" target="_blank" rel="noopener">politique de confidentialité</a>. J'accepte que mon prénom, mon courriel et mon objectif SMART soient transmis à Antoine Corbeil (La Synthase) pour étudier ma candidature. Si elle n'est pas retenue, ils sont effacés dans les 30 jours suivant le choix du 29 novembre 2026, sauf mon prénom et mon courriel si je coche la case « Écrivez-moi » plus bas.</span>
+                <span>J'ai lu la <a href="confidentialite.html#candidature" target="_blank" rel="noopener">politique de confidentialité</a>. J'accepte que mon prénom, mon courriel et mon objectif SMART soient transmis à Antoine Corbeil (La Synthase) pour qu'il me contacte.</span>
               </label>
               <label class="case-consentement">
                 <input type="checkbox" name="criteres" required />
-                <span>Mes séances sont dans intervals.icu et j'utilise une ceinture cardiaque ou un capteur de puissance.</span>
+                <span>Je suis prêt à me créer un compte intervals.icu pour qu'Antoine puisse analyser mes données.</span>
               </label>
               <label class="case-consentement">
                 <input type="checkbox" name="comprend" required />
-                <span>Je comprends qu'il s'agit d'une candidature (trois places, à 30 $ par mois si je suis retenu ; rien n'est payé ni signé avant un appel avec Antoine), et que ce questionnaire ne constitue ni un avis médical ni un plan d'entraînement.</span>
-              </label>
-              <label class="case-consentement">
-                <input type="checkbox" name="liste_attente" />
-                <span>Facultatif. Si ma candidature n'est pas retenue, mettez-moi sur la liste d'attente : écrivez-moi si une place se libère, et quand le système ouvrira à tous. Je peux me désabonner en tout temps.</span>
+                <span>Je comprends que rien n'est payé ni signé avant un appel avec Antoine, et que ce questionnaire ne constitue ni un avis médical ni un plan d'entraînement.</span>
               </label>
               </div>
               <p class="message-form" id="message-envoi" role="alert"></p>
@@ -466,6 +461,6 @@
   </footer>
 
   <script src="js/main.js"></script>
-  <script src="js/candidature.js?v=7"></script>
+  <script src="js/candidature.js?v=8"></script>
 </body>
 </html>

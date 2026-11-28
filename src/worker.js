@@ -212,8 +212,6 @@ const MAX_CANDIDATURES_PAR_IP = 5;          // par heure
 const FENETRE_CANDIDATURES_MS = 60 * 60 * 1000;
 const TAILLE_MAX_CANDIDATURE = 4000;        // octets de JSON (prénom, courriel, objectif)
 const OBJECTIF_MAX = 1000;                   // caractères de la phrase SMART
-const OUVERTURE_CANDIDATURES = Date.UTC(2026, 10, 21, 5, 0, 0); // 21 nov. 2026, 0 h, heure de l'Est
-const FERMETURE_CANDIDATURES = Date.UTC(2026, 10, 29, 5, 0, 0); // après le 28 nov. 2026, 23 h 59
 
 async function recevoirCandidature(request, env) {
   const texte = await request.text();
@@ -239,10 +237,7 @@ async function recevoirCandidature(request, env) {
     return json({ erreur: "Il faut cocher les quatre cases obligatoires de la dernière étape." }, 400);
   }
   // Candidatures au projet pilote (Tony, 2026-11-19 ; plus de tirage : 3 places choisies) : du 21 novembre 2026, 0 h, au 28 novembre, 23 h 59, heure de l'Est.
-  // CANDIDATURE_DATE_ESSAI : variable d'essai local seulement (wrangler dev --var), jamais posée en ligne.
-  const t0 = env.CANDIDATURE_DATE_ESSAI ? Date.parse(env.CANDIDATURE_DATE_ESSAI) : Date.now();
-  if (t0 < OUVERTURE_CANDIDATURES) return json({ erreur: "Les candidatures au projet pilote ouvrent le 21 novembre 2026, à 0 h." }, 403);
-  if (t0 >= FERMETURE_CANDIDATURES) return json({ erreur: "Les candidatures au projet pilote sont fermées depuis le 28 novembre 2026, à 23 h 59." }, 403);
+  // 2026-11-27 (Tony) : plus de période de candidature ; l'envoi est ouvert en tout temps.
   const listeAttente = d.liste_attente === true;
 
   const ip = request.headers.get("CF-Connecting-IP") || "local";
@@ -259,7 +254,7 @@ async function recevoirCandidature(request, env) {
   ).bind(cle, maintenant, FENETRE_CANDIDATURES_MS).run();
 
   const completude = 0;
-  const version = 5;
+  const version = 6;
   await env.DB.prepare(
     "INSERT INTO candidatures (courriel, prenom, nom, reponses, completude, version) VALUES (?1, ?2, ?3, ?4, ?5, ?6) " +
     "ON CONFLICT(courriel) DO UPDATE SET prenom = excluded.prenom, nom = excluded.nom, reponses = excluded.reponses, " +

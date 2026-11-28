@@ -194,6 +194,12 @@ structure de l'objectif, que la personne soit retenue ou non.
   payé ni signé avant un appel) ; facultative `liste_attente` (place libérée, ouverture à tous). Lecture :
   `node outils/candidatures.mjs --selection --nom` ; `--liste-attente`. Essai local d'une date :
   `wrangler dev --var CANDIDATURE_DATE_ESSAI:<ISO>` (jamais en ligne).
+- **Version 6 (2026-11-27, Tony) — prime sur la version 5** : plus de période de candidature, plus de prix,
+  plus de places ni de liste d'attente. L'option d'envoi devient « Envoyer mes informations à Antoine Corbeil
+  pour qu'il me contacte », ouverte en tout temps (fenêtre retirée de `js/candidature.js` et de `src/worker.js`).
+  Cases : majeur et au Québec ; confidentialité (« pour qu'il me contacte ») ; prêt à créer un compte
+  intervals.icu (plus d'exigence de ceinture ni de capteur) ; rien de payé ni signé avant un appel. Conservation :
+  12 mois après le dernier échange sans suite (`confidentialite.html`). Colonne `version` = 6.
 - **Page épurée (2026-11-27, Tony)** : en haut, seulement « Mesurer. Analyser. Optimiser. » et la phrase
   des 15 minutes et des 2 fiches motivationnelles. Puis, avant la première question, « Le système en
   bref » (section `.systeme`, hors du formulaire) : six gros points (philosophie, structure, analyse,

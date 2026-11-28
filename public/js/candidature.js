@@ -19,18 +19,10 @@
   // v3 (2026-11-11) : révision par quatre experts (jalon, soutien, actions de
   // confiance liées à l'entraînement, plus d'importance sur 10 ni de questions de plan).
   var CLE = "ls-candidature-pilote-v3";
-  var VERSION = 5; // 4 : prénom, courriel et objectif SMART seulement ; 5 : fenêtre du 21 au 28 nov. 2026 (2026-11-19)
+  var VERSION = 6; // 4 : prénom, courriel et objectif SMART seulement ; 5 : fenêtre du 21 au 28 nov. 2026 ; 6 : sans période ni prix (2026-11-27)
 
-  // Candidatures (Tony, 2026-11-19 ; tirage abandonné le même jour : 3 places choisies, 30 $/mois) : du 21 novembre 2026, 0 h, au 28 novembre,
-  // 23 h 59, heure de l'Est (UTC-5 en novembre). Le serveur applique la même fenêtre.
-  var OUVERTURE = Date.UTC(2026, 10, 21, 5, 0, 0);
-  var FERMETURE = Date.UTC(2026, 10, 29, 5, 0, 0);
-  function fenetreOuverte() { var t = Date.now(); return t >= OUVERTURE && t < FERMETURE; }
-  function texteFenetre() {
-    return Date.now() < OUVERTURE
-      ? "Les candidatures au projet pilote ouvrent le 21 novembre 2026, à 0 h. D'ici là, bâtissez votre objectif et gardez vos fiches : vous pourrez revenir poser votre candidature avec votre objectif."
-      : "Les candidatures au projet pilote sont fermées depuis le 28 novembre 2026, à 23 h 59. Gardez vos fiches : elles sont à vous.";
-  }
+  // 2026-11-27 (Tony) : plus de période de candidature ni de prix. L'envoi demande à Antoine
+  // de contacter la personne ; il est ouvert en tout temps.
   var form = document.getElementById("candidature");
   if (!form) return;
 
@@ -175,16 +167,6 @@
     return choisi ? choisi.value : null;
   }
   function majModeFin() {
-    var radioEnvoi = form.querySelector('input[name="mode_fin"][value="envoyer"]');
-    var avis = document.getElementById("fenetre-candidature");
-    if (!fenetreOuverte()) {
-      if (radioEnvoi.checked) { radioEnvoi.checked = false; }
-      radioEnvoi.disabled = true;
-      if (avis) { avis.textContent = texteFenetre(); avis.hidden = false; }
-    } else {
-      radioEnvoi.disabled = false;
-      if (avis) avis.hidden = true;
-    }
     var m = modeFin();
     var champObjectif = document.getElementById("objectif_smart");
     if (m === "envoyer" && champObjectif && !champObjectif.value.trim()) {
@@ -197,7 +179,7 @@
   }
   function texteDernierBouton() {
     var m = modeFin();
-    return m === "envoyer" ? "Envoyer ma candidature et voir mes fiches" : "Voir mes fiches";
+    return m === "envoyer" ? "Envoyer et voir mes fiches" : "Voir mes fiches";
   }
   form.querySelectorAll('input[name="mode_fin"]').forEach(function (r) {
     r.addEventListener("change", function () { majModeFin(); majJauge(); messageEnvoi.textContent = ""; });
@@ -395,7 +377,7 @@
     if (r.crit_intervals === "non") manque.push("vos séances ne sont pas encore dans intervals.icu");
     if (r.crit_capteur === "non") manque.push("vous n'avez ni ceinture cardiaque ni capteur de puissance");
     if (!manque.length) return r.crit_intervals && r.crit_capteur ? "Vous répondez aux critères du projet : historique dans intervals.icu et capteur fiable." : null;
-    return "À noter : " + manque.join(" et ") + ". C'est un critère du projet pilote ; sans ça, la séance étalon ne peut pas mesurer votre forme avec précision.";
+    return "À noter : " + manque.join(" et ") + ". C'est un critère de l'accompagnement ; sans ça, la séance étalon ne peut pas mesurer votre forme avec précision.";
   }
 
   /* ---------- L'objectif formulé SMART ---------- */
@@ -846,10 +828,8 @@
     var suite = el("div", null, "ecran");
     suite.appendChild(el("h3", "La suite"));
     if (garde) {
-      suite.appendChild(el("p", fenetreOuverte()
-        ? "Votre objectif est bâti. Si vous voulez être accompagné pour l'atteindre, vous pouvez encore poser votre candidature au projet pilote : il reste votre objectif SMART et vos coordonnées."
-        : "Votre objectif est bâti. " + texteFenetre()));
-      var candidater = el("button", "Poser ma candidature", "btn btn-ghost");
+      suite.appendChild(el("p", "Votre objectif est bâti. Si vous voulez être accompagné pour l'atteindre, envoyez votre prénom, votre courriel et votre objectif à Antoine : il vous contactera."));
+      var candidater = el("button", "Envoyer mes informations", "btn btn-ghost");
       candidater.type = "button";
       candidater.addEventListener("click", function () {
         try { var etat = charger() || {}; delete etat.garde; STOCKAGE.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* rien */ }
@@ -861,9 +841,9 @@
         form.classList.remove("mode-bilan");
         allerA(etapes.length - 1, true);
       });
-      if (fenetreOuverte()) suite.appendChild(candidater);
+      suite.appendChild(candidater);
     } else {
-      suite.appendChild(el("p", "Je choisis les trois dossiers le 29 novembre 2026 et j'écris à chaque personne, retenue ou non. Retenu ou non, ces deux fiches sont à vous."));
+      suite.appendChild(el("p", "Antoine vous contactera par courriel. Ces deux fiches sont à vous."));
     }
     bilan.appendChild(suite);
 
@@ -909,7 +889,7 @@
     var r = lire();
     var mode = modeFin();
     if (!mode) {
-      messageEnvoi.textContent = "Choisissez d'abord : garder vos fiches pour vous, ou poser votre candidature.";
+      messageEnvoi.textContent = "Choisissez d'abord : garder vos fiches pour vous, ou les envoyer à Antoine.";
       return;
     }
     if (mode === "garder") {
@@ -928,10 +908,9 @@
     if (!r.courriel || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.courriel)) manques.push("un courriel valide");
     if (!r.majeur) manques.push("la case 18 ans ou plus");
     if (!r.consentement) manques.push("le consentement");
-    if (!r.comprend) manques.push("la case sur la candidature");
-    if (!r.criteres) manques.push("la case sur intervals.icu et la ceinture cardiaque");
+    if (!r.comprend) manques.push("la case sur l'appel avec Antoine");
+    if (!r.criteres) manques.push("la case sur intervals.icu");
     if (!r.objectif_smart || !String(r.objectif_smart).trim()) manques.push("votre objectif SMART");
-    if (!fenetreOuverte()) manques.push("la période des candidatures (" + texteFenetre() + ")");
     if (manques.length) {
       if (!bilan.hidden) {
         bilan.hidden = true;
@@ -961,7 +940,7 @@
           etat.envoye = new Date().toISOString();
           STOCKAGE.setItem(CLE, JSON.stringify(etat));
         } catch (e) { /* rien */ }
-        montrerBilan(r, { ok: true, texte: "Candidature reçue. Merci, " + r.prenom + "." });
+        montrerBilan(r, { ok: true, texte: "Informations envoyées. Merci, " + r.prenom + "." });
       })
       .catch(function (err) {
         montrerBilan(r, { ok: false, texte: (err && err.message ? err.message : "L'envoi a échoué.") + " Votre bilan est quand même là ; vos réponses restent dans cet onglet. Réessayez dans un instant." });
@@ -981,7 +960,7 @@
   if (etat && etat.garde && !etat.envoye && etat.reponses) {
     montrerBilan(etat.reponses, { ok: true, garde: true, texte: "Vos fiches, bâties le " + new Date(etat.garde).toLocaleDateString("fr-CA", { day: "numeric", month: "long" }) + ". Rien n'a été envoyé." });
   } else if (etat && etat.envoye && etat.reponses) {
-    montrerBilan(etat.reponses, { ok: true, texte: "Candidature déjà envoyée le " + new Date(etat.envoye).toLocaleDateString("fr-CA", { day: "numeric", month: "long" }) + ". Pour la modifier, écrivez à contact@lasynthase.ca." });
+    montrerBilan(etat.reponses, { ok: true, texte: "Informations déjà envoyées le " + new Date(etat.envoye).toLocaleDateString("fr-CA", { day: "numeric", month: "long" }) + ". Pour la modifier, écrivez à contact@lasynthase.ca." });
   } else {
     allerA(etat && typeof etat.etape === "number" ? Math.min(etat.etape, etapes.length - 1) : 0, false);
   }
