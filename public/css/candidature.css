@@ -13,9 +13,24 @@
   grid-template-columns: repeat(3, 1fr);
 }
 
+/* Cases côte à côte toujours à niveau (2026-11-27, Tony) : la question la plus
+   longue pousse ses voisines, et chaque case se cale en bas de sa colonne. */
+.champs-deux .field,
+.champs-trois .field {
+  display: flex;
+  flex-direction: column;
+}
+
 .champs-deux .field label,
 .champs-trois .field label {
-  min-height: 2.6em;
+  flex: 1 0 auto;
+}
+
+.champs-deux .field input,
+.champs-deux .field select,
+.champs-trois .field input,
+.champs-trois .field select {
+  height: 3.2rem;
 }
 
 .module-contenu .field {
